@@ -1,10 +1,10 @@
-package com.aib.system;
+package com.aib.websystem;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class SystemApplicationTests {
+class WebsystemApplicationTests {
 
 	@Test
 	void contextLoads() {

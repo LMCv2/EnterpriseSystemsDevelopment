@@ -1,13 +1,13 @@
-package com.aib.system;
+package com.aib.websystem;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class SystemApplication {
+public class WebsystemApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(SystemApplication.class, args);
+		SpringApplication.run(WebsystemApplication.class, args);
 	}
 
 }
