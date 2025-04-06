@@ -9,6 +9,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.jdbc.core.JdbcTemplate;
 
+import com.aib.websystem.Entity.Fruit;
+import com.aib.websystem.Repository.FruitRepository;
+
 @SpringBootApplication
 public class WebsystemApplication implements CommandLineRunner {
     private static final Logger logger = LoggerFactory.getLogger(WebsystemApplication.class);
