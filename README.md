@@ -10,9 +10,10 @@ http://127.0.0.1:8080/
 
 ## Dependencies
 
-[Create Project Link](https://start.spring.io/#!type=maven-project&language=java&platformVersion=3.4.4&packaging=jar&jvmVersion=21&groupId=com.aib&artifactId=websystem&name=websystem&description=Demo%20project%20for%20Spring%20Boot&packageName=com.aib.websystem&dependencies=docker-compose,web,thymeleaf,jdbc,data-jpa,data-jdbc,mysql)
+[Create Project Link](https://start.spring.io/#!type=maven-project&language=java&platformVersion=3.4.4&packaging=jar&jvmVersion=21&groupId=com.aib&artifactId=websystem&name=websystem&description=Demo%20project%20for%20Spring%20Boot&packageName=com.aib.websystem&dependencies=devtools,docker-compose,web,thymeleaf,jdbc,data-jpa,data-jdbc,mysql)
 
 - Developer Tools
+  - Spring Boot DevTools
   - Docker Compose Support
 - Web
   - Spring Web
