@@ -6,12 +6,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.web.servlet.ServletComponentScan;
 import org.springframework.context.annotation.Bean;
 import org.springframework.jdbc.core.JdbcTemplate;
 
 import com.aib.websystem.entity.Fruit;
 import com.aib.websystem.repository.FruitRepository;
 
+@ServletComponentScan
 @SpringBootApplication
 public class WebsystemApplication implements CommandLineRunner {
     private static final Logger logger = LoggerFactory.getLogger(WebsystemApplication.class);
