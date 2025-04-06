@@ -1,14 +1,17 @@
 package com.aib.websystem.entity;
 
+import java.time.LocalDate;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
 import lombok.Getter;
 import lombok.Setter;
 
 @Entity
-public class Account {
+public class Reservation {
     @Id
     @Getter
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -16,14 +19,19 @@ public class Account {
 
     @Getter
     @Setter
-    private String username;
+    @ManyToOne
+    private Fruit fruit;
 
     @Getter
     @Setter
-    private String password;
+    private Integer quantity;
 
     @Getter
     @Setter
-    private String role;
-    // "SHOP_STAFF", "WAREHOUSE_STAFF", "SENIOR_MANAGEMENT"
+    @ManyToOne
+    private Location shopLocation;
+
+    @Getter
+    @Setter
+    private LocalDate reservationDate;
 }

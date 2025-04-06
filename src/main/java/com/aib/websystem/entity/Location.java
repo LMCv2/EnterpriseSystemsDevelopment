@@ -8,7 +8,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Entity
-public class Account {
+public class Location {
     @Id
     @Getter
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -16,14 +16,10 @@ public class Account {
 
     @Getter
     @Setter
-    private String username;
+    private String name;
 
     @Getter
     @Setter
-    private String password;
-
-    @Getter
-    @Setter
-    private String role;
-    // "SHOP_STAFF", "WAREHOUSE_STAFF", "SENIOR_MANAGEMENT"
+    private String type;
+    // "SHOP", "WAREHOUSE", "SOURCE"
 }
