@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.Bean;
 import org.springframework.jdbc.core.JdbcTemplate;
 
 @SpringBootApplication
@@ -21,7 +22,13 @@ public class WebsystemApplication implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        logger.info("Creating tables");
-        jdbcTemplate.execute("CREATE TABLE customers(id SERIAL, first_name VARCHAR(255), last_name VARCHAR(255))");
+        logger.info("demo");
+    }
+
+    @Bean
+    public CommandLineRunner demo(FruitRepository repository) {
+        return (args) -> {
+            repository.save(new Fruit());
+        };
     }
 }
