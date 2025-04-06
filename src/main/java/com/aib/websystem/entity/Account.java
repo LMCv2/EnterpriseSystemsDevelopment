@@ -1,4 +1,4 @@
-package com.aib.websystem.Entity;
+package com.aib.websystem.entity;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;

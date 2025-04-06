@@ -9,8 +9,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.jdbc.core.JdbcTemplate;
 
-import com.aib.websystem.Entity.Fruit;
-import com.aib.websystem.Repository.FruitRepository;
+import com.aib.websystem.entity.Fruit;
+import com.aib.websystem.repository.FruitRepository;
 
 @SpringBootApplication
 public class WebsystemApplication implements CommandLineRunner {
