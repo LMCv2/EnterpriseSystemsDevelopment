@@ -24,6 +24,14 @@ public class Account {
 
     @Getter
     @Setter
+    private String firstName;
+
+    @Getter
+    @Setter
+    private String lastName;
+
+    @Getter
+    @Setter
     private String role;
     // "SHOP_STAFF", "WAREHOUSE_STAFF", "SENIOR_MANAGEMENT"
 }
