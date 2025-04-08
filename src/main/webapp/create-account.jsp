@@ -7,7 +7,7 @@
     </head>
     <body>
         <h1>Create Account</h1>
-        <form action="/create-account" method="post">
+        <form action="account?action=create-account" method="post">
             <div>
                 <label for="username">Username:</label>
                 <input type="text" id="username" name="username" required>
