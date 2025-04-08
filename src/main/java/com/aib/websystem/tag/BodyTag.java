@@ -42,6 +42,7 @@ public class BodyTag extends BodyTagSupport {
             out.print("</body>");
             out.print("</html>");
         } catch (IOException | ServletException e) {
+            e.printStackTrace();
         }
         return EVAL_PAGE;
     }
