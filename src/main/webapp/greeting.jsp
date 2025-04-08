@@ -6,6 +6,6 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
   </head>
   <body>
-    <p>Hello, ${name}!</p>
+    <p>Hello, ${greet}!</p>
   </body>
 </html>
