@@ -1,7 +1,6 @@
 package com.aib.websystem.controller;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -28,6 +27,7 @@ public class LoginController extends HttpServlet {
         Account account = accountRepository.findById(username).orElse(null);
         if (account.getPassword().equals(password)) {
             request.setAttribute("result", account.getUsername());
+            request.getSession().setAttribute("user", account);
             rd = getServletContext().getRequestDispatcher("/dashboard.jsp");
         } else {
             request.setAttribute("result", "Invalid username or password");

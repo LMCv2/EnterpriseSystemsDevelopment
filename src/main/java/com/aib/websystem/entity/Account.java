@@ -22,5 +22,5 @@ public class Account {
     @Getter
     @Setter
     private String role;
-    // "SHOP_STAFF", "WAREHOUSE_STAFF", "SENIOR_MANAGEMENT"
+    // "SHOP_STAFF", "SOURCE_WAREHOUSE_STAFF", "CENTRAL_WAREHOUSE_STAFF", "SENIOR_MANAGEMENT"
 }

@@ -6,6 +6,7 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.jsp.JspException;
 import jakarta.servlet.jsp.JspWriter;
 import jakarta.servlet.jsp.tagext.BodyTagSupport;
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.Setter;
 
 public class BodyTag extends BodyTagSupport {
@@ -15,7 +16,12 @@ public class BodyTag extends BodyTagSupport {
     @Override
     public int doStartTag() throws JspException {
         try {
-            // Include header
+            if (pageContext.getSession().getAttribute("user") == null &&
+                    !((HttpServletRequest) pageContext.getRequest()).getRequestURI().endsWith("/sign-in.jsp")) {
+                ((jakarta.servlet.http.HttpServletResponse) pageContext.getResponse()).sendRedirect("index.jsp");
+                return SKIP_PAGE;
+            }
+            // // Include header
             JspWriter out = pageContext.getOut();
             out.print("<!doctype html>");
             out.print("<html>");
