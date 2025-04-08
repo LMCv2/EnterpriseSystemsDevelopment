@@ -2,7 +2,7 @@
 <%@taglib prefix="c" uri="jakarta.tags.core" %>
 <taglib:body title="Home">
   <h1>Web System</h1>
-  <form action="account?action=login" method="post">
+  <form action="/login" method="post">
     <div>
       <label for="username">Username:</label>
       <input type="text" id="username" name="username" required>
