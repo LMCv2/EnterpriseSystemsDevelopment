@@ -1,5 +1,5 @@
 <%@taglib uri="/WEB-INF/tlds/taglib.tld" prefix="taglib" %>
-<taglib:body>
+<taglib:body title="Home">
   <h1>Create Account</h1>
     <form action="account?action=create-account" method="post">
       <div>
