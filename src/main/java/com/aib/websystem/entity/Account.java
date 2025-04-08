@@ -9,11 +9,11 @@ import lombok.Setter;
 
 @Entity
 public class Account {
+    
+    //@Getter
+    //@GeneratedValue(strategy = GenerationType.AUTO)
+   // private Long id;
     @Id
-    @Getter
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
-
     @Getter
     @Setter
     private String username;

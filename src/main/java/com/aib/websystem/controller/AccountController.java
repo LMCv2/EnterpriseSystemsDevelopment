@@ -17,7 +17,7 @@ public class AccountController {
     private AccountService accountService;
 
     @GetMapping("/accounts/{id}")
-    public Account getAccount(@PathVariable Long id) {
+    public Account getAccount(@PathVariable String id) {
         return accountService.findAccountById(id);
     }
 
@@ -32,5 +32,15 @@ public class AccountController {
         account.setFirstName(firstName);
         account.setLastName(lastName);
         return accountService.createAccount(account);
+    }
+
+    @PostMapping("/login")
+    public String login(@RequestParam String username, 
+                        @RequestParam String password) {
+        if(accountService.login(username, password)){
+            return "Login successful";
+        }else{
+            return "Login failed";
+        }
     }
 }
