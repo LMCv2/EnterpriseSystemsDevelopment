@@ -36,6 +36,9 @@ public class AccountController extends HttpServlet {
         } else if ("create-account".equalsIgnoreCase(action)) {
             String username = request.getParameter("username");
             String password = request.getParameter("password");
+            if (accountRepository.existsById(username)) {
+                // return null;
+            }
             Account account = new Account();
             account.setUsername(username);
             account.setPassword(password);

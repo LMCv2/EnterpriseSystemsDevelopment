@@ -1,11 +1,4 @@
-<%@page contentType="text/html" pageEncoding="UTF-8" %>
-<!DOCTYPE html>
-<html>
-  <head>
-    <title>Getting Started: Serving Web Content</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-  </head>
-  <body>
-    <p>Hello, ${greet}!</p>
-  </body>
-</html>
+<%@taglib uri="/WEB-INF/tlds/taglib.tld" prefix="taglib" %>
+<taglib:body>
+  <p>Hello, ${greet}!</p>
+</taglib:body>
