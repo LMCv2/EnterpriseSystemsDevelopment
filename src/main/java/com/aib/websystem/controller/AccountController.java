@@ -49,15 +49,14 @@ public class AccountController extends HttpServlet {
         } else if ("login".equalsIgnoreCase(action)) {
             String username = request.getParameter("username");
             String password = request.getParameter("password");
-            String greet;
             Account account = accountRepository.findById(username).orElse(null);
             if (account.getPassword().equals(password)) {
-                greet =  "Login successful for user: " + account.getUsername();
+                request.setAttribute("result", account.getUsername());
+                rd = getServletContext().getRequestDispatcher("/dashboard.jsp");
             } else {
-                greet = "Invalid username or password";
+                request.setAttribute("result", "Invalid username or password");
+                rd = getServletContext().getRequestDispatcher("/index.jsp");
             }
-            request.setAttribute("greet", greet);
-            rd = getServletContext().getRequestDispatcher("/greeting.jsp");
             rd.forward(request, response);
         }
         else {
