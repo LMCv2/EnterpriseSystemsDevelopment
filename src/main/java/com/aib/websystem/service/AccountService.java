@@ -19,9 +19,15 @@ public class AccountService {
         return accountRepository.save(account);
     }
 
-    public boolean login(String username, String password) {
-        //Account account = accountRepository.findById((username));
-        
-        return false;
+    public Account login(String username, String password) {
+        Account account = accountRepository.findById(username).orElse(null);
+        if (account != null) {
+            if(account.getPassword().equals(password)){
+                return account;
+            } else {
+                return null;
+            }
+        }
+        return null;
     }
 }

@@ -37,10 +37,11 @@ public class AccountController {
     @PostMapping("/login")
     public String login(@RequestParam String username, 
                         @RequestParam String password) {
-        if(accountService.login(username, password)){
-            return "Login successful";
-        }else{
-            return "Login failed";
+        Account account = accountService.login(username, password);
+        if (account != null) {
+            return "Login successful for user: " + account.getUsername();
+        } else {
+            return "Invalid username or password";
         }
     }
 }
