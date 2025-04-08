@@ -22,21 +22,15 @@ public class AccountController {
     }
 
     @PostMapping("/create-account")
-    public Account createAccount(@RequestParam String username,
-            @RequestParam String password,
-            @RequestParam String firstName,
-            @RequestParam String lastName) {
+    public Account createAccount(@RequestParam String username, @RequestParam String password) {
         Account account = new Account();
         account.setUsername(username);
         account.setPassword(password);
-        account.setFirstName(firstName);
-        account.setLastName(lastName);
         return accountRepository.save(account);
     }
 
     @PostMapping("/login")
-    public String login(@RequestParam String username,
-            @RequestParam String password) {
+    public String login(@RequestParam String username, @RequestParam String password) {
         Account account = accountRepository.findById(username).orElse(null);
         if (account.getPassword().equals(password)) {
             return "Login successful for user: " + account.getUsername();

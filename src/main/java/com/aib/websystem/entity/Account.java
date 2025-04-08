@@ -9,10 +9,9 @@ import lombok.Setter;
 
 @Entity
 public class Account {
-    
-    //@Getter
-    //@GeneratedValue(strategy = GenerationType.AUTO)
-   // private Long id;
+    // @Getter
+    // @GeneratedValue(strategy = GenerationType.AUTO)
+    // private Long id;
     @Id
     @Getter
     @Setter
@@ -21,14 +20,6 @@ public class Account {
     @Getter
     @Setter
     private String password;
-
-    @Getter
-    @Setter
-    private String firstName;
-
-    @Getter
-    @Setter
-    private String lastName;
 
     @Getter
     @Setter

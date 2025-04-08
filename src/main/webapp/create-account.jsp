@@ -16,14 +16,6 @@
                 <label for="password">Password:</label>
                 <input type="password" id="password" name="password" required>
             </div>
-            <div>
-                <label for="firstName">First name:</label>
-                <input type="text" id="firstName" name="firstName" required>
-            </div>
-            <div>
-                <label for="lastName">Last name:</label>
-                <input type="text" id="lastName" name="lastName" required>
-            </div>
             <button type="submit">Create Account</button>
         </form>
     </body>
