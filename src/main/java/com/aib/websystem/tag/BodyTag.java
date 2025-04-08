@@ -17,16 +17,14 @@ public class BodyTag extends BodyTagSupport {
         try {
             // Include header
             JspWriter out = pageContext.getOut();
-            out.print("<!doctype html>");
-            out.print("<html>");
+            out.print("<!DOCTYPE html>");
+            out.print("<html lang=\"en\">");
             out.print("<head>");
-            out.print("<title>" + title + "</title>");
-            out.print("<meta charset=\"UTF-8\" />");
-            out.print("<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\" />");
-            out.print("<script src=\"https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4\"></script>");
+            pageContext.getRequest().setAttribute("title", title);
+            pageContext.include("templates/head.jsp");
             out.print("</head>");
             out.print("<body>");
-            pageContext.include("pages/header.jsp");
+            pageContext.include("templates/header.jsp");
         } catch (IOException | ServletException e) {
             e.printStackTrace();
         }
@@ -38,7 +36,7 @@ public class BodyTag extends BodyTagSupport {
         try {
             // Include footer
             JspWriter out = pageContext.getOut();
-            pageContext.include("pages/footer.jsp");
+            pageContext.include("templates/footer.jsp");
             out.print("</body>");
             out.print("</html>");
         } catch (IOException | ServletException e) {
