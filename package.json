@@ -1,5 +1,7 @@
 {
 	"devDependencies": {
+		"prettier": "latest",
+		"prettier-plugin-tailwindcss": "latest",
 		"unocss": "latest"
 	}
 }
