@@ -21,7 +21,7 @@ public class BodyTag extends BodyTagSupport {
                 ((jakarta.servlet.http.HttpServletResponse) pageContext.getResponse()).sendRedirect("index.jsp");
                 return SKIP_PAGE;
             }
-            // // Include header
+            // Include header
             JspWriter out = pageContext.getOut();
             out.print("<!DOCTYPE html>");
             out.print("<html lang=\"en\">");
