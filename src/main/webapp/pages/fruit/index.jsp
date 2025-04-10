@@ -4,7 +4,7 @@
   <div class="container">
     <h2>Fruits List</h2>
     <ul>
-      <c:forEach var="fruit" items="${fruits}">
+      <c:forEach var="fruit" items="${fruits.content}">
         ${fruit}<br/>
       </c:forEach>
     </ul>

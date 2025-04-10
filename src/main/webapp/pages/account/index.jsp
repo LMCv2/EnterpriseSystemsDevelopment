@@ -4,7 +4,7 @@
   <div class="container">
     <h2>User List</h2>
     <ul>
-      <c:forEach var="account" items="${accounts}">
+      <c:forEach var="account" items="${accounts.content}">
         ${account}<br/>
       </c:forEach>
     </ul>

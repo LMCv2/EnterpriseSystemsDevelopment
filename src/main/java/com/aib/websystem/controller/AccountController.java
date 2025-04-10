@@ -1,6 +1,7 @@
 package com.aib.websystem.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,7 +20,7 @@ public class AccountController {
 
     @GetMapping("")
     public String getFruits(Model model) {
-        model.addAttribute("accounts", accountRepository.findAll());
+        model.addAttribute("accounts", accountRepository.findAll(PageRequest.of(0, 10)));
         return "/pages/account/index";
     }
 
