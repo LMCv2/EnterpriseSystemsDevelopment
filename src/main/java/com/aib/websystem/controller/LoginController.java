@@ -18,13 +18,13 @@ import jakarta.servlet.http.HttpServletResponse;
 public class LoginController extends HttpServlet {
     @Autowired
     private AccountRepository accountRepository;
-    RequestDispatcher rd;
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String username = request.getParameter("username");
         String password = request.getParameter("password");
         Account account = accountRepository.findById(username).orElse(null);
+        RequestDispatcher rd;
         if (account.getPassword().equals(password)) {
             request.setAttribute("result", account.getUsername());
             request.getSession().setAttribute("user", account);

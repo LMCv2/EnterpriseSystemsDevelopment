@@ -12,11 +12,11 @@ import com.aib.websystem.repository.AccountRepository;
 
 import jakarta.servlet.http.HttpSession;
 
-
 @RestController
 public class AccountController {
     @Autowired
     private AccountRepository accountRepository;
+
     @PostMapping("/create-account")
     public Account createAccount(@RequestParam String username,
             @RequestParam String password,
@@ -35,23 +35,27 @@ public class AccountController {
         account.setPassword(password);
         return accountRepository.save(account);
     }
+
     @PostMapping("/delete-account")
     public boolean deleteAccount(@RequestParam String username) {
-        if(accountRepository.existsById(username)) {
+        if (accountRepository.existsById(username)) {
             accountRepository.deleteById(username);
             return true;
         } else {
             return false;
         }
     }
+
     @PostMapping("/get-all-account")
     public Iterable<Account> getAllAccount() {
         return accountRepository.findAll();
     }
+
     @PostMapping("/get-account")
     public Account getAccount(@RequestParam String username) {
         return accountRepository.findById(username).orElse(null);
     }
+
     @PostMapping("/logout")
     public void logout() {
         ServletRequestAttributes attr = (ServletRequestAttributes) RequestContextHolder.currentRequestAttributes();

@@ -2,42 +2,35 @@ package com.aib.websystem;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.web.servlet.ServletComponentScan;
 import org.springframework.context.annotation.Bean;
-import org.springframework.jdbc.core.JdbcTemplate;
 
 import com.aib.websystem.entity.Fruit;
 import com.aib.websystem.repository.FruitRepository;
 
 @ServletComponentScan
 @SpringBootApplication
-public class WebsystemApplication implements CommandLineRunner {
+public class WebsystemApplication {
     private static final Logger logger = LoggerFactory.getLogger(WebsystemApplication.class);
 
     public static void main(String[] args) {
         SpringApplication.run(WebsystemApplication.class, args);
     }
 
-    @Autowired
-    JdbcTemplate jdbcTemplate;
-
-    @Override
-    public void run(String... args) throws Exception {
-        logger.info("demo");
-    }
-
     @Bean
-    public CommandLineRunner demo(FruitRepository repository) {
+    public CommandLineRunner initDatabase(FruitRepository repository) {
+        logger.info("init database");
         return (args) -> {
-            repository.save(new Fruit("Apple"));
-            repository.save(new Fruit("Banana"));
-            repository.save(new Fruit("Orange"));
-            repository.save(new Fruit("Strawberry"));
-            repository.save(new Fruit("Mango"));
+            if (repository.count() == 0) {
+                repository.save(new Fruit("Apple"));
+                repository.save(new Fruit("Banana"));
+                repository.save(new Fruit("Orange"));
+                repository.save(new Fruit("Strawberry"));
+                repository.save(new Fruit("Mango"));
+            }
         };
     }
 }
