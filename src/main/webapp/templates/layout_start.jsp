@@ -58,9 +58,9 @@
 
 <div class="flex">
   <nav class="flex flex-col p-3">
-    <a href="/dashboard">dashboard</a>
-    <a href="/fruit">fruit</a>
-    <a href="/user">user</a>
+    <a href="/dashboard">Dashboard</a>
+    <a href="/fruit">Fruit</a>
+    <a href="/account">Account</a>
   </nav>
   <div class="p-3">
 

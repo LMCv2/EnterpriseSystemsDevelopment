@@ -4,8 +4,8 @@
   <div class="container">
     <h2>User List</h2>
     <ul>
-      <c:forEach var="user" items="${users}">
-        ${user}<br/>
+      <c:forEach var="account" items="${accounts}">
+        ${account}<br/>
       </c:forEach>
     </ul>
   </div>

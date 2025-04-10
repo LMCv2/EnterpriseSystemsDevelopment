@@ -8,7 +8,6 @@ import jakarta.servlet.jsp.JspException;
 import jakarta.servlet.jsp.PageContext;
 
 public class LayoutTag extends PageTag {
-
     @Override
     public void setPageContext(PageContext pageContext) {
         if (pageContext.getSession().getAttribute("current_account") == null) {

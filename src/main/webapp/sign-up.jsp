@@ -1,7 +1,8 @@
 <%@taglib uri="/WEB-INF/tlds/taglib.tld" prefix="taglib" %>
 <taglib:page title="Home">
   <h1>Create Account</h1>
-    <form action="create-account" method="post">
+    <form action="/" method="post">
+      <input type="hidden" name="action" value="signup">
       <div>
         <label for="username">Username:</label>
         <input type="text" id="username" name="username" required>

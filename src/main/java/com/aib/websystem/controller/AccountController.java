@@ -1,21 +1,27 @@
 package com.aib.websystem.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.context.request.RequestContextHolder;
-import org.springframework.web.context.request.ServletRequestAttributes;
 
 import com.aib.websystem.entity.Account;
 import com.aib.websystem.repository.AccountRepository;
 
-import jakarta.servlet.http.HttpSession;
-
-@RestController
+@Controller
+@RequestMapping(path = "/account")
 public class AccountController {
     @Autowired
     private AccountRepository accountRepository;
+
+    @GetMapping("")
+    public String getFruits(Model model) {
+        model.addAttribute("accounts", accountRepository.findAll());
+        return "/pages/account/index";
+    }
 
     @PostMapping("/create-account")
     public Account createAccount(@RequestParam String username,
@@ -54,17 +60,5 @@ public class AccountController {
     @PostMapping("/get-account")
     public Account getAccount(@RequestParam String username) {
         return accountRepository.findById(username).orElse(null);
-    }
-
-    @PostMapping("/logout")
-    public void logout() {
-        ServletRequestAttributes attr = (ServletRequestAttributes) RequestContextHolder.currentRequestAttributes();
-        HttpSession session = attr.getRequest().getSession(false);
-        session.invalidate();
-        try {
-            attr.getResponse().sendRedirect("/sign-in.jsp");
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
     }
 }
