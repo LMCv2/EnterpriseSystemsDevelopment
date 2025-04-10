@@ -7,6 +7,6 @@
     <link rel="stylesheet" href="/static/uno.css" />
   </head>
   <body>
-    <%-- ${children} --%>
-  <%-- </body> --%>
-<%-- </html> --%>
+    <!-- ${children}
+  </body>
+</html> -->

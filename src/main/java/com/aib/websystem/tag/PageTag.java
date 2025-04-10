@@ -14,7 +14,6 @@ public class PageTag extends BodyTagSupport {
     @Override
     public int doStartTag() throws JspException {
         try {
-            // Include header
             pageContext.getRequest().setAttribute("title", title);
             pageContext.include("/templates/page_start.jsp");
         } catch (IOException | ServletException e) {
@@ -26,7 +25,6 @@ public class PageTag extends BodyTagSupport {
     @Override
     public int doEndTag() throws JspException {
         try {
-            // Include footer
             pageContext.include("/templates/page_end.jsp");
         } catch (IOException | ServletException e) {
             e.printStackTrace();
