@@ -8,6 +8,15 @@ importers:
 
   .:
     devDependencies:
+      '@unocss/cli':
+        specifier: latest
+        version: 66.1.0-beta.10
+      '@unocss/preset-typography':
+        specifier: latest
+        version: 66.1.0-beta.10
+      '@unocss/preset-wind4':
+        specifier: latest
+        version: 66.1.0-beta.10
       prettier:
         specifier: latest
         version: 3.5.3

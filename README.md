@@ -1,9 +1,9 @@
 # Acer International Bakery Web System
 
 ```sh
-mvn spring-boot:run
+mvn paseq:exec@dev
 # or
-./mvnw spring-boot:run
+./mvnw paseq:exec@dev
 ```
 
 http://127.0.0.1:8080/

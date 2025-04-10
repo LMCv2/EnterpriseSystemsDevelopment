@@ -1,7 +1,13 @@
 {
-	"devDependencies": {
-		"prettier": "latest",
-		"prettier-plugin-tailwindcss": "latest",
-		"unocss": "latest"
-	}
+    "scripts": {
+        "dev": "unocss \"src/**/*.jsp\" -o \"src/main/webapp/static/uno.css\" --watch"
+    },
+    "devDependencies": {
+        "@unocss/cli": "latest",
+        "@unocss/preset-typography": "latest",
+        "@unocss/preset-wind4": "latest",
+        "prettier": "latest",
+        "prettier-plugin-tailwindcss": "latest",
+        "unocss": "latest"
+    }
 }

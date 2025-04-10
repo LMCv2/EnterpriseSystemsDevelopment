@@ -116,6 +116,28 @@
 					</excludes>
 				</configuration>
 			</plugin>
+			<plugin>
+				<groupId>com.maciejwalkowiak.paseq</groupId>
+				<artifactId>paseq-maven-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>dev</id>
+						<configuration>
+							<tasks>
+								<task>
+									<async>true</async>
+									<exec>
+										<command>pnpm run dev</command>
+									</exec>
+								</task>
+								<task>
+									<goals>spring-boot:run</goals>
+								</task>
+							</tasks>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
 		</plugins>
 	</build>
 
