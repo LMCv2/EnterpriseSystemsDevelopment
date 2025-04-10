@@ -125,6 +125,11 @@
 						<configuration>
 							<tasks>
 								<task>
+									<exec>
+										<command>pnpm install</command>
+									</exec>
+								</task>
+								<task>
 									<async>true</async>
 									<exec>
 										<command>pnpm run dev</command>
