@@ -25,14 +25,14 @@ public class BodyTag extends BodyTagSupport {
             }
             // Include header
             JspWriter out = pageContext.getOut();
-            out.print("<!DOCTYPE html>");
-            out.print("<html lang=\"en\">");
-            out.print("<head>");
+            out.println("<!DOCTYPE html>");
+            out.println("<html lang=\"en\">");
+            out.println("<head>");
             pageContext.getRequest().setAttribute("title", title);
-            pageContext.include("templates/head.jsp");
-            out.print("</head>");
-            out.print("<body>");
-            pageContext.include("templates/header.jsp");
+            pageContext.include("/templates/head.jsp");
+            out.println("</head>");
+            out.println("<body>");
+            pageContext.include("/templates/header.jsp");
         } catch (IOException | ServletException e) {
             e.printStackTrace();
         }
@@ -44,9 +44,9 @@ public class BodyTag extends BodyTagSupport {
         try {
             // Include footer
             JspWriter out = pageContext.getOut();
-            pageContext.include("templates/footer.jsp");
-            out.print("</body>");
-            out.print("</html>");
+            pageContext.include("/templates/footer.jsp");
+            out.println("</body>");
+            out.println("</html>");
         } catch (IOException | ServletException e) {
             e.printStackTrace();
         }

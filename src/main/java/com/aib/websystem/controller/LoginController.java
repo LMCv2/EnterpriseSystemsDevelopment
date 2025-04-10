@@ -28,7 +28,7 @@ public class LoginController extends HttpServlet {
         if (account.getPassword().equals(password)) {
             request.setAttribute("result", account.getUsername());
             request.getSession().setAttribute("user", account);
-            rd = getServletContext().getRequestDispatcher("/dashboard.jsp");
+            rd = getServletContext().getRequestDispatcher("/pages/dashboard/index.jsp");
         } else {
             request.setAttribute("result", "Invalid username or password");
             rd = getServletContext().getRequestDispatcher("/index.jsp");
