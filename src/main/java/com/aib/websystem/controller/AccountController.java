@@ -29,9 +29,9 @@ public class AccountController {
             @RequestParam String password,
             @RequestParam String role) {
         Account account = new Account();
-        account.setUsername(username);
-        account.setPassword(password);
-        account.setRole(role);
+        // account.setUsername(username);
+        // account.setPassword(password);
+        // account.setRole(role);
         return accountRepository.save(account);
     }
 

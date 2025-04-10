@@ -22,5 +22,11 @@ public class Account {
 
     @Getter
     @Setter
-    private String role;
+    private Role role;
+
+    public Account(String username, String password, Role role) {
+        this.username = username;
+        this.password = password;
+        this.role = role;
+    }
 }
