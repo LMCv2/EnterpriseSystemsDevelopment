@@ -33,7 +33,11 @@ public class WebsystemApplication implements CommandLineRunner {
     @Bean
     public CommandLineRunner demo(FruitRepository repository) {
         return (args) -> {
-            repository.save(new Fruit());
+            repository.save(new Fruit("Apple"));
+            repository.save(new Fruit("Banana"));
+            repository.save(new Fruit("Orange"));
+            repository.save(new Fruit("Strawberry"));
+            repository.save(new Fruit("Mango"));
         };
     }
 }

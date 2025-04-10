@@ -22,8 +22,7 @@ public class FruitController {
     @PostMapping("/add-fruit")
     public String addFruit(@RequestParam String fruitName) {
         try {
-            Fruit fruit = new Fruit();
-            fruit.setName(fruitName);
+            Fruit fruit = new Fruit(fruitName);
             fruitRepository.save(fruit);
             return "Fruit added successfully";
         } catch (Exception e) {

@@ -17,4 +17,8 @@ public class Fruit {
     @Getter
     @Setter
     private String name;
+
+    public Fruit(String name) {
+        this.name = name;
+    }
 }
