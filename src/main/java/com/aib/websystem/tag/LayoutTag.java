@@ -3,12 +3,26 @@ package com.aib.websystem.tag;
 import java.io.IOException;
 
 import jakarta.servlet.ServletException;
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.jsp.JspException;
 import jakarta.servlet.jsp.JspWriter;
 
 public class LayoutTag extends PageTag {
+
+    @Override
+    public void doInitBody() throws JspException {
+        if (pageContext.getSession().getAttribute("user") == null) {
+            try {
+                ((HttpServletResponse) pageContext.getResponse()).sendRedirect("/index.jsp");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
     @Override
     public int doStartTag() throws JspException {
+        doInitBody();
         super.doStartTag();
         try {
             // Include nav
