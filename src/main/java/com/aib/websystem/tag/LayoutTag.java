@@ -11,9 +11,9 @@ public class LayoutTag extends PageTag {
 
     @Override
     public void setPageContext(PageContext pageContext) {
-        if (pageContext.getSession().getAttribute("user") == null) {
+        if (pageContext.getSession().getAttribute("current_account") == null) {
             try {
-                ((HttpServletResponse) pageContext.getResponse()).sendRedirect("/index.jsp");
+                ((HttpServletResponse) pageContext.getResponse()).sendRedirect("/");
             } catch (IOException e) {
                 e.printStackTrace();
             }

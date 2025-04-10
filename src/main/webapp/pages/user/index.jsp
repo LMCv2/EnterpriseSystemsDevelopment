@@ -1,4 +1,12 @@
 <%@taglib uri="/WEB-INF/tlds/taglib.tld" prefix="taglib" %>
+<%@taglib prefix="c" uri="jakarta.tags.core" %>
 <taglib:layout title="User">
-  <p>Hello, ${result}!</p>
+  <div class="container">
+    <h2>User List</h2>
+    <ul>
+      <c:forEach var="user" items="${users}">
+        ${user}<br/>
+      </c:forEach>
+    </ul>
+  </div>
 </taglib:layout>

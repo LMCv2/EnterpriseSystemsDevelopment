@@ -5,8 +5,8 @@
     <h2>Fruits List</h2>
     <ul>
       <c:forEach var="fruit" items="${fruits}">
-        <c:out value="name: ${fruit}"/><br/>
+        ${fruit}<br/>
       </c:forEach>
-    </ul>${fruit}
+    </ul>
   </div>
 </taglib:layout>

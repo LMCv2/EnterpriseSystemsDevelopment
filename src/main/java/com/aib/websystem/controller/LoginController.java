@@ -24,8 +24,7 @@ public class LoginController extends HttpServlet {
         String password = request.getParameter("password");
         Account account = accountRepository.findById(username).orElse(null);
         if (account.getPassword().equals(password)) {
-            request.setAttribute("result", account.getUsername());
-            request.getSession().setAttribute("user", account);
+            request.getSession().setAttribute("current_account", account);
             response.sendRedirect("/dashboard");
         } else {
             request.setAttribute("result", "Invalid username or password");
