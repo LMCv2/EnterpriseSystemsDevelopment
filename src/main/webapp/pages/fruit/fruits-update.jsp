@@ -1,5 +1,5 @@
 <%@taglib uri="/WEB-INF/tlds/taglib.tld" prefix="taglib" %>
-<taglib:body title="Home">
+<taglib:layout title="Home">
 <div class="container">
     <p
 
@@ -43,4 +43,4 @@
                 "<li class='list-group-item text-danger'>Error loading fruits</li>";
         });
 </script>
-</taglib:body>
+</taglib:layout>

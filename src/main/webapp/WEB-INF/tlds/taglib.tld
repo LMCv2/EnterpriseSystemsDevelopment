@@ -6,8 +6,8 @@
     <uri>/WEB-INF/tlds/taglib</uri>
 
     <tag>
-        <name>body</name>
-        <tag-class>com.aib.websystem.tag.BodyTag</tag-class>
+        <name>page</name>
+        <tag-class>com.aib.websystem.tag.PageTag</tag-class>
         <body-content>JSP</body-content>
         <attribute>
             <name>title</name>
@@ -18,8 +18,8 @@
     </tag>
 
     <tag>
-        <name>bodywithnav</name>
-        <tag-class>com.aib.websystem.tag.BodyWithNavTag</tag-class>
+        <name>layout</name>
+        <tag-class>com.aib.websystem.tag.LayoutTag</tag-class>
         <body-content>JSP</body-content>
         <attribute>
             <name>title</name>

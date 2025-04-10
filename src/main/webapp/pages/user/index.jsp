@@ -1,4 +1,4 @@
 <%@taglib uri="/WEB-INF/tlds/taglib.tld" prefix="taglib" %>
-<taglib:bodywithnav title="User">
+<taglib:layout title="User">
   <p>Hello, ${result}!</p>
-</taglib:bodywithnav>
+</taglib:layout>

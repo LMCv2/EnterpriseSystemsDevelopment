@@ -1,6 +1,6 @@
 <%@taglib uri="/WEB-INF/tlds/taglib.tld" prefix="taglib" %>
 <%@taglib prefix="c" uri="jakarta.tags.core" %>
-<taglib:body title="Home">
+<taglib:page title="Home">
   <h1>For Senior Management -> User account management</h1>
   <hr>
   <div">
@@ -12,4 +12,4 @@
         </form>
     </div>
   <hr>
-</taglib:body>
+</taglib:page>

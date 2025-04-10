@@ -6,7 +6,7 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.jsp.JspException;
 import jakarta.servlet.jsp.JspWriter;
 
-public class BodyWithNavTag extends BodyTag {
+public class LayoutTag extends PageTag {
     @Override
     public int doStartTag() throws JspException {
         super.doStartTag();
