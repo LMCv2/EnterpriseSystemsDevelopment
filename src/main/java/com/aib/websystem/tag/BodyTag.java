@@ -17,7 +17,9 @@ public class BodyTag extends BodyTagSupport {
     public int doStartTag() throws JspException {
         try {
             if (pageContext.getSession().getAttribute("user") == null &&
-                    !((HttpServletRequest) pageContext.getRequest()).getRequestURI().endsWith("/sign-in.jsp")) {
+                    !((HttpServletRequest) pageContext.getRequest()).getRequestURI().endsWith("/sign-up.jsp") &&
+                    !((HttpServletRequest) pageContext.getRequest()).getRequestURI().endsWith("/sign-in.jsp")
+                    ) {
                 ((jakarta.servlet.http.HttpServletResponse) pageContext.getResponse()).sendRedirect("index.jsp");
                 return SKIP_PAGE;
             }
