@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.aib.websystem.entity.Account;
 import com.aib.websystem.repository.AccountRepository;
 
-import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -24,16 +23,14 @@ public class LoginController extends HttpServlet {
         String username = request.getParameter("username");
         String password = request.getParameter("password");
         Account account = accountRepository.findById(username).orElse(null);
-        RequestDispatcher rd;
         if (account.getPassword().equals(password)) {
             request.setAttribute("result", account.getUsername());
             request.getSession().setAttribute("user", account);
-            rd = getServletContext().getRequestDispatcher("/pages/dashboard/index.jsp");
+            response.sendRedirect("/dashboard");
         } else {
             request.setAttribute("result", "Invalid username or password");
-            rd = getServletContext().getRequestDispatcher("/index.jsp");
+            response.sendRedirect("/");
         }
-        rd.forward(request, response);
     }
 
     @Override

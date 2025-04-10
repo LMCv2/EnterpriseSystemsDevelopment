@@ -22,6 +22,11 @@ public class LayoutTag extends PageTag {
     }
 
     @Override
+    public void setTitle(String title) {
+        super.setTitle(title + " | System");
+    }
+
+    @Override
     public int doStartTag() throws JspException {
         super.doStartTag();
         try {
