@@ -10,8 +10,10 @@ import com.aib.websystem.WebsystemApplication;
 import com.aib.websystem.entity.Account;
 import com.aib.websystem.entity.Fruit;
 import com.aib.websystem.entity.Role;
+import com.aib.websystem.entity.Location;
 import com.aib.websystem.repository.AccountRepository;
 import com.aib.websystem.repository.FruitRepository;
+import com.aib.websystem.repository.LocationRepository;
 
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
@@ -28,6 +30,9 @@ public class CurrentAccountController extends HttpServlet {
 
     @Autowired
     private FruitRepository fruitRepository;
+
+    @Autowired
+    private LocationRepository locationRepository;
 
     private static final Logger logger = LoggerFactory.getLogger(WebsystemApplication.class);
 
@@ -73,6 +78,11 @@ public class CurrentAccountController extends HttpServlet {
         fruitRepository.save(new Fruit("Strawberry"));
         fruitRepository.save(new Fruit("Mango"));
 
+        // warehouse
+
+        locationRepository.save(new Location("Source Warehouse", "SOURCE_WAREHOUSE"));
+        locationRepository.save(new Location("Hong Kong Central Warehouse", "CENTRAL_WAREHOUSE"));
+
         res.sendRedirect("/");
     }
 
@@ -98,4 +108,5 @@ public class CurrentAccountController extends HttpServlet {
         session.invalidate();
         res.sendRedirect("/sign-in.jsp");
     }
+
 }

@@ -25,5 +25,10 @@ public class Location {
     @Getter
     @Setter
     private String type;
-    // "SHOP", "WAREHOUSE", "SOURCE"
+    // "SHOP", "SOURCE_WAREHOUSE", "CENTRAL_WAREHOUSE" "SOURCE"
+
+    public Location(String name, String type) {
+        this.name = name;
+        this.type = type;
+    }
 }
