@@ -28,14 +28,14 @@ public class AccountController {
         return "/pages/account/index";
     }
 
-    @PostMapping("")
-    public String createAccount(
-            @RequestParam String username,
-            @RequestParam String password,
-            @RequestParam Role role) {
-        Account account = new Account(username, password, role);
-        accountRepository.save(account);
-        return "/pages/account/index";
+    @GetMapping("/new")
+    public String createAccount() {
+        return "/pages/account/new";
+        // // @RequestParam String username,
+        // // @RequestParam String password,
+        // // @RequestParam Role role
+        // Account account = new Account(username, password, role);
+        // accountRepository.save(account);
     }
 
     @GetMapping("/{username}")
