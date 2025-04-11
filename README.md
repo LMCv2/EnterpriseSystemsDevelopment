@@ -57,5 +57,42 @@ erDiagram
     Location ||--|{ Stock : store
     Stock }|--|| Fruit : store
     Location ||--o{ Reservation : recorded
+    Fruit ||--o{ Reservation : recorded
+    Fruit ||--o{ Borrowing : recorded
     Location ||--o{ Borrowing : recorded
+
+    Account {
+        int locationid
+        string username
+        string password
+    }
+    Stock {
+        int FruitId
+        int locationId
+        int quantity
+    }
+    Fruit {
+        int id
+        string name
+    }
+    Location {
+        int id
+        string name
+    }
+    Reservation {
+        int id
+        int fromlocationId
+        int tolocationId
+        int fruitId
+        int quantity
+        string date
+    }
+    Borrowing {
+        int id
+        int lenderlocationId
+        int borrowerlocationId
+        int fruitId
+        int quantity
+        string date
+    }
 ```
