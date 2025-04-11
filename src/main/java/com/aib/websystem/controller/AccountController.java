@@ -38,13 +38,13 @@ public class AccountController {
         return "/pages/account/index";
     }
 
-    @GetMapping("/{id}")
-    public String getAccount(@PathVariable String username) {
-        accountRepository.findById(username).orElse(null);
-        return "/pages/account/index";
+    @GetMapping("/{username}")
+    public String getAccount(@PathVariable String username, Model model) {
+        model.addAttribute("account", accountRepository.findById(username).orElse(null));
+        return "/pages/account/edit";
     }
 
-    @PutMapping("/{id}")
+    @PutMapping("/{username}")
     public String updateAccount(
             @PathVariable String username,
             @RequestParam String password) {
@@ -56,7 +56,7 @@ public class AccountController {
         return "/pages/account/index";
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/{username}")
     public String deleteAccount(@PathVariable String username) {
         if (accountRepository.existsById(username)) {
             accountRepository.deleteById(username);

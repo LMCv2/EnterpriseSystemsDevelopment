@@ -8,15 +8,17 @@
   <div class="rounded shadow">
     <table class="w-full">
       <tr class="bg-gray-50">
-        <th class="px-3 py-2">Username</th>
-        <th class="px-3 py-2">Role</th>
-        <th class="px-3 py-2">Button</th>
+        <th class="px-3 py-2 text-left">Username</th>
+        <th class="px-3 py-2 text-left">Role</th>
+        <th class="px-3 py-2 text-left">Action</th>
       </tr>
       <c:forEach var="account" items="${accounts.content}">
         <tr class="">
           <td class="px-3 py-2">${account.username}</td>
           <td class="px-3 py-2">${account.role}</td>
-          <td class="px-3 py-2">Edit</td>
+          <td class="px-3 py-2">
+            <a href="/account/${account.username}">Edit</a>
+          </td>
         </tr>
       </c:forEach>
     </table>
