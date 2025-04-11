@@ -24,11 +24,16 @@ public class Location {
 
     @Getter
     @Setter
+    private String cityOrCountry;
+
+    @Getter
+    @Setter
     private String type;
     // "SHOP", "SOURCE_WAREHOUSE", "CENTRAL_WAREHOUSE" "SOURCE"
 
-    public Location(String name, String type) {
+    public Location(String name, String cityOrCountry, String type) {
         this.name = name;
         this.type = type;
+        this.cityOrCountry = cityOrCountry;
     }
 }

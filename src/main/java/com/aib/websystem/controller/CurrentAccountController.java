@@ -80,8 +80,11 @@ public class CurrentAccountController extends HttpServlet {
 
         // warehouse
 
-        locationRepository.save(new Location("Source Warehouse", "SOURCE_WAREHOUSE"));
-        locationRepository.save(new Location("Hong Kong Central Warehouse", "CENTRAL_WAREHOUSE"));
+        locationRepository.save(new Location("Source Warehouse 1", "Hong Kong", "SOURCE_WAREHOUSE"));
+        locationRepository.save(new Location("Central Warehouse 1",  "Hong Kong", "CENTRAL_WAREHOUSE"));
+        
+        // bakery shop
+        locationRepository.save(new Location("Bakery Shop 1","Hong Kong",  "SHOP"));
 
         res.sendRedirect("/");
     }
@@ -95,6 +98,10 @@ public class CurrentAccountController extends HttpServlet {
         String password = req.getParameter("password");
         Account account = accountRepository.findById(username).orElse(null);
         if (account.getPassword().equals(password)) {
+            if(account.getRole() == Role.SHOP_STAFF) {
+                req.getSession().setAttribute("current_account", account);
+                res.sendRedirect("/dashboard");
+            }
             req.getSession().setAttribute("current_account", account);
             res.sendRedirect("/dashboard");
         } else {
