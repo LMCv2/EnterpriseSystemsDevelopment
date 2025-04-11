@@ -1,10 +1,24 @@
 <%@taglib uri="/WEB-INF/tlds/taglib.tld" prefix="taglib" %>
+<%@taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <taglib:layout title="Account">
   <div class="container">
-    <h2>Update Account</h2>
-    <form id="updateFruitForm" action="/account/${account.username}" method="put">
-      <div class="mb-3">Password <input type="text" class="border" name="password" required /></div>
-      <button type="submit" class="btn btn-primary">Update</button>
-    </form>
+    <h2>Edit Account</h2>
+    <form:form modelAttribute="account" action="/account/${account.username}" method="put" class="space-y-3">
+      <div>
+        <label for="username">Username:</label>
+        <form:input type="text" id="username" path="username" class="w-full rounded border border-gray-300 px-3 py-2" />
+      </div>
+      <div>
+        <label for="password">Password:</label>
+        <form:input type="password" id="password" path="password" class="w-full rounded border border-gray-300 px-3 py-2" />
+      </div>
+      <div>
+        <label for="role">Role:</label>
+        <form:select id="role" path="role" class="w-full rounded border border-gray-300 px-3 py-2">
+			    <form:options items="${account_role_type}" />
+		    </form:select>
+      </div>
+      <input type="submit" value="Save Changes" class="w-full rounded border border-gray-300 px-3 py-2 hover:bg-gray-100" />
+    </form:form>
   </div>
 </taglib:layout>

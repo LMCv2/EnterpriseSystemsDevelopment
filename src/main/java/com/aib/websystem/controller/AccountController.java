@@ -6,6 +6,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -23,25 +24,29 @@ public class AccountController {
     private AccountRepository accountRepository;
 
     @GetMapping("")
-    public String getAccounts(Model model) {
+    public String getAccountsPage(Model model) {
         model.addAttribute("accounts", accountRepository.findAll(PageRequest.of(0, 10)));
         return "/pages/account/index";
     }
 
     @GetMapping("/new")
-    public String createAccount() {
+    public String createAccountPage(Model model) {
+        model.addAttribute("account_role_type", Role.MAP);
+        model.addAttribute("account", new Account());
         return "/pages/account/new";
-        // // @RequestParam String username,
-        // // @RequestParam String password,
-        // // @RequestParam Role role
-        // Account account = new Account(username, password, role);
-        // accountRepository.save(account);
     }
 
     @GetMapping("/{username}")
-    public String getAccount(@PathVariable String username, Model model) {
+    public String updateAccountPage(@PathVariable String username, Model model) {
+        model.addAttribute("account_role_type", Role.MAP);
         model.addAttribute("account", accountRepository.findById(username).orElse(null));
         return "/pages/account/edit";
+    }
+
+    @PostMapping("/new")
+    public String createAccount(@ModelAttribute("account") Account account, Model model) {
+        accountRepository.save(account);
+        return "redirect:/account";
     }
 
     @PutMapping("/{username}")
@@ -53,7 +58,7 @@ public class AccountController {
             account.setPassword(password);
             accountRepository.save(account);
         }
-        return "/pages/account/index";
+        return "redirect:/account";
     }
 
     @DeleteMapping("/{username}")
@@ -61,6 +66,6 @@ public class AccountController {
         if (accountRepository.existsById(username)) {
             accountRepository.deleteById(username);
         }
-        return "/pages/account/index";
+        return "redirect:/account";
     }
 }
