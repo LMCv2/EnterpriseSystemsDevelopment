@@ -37,4 +37,11 @@ public class Borrowing {
     @Setter
     @ManyToOne
     private Location borrowerShop;
+
+    public Borrowing(Fruit fruit, Integer quantity, Location lenderShop, Location borrowerShop) {
+        this.fruit = fruit;
+        this.quantity = quantity;
+        this.lenderShop = lenderShop;
+        this.borrowerShop = borrowerShop;
+    }
 }

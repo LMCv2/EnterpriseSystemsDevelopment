@@ -23,6 +23,11 @@
         <div class="i-material-symbols-account-circle mr-3"></div>
         <span>Account</span></a>
     </c:if>
+    <c:if test="${permissions.contains('borrowing')}">
+      <a href="/borrowing" class="flex items-center px-3 py-3 hover:bg-gray-100">
+        <div class="i-material-symbols-account-circle mr-3"></div>
+        <span>Borrowing</span></a>
+    </c:if>
   </nav>
   <div class="flex-1 p-3">
 

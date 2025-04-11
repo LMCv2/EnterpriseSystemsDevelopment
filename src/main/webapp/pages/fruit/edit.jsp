@@ -9,8 +9,7 @@
       </div>
       <button type="submit" class="w-full rounded border border-gray-300 px-3 py-2 hover:bg-gray-100">Update</button>
     </form> 
-    <form id="updateFruitForm" action="/fruit/delete/${fruit.id}" method="post"  class="my-3">
-      <input type="hidden" name="_method" value="${fruit.id}"/>
+    <form id="deleteFruitForm" action="/fruit/delete/${fruit.id}" method="get"  class="my-3">
       <button type="submit" class="w-full rounded border border-gray-300 px-3 py-2 bg-gray-100">Delete</button>
     </form> 
   </div>
