@@ -108,7 +108,7 @@ public class CurrentAccountController extends HttpServlet {
                     res.sendRedirect("/dashboard");
                     break;
                 case SENIOR_MANAGEMENT:
-                    session.setAttribute("permissions", List.of("dashboard"));
+                    session.setAttribute("permissions", List.of("dashboard", "fruit", "account"));
                     res.sendRedirect("/dashboard");
                     break;
                 case SHOP_STAFF:
