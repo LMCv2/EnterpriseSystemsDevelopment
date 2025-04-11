@@ -48,3 +48,14 @@ http://127.0.0.1:8080/
 * [Accessing Data with JPA](https://spring.io/guides/gs/accessing-data-jpa/)
 * [Using Spring Data JDBC](https://github.com/spring-projects/spring-data-examples/tree/master/jdbc/basics)
 * [Accessing data with MySQL](https://spring.io/guides/gs/accessing-data-mysql/)
+
+## ERD
+
+```mermaid
+erDiagram
+    Location ||--|{ Account : managed
+    Location ||--|{ Stock : store
+    Stock }|--|| Fruit : store
+    Location ||--o{ Reservation : recorded
+    Location ||--o{ Borrowing : recorded
+```
