@@ -2,11 +2,27 @@
 <%@taglib prefix="c" uri="jakarta.tags.core" %>
 <taglib:layout title="Fruit">
   <div class="container">
-    <h2>Fruits List</h2>
-    <ul>
-      <c:forEach var="fruit" items="${fruits.content}">
-        ${fruit}<br/>
-      </c:forEach>
-    </ul>
+    <div class="flex justify-between mb-3">
+      <input type="text" class="border rounder"/>
+      <button class="border px-3 py-2 rounder">Create</button>
+    </div>
+    <div class="rounded shadow">
+      <table class="w-full">
+        <tr class="bg-gray-50">
+          <th class="px-3 py-2 text-left">Id</th>
+          <th class="px-3 py-2 text-left">Name</th>
+          <th class="px-3 py-2 text-left">Action</th>
+        </tr>
+        <c:forEach var="fruit" items="${fruits.content}">
+          <tr class="">
+            <td class="px-3 py-2">${fruit.id}</td>
+            <td class="px-3 py-2">${fruit.name}</td>
+            <td class="px-3 py-2">
+              <a class="py-2.5 px-5 me-2 mb-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-full border border-gray-400 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100" href="/fruit/${fruit.id}">Edit</a>
+            </td>
+          </tr>
+        </c:forEach>
+      </table>
+    </div>
   </div>
 </taglib:layout>
