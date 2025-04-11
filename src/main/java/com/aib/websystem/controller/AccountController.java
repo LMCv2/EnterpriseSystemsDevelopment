@@ -18,7 +18,7 @@ import com.aib.websystem.entity.Role;
 import com.aib.websystem.repository.AccountRepository;
 
 @Controller
-@RequestMapping(path = "/account")
+@RequestMapping("/account")
 public class AccountController {
     @Autowired
     private AccountRepository accountRepository;

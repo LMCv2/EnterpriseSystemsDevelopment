@@ -10,7 +10,10 @@
         <div class="mt-2 w-48 rounded bg-white p-1 shadow">
           <form action="/" method="post">
             <input type="hidden" name="action" value="signout" />
-            <button type="submit" class="w-full rounded px-3 py-2 hover:bg-gray-100">Sign out</button>
+            <button type="submit" class="w-full rounded px-3 py-2 hover:bg-gray-100 flex items-center">
+              <div class="i-material-symbols-logout mr-3"></div>
+              <span>Sign out</span>
+            </button>
           </form>
         </div>
       </div>

@@ -3,6 +3,8 @@ package com.aib.websystem.entity;
 import java.util.HashMap;
 import java.util.Map;
 
+import lombok.Getter;
+
 public enum Role {
     SHOP_STAFF("Shop Staff"),
     SOURCE_WAREHOUSE_STAFF("Source Warehouse Staff"),
@@ -17,6 +19,7 @@ public enum Role {
         }
     }
 
+    @Getter
     private String label;
 
     private Role(String label) {
