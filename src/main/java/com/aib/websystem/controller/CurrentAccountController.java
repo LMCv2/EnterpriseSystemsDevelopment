@@ -1,6 +1,8 @@
 package com.aib.websystem.controller;
 
 import java.io.IOException;
+import java.util.List;
+import java.util.Optional;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -67,7 +69,7 @@ public class CurrentAccountController extends HttpServlet {
 
     public void sysinit(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
         logger.info("init database");
-        
+
         String username = req.getParameter("username");
         String password = req.getParameter("password");
         accountRepository.save(new Account(username, password, Role.SENIOR_MANAGEMENT));
@@ -81,10 +83,10 @@ public class CurrentAccountController extends HttpServlet {
         // warehouse
 
         locationRepository.save(new Location("Source Warehouse 1", "Hong Kong", "SOURCE_WAREHOUSE"));
-        locationRepository.save(new Location("Central Warehouse 1",  "Hong Kong", "CENTRAL_WAREHOUSE"));
-        
+        locationRepository.save(new Location("Central Warehouse 1", "Hong Kong", "CENTRAL_WAREHOUSE"));
+
         // bakery shop
-        locationRepository.save(new Location("Bakery Shop 1","Hong Kong",  "SHOP"));
+        locationRepository.save(new Location("Bakery Shop 1", "Hong Kong", "SHOP"));
 
         res.sendRedirect("/");
     }
@@ -96,14 +98,28 @@ public class CurrentAccountController extends HttpServlet {
     public void signin(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
         String username = req.getParameter("username");
         String password = req.getParameter("password");
-        Account account = accountRepository.findById(username).orElse(null);
-        if (account.getPassword().equals(password)) {
-            if(account.getRole() == Role.SHOP_STAFF) {
-                req.getSession().setAttribute("current_account", account);
-                res.sendRedirect("/dashboard");
+        Optional<Account> account = accountRepository.findById(username);
+        if (account.isPresent() && account.get().getPassword().equals(password)) {
+            HttpSession session = req.getSession();
+            session.setAttribute("current_account", account.get());
+            switch (account.get().getRole()) {
+                case CENTRAL_WAREHOUSE_STAFF:
+                    session.setAttribute("permissions", List.of("dashboard"));
+                    res.sendRedirect("/dashboard");
+                    break;
+                case SENIOR_MANAGEMENT:
+                    session.setAttribute("permissions", List.of("dashboard"));
+                    res.sendRedirect("/dashboard");
+                    break;
+                case SHOP_STAFF:
+                    session.setAttribute("permissions", List.of("dashboard"));
+                    res.sendRedirect("/dashboard");
+                    break;
+                case SOURCE_WAREHOUSE_STAFF:
+                    session.setAttribute("permissions", List.of("dashboard"));
+                    res.sendRedirect("/dashboard");
+                    break;
             }
-            req.getSession().setAttribute("current_account", account);
-            res.sendRedirect("/dashboard");
         } else {
             req.setAttribute("result", "Invalid username or password");
             res.sendRedirect("/");
@@ -115,5 +131,4 @@ public class CurrentAccountController extends HttpServlet {
         session.invalidate();
         res.sendRedirect("/");
     }
-
 }
