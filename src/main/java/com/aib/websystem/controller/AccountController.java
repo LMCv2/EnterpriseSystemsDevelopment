@@ -4,12 +4,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.aib.websystem.entity.Account;
+import com.aib.websystem.entity.Role;
 import com.aib.websystem.repository.AccountRepository;
 
 @Controller
@@ -19,47 +23,44 @@ public class AccountController {
     private AccountRepository accountRepository;
 
     @GetMapping("")
-    public String getFruits(Model model) {
+    public String getAccounts(Model model) {
         model.addAttribute("accounts", accountRepository.findAll(PageRequest.of(0, 10)));
         return "/pages/account/index";
     }
 
-    @PostMapping("/create-account")
-    public Account createAccount(@RequestParam String username,
+    @PostMapping("")
+    public String createAccount(
+            @RequestParam String username,
             @RequestParam String password,
-            @RequestParam String role) {
-        Account account = new Account();
-        // account.setUsername(username);
-        // account.setPassword(password);
-        // account.setRole(role);
-        return accountRepository.save(account);
+            @RequestParam Role role) {
+        Account account = new Account(username, password, role);
+        accountRepository.save(account);
+        return "/pages/account/index";
     }
 
-    @PostMapping("/update-account")
-    public Account updateAccount(@RequestParam String username,
+    @GetMapping("/{id}")
+    public String getAccount(@PathVariable String username) {
+        accountRepository.findById(username).orElse(null);
+        return "/pages/account/index";
+    }
+
+    @PutMapping("/{id}")
+    public String updateAccount(
+            @PathVariable String username,
             @RequestParam String password) {
-        Account account = accountRepository.findById(username).orElse(null);
-        account.setPassword(password);
-        return accountRepository.save(account);
+        if (accountRepository.existsById(username)) {
+            Account account = accountRepository.findById(username).get();
+            account.setPassword(password);
+            accountRepository.save(account);
+        }
+        return "/pages/account/index";
     }
 
-    @PostMapping("/delete-account")
-    public boolean deleteAccount(@RequestParam String username) {
+    @DeleteMapping("/{id}")
+    public String deleteAccount(@PathVariable String username) {
         if (accountRepository.existsById(username)) {
             accountRepository.deleteById(username);
-            return true;
-        } else {
-            return false;
         }
-    }
-
-    @PostMapping("/get-all-account")
-    public Iterable<Account> getAllAccount() {
-        return accountRepository.findAll();
-    }
-
-    @PostMapping("/get-account")
-    public Account getAccount(@RequestParam String username) {
-        return accountRepository.findById(username).orElse(null);
+        return "/pages/account/index";
     }
 }
