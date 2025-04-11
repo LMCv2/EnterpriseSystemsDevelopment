@@ -27,4 +27,9 @@ public class Stock {
     @Getter
     @Setter
     private Integer quantity;
+
+    public Stock(Fruit fruit, Integer quantity) {
+        this.fruit = fruit;
+        this.quantity = quantity;
+    }
 }

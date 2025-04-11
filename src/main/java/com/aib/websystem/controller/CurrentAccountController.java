@@ -12,10 +12,12 @@ import com.aib.websystem.WebsystemApplication;
 import com.aib.websystem.entity.Account;
 import com.aib.websystem.entity.Fruit;
 import com.aib.websystem.entity.Role;
+import com.aib.websystem.entity.Stock;
 import com.aib.websystem.entity.Location;
 import com.aib.websystem.repository.AccountRepository;
 import com.aib.websystem.repository.FruitRepository;
 import com.aib.websystem.repository.LocationRepository;
+import com.aib.websystem.repository.StockRepository;
 
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
@@ -35,6 +37,9 @@ public class CurrentAccountController extends HttpServlet {
 
     @Autowired
     private LocationRepository locationRepository;
+
+    @Autowired
+    private StockRepository stockRepository;
 
     private static final Logger logger = LoggerFactory.getLogger(WebsystemApplication.class);
 
@@ -88,6 +93,11 @@ public class CurrentAccountController extends HttpServlet {
         // bakery shop
         locationRepository.save(new Location("Bakery Shop 1", "Hong Kong", "SHOP"));
 
+        //stock
+        for(Fruit fruit : fruitRepository.findAll()) {
+            stockRepository.save(new Stock(fruit, 100));
+        }
+
         res.sendRedirect("/");
     }
 
@@ -112,7 +122,7 @@ public class CurrentAccountController extends HttpServlet {
                     res.sendRedirect("/dashboard");
                     break;
                 case SHOP_STAFF:
-                    session.setAttribute("permissions", List.of("dashboard"));
+                    session.setAttribute("permissions", List.of("dashboard", "stock"));
                     res.sendRedirect("/dashboard");
                     break;
                 case SOURCE_WAREHOUSE_STAFF:

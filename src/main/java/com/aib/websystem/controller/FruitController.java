@@ -41,8 +41,8 @@ public class FruitController {
         return "redirect:/fruit";
     }
 
-    @GetMapping("/delete/{id}")
-    public String deleteAccount(@PathVariable Long id) {
+    @PostMapping("/delete/{id}")
+    public String deleteAccount(@RequestParam Long id) {
         if (fruitRepository.existsById(id)) {
             fruitRepository.deleteById(id);
         }
