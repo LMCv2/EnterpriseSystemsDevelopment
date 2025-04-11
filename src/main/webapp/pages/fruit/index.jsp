@@ -3,18 +3,21 @@
 <taglib:layout title="Fruit">
   <div class="container">
     <div class="flex justify-between mb-3">
-      <input type="text" class="border rounder"/>
-      <button class="border px-3 py-2 rounder">Create</button>
+      <input type="text" class="border rounded"/>
+      <a href="/fruit/new" class="flex items-center rounded border border-gray-300 px-3 py-2 hover:bg-gray-100">
+        <div class="i-material-symbols-add mr-3"></div>
+        <span>Create</span>
+      </a>
     </div>
     <div class="rounded shadow">
-      <table class="w-full">
+      <table class="w-full border-separate border-spacing-2">
         <tr class="bg-gray-50">
           <th class="px-3 py-2 text-left">Id</th>
           <th class="px-3 py-2 text-left">Name</th>
           <th class="px-3 py-2 text-left">Action</th>
         </tr>
         <c:forEach var="fruit" items="${fruits.content}">
-          <tr class="">
+          <tr class="p-10">
             <td class="px-3 py-2">${fruit.id}</td>
             <td class="px-3 py-2">${fruit.name}</td>
             <td class="px-3 py-2">
