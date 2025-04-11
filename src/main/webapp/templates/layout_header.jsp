@@ -1,4 +1,4 @@
-<header class="flex h-16 items-center justify-between bg-white px-5 shadow">
+<header class="fixed inset-0 bottom-auto flex h-16 items-center justify-between bg-white px-5 shadow">
   <a href="/" class="flex items-center">
     <div class="i-fluent-emoji-shortcake mr-3 text-3xl"></div>
     <span class="text-xl font-bold">Acer International Bakery</span>

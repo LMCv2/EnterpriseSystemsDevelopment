@@ -6,7 +6,6 @@
   </nav>
   <div class="p-3 w-full"> -->
 
+    <jsp:include page="layout_footer.jsp"/>
   </div>
 </div>
-
-<jsp:include page="layout_footer.jsp"/>
