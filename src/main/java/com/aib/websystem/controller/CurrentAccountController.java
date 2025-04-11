@@ -3,6 +3,7 @@ package com.aib.websystem.controller;
 import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -114,19 +115,19 @@ public class CurrentAccountController extends HttpServlet {
             session.setAttribute("current_account", account.get());
             switch (account.get().getRole()) {
                 case CENTRAL_WAREHOUSE_STAFF:
-                    session.setAttribute("permissions", List.of("dashboard"));
+                    session.setAttribute("permissions", Set.of("dashboard"));
                     res.sendRedirect("/dashboard");
                     break;
                 case SENIOR_MANAGEMENT:
-                    session.setAttribute("permissions", List.of("dashboard", "fruit", "account"));
+                    session.setAttribute("permissions", Set.of("dashboard", "fruit", "account"));
                     res.sendRedirect("/dashboard");
                     break;
                 case SHOP_STAFF:
-                    session.setAttribute("permissions", List.of("dashboard", "stock"));
+                    session.setAttribute("permissions", Set.of("dashboard", "stock"));
                     res.sendRedirect("/dashboard");
                     break;
                 case SOURCE_WAREHOUSE_STAFF:
-                    session.setAttribute("permissions", List.of("dashboard"));
+                    session.setAttribute("permissions", Set.of("dashboard"));
                     res.sendRedirect("/dashboard");
                     break;
             }
