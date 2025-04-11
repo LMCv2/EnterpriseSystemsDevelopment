@@ -1,5 +1,5 @@
 <%@taglib uri="/WEB-INF/tlds/taglib.tld" prefix="taglib" %>
-<taglib:layout title="Home">
+<taglib:layout title="Fruit">
   <div class="container">
     <h2>Update fruit type</h2>
     <form id="updateFruitForm" action="/add-fruit" method="post">

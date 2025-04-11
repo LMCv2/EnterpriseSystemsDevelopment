@@ -6,7 +6,7 @@
     <a href="/fruit" class="px-3 py-3 hover:bg-gray-100">Fruit</a>
     <a href="/account" class="px-3 py-3 hover:bg-gray-100">Account</a>
   </nav>
-  <div class="w-full p-3">
+  <div class="flex-1 p-3">
 
   <!-- </div>
 </div> -->
