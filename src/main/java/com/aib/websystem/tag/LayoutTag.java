@@ -17,7 +17,7 @@ public class LayoutTag extends PageTag {
                 e.printStackTrace();
             }
         }
-        super.setPageContext(pageContext);
+        this.pageContext = pageContext;
     }
 
     @Override

@@ -3,7 +3,9 @@
         "dev": "unocss \"src/**/*.jsp\" -o \"src/main/webapp/static/uno.css\" --watch"
     },
     "devDependencies": {
+        "@iconify-json/fluent-emoji": "latest",
         "@unocss/cli": "latest",
+        "@unocss/preset-icons": "latest",
         "@unocss/preset-typography": "latest",
         "@unocss/preset-wind4": "latest",
         "prettier": "latest",

@@ -3,13 +3,27 @@ package com.aib.websystem.tag;
 import java.io.IOException;
 
 import jakarta.servlet.ServletException;
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.jsp.JspException;
+import jakarta.servlet.jsp.PageContext;
 import jakarta.servlet.jsp.tagext.BodyTagSupport;
 import lombok.Setter;
 
 public class PageTag extends BodyTagSupport {
     @Setter
     private String title;
+
+    @Override
+    public void setPageContext(PageContext pageContext) {
+        if (pageContext.getSession().getAttribute("current_account") != null) {
+            try {
+                ((HttpServletResponse) pageContext.getResponse()).sendRedirect("/dashboard");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        this.pageContext = pageContext;
+    }
 
     @Override
     public int doStartTag() throws JspException {
