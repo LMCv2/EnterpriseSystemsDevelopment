@@ -4,6 +4,7 @@
     },
     "devDependencies": {
         "@iconify-json/fluent-emoji": "latest",
+        "@iconify-json/material-symbols": "latest",
         "@unocss/cli": "latest",
         "@unocss/preset-icons": "latest",
         "@unocss/preset-typography": "latest",

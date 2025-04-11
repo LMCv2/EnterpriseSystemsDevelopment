@@ -11,6 +11,9 @@ importers:
       '@iconify-json/fluent-emoji':
         specifier: latest
         version: 1.2.3
+      '@iconify-json/material-symbols':
+        specifier: latest
+        version: 1.2.18
       '@unocss/cli':
         specifier: latest
         version: 66.1.0-beta.10
@@ -214,6 +217,9 @@ packages:
 
   '@iconify-json/fluent-emoji@1.2.3':
     resolution: {integrity: sha512-q9oSqx463rVTQbPbVwvpOkeVii+9BifvJcluv5lqs5ybdab4lnVnpQ/uE2zAseFGOWNygKJsXZl6HbgV9HGhZw==}
+
+  '@iconify-json/material-symbols@1.2.18':
+    resolution: {integrity: sha512-Me3TNX5S+NvhOyVVdiXeop5ZPaxWRD/nraF3yJkYjgeUY4AOGpDd+uh+O/4pKPmVEq6Md4XjrdvgBoAhDKU/HQ==}
 
   '@iconify/types@2.0.0':
     resolution: {integrity: sha512-+wluvCrRhXrhyOmRDJ3q8mux9JkKy5SJ/v8ol2tu4FVjyYvtEzkc/3pK15ET6RKg4b4w4BmTk1+gsCUhf21Ykg==}
@@ -932,6 +938,10 @@ snapshots:
     optional: true
 
   '@iconify-json/fluent-emoji@1.2.3':
+    dependencies:
+      '@iconify/types': 2.0.0
+
+  '@iconify-json/material-symbols@1.2.18':
     dependencies:
       '@iconify/types': 2.0.0
 

@@ -58,8 +58,8 @@ public class CurrentAccountController extends HttpServlet {
             this.signup(req, res);
         } else if (action.equals("signin")) {
             this.signin(req, res);
-        } else if (action.equals("logout")) {
-            this.logout(req, res);
+        } else if (action.equals("signout")) {
+            this.signout(req, res);
         } else {
             this.doGet(req, res);
         }
@@ -103,10 +103,10 @@ public class CurrentAccountController extends HttpServlet {
         }
     }
 
-    public void logout(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+    public void signout(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
         HttpSession session = req.getSession(false);
         session.invalidate();
-        res.sendRedirect("/sign-in.jsp");
+        res.sendRedirect("/");
     }
 
 }
