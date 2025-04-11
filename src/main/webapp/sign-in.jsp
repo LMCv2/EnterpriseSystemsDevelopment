@@ -2,21 +2,23 @@
 <%@taglib prefix="c" uri="jakarta.tags.core" %>
 <taglib:page title="Home">
   <div class="flex h-screen items-center justify-center bg-stone-600">
-    <div class="rounded bg-white p-6">
-      <h1>Web System</h1>
-      <form action="/" method="post">
-      <input type="hidden" name="action" value="signin">
+    <div class="rounded bg-white p-6 space-y-3">
+      <div class="flex items-center">
+        <div class="i-fluent-emoji-shortcake mr-3 text-3xl"></div>
+        <span class="text-xl font-bold">Acer International Bakery</span>
+      </div>
+      <form action="/" method="post" class="space-y-3">
+        <input type="hidden" name="action" value="signin" />
         <div>
           <label for="username">Username:</label>
-          <input type="text" id="username" name="username" required />
+          <input type="text" id="username" name="username" required class="w-full rounded border border-gray-300 px-3 py-2" />
         </div>
         <div>
           <label for="password">Password:</label>
-          <input type="password" id="password" name="password" required />
+          <input type="password" id="password" name="password" required class="w-full rounded border border-gray-300 px-3 py-2" />
         </div>
-        <button type="submit">Login</button>
+        <input type="submit" value="Login" class="w-full rounded border border-gray-300 px-3 py-2 hover:bg-gray-100" />
       </form>
-      <p><a href="/sign-up.jsp">Create Account</a></p>
     </div>
   </div>
 </taglib:page>
