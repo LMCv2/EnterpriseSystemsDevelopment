@@ -43,7 +43,7 @@ public class Event {
     private Location toLocation;
 
     public Event(Fruit fruit, Integer quantity) {
-        this(fruit, quantity, EventType.CONSUPTION, null, null);
+        this(fruit, quantity, EventType.CONSUMPTION, null, null);
     }
 
     public Event(Fruit fruit, Integer quantity, EventType eventType, Location fromLocation, Location toLocation) {

@@ -6,7 +6,7 @@ import java.util.Map;
 import lombok.Getter;
 
 public enum EventType {
-    CONSUPTION("Consumption"),
+    CONSUMPTION("Consumption"),
     RESERVATION("Reservation"),
     BORROWING("Borrowing");
 
