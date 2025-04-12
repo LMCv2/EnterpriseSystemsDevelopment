@@ -9,14 +9,14 @@
     </a>
   </div>
   <div class="rounded shadow">
-    <table class="w-full border-separate border-spacing-2">
+    <table class="w-full">
       <tr class="bg-gray-50">
         <th class="px-3 py-2 text-left">Id</th>
         <th class="px-3 py-2 text-left">Name</th>
         <th class="px-3 py-2 text-left">Action</th>
       </tr>
       <c:forEach var="fruit" items="${fruits.content}">
-        <tr class="p-10">
+        <tr>
           <td class="px-3 py-2">${fruit.id}</td>
           <td class="px-3 py-2">${fruit.name}</td>
           <td class="px-3 py-2">

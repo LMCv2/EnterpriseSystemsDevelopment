@@ -20,8 +20,8 @@ public class StockController {
     private StockRepository stockRepository;
 
     @GetMapping("")
-    public String getStockPage(Model model) {
-        model.addAttribute("stock", stockRepository.findAll(PageRequest.of(0, 10)));
+    public String getStocksPage(Model model) {
+        model.addAttribute("stocks", stockRepository.findAll(PageRequest.of(0, 10)));
         return "/pages/stock/index";
     }
 

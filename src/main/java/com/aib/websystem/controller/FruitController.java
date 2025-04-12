@@ -20,7 +20,7 @@ public class FruitController {
     private FruitRepository fruitRepository;
 
     @GetMapping("")
-    public String getFruitPage(Model model) {
+    public String getFruitsPage(Model model) {
         model.addAttribute("fruits", fruitRepository.findAll(PageRequest.of(0, 10)));
         return "/pages/fruit/index";
     }

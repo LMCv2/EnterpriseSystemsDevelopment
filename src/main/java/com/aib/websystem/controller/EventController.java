@@ -35,8 +35,8 @@ public class EventController {
     private LocationRepository locationRepository;
 
     @GetMapping("")
-    public String getEventPage(Model model) {
-        model.addAttribute("borrowing", eventRepository.findAll(PageRequest.of(0, 10)));
+    public String getEventsPage(Model model) {
+        model.addAttribute("events", eventRepository.findAll(PageRequest.of(0, 10)));
         return "/pages/event/index";
     }
 

@@ -13,12 +13,14 @@
       <tr class="bg-gray-50">
         <th class="px-3 py-2 text-left">Username</th>
         <th class="px-3 py-2 text-left">Role</th>
+        <th class="px-3 py-2 text-left">Location</th>
         <th class="px-3 py-2 text-left">Action</th>
       </tr>
       <c:forEach var="account" items="${accounts.content}">
       <tr>
         <td class="px-3 py-2">${account.username}</td>
         <td class="px-3 py-2">${account.role.label}</td>
+        <td class="px-3 py-2">${account.location.name}</td>
         <td class="px-3 py-2">
           <a class="inline-block rounded-full p-2 hover:bg-gray-100" href="/account/${account.username}">
             <div class="i-material-symbols-edit?bg text-xl"></div>
