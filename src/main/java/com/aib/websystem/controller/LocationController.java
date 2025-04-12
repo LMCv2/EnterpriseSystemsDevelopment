@@ -15,7 +15,7 @@ public class LocationController {
     @Autowired
     private LocationRepository locationRepository;
 
-    @GetMapping("")
+    @GetMapping("/")
     public String getLocationsPage(Model model) {
         model.addAttribute("locations", locationRepository.findAll(PageRequest.of(0, 10)));
         return "/pages/location/index";

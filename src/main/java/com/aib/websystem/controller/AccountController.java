@@ -23,7 +23,7 @@ public class AccountController {
     @Autowired
     private AccountRepository accountRepository;
 
-    @GetMapping("")
+    @GetMapping("/")
     public String getAccountsPage(Model model) {
         model.addAttribute("accounts", accountRepository.findAll(PageRequest.of(0, 10)));
         return "/pages/account/index";

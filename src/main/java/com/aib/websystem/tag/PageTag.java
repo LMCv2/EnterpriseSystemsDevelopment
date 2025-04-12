@@ -17,7 +17,7 @@ public class PageTag extends BodyTagSupport {
     public void setPageContext(PageContext pageContext) {
         if (pageContext.getSession().getAttribute("current_account") != null) {
             try {
-                ((HttpServletResponse) pageContext.getResponse()).sendRedirect("/dashboard");
+                ((HttpServletResponse) pageContext.getResponse()).sendRedirect("/dashboard/");
             } catch (IOException e) {
                 e.printStackTrace();
             }

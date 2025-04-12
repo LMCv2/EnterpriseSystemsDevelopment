@@ -19,7 +19,7 @@ public class FruitController {
     @Autowired
     private FruitRepository fruitRepository;
 
-    @GetMapping("")
+    @GetMapping("/")
     public String getFruitsPage(Model model) {
         model.addAttribute("fruits", fruitRepository.findAll(PageRequest.of(0, 10)));
         return "/pages/fruit/index";

@@ -34,7 +34,7 @@ public class EventController {
     @Autowired
     private LocationRepository locationRepository;
 
-    @GetMapping("")
+    @GetMapping("/")
     public String getEventsPage(Model model) {
         model.addAttribute("events", eventRepository.findAll(PageRequest.of(0, 10)));
         return "/pages/event/index";

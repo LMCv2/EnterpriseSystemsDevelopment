@@ -137,23 +137,23 @@ public class CurrentAccountController extends HttpServlet {
             switch (account.get().getRole()) {
                 case ADMIN:
                     session.setAttribute("permissions", Set.of("dashboard", "stock", "event", "fruit", "location", "account"));
-                    res.sendRedirect("/dashboard");
+                    res.sendRedirect("/dashboard/");
                     break;
                 case SHOP_STAFF:
                     session.setAttribute("permissions", Set.of("dashboard", "stock", "event"));
-                    res.sendRedirect("/dashboard");
+                    res.sendRedirect("/dashboard/");
                     break;
                 case CENTRAL_WAREHOUSE_STAFF:
                     session.setAttribute("permissions", Set.of("dashboard", "stock", "event"));
-                    res.sendRedirect("/dashboard");
+                    res.sendRedirect("/dashboard/");
                     break;
                 case SOURCE_WAREHOUSE_STAFF:
                     session.setAttribute("permissions", Set.of("dashboard", "stock", "event"));
-                    res.sendRedirect("/dashboard");
+                    res.sendRedirect("/dashboard/");
                     break;
                 case SENIOR_MANAGEMENT:
                     session.setAttribute("permissions", Set.of("dashboard", "fruit", "location", "account"));
-                    res.sendRedirect("/dashboard");
+                    res.sendRedirect("/dashboard/");
                     break;
             }
         } else {
