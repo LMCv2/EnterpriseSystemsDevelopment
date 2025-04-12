@@ -1,6 +1,6 @@
 package com.aib.websystem.entity;
 
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 import lombok.Getter;
@@ -10,7 +10,7 @@ public enum LocationType {
     CENTRAL_WAREHOUSE("Central Warehouse"),
     SHOP("Shop");
 
-    public static Map<String, String> MAP = new HashMap<>();
+    public static Map<String, String> MAP = new LinkedHashMap<>();
 
     static {
         for (LocationType value : values()) {
