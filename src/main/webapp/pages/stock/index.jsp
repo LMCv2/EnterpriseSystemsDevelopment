@@ -8,7 +8,6 @@
               <th class="px-3 py-2 text-left">Id</th>
               <th class="px-3 py-2 text-left">Fruit</th>
               <th class="px-3 py-2 text-left">Quantity</th>
-              <th class="px-3 py-2 text-left">Action</th>
             </tr>
             <c:forEach var="stock" items="${stock.content}">
               <tr class="p-10">
@@ -17,6 +16,9 @@
                 <td class="px-3 py-2">${stock.quantity}</td>
                 <td class="px-3 py-2">
                   <a class="py-2.5 px-5 me-2 mb-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-full border border-gray-400 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100" href="/stock/${stock.id}">Update</a>
+                </td>
+                <td class="px-3 py-2">
+                  <a class="py-2.5 px-5 me-2 mb-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-full border border-gray-400 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100" href="/borrowing/id=${stock.id}?city={borrowing.borrowerShop.cityOrCountry}">Borrow</a>
                 </td>
               </tr>
             </c:forEach>

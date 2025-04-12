@@ -9,6 +9,7 @@ import java.util.Set;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.domain.Specification;
 
 import com.aib.websystem.WebsystemApplication;
 import com.aib.websystem.entity.Account;
@@ -93,13 +94,13 @@ public class CurrentAccountController extends HttpServlet {
         fruitRepository.save(new Fruit("Mango"));
 
         // warehouse
-
-        locationRepository.save(new Location("Source Warehouse 1", "Hong Kong", "SOURCE_WAREHOUSE"));
-        locationRepository.save(new Location("Central Warehouse 1", "Hong Kong", "CENTRAL_WAREHOUSE"));
-        locationRepository.save(new Location("Central Warehouse 2", "Hong Kong", "CENTRAL_WAREHOUSE"));
-        locationRepository.save(new Location("Central Warehouse 3", "London", "CENTRAL_WAREHOUSE"));
+        Iterator<Account> account = accountRepository.findAll().iterator();
+        locationRepository.save(new Location("Source Warehouse 1", "Hong Kong", "SOURCE_WAREHOUSE", account.next()));
+        locationRepository.save(new Location("Central Warehouse 1", "Hong Kong", "CENTRAL_WAREHOUSE", null));
+        locationRepository.save(new Location("Central Warehouse 2", "Hong Kong", "CENTRAL_WAREHOUSE", null));
+        locationRepository.save(new Location("Central Warehouse 3", "London", "CENTRAL_WAREHOUSE", null));
         // bakery shop
-        locationRepository.save(new Location("Bakery Shop 1", "Hong Kong", "SHOP"));
+        locationRepository.save(new Location("Bakery Shop 1", "Hong Kong", "SHOP", null));
 
         //stock
         for(Fruit fruit : fruitRepository.findAll()) {
@@ -108,7 +109,11 @@ public class CurrentAccountController extends HttpServlet {
 
         //borrowing
         Fruit fruit = fruitRepository.findAll().iterator().next();
-        Iterator<Location> it = locationRepository.findAll().iterator();
+        
+        // Create a specification that returns all locations
+        Specification<Location> allLocations = (root, query, criteriaBuilder) -> criteriaBuilder.isTrue(criteriaBuilder.literal(true));
+        Iterator<Location> it = locationRepository.findAll(allLocations).iterator();
+        
         borrowingRepository.save(new Borrowing(fruit, 100, it.next() , it.next()));
 
         res.sendRedirect("/");
