@@ -1,7 +1,6 @@
 <%@taglib uri="/WEB-INF/tlds/taglib.tld" prefix="taglib" %>
 <%@taglib prefix="c" uri="jakarta.tags.core" %>
 <taglib:layout title="Fruit">
-    <div class="container">
         <div class="rounded shadow">
           <table class="w-full border-separate border-spacing-2">
             <tr class="bg-gray-50">
@@ -24,5 +23,4 @@
             </c:forEach>
           </table>
         </div>
-      </div>
 </taglib:layout>

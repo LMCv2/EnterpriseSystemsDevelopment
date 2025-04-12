@@ -1,7 +1,6 @@
 <%@taglib uri="/WEB-INF/tlds/taglib.tld" prefix="taglib" %>
 <%@taglib prefix="c" uri="jakarta.tags.core" %>
 <taglib:layout title="Fruit">
-    <div class="container">
       <div class="flex justify-between mb-3">
         <input type="text" class="border rounded"/>
         <a href="#" class="flex items-center rounded border border-gray-300 px-3 py-2 hover:bg-gray-100">
@@ -29,5 +28,4 @@
             </c:forEach>
           </table>
         </div>
-      </div>
 </taglib:layout>

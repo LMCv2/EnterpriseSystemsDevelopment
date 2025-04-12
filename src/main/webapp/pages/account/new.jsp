@@ -1,7 +1,6 @@
 <%@taglib uri="/WEB-INF/tlds/taglib.tld" prefix="taglib" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <taglib:layout title="Account">
-  <div class="container">
     <h2>Create Account</h2>
     <form:form modelAttribute="account" action="/account/new" method="post" class="space-y-3">
       <div>
@@ -20,5 +19,4 @@
       </div>
       <input type="submit" value="Create" class="w-full rounded border border-gray-300 px-3 py-2 hover:bg-gray-100" />
     </form:form>
-  </div>
 </taglib:layout>
