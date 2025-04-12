@@ -11,10 +11,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.aib.websystem.entity.Borrowing;
+import com.aib.websystem.entity.Record;
 import com.aib.websystem.entity.Location;
-import com.aib.websystem.repository.BorrowingRepository;
 import com.aib.websystem.repository.LocationRepository;
+import com.aib.websystem.repository.RecordRepository;
 import com.aib.websystem.repository.StockRepository;
 
 import net.kaczmarzyk.spring.data.jpa.domain.Equal;
@@ -26,7 +26,7 @@ import net.kaczmarzyk.spring.data.jpa.web.annotation.Spec;
 @RequestMapping(path = "/borrowing")
 public class BorrowingController {
     @Autowired
-    private BorrowingRepository borrowingRepository;
+    private RecordRepository recordRepository;
 
     @Autowired
     private StockRepository stockRepository;
@@ -36,7 +36,7 @@ public class BorrowingController {
 
     @GetMapping("")
     public String getAccounts(Model model) {
-        model.addAttribute("borrowing", borrowingRepository.findAll(PageRequest.of(0, 10)));
+        model.addAttribute("borrowing", recordRepository.findAll(PageRequest.of(0, 10)));
         return "/pages/borrowing/index";
     }
 

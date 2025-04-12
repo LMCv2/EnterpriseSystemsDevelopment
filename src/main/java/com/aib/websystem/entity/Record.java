@@ -13,7 +13,7 @@ import lombok.ToString;
 @Entity
 @ToString
 @NoArgsConstructor
-public class Borrowing {
+public class Record {
     @Id
     @Getter
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -30,18 +30,27 @@ public class Borrowing {
 
     @Getter
     @Setter
-    @ManyToOne
-    private Location lenderShop;
+    private RecordType recordType;
 
     @Getter
     @Setter
     @ManyToOne
-    private Location borrowerShop;
+    private Location fromLocation;
 
-    public Borrowing(Fruit fruit, Integer quantity, Location lenderShop, Location borrowerShop) {
+    @Getter
+    @Setter
+    @ManyToOne
+    private Location toLocation;
+
+    public Record(Fruit fruit, Integer quantity) {
+        this(fruit, quantity, RecordType.CONSUPTION, null, null);
+    }
+
+    public Record(Fruit fruit, Integer quantity, RecordType recordType, Location fromLocation, Location toLocation) {
         this.fruit = fruit;
         this.quantity = quantity;
-        this.lenderShop = lenderShop;
-        this.borrowerShop = borrowerShop;
+        this.recordType = recordType;
+        this.fromLocation = fromLocation;
+        this.toLocation = toLocation;
     }
 }

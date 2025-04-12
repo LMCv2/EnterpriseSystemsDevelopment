@@ -14,7 +14,6 @@ import lombok.ToString;
 public class Account {
     @Id
     @Getter
-    @Setter
     private String username;
 
     @Getter

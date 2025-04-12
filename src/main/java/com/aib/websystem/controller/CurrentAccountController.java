@@ -13,16 +13,17 @@ import org.springframework.data.jpa.domain.Specification;
 
 import com.aib.websystem.WebsystemApplication;
 import com.aib.websystem.entity.Account;
-import com.aib.websystem.entity.Borrowing;
+import com.aib.websystem.entity.Record;
+import com.aib.websystem.entity.RecordType;
 import com.aib.websystem.entity.Fruit;
 import com.aib.websystem.entity.Role;
 import com.aib.websystem.entity.Stock;
 import com.aib.websystem.entity.Location;
 import com.aib.websystem.entity.LocationType;
 import com.aib.websystem.repository.AccountRepository;
-import com.aib.websystem.repository.BorrowingRepository;
 import com.aib.websystem.repository.FruitRepository;
 import com.aib.websystem.repository.LocationRepository;
+import com.aib.websystem.repository.RecordRepository;
 import com.aib.websystem.repository.StockRepository;
 
 import jakarta.servlet.RequestDispatcher;
@@ -48,7 +49,7 @@ public class CurrentAccountController extends HttpServlet {
     private StockRepository stockRepository;
 
     @Autowired
-    private BorrowingRepository borrowingRepository;
+    private RecordRepository recordRepository;
 
     private static final Logger logger = LoggerFactory.getLogger(WebsystemApplication.class);
 
@@ -96,8 +97,9 @@ public class CurrentAccountController extends HttpServlet {
 
         // warehouse
         Iterator<Account> account = accountRepository.findAll().iterator();
-        locationRepository.save(new Location("Source Warehouse 1", "Hong Kong", LocationType.SOURCE_WAREHOUSE));
-        locationRepository.save(new Location("Central Warehouse 1", "Hong Kong",  LocationType.CENTRAL_WAREHOUSE));
+        Location source = new Location("Source Warehouse 1", "Hong Kong", LocationType.SOURCE_WAREHOUSE);
+        locationRepository.save(source);
+        locationRepository.save(new Location("Central Warehouse 1", "Hong Kong", LocationType.CENTRAL_WAREHOUSE));
         locationRepository.save(new Location("Central Warehouse 2", "Hong Kong", LocationType.CENTRAL_WAREHOUSE));
         locationRepository.save(new Location("Central Warehouse 3", "London", LocationType.CENTRAL_WAREHOUSE));
         // bakery shop
@@ -105,7 +107,7 @@ public class CurrentAccountController extends HttpServlet {
 
         // stock
         for (Fruit fruit : fruitRepository.findAll()) {
-            stockRepository.save(new Stock(fruit, 100));
+            stockRepository.save(new Stock(fruit, source, 100));
         }
 
         // borrowing
@@ -114,7 +116,7 @@ public class CurrentAccountController extends HttpServlet {
         // Create a specification that returns all locations
         Specification<Location> allLocations = (root, query, criteriaBuilder) -> criteriaBuilder.isTrue(criteriaBuilder.literal(true));
         Iterator<Location> it = locationRepository.findAll(allLocations).iterator();
-        borrowingRepository.save(new Borrowing(fruit, 100, it.next(), it.next()));
+        recordRepository.save(new Record(fruit, 100, RecordType.BORROWING, it.next(), it.next()));
 
         // account
         accountRepository.save(new Account("shop", "a", Role.SHOP_STAFF, it.next()));
