@@ -38,7 +38,7 @@ public class StockController {
             stock.setQuantity(quantity);
             stockRepository.save(stock);
         }
-        return "redirect:/stock";
+        return "redirect:/stock/";
     }
 
 }

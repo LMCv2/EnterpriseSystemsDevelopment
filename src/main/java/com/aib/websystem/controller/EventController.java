@@ -40,11 +40,16 @@ public class EventController {
         return "/pages/event/index";
     }
 
-    @GetMapping("/{id}")
-    public String createBorrowing(@PathVariable Long id, @PathVariable String city, Model model,
-            @Spec(path = "city", spec = Like.class) Specification<Location> spec) {
-        model.addAttribute("stock", stockRepository.findById(id).orElse(null));
-        model.addAttribute("sameCity", locationRepository.findAll(spec));
+    @GetMapping("/new")
+    public String getNewEventPage() {
         return "/pages/event/new";
     }
+
+    // @GetMapping("/{id}")
+    // public String createBorrowing(@PathVariable Long id, @PathVariable String city, Model model,
+    //         @Spec(path = "city", spec = Like.class) Specification<Location> spec) {
+    //     model.addAttribute("stock", stockRepository.findById(id).orElse(null));
+    //     model.addAttribute("sameCity", locationRepository.findAll(spec));
+    //     return "/pages/event/new";
+    // }
 }

@@ -24,10 +24,7 @@
           <td class="px-3 py-2">${stock.location.name}</td>
           <td class="px-3 py-2">${stock.quantity}</td>
           <td class="px-3 py-2">
-            <a class="inline-block rounded-full p-2 hover:bg-gray-100" href="/stock/${location.id}">
-              <div class="i-material-symbols-edit?bg text-xl"></div>
-            </a>
-            <a class="inline-block rounded-full p-2 hover:bg-gray-100" href="/event/id=${stock.id}?city=${event.borrowerShop.cityName}">
+            <a class="inline-block rounded-full p-2 hover:bg-gray-100" href="/stock/${stock.id}">
               <div class="i-material-symbols-edit?bg text-xl"></div>
             </a>
           </td>
