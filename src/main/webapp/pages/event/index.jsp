@@ -3,7 +3,7 @@
 <taglib:layout title="Fruit">
       <div class="flex justify-between mb-3">
         <a href="#" class="flex items-center rounded border border-gray-300 px-3 py-2 hover:bg-gray-100">
-          <div class="i-material-symbols-add mr-3"></div>
+          <div class="i-material-symbols-add?bg mr-3"></div>
           <span>Create</span>
         </a>
         <input type="text" class="border rounded"/>

@@ -2,11 +2,11 @@
 <%@taglib prefix="c" uri="jakarta.tags.core" %>
 <taglib:layout title="Account">
   <div class="mb-3 flex justify-between">
+    <input type="text" class="rounded border" />
     <a href="/account/new" class="flex items-center rounded border border-gray-300 px-3 py-2 hover:bg-gray-100">
-      <div class="i-material-symbols-add mr-3"></div>
+      <div class="i-material-symbols-add?bg mr-3"></div>
       <span>Create</span>
     </a>
-    <input type="text" class="rounded border" />
   </div>
   <div class="rounded shadow">
     <table class="w-full">

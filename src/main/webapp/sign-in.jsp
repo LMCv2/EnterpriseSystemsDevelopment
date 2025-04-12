@@ -4,7 +4,7 @@
   <div class="flex h-screen items-center justify-center bg-stone-600 bg-hero-graph-paper-stone-600">
     <div class="space-y-3 rounded bg-white p-6">
       <div class="flex items-center">
-        <div class="i-fluent-emoji-shortcake mr-3 text-3xl"></div>
+        <div class="i-fluent-emoji-shortcake?bg mr-3 text-3xl"></div>
         <span class="text-xl font-bold">Acer International Bakery</span>
       </div>
       <form action="/" method="post" class="space-y-3">
