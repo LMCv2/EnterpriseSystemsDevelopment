@@ -1,5 +1,7 @@
 <%@taglib uri="/WEB-INF/tlds/taglib.tld" prefix="taglib" %>
 <%@taglib prefix="c" uri="jakarta.tags.core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<c:set var="now" value="<%=new java.util.Date()%>" />
 <taglib:layout title="Event">
   <div class="mb-3 flex justify-between">
     <input type="text" class="rounded border" />
@@ -30,8 +32,8 @@
           <td class="px-3 py-2">${event.fromLocation.name}</td>
           <td class="px-3 py-2">${event.toLocation.name}</td>
           <td class="px-3 py-2">${event.status.label}</td>
-          <td class="px-3 py-2">${event.eventDate}</td>
-          <td class="px-3 py-2">${event.arrivalDate}</td>
+          <td class="px-3 py-2"><fmt:formatDate type="both" dateStyle="short" timeStyle="short" value="${event.eventDate}" /></td>
+          <td class="px-3 py-2"><fmt:formatDate type="both" dateStyle="short" timeStyle="short" value="${event.arrivalDate}" /></td>
         </tr>
       </c:forEach>
     </table>
