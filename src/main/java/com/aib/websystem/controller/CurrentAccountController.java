@@ -95,12 +95,12 @@ public class CurrentAccountController extends HttpServlet {
 
         // warehouse
         Iterator<Account> account = accountRepository.findAll().iterator();
-        locationRepository.save(new Location("Source Warehouse 1", "Hong Kong", "SOURCE_WAREHOUSE", account.next()));
-        locationRepository.save(new Location("Central Warehouse 1", "Hong Kong", "CENTRAL_WAREHOUSE", null));
-        locationRepository.save(new Location("Central Warehouse 2", "Hong Kong", "CENTRAL_WAREHOUSE", null));
-        locationRepository.save(new Location("Central Warehouse 3", "London", "CENTRAL_WAREHOUSE", null));
+        locationRepository.save(new Location("Source Warehouse 1", "Hong Kong", "SOURCE_WAREHOUSE"));
+        locationRepository.save(new Location("Central Warehouse 1", "Hong Kong", "CENTRAL_WAREHOUSE"));
+        locationRepository.save(new Location("Central Warehouse 2", "Hong Kong", "CENTRAL_WAREHOUSE"));
+        locationRepository.save(new Location("Central Warehouse 3", "London", "CENTRAL_WAREHOUSE"));
         // bakery shop
-        locationRepository.save(new Location("Bakery Shop 1", "Hong Kong", "SHOP", null));
+        locationRepository.save(new Location("Bakery Shop 1", "Hong Kong", "SHOP"));
 
         //stock
         for(Fruit fruit : fruitRepository.findAll()) {
@@ -113,8 +113,10 @@ public class CurrentAccountController extends HttpServlet {
         // Create a specification that returns all locations
         Specification<Location> allLocations = (root, query, criteriaBuilder) -> criteriaBuilder.isTrue(criteriaBuilder.literal(true));
         Iterator<Location> it = locationRepository.findAll(allLocations).iterator();
-        
         borrowingRepository.save(new Borrowing(fruit, 100, it.next() , it.next()));
+
+        //account
+        accountRepository.save(new Account("shop", "a", Role.SHOP_STAFF, it.next()));
 
         res.sendRedirect("/");
     }

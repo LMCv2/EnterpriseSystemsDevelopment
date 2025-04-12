@@ -33,13 +33,7 @@ public class Location {
     private String type;
     // "SHOP", "SOURCE_WAREHOUSE", "CENTRAL_WAREHOUSE" "SOURCE"
 
-    @Getter
-    @Setter
-    @ManyToOne
-    private Account account;
-
-    public Location(String name, String cityOrCountry, String type, Account account) {
-        this.account = account;
+    public Location(String name, String cityOrCountry, String type) {
         this.name = name;
         this.type = type;
         this.cityOrCountry = cityOrCountry;
