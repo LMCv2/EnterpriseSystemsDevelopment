@@ -1,6 +1,9 @@
 package com.aib.websystem.controller;
 
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.Month;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.Optional;
 import java.util.Set;
@@ -19,6 +22,7 @@ import com.aib.websystem.entity.Role;
 import com.aib.websystem.entity.Stock;
 import com.aib.websystem.entity.Location;
 import com.aib.websystem.entity.LocationType;
+import com.aib.websystem.entity.EventStatus;
 import com.aib.websystem.repository.AccountRepository;
 import com.aib.websystem.repository.FruitRepository;
 import com.aib.websystem.repository.LocationRepository;
@@ -115,7 +119,7 @@ public class CurrentAccountController extends HttpServlet {
         // Create a specification that returns all locations
         Specification<Location> allLocations = (root, query, criteriaBuilder) -> criteriaBuilder.isTrue(criteriaBuilder.literal(true));
         Iterator<Location> it = locationRepository.findAll(allLocations).iterator();
-        eventRepository.save(new Event(fruit, 100, EventType.BORROWING, it.next(), it.next()));
+        eventRepository.save(new Event(fruit, 100, EventType.BORROWING, it.next(), it.next(), new Date(), new Date(), EventStatus.WAITAPPROVE));
 
         // account
         accountRepository.save(new Account("shop", "a", Role.SHOP_STAFF, it.next()));

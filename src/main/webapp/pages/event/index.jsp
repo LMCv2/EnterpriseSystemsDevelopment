@@ -17,6 +17,9 @@
         <th class="px-3 py-2 text-left">EventType</th>
         <th class="px-3 py-2 text-left">Origin</th>
         <th class="px-3 py-2 text-left">Destination</th>
+        <th class="px-3 py-2 text-left">Status</th>
+        <th class="px-3 py-2 text-left">Create at</th>
+        <th class="px-3 py-2 text-left">Arrival at</th>
       </tr>
       <c:forEach var="event" items="${events.content}">
         <tr>
@@ -26,6 +29,9 @@
           <td class="px-3 py-2">${event.eventType.label}</td>
           <td class="px-3 py-2">${event.fromLocation.name}</td>
           <td class="px-3 py-2">${event.toLocation.name}</td>
+          <td class="px-3 py-2">${event.status.label}</td>
+          <td class="px-3 py-2">${event.eventDate}</td>
+          <td class="px-3 py-2">${event.arrivalDate}</td>
         </tr>
       </c:forEach>
     </table>

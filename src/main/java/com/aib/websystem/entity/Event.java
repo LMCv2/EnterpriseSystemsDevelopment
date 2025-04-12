@@ -1,5 +1,8 @@
 package com.aib.websystem.entity;
 
+import java.time.LocalDateTime;
+import java.util.Date;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -42,15 +45,30 @@ public class Event {
     @ManyToOne
     private Location toLocation;
 
+    @Getter
+    @Setter
+    private Date eventDate;
+
+    @Getter
+    @Setter
+    private Date arrivalDate;
+
+    @Getter
+    @Setter
+    private EventStatus status;
+
     public Event(Fruit fruit, Integer quantity) {
-        this(fruit, quantity, EventType.CONSUMPTION, null, null);
+        this(fruit, quantity, EventType.CONSUMPTION, null, null, null, null, null);
     }
 
-    public Event(Fruit fruit, Integer quantity, EventType eventType, Location fromLocation, Location toLocation) {
+    public Event(Fruit fruit, Integer quantity, EventType eventType, Location fromLocation, Location toLocation, Date eventDate, Date arrivalDate, EventStatus status) {
         this.fruit = fruit;
         this.quantity = quantity;
         this.eventType = eventType;
         this.fromLocation = fromLocation;
         this.toLocation = toLocation;
+        this.eventDate = eventDate;
+        this.arrivalDate = arrivalDate;
+        this.status = status;
     }
 }
