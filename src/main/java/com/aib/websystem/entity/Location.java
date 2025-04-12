@@ -4,8 +4,6 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToMany;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -26,16 +24,15 @@ public class Location {
 
     @Getter
     @Setter
-    private String cityOrCountry;
+    private String cityName;
 
     @Getter
     @Setter
-    private String type;
-    // "SHOP", "SOURCE_WAREHOUSE", "CENTRAL_WAREHOUSE" "SOURCE"
+    private LocationType type;
 
-    public Location(String name, String cityOrCountry, String type) {
+    public Location(String name, String cityName, LocationType type) {
         this.name = name;
+        this.cityName = cityName;
         this.type = type;
-        this.cityOrCountry = cityOrCountry;
     }
 }

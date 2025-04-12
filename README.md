@@ -53,7 +53,7 @@ http://127.0.0.1:8080/
 
 ```mermaid
 erDiagram
-    Location ||--|{ Account : managed
+    Location |o--|{ Account : managed
     Location ||--|{ Stock : store
     Stock }|--|| Fruit : store
     Location ||--o{ Reservation : recorded

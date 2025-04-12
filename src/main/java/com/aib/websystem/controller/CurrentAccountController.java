@@ -18,6 +18,7 @@ import com.aib.websystem.entity.Fruit;
 import com.aib.websystem.entity.Role;
 import com.aib.websystem.entity.Stock;
 import com.aib.websystem.entity.Location;
+import com.aib.websystem.entity.LocationType;
 import com.aib.websystem.repository.AccountRepository;
 import com.aib.websystem.repository.BorrowingRepository;
 import com.aib.websystem.repository.FruitRepository;
@@ -95,12 +96,12 @@ public class CurrentAccountController extends HttpServlet {
 
         // warehouse
         Iterator<Account> account = accountRepository.findAll().iterator();
-        locationRepository.save(new Location("Source Warehouse 1", "Hong Kong", "SOURCE_WAREHOUSE"));
-        locationRepository.save(new Location("Central Warehouse 1", "Hong Kong", "CENTRAL_WAREHOUSE"));
-        locationRepository.save(new Location("Central Warehouse 2", "Hong Kong", "CENTRAL_WAREHOUSE"));
-        locationRepository.save(new Location("Central Warehouse 3", "London", "CENTRAL_WAREHOUSE"));
+        locationRepository.save(new Location("Source Warehouse 1", "Hong Kong", LocationType.SOURCE_WAREHOUSE));
+        locationRepository.save(new Location("Central Warehouse 1", "Hong Kong",  LocationType.CENTRAL_WAREHOUSE));
+        locationRepository.save(new Location("Central Warehouse 2", "Hong Kong", LocationType.CENTRAL_WAREHOUSE));
+        locationRepository.save(new Location("Central Warehouse 3", "London", LocationType.CENTRAL_WAREHOUSE));
         // bakery shop
-        locationRepository.save(new Location("Bakery Shop 1", "Hong Kong", "SHOP"));
+        locationRepository.save(new Location("Bakery Shop 1", "Hong Kong", LocationType.SHOP));
 
         // stock
         for (Fruit fruit : fruitRepository.findAll()) {
