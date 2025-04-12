@@ -3,7 +3,7 @@ package com.aib.websystem.repository;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.PagingAndSortingRepository;
 
-import com.aib.websystem.entity.Record;
+import com.aib.websystem.entity.Event;
 
-public interface RecordRepository extends CrudRepository<Record, String>, PagingAndSortingRepository<Record, String>  {
+public interface EventRepository extends CrudRepository<Event, String>, PagingAndSortingRepository<Event, String>  {
 }

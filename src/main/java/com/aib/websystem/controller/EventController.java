@@ -11,10 +11,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.aib.websystem.entity.Record;
+import com.aib.websystem.entity.Event;
 import com.aib.websystem.entity.Location;
 import com.aib.websystem.repository.LocationRepository;
-import com.aib.websystem.repository.RecordRepository;
+import com.aib.websystem.repository.EventRepository;
 import com.aib.websystem.repository.StockRepository;
 
 import net.kaczmarzyk.spring.data.jpa.domain.Equal;
@@ -23,10 +23,10 @@ import net.kaczmarzyk.spring.data.jpa.web.SpecificationArgumentResolver;
 import net.kaczmarzyk.spring.data.jpa.web.annotation.Spec;
 
 @Controller
-@RequestMapping("/record")
-public class RecordController {
+@RequestMapping("/event")
+public class EventController {
     @Autowired
-    private RecordRepository recordRepository;
+    private EventRepository eventRepository;
 
     @Autowired
     private StockRepository stockRepository;
@@ -35,9 +35,9 @@ public class RecordController {
     private LocationRepository locationRepository;
 
     @GetMapping("")
-    public String getRecordPage(Model model) {
-        model.addAttribute("borrowing", recordRepository.findAll(PageRequest.of(0, 10)));
-        return "/pages/record/index";
+    public String getEventPage(Model model) {
+        model.addAttribute("borrowing", eventRepository.findAll(PageRequest.of(0, 10)));
+        return "/pages/event/index";
     }
 
     @GetMapping("/{id}")
@@ -45,6 +45,6 @@ public class RecordController {
             @Spec(path = "city", spec = Like.class) Specification<Location> spec) {
         model.addAttribute("stock", stockRepository.findById(id).orElse(null));
         model.addAttribute("sameCity", locationRepository.findAll(spec));
-        return "/pages/record/new";
+        return "/pages/event/new";
     }
 }

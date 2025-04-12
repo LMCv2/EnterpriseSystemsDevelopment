@@ -9,10 +9,10 @@
         <span>Dashboard</span>
       </a>
     </c:if>
-    <c:if test="${permissions.contains('record')}">
-      <a href="/record" class="flex items-center px-3 py-3 hover:bg-gray-100">
+    <c:if test="${permissions.contains('event')}">
+      <a href="/event" class="flex items-center px-3 py-3 hover:bg-gray-100">
         <div class="i-material-symbols-event-note mr-3"></div>
-        <span>Record</span>
+        <span>Event</span>
       </a>
     </c:if>
     <c:if test="${permissions.contains('stock')}">

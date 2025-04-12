@@ -5,7 +5,7 @@ import java.util.Map;
 
 import lombok.Getter;
 
-public enum RecordType {
+public enum EventType {
     CONSUPTION("Consumption"),
     RESERVATION("Reservation"),
     BORROWING("Borrowing");
@@ -13,7 +13,7 @@ public enum RecordType {
     public static Map<String, String> MAP = new LinkedHashMap<>();
 
     static {
-        for (RecordType value : values()) {
+        for (EventType value : values()) {
             MAP.put(value.name(), value.label);
         }
     }
@@ -21,7 +21,7 @@ public enum RecordType {
     @Getter
     private String label;
 
-    private RecordType(String label) {
+    private EventType(String label) {
         this.label = label;
     }
 }

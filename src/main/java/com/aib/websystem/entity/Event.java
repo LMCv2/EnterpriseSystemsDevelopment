@@ -13,7 +13,7 @@ import lombok.ToString;
 @Entity
 @ToString
 @NoArgsConstructor
-public class Record {
+public class Event {
     @Id
     @Getter
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -30,7 +30,7 @@ public class Record {
 
     @Getter
     @Setter
-    private RecordType recordType;
+    private EventType eventType;
 
     @Getter
     @Setter
@@ -42,14 +42,14 @@ public class Record {
     @ManyToOne
     private Location toLocation;
 
-    public Record(Fruit fruit, Integer quantity) {
-        this(fruit, quantity, RecordType.CONSUPTION, null, null);
+    public Event(Fruit fruit, Integer quantity) {
+        this(fruit, quantity, EventType.CONSUPTION, null, null);
     }
 
-    public Record(Fruit fruit, Integer quantity, RecordType recordType, Location fromLocation, Location toLocation) {
+    public Event(Fruit fruit, Integer quantity, EventType eventType, Location fromLocation, Location toLocation) {
         this.fruit = fruit;
         this.quantity = quantity;
-        this.recordType = recordType;
+        this.eventType = eventType;
         this.fromLocation = fromLocation;
         this.toLocation = toLocation;
     }

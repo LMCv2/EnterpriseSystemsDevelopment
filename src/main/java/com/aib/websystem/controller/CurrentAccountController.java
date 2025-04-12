@@ -12,8 +12,8 @@ import org.springframework.data.jpa.domain.Specification;
 
 import com.aib.websystem.WebsystemApplication;
 import com.aib.websystem.entity.Account;
-import com.aib.websystem.entity.Record;
-import com.aib.websystem.entity.RecordType;
+import com.aib.websystem.entity.Event;
+import com.aib.websystem.entity.EventType;
 import com.aib.websystem.entity.Fruit;
 import com.aib.websystem.entity.Role;
 import com.aib.websystem.entity.Stock;
@@ -22,7 +22,7 @@ import com.aib.websystem.entity.LocationType;
 import com.aib.websystem.repository.AccountRepository;
 import com.aib.websystem.repository.FruitRepository;
 import com.aib.websystem.repository.LocationRepository;
-import com.aib.websystem.repository.RecordRepository;
+import com.aib.websystem.repository.EventRepository;
 import com.aib.websystem.repository.StockRepository;
 
 import jakarta.servlet.RequestDispatcher;
@@ -48,7 +48,7 @@ public class CurrentAccountController extends HttpServlet {
     private StockRepository stockRepository;
 
     @Autowired
-    private RecordRepository recordRepository;
+    private EventRepository eventRepository;
 
     private static final Logger logger = LoggerFactory.getLogger(WebsystemApplication.class);
 
@@ -115,7 +115,7 @@ public class CurrentAccountController extends HttpServlet {
         // Create a specification that returns all locations
         Specification<Location> allLocations = (root, query, criteriaBuilder) -> criteriaBuilder.isTrue(criteriaBuilder.literal(true));
         Iterator<Location> it = locationRepository.findAll(allLocations).iterator();
-        recordRepository.save(new Record(fruit, 100, RecordType.BORROWING, it.next(), it.next()));
+        eventRepository.save(new Event(fruit, 100, EventType.BORROWING, it.next(), it.next()));
 
         // account
         accountRepository.save(new Account("shop", "a", Role.SHOP_STAFF, it.next()));
@@ -136,19 +136,19 @@ public class CurrentAccountController extends HttpServlet {
             session.setAttribute("current_account", account.get());
             switch (account.get().getRole()) {
                 case ADMIN:
-                    session.setAttribute("permissions", Set.of("dashboard", "record", "stock", "fruit", "location", "account"));
+                    session.setAttribute("permissions", Set.of("dashboard", "event", "stock", "fruit", "location", "account"));
                     res.sendRedirect("/dashboard");
                     break;
                 case SHOP_STAFF:
-                    session.setAttribute("permissions", Set.of("dashboard", "record", "stock"));
+                    session.setAttribute("permissions", Set.of("dashboard", "event", "stock"));
                     res.sendRedirect("/dashboard");
                     break;
                 case CENTRAL_WAREHOUSE_STAFF:
-                    session.setAttribute("permissions", Set.of("dashboard", "record", "stock"));
+                    session.setAttribute("permissions", Set.of("dashboard", "event", "stock"));
                     res.sendRedirect("/dashboard");
                     break;
                 case SOURCE_WAREHOUSE_STAFF:
-                    session.setAttribute("permissions", Set.of("dashboard", "record", "stock"));
+                    session.setAttribute("permissions", Set.of("dashboard", "event", "stock"));
                     res.sendRedirect("/dashboard");
                     break;
                 case SENIOR_MANAGEMENT:
