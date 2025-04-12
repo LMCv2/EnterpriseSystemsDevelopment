@@ -5,10 +5,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping("/dashboard")
-public class DashboardController {
+@RequestMapping("/location")
+public class LocationController {
     @GetMapping("")
-    public String getDashboardPage() {
-        return "/pages/dashboard/index";
+    public String getLocationPage() {
+        return "/pages/location/index";
     }
 }

@@ -14,13 +14,13 @@ import com.aib.websystem.entity.Stock;
 import com.aib.websystem.repository.StockRepository;
 
 @Controller
-@RequestMapping(path = "/stock")
+@RequestMapping("/stock")
 public class StockController {
     @Autowired
     private StockRepository stockRepository;
 
     @GetMapping("")
-    public String getAccounts(Model model) {
+    public String getStockPage(Model model) {
         model.addAttribute("stock", stockRepository.findAll(PageRequest.of(0, 10)));
         return "/pages/stock/index";
     }

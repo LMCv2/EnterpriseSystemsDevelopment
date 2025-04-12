@@ -23,8 +23,8 @@ import net.kaczmarzyk.spring.data.jpa.web.SpecificationArgumentResolver;
 import net.kaczmarzyk.spring.data.jpa.web.annotation.Spec;
 
 @Controller
-@RequestMapping(path = "/record")
-public class BorrowingController {
+@RequestMapping("/record")
+public class RecordController {
     @Autowired
     private RecordRepository recordRepository;
 
@@ -35,7 +35,7 @@ public class BorrowingController {
     private LocationRepository locationRepository;
 
     @GetMapping("")
-    public String getAccounts(Model model) {
+    public String getRecordPage(Model model) {
         model.addAttribute("borrowing", recordRepository.findAll(PageRequest.of(0, 10)));
         return "/pages/record/index";
     }

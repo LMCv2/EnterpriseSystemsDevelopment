@@ -7,7 +7,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -15,13 +14,13 @@ import com.aib.websystem.entity.Fruit;
 import com.aib.websystem.repository.FruitRepository;
 
 @Controller
-@RequestMapping(path = "/fruit")
+@RequestMapping("/fruit")
 public class FruitController {
     @Autowired
     private FruitRepository fruitRepository;
 
     @GetMapping("")
-    public String getFruits(Model model) {
+    public String getFruitPage(Model model) {
         model.addAttribute("fruits", fruitRepository.findAll(PageRequest.of(0, 10)));
         return "/pages/fruit/index";
     }
