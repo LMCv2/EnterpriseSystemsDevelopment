@@ -9,16 +9,16 @@
         <span>Dashboard</span>
       </a>
     </c:if>
-    <c:if test="${permissions.contains('event')}">
-      <a href="/event" class="flex items-center px-3 py-3 hover:bg-gray-100">
-        <div class="i-material-symbols-event-note mr-3"></div>
-        <span>Event</span>
-      </a>
-    </c:if>
     <c:if test="${permissions.contains('stock')}">
       <a href="/stock" class="flex items-center px-3 py-3 hover:bg-gray-100">
         <div class="i-material-symbols-garage-home mr-3"></div>
         <span>Stock</span>
+      </a>
+    </c:if>
+    <c:if test="${permissions.contains('event')}">
+      <a href="/event" class="flex items-center px-3 py-3 hover:bg-gray-100">
+        <div class="i-material-symbols-event-note mr-3"></div>
+        <span>Event</span>
       </a>
     </c:if>
     <c:if test="${permissions.contains('fruit')}">
