@@ -137,23 +137,23 @@ public class CurrentAccountController extends HttpServlet {
             session.setAttribute("current_account", account.get());
             switch (account.get().getRole()) {
                 case ADMIN:
-                    session.setAttribute("permissions", Set.of("dashboard", "fruit", "borrowing", "account"));
-                    res.sendRedirect("/dashboard");
-                    break;
-                case CENTRAL_WAREHOUSE_STAFF:
-                    session.setAttribute("permissions", Set.of("dashboard"));
-                    res.sendRedirect("/dashboard");
-                    break;
-                case SENIOR_MANAGEMENT:
-                    session.setAttribute("permissions", Set.of("dashboard", "fruit", "account"));
+                    session.setAttribute("permissions", Set.of("dashboard", "record", "stock", "fruit", "location", "account"));
                     res.sendRedirect("/dashboard");
                     break;
                 case SHOP_STAFF:
-                    session.setAttribute("permissions", Set.of("dashboard", "stock", "borrowing"));
+                    session.setAttribute("permissions", Set.of("dashboard", "record", "stock"));
+                    res.sendRedirect("/dashboard");
+                    break;
+                case CENTRAL_WAREHOUSE_STAFF:
+                    session.setAttribute("permissions", Set.of("dashboard", "record", "stock"));
                     res.sendRedirect("/dashboard");
                     break;
                 case SOURCE_WAREHOUSE_STAFF:
-                    session.setAttribute("permissions", Set.of("dashboard"));
+                    session.setAttribute("permissions", Set.of("dashboard", "record", "stock"));
+                    res.sendRedirect("/dashboard");
+                    break;
+                case SENIOR_MANAGEMENT:
+                    session.setAttribute("permissions", Set.of("dashboard", "fruit", "location", "account"));
                     res.sendRedirect("/dashboard");
                     break;
             }

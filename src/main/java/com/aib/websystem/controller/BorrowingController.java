@@ -23,7 +23,7 @@ import net.kaczmarzyk.spring.data.jpa.web.SpecificationArgumentResolver;
 import net.kaczmarzyk.spring.data.jpa.web.annotation.Spec;
 
 @Controller
-@RequestMapping(path = "/borrowing")
+@RequestMapping(path = "/record")
 public class BorrowingController {
     @Autowired
     private RecordRepository recordRepository;
@@ -37,7 +37,7 @@ public class BorrowingController {
     @GetMapping("")
     public String getAccounts(Model model) {
         model.addAttribute("borrowing", recordRepository.findAll(PageRequest.of(0, 10)));
-        return "/pages/borrowing/index";
+        return "/pages/record/index";
     }
 
     @GetMapping("/{id}")
@@ -45,6 +45,6 @@ public class BorrowingController {
             @Spec(path = "city", spec = Like.class) Specification<Location> spec) {
         model.addAttribute("stock", stockRepository.findById(id).orElse(null));
         model.addAttribute("sameCity", locationRepository.findAll(spec));
-        return "/pages/borrowing/new";
+        return "/pages/record/new";
     }
 }

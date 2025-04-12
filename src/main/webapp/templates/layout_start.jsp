@@ -6,27 +6,38 @@
     <c:if test="${permissions.contains('dashboard')}">
       <a href="/dashboard" class="flex items-center px-3 py-3 hover:bg-gray-100">
         <div class="i-material-symbols-dashboard mr-3"></div>
-        <span>Dashboard</span></a>
+        <span>Dashboard</span>
+      </a>
     </c:if>
-    <c:if test="${permissions.contains('fruit')}">
-      <a href="/fruit" class="flex items-center px-3 py-3 hover:bg-gray-100">
-        <div class="i-fluent-emoji-shortcake mr-3"></div>
-        <span>Fruit</span></a>
+    <c:if test="${permissions.contains('record')}">
+      <a href="/record" class="flex items-center px-3 py-3 hover:bg-gray-100">
+        <div class="i-material-symbols-account-circle mr-3"></div>
+        <span>Record</span>
+      </a>
     </c:if>
     <c:if test="${permissions.contains('stock')}">
       <a href="/stock" class="flex items-center px-3 py-3 hover:bg-gray-100">
         <div class="i-fluent-emoji-shortcake mr-3"></div>
-        <span>Stock</span></a>
+        <span>Stock</span>
+      </a>
+    </c:if>
+    <c:if test="${permissions.contains('fruit')}">
+      <a href="/fruit" class="flex items-center px-3 py-3 hover:bg-gray-100">
+        <div class="i-fluent-emoji-shortcake mr-3"></div>
+        <span>Fruit</span>
+      </a>
+    </c:if>
+    <c:if test="${permissions.contains('location')}">
+      <a href="/location" class="flex items-center px-3 py-3 hover:bg-gray-100">
+        <div class="i-fluent-emoji-shortcake mr-3"></div>
+        <span>Location</span>
+      </a>
     </c:if>
     <c:if test="${permissions.contains('account')}">
       <a href="/account" class="flex items-center px-3 py-3 hover:bg-gray-100">
         <div class="i-material-symbols-account-circle mr-3"></div>
-        <span>Account</span></a>
-    </c:if>
-    <c:if test="${permissions.contains('borrowing')}">
-      <a href="/borrowing" class="flex items-center px-3 py-3 hover:bg-gray-100">
-        <div class="i-material-symbols-account-circle mr-3"></div>
-        <span>Borrowing</span></a>
+        <span>Account</span>
+      </a>
     </c:if>
   </nav>
   <div class="flex-1 p-3">
