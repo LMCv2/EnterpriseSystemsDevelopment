@@ -10,7 +10,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.aib.websystem.entity.Account;
 import com.aib.websystem.entity.Fruit;
+import com.aib.websystem.entity.Role;
 import com.aib.websystem.repository.FruitRepository;
 
 @Controller
@@ -26,7 +28,8 @@ public class FruitController {
     }
 
     @GetMapping("/new")
-    public String createAccount() {
+    public String createFruitPage(Model model) {
+        model.addAttribute("fruit", new Fruit());
         return "/pages/fruit/new";
     }
 
@@ -65,5 +68,4 @@ public class FruitController {
         }
     }
 
-    
 }

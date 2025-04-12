@@ -1,5 +1,7 @@
 package com.aib.websystem.controller;
 
+import java.util.stream.Collectors;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
@@ -14,14 +16,19 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.aib.websystem.entity.Account;
+import com.aib.websystem.entity.Location;
 import com.aib.websystem.entity.Role;
 import com.aib.websystem.repository.AccountRepository;
+import com.aib.websystem.repository.LocationRepository;
 
 @Controller
 @RequestMapping("/account")
 public class AccountController {
     @Autowired
     private AccountRepository accountRepository;
+
+    @Autowired
+    private LocationRepository locationRepository;
 
     @GetMapping("/")
     public String getAccountsPage(Model model) {
@@ -31,8 +38,10 @@ public class AccountController {
 
     @GetMapping("/new")
     public String createAccountPage(Model model) {
-        model.addAttribute("account_role_type", Role.MAP);
         model.addAttribute("account", new Account());
+        model.addAttribute("role_items", Role.MAP);
+        model.addAttribute("location_items",
+                locationRepository.findAll().stream().collect(Collectors.toMap(Location::getId, Location::getName)));
         return "/pages/account/new";
     }
 
@@ -44,21 +53,18 @@ public class AccountController {
     }
 
     @PostMapping("/new")
-    public String createAccount(@ModelAttribute("account") Account account, Model model) {
+    public String createAccount(Account account, Model model) {
         accountRepository.save(account);
-        return "redirect:/account";
+    System.out.println(account);
+        return "redirect:/account/";
     }
 
     @PutMapping("/{username}")
     public String updateAccount(
             @PathVariable String username,
-            @RequestParam String password) {
-        if (accountRepository.existsById(username)) {
-            Account account = accountRepository.findById(username).get();
-            account.setPassword(password);
-            accountRepository.save(account);
-        }
-        return "redirect:/account";
+            @ModelAttribute("account") Account account) {
+        accountRepository.save(account);
+        return "redirect:/account/";
     }
 
     @DeleteMapping("/{username}")
@@ -66,6 +72,6 @@ public class AccountController {
         if (accountRepository.existsById(username)) {
             accountRepository.deleteById(username);
         }
-        return "redirect:/account";
+        return "redirect:/account/";
     }
 }
