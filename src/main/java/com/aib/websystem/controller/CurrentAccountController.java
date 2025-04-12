@@ -45,7 +45,7 @@ public class CurrentAccountController extends HttpServlet {
 
     @Autowired
     private StockRepository stockRepository;
-    
+
     @Autowired
     private BorrowingRepository borrowingRepository;
 
@@ -80,12 +80,12 @@ public class CurrentAccountController extends HttpServlet {
         }
     }
 
-     public void sysinit(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+    public void sysinit(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
         logger.info("init database");
 
         String username = req.getParameter("username");
         String password = req.getParameter("password");
-        accountRepository.save(new Account(username, password, Role.SENIOR_MANAGEMENT));
+        accountRepository.save(new Account(username, password, Role.ADMIN));
 
         fruitRepository.save(new Fruit("Apple"));
         fruitRepository.save(new Fruit("Banana"));
@@ -102,25 +102,24 @@ public class CurrentAccountController extends HttpServlet {
         // bakery shop
         locationRepository.save(new Location("Bakery Shop 1", "Hong Kong", "SHOP"));
 
-        //stock
-        for(Fruit fruit : fruitRepository.findAll()) {
+        // stock
+        for (Fruit fruit : fruitRepository.findAll()) {
             stockRepository.save(new Stock(fruit, 100));
         }
 
-        //borrowing
+        // borrowing
         Fruit fruit = fruitRepository.findAll().iterator().next();
-        
+
         // Create a specification that returns all locations
         Specification<Location> allLocations = (root, query, criteriaBuilder) -> criteriaBuilder.isTrue(criteriaBuilder.literal(true));
         Iterator<Location> it = locationRepository.findAll(allLocations).iterator();
-        borrowingRepository.save(new Borrowing(fruit, 100, it.next() , it.next()));
+        borrowingRepository.save(new Borrowing(fruit, 100, it.next(), it.next()));
 
-        //account
+        // account
         accountRepository.save(new Account("shop", "a", Role.SHOP_STAFF, it.next()));
 
         res.sendRedirect("/");
     }
-
 
     public void signup(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 
@@ -134,6 +133,10 @@ public class CurrentAccountController extends HttpServlet {
             HttpSession session = req.getSession();
             session.setAttribute("current_account", account.get());
             switch (account.get().getRole()) {
+                case ADMIN:
+                    session.setAttribute("permissions", Set.of("dashboard", "fruit", "borrowing", "account"));
+                    res.sendRedirect("/dashboard");
+                    break;
                 case CENTRAL_WAREHOUSE_STAFF:
                     session.setAttribute("permissions", Set.of("dashboard"));
                     res.sendRedirect("/dashboard");

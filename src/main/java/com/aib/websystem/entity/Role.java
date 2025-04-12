@@ -6,6 +6,7 @@ import java.util.Map;
 import lombok.Getter;
 
 public enum Role {
+    ADMIN("Admin"),
     SHOP_STAFF("Shop Staff"),
     SOURCE_WAREHOUSE_STAFF("Source Warehouse Staff"),
     CENTRAL_WAREHOUSE_STAFF("Central Warehouse Staff"),
