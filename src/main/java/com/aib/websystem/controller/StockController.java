@@ -9,7 +9,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.SessionAttribute;
 
+import com.aib.websystem.entity.Account;
 import com.aib.websystem.entity.Stock;
 import com.aib.websystem.repository.StockRepository;
 
@@ -20,8 +22,12 @@ public class StockController {
     private StockRepository stockRepository;
 
     @GetMapping("/")
-    public String getStocksPage(Model model) {
-        model.addAttribute("stocks", stockRepository.findAll(PageRequest.of(0, 10)));
+    public String getStocksPage(@SessionAttribute Account current_account, Model model) {
+        if (current_account.getLocation() == null) {
+            model.addAttribute("stocks", stockRepository.findAll(PageRequest.of(0, 10)));
+        } else {
+            model.addAttribute("stocks", stockRepository.findByLocation(current_account.getLocation(), PageRequest.of(0, 10)));
+        }
         return "/pages/stock/index";
     }
 
@@ -30,7 +36,7 @@ public class StockController {
         model.addAttribute("stock", stockRepository.findById(id).orElse(null));
         return "/pages/stock/update";
     }
-    
+
     @PostMapping("/update/{id}")
     public String test(@PathVariable Long id, @RequestParam int quantity) {
         if (stockRepository.existsById(id)) {
