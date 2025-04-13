@@ -36,7 +36,7 @@ public class LocationController {
 
     @GetMapping("/{id}")
     public String updateLocationPage(@PathVariable Long id, Model model) {
-        model.addAttribute("account", locationRepository.findById(id).orElse(null));
+        model.addAttribute("location", locationRepository.findById(id).orElse(null));
         model.addAttribute("locationType_items", LocationType.MAP);
         return "/pages/location/edit";
     }
