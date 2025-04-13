@@ -3,7 +3,7 @@
 <%@taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <taglib:layout title="Location">
   <div class="mb-3 flex justify-between">
-    <input type="text" class="rounded border" />
+    <input type="text" class="rounded border border-gray-300 px-3 py-2" />
     <a href="new" class="flex items-center rounded border border-gray-300 px-3 py-2 hover:bg-gray-100">
       <div class="i-material-symbols-add?bg mr-3"></div>
       <span>Create</span>

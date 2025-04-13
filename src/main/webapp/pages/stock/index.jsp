@@ -2,11 +2,7 @@
 <%@taglib prefix="c" uri="jakarta.tags.core" %>
 <taglib:layout title="Stock">
   <div class="mb-3 flex justify-between">
-    <input type="text" class="rounded border" />
-    <a href="/stock/new" class="flex items-center rounded border border-gray-300 px-3 py-2 hover:bg-gray-100">
-      <div class="i-material-symbols-add?bg mr-3"></div>
-      <span>Create</span>
-    </a>
+    <input type="text" class="rounded border border-gray-300 px-3 py-2" />
   </div>
   <div class="rounded shadow">
     <table class="w-full">
@@ -23,8 +19,8 @@
           <td class="px-3 py-2">${stock.fruit.name}</td>
           <td class="px-3 py-2">${stock.location.name}</td>
           <td class="px-3 py-2">${stock.quantity}</td>
-          <td class="px-3 py-2">
-            <a class="inline-block rounded-full p-2 hover:bg-gray-100" href="/stock/${stock.id}">
+          <td class="flex px-3 py-2">
+            <a class="inline-block rounded-full p-2 hover:bg-gray-100" href="${stock.id}">
               <div class="i-material-symbols-edit?bg text-xl"></div>
             </a>
           </td>

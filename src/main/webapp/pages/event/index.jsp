@@ -4,11 +4,7 @@
 <c:set var="now" value="<%=new java.util.Date()%>" />
 <taglib:layout title="Event">
   <div class="mb-3 flex justify-between">
-    <input type="text" class="rounded border" />
-    <a href="/event/new" class="flex items-center rounded border border-gray-300 px-3 py-2 hover:bg-gray-100">
-      <div class="i-material-symbols-add?bg mr-3"></div>
-      <span>Create</span>
-    </a>
+    <input type="text" class="rounded border border-gray-300 px-3 py-2" />
   </div>
   <div class="rounded shadow">
     <table class="w-full">
