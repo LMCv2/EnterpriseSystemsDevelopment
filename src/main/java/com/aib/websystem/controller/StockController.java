@@ -1,6 +1,7 @@
 package com.aib.websystem.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -30,7 +31,8 @@ public class StockController {
         if (current_account.getLocation() == null) {
             model.addAttribute("stocks", stockRepository.findAll(PageRequest.of(page - 1, 10)));
         } else {
-            model.addAttribute("stocks", stockRepository.findByLocation(current_account.getLocation(), PageRequest.of(page - 1, 10)));
+            model.addAttribute("stocks",
+                    stockRepository.findByLocation(current_account.getLocation(), PageRequest.of(page - 1, 10)));
         }
         return "/pages/stock/index";
     }
@@ -38,8 +40,18 @@ public class StockController {
     @GetMapping("/{id}/add")
     public String addStockPage(@PathVariable Long id, Model model) {
         Stock stock = stockRepository.findById(id).orElse(null);
-        model.addAttribute("stocks", stockRepository.findByFruitAndLocationTypeNot(stock.getFruit(),
+        model.addAttribute("stocks", stockRepository.findByFruitAndLocationType(stock.getFruit(),
                 LocationType.CENTRAL_WAREHOUSE, PageRequest.of(0, 10)));
+
+        model.addAttribute("reservation_stocks", stockRepository.findByFruitAndLocationType(
+                stock.getFruit(),
+                LocationType.SOURCE_WAREHOUSE,
+                PageRequest.of(0, 10)));
+
+        model.addAttribute("borrowing_stocks", stockRepository.findByFruitAndLocationTypeAndLocationCityName(
+                stock.getFruit(),
+                LocationType.SHOP, stock.getLocation().getCityName(),
+                PageRequest.of(0, 10)));
 
         // Specification<Long> spec = (root, query, criteriaBuilder) ->
         // criteriaBuilder.equal(root.get("fruit").get("id"), id);

@@ -15,5 +15,8 @@ public interface StockRepository
         extends JpaSpecificationExecutor<Long>, CrudRepository<Stock, Long>, PagingAndSortingRepository<Stock, Long> {
     Page<Stock> findByLocation(Location location, Pageable pageable);
 
-    Page<Stock> findByFruitAndLocationTypeNot(Fruit fruit, LocationType type, Pageable pageable);
+    Page<Stock> findByFruitAndLocationType(Fruit fruit, LocationType type, Pageable pageable);
+
+    Page<Stock> findByFruitAndLocationTypeAndLocationCityName(Fruit fruit, LocationType type, String cityName,
+            Pageable pageable);
 }
