@@ -17,6 +17,7 @@ import com.aib.websystem.entity.EventType;
 import com.aib.websystem.entity.Fruit;
 import com.aib.websystem.entity.Role;
 import com.aib.websystem.entity.Location;
+import com.aib.websystem.entity.LocationSource;
 import com.aib.websystem.entity.LocationType;
 import com.aib.websystem.entity.EventStatus;
 import com.aib.websystem.repository.AccountRepository;
@@ -91,14 +92,14 @@ public class CurrentAccountController extends HttpServlet {
 
         // add fruit
         for (String name : new String[] { "Apple", "Banana", "Orange", "Strawberry", "Mango" }) {
-            Fruit fruit = new Fruit(name);
+            Fruit fruit = new Fruit(name, LocationSource.PHILIPPINES);
             fruitRepository.save(fruit);
             stockService.addFruitToAllLocation(fruit);
         }
 
         // add location
         for (Object[] item : new Object[][] {
-                { "Source Warehouse 1", "Hong Kong", LocationType.SOURCE_WAREHOUSE },
+                { "Source Warehouse 1", "Manila", LocationType.SOURCE_WAREHOUSE, LocationSource.PHILIPPINES},
                 { "Central Warehouse 1", "Hong Kong", LocationType.CENTRAL_WAREHOUSE },
                 { "Central Warehouse 2", "Hong Kong", LocationType.CENTRAL_WAREHOUSE },
                 { "Central Warehouse 3", "London", LocationType.CENTRAL_WAREHOUSE },
@@ -114,7 +115,7 @@ public class CurrentAccountController extends HttpServlet {
 
         // Create a specification that returns all locations
         Iterator<Location> it = locationRepository.findAll().iterator();
-        eventRepository.save(new Event(fruit, 100, EventType.BORROWING, it.next(), it.next(), new Date(), new Date(), EventStatus.WAITAPPROVE));
+        eventRepository.save(new Event(fruit, 100, EventType.BORROWING, it.next(), it.next(), new Date(), new Date(), EventStatus.PENDING));
 
         // account
         accountRepository.save(new Account("shop", "a", Role.SHOP_STAFF, it.next()));

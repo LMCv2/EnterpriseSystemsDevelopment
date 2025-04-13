@@ -22,7 +22,12 @@ public class Fruit {
     @Setter
     private String name;
 
-    public Fruit(String name) {
+    @Getter
+    @Setter
+    private LocationSource locationSource;
+
+    public Fruit(String name, LocationSource locationSource) {
         this.name = name;
+        this.locationSource = locationSource;
     }
 }

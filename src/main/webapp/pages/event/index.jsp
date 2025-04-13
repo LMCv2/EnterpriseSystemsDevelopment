@@ -19,6 +19,7 @@
           <th class="px-3 py-2 text-left">Status</th>
           <th class="px-3 py-2 text-left">Create at</th>
           <th class="px-3 py-2 text-left">Arrival at</th>
+          <th class="px-3 py-2 text-left">action</th>
         </tr>
         <c:forEach var="event" items="${events.content}">
           <tr class="border-gray-200">
@@ -31,6 +32,11 @@
             <td class="px-3 py-2">${event.status.label}</td>
             <td class="px-3 py-2"><fmt:formatDate type="both" dateStyle="short" timeStyle="short" value="${event.eventDate}" /></td>
             <td class="px-3 py-2"><fmt:formatDate type="both" dateStyle="short" timeStyle="short" value="${event.arrivalDate}" /></td>
+            <td class="flex px-3 py-2">
+              <a class="inline-block rounded-full p-2 hover:bg-gray-100" href="${event.id}">
+                <div class="i-material-symbols-edit?bg text-xl"></div>
+              </a>
+            </td>
           </tr>
         </c:forEach>
       </tbody>
@@ -44,6 +50,7 @@
         <c:if test="${events.hasNext()}">
           <a href="?page=${events.number+2}" class="rounded border border-gray-200 px-3 py-1 hover:bg-gray-100">Next</a>
         </c:if>
+        
       </div>
     </div>
   </div>

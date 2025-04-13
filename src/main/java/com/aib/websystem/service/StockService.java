@@ -38,4 +38,13 @@ public class StockService {
             }
         }
     }
+
+    public boolean FruitExist(Fruit fruit, Location location) {
+        if (stockRepository.findByFruitAndLocationType(fruit, location.getType(), null).isEmpty()) {
+            return false;
+        }else{
+            return true;
+        }
+
+    }
 }

@@ -5,16 +5,14 @@ import java.util.Map;
 
 import lombok.Getter;
 
-public enum EventType {
-    CONSUMPTION("Consumption"),
-    REPALENISH("Replenish"),
-    BORROWING("Borrowing"),
-    RESERVATION("Reservation");
+public enum LocationSource {
+    PHILIPPINES("Philippines"),
+    JAPAN("Japan");
 
     public static Map<String, String> MAP = new LinkedHashMap<>();
 
     static {
-        for (EventType value : values()) {
+        for (LocationSource value : values()) {
             MAP.put(value.name(), value.label);
         }
     }
@@ -22,7 +20,7 @@ public enum EventType {
     @Getter
     private String label;
 
-    private EventType(String label) {
+    private LocationSource(String label) {
         this.label = label;
     }
 }

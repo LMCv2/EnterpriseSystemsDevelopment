@@ -6,8 +6,9 @@ import java.util.Map;
 import lombok.Getter;
 
 public enum EventStatus {
-    WAITAPPROVE("Waiting approval"),
-    APPROVE("Approved"),
+    PENDING("Pending"),
+    FINISH("Finish"),
+    SHIPPING("Shipping"),
     REJECT("Rejected");
 
     public static Map<String, String> MAP = new LinkedHashMap<>();

@@ -37,9 +37,18 @@ public class Location {
     @OneToMany
     private List<Stock> stock;
 
+    @Getter
+    @Setter
+    private LocationSource locationCentre;
+
     public Location(String name, String cityName, LocationType type) {
+        this(name, cityName, type, null);
+    }
+
+    public Location(String name, String cityName, LocationType type, LocationSource locationCentre) {
         this.name = name;
         this.cityName = cityName;
         this.type = type;
+        this.locationCentre = locationCentre;
     }
 }
