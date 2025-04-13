@@ -43,18 +43,13 @@ public class StockController {
 
     @GetMapping("/{id}/add")
     public String addStockPage(@PathVariable Long id, Model model) {
-        Stock stock = stockRepository.findById(id).orElse(null);
+        // Stock stock = stockRepository.findById(id).orElse(null);
         // stockRepository.findByFruitAndLocationTypeNot(stock.getFruit(),
         // LocationType.CENTRAL_WAREHOUSE, PageRequest.of(0, 10))
-        model.addAttribute("locations",
-                locationRepository.findByIdNotAndTypeNot(id, LocationType.CENTRAL_WAREHOUSE, PageRequest.of(0, 10)));
-        return "/pages/stock/add";
-    }
-
-    @GetMapping("/{id}")
-    public String getAccount(@PathVariable Long id, Model model) {
+        // model.addAttribute("locations",
+        //         locationRepository.findByIdNotAndTypeNot(id, LocationType.CENTRAL_WAREHOUSE, PageRequest.of(0, 10)));
         Specification<Long> fruitIdSpec = (root, query, criteriaBuilder) -> criteriaBuilder.equal(root.get("fruit").get("id"), id);
-        model.addAttribute("fruitList", stockRepository.findAll(fruitIdSpec, PageRequest.of(0, 10)));
+        model.addAttribute("stock", stockRepository.findAll(fruitIdSpec, PageRequest.of(0, 10)));
 
         //Stock stock = stockRepository.findById(id).orElse(null);
 
@@ -65,9 +60,9 @@ public class StockController {
         // Specification<Long> spec = (root, query, criteriaBuilder) -> criteriaBuilder.and(criteriaBuilder.equal(root.get("fruit").get("id"), stock.getFruit().getId()),
         //         criteriaBuilder.equal(root.get("location").get("id"), location.getId()));
         //Specification<Long> spec = (root, query, criteriaBuilder) -> criteriaBuilder.equal(root.get("fruit").get("id"), stock.getFruit().getId());
-        model.addAttribute("stock", stockRepository.findById(id).orElse(null));
+        // model.addAttribute("stock", stockRepository.findById(id).orElse(null));
         //model.addAttribute("fruitList", stockRepository.findAll(spec, PageRequest.of(0, 10)));
-        return "/pages/stock/update";
+        return "/pages/stock/add";
     }
 
     @GetMapping("/{id}/remove")

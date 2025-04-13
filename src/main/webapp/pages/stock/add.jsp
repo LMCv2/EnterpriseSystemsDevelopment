@@ -8,27 +8,17 @@
     <table class="w-full">
       <tr class="bg-gray-50">
         <th class="px-3 py-2 text-left">Id</th>
-        <th class="px-3 py-2 text-left">Name</th>
-        <th class="px-3 py-2 text-left">CityName</th>
-        <th class="px-3 py-2 text-left">Type</th>
+        <th class="px-3 py-2 text-left">Fruit</th>
+        <th class="px-3 py-2 text-left">Location</th>
+        <th class="px-3 py-2 text-left">Quantity</th>
         <th class="px-3 py-2 text-left">Action</th>
       </tr>
-      <c:forEach var="location" items="${locations.content}">
+      <c:forEach var="stock" items="${stocks.content}">
         <tr>
-          <td class="px-3 py-2">${location.id}</td>
-          <td class="px-3 py-2">${location.name}</td>
-          <td class="px-3 py-2">${location.cityName}</td>
-          <td class="px-3 py-2">${location.type.label}</td>
-          <td class="flex px-3 py-2">
-            <a class="inline-block rounded-full p-2 hover:bg-gray-100" href="${location.id}">
-              <div class="i-material-symbols-edit?bg text-xl"></div>
-            </a>
-            <form:form action="${location.id}" method="delete">
-              <button type="submit" class="inline-block rounded-full p-2 hover:bg-gray-100">
-                <div class="i-material-symbols-delete?bg text-xl"></div>
-              </button>
-            </form:form>
-          </td>
+          <td class="px-3 py-2">${stock.fruit.id}</td>
+          <td class="px-3 py-2">${stock.fruit.name}</td>
+          <td class="px-3 py-2">${stock.location.name}</td>
+          <td class="px-3 py-2">${stock.quantity}</td>
         </tr>
       </c:forEach>
     </table>
