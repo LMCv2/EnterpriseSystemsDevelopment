@@ -19,6 +19,12 @@
           <td class="px-3 py-2">${stock.fruit.name}</td>
           <td class="px-3 py-2">${stock.location.name}</td>
           <td class="px-3 py-2">${stock.quantity}</td>
+          <td class="flex px-3 py-2">
+            <a class="inline-block rounded-full p-2 hover:bg-gray-100" href="">
+              <div class="i-material-symbols-edit?bg text-xl"></div>
+              <%-- chick it to Apply for reservation --%>
+            </a>
+          </td>
         </tr>
       </c:forEach>
     </table>
