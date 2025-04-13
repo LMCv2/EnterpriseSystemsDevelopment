@@ -1,5 +1,5 @@
-<%@taglib uri="/WEB-INF/tlds/taglib.tld" prefix="taglib" %>
 <%@taglib prefix="c" uri="jakarta.tags.core" %>
+<%@taglib uri="/WEB-INF/tlds/taglib.tld" prefix="taglib" %>
 <taglib:layout title="Account">
   <div class="mb-3 flex justify-between">
     <input type="text" class="rounded border" />
@@ -22,7 +22,7 @@
         <td class="px-3 py-2">${account.role.label}</td>
         <td class="px-3 py-2">${account.location.name}</td>
         <td class="px-3 py-2">
-          <a class="inline-block rounded-full p-2 hover:bg-gray-100" href="/account/${account.username}">
+          <a class="inline-block rounded-full p-2 hover:bg-gray-100" href="${account.username}">
             <div class="i-material-symbols-edit?bg text-xl"></div>
           </a>
         </td>
