@@ -1,4 +1,4 @@
-<%@taglib uri="/WEB-INF/tlds/taglib.tld" prefix="taglib" %>
+<%@taglib prefix="taglib" uri="/WEB-INF/tlds/taglib.tld" %>
 <%@taglib prefix="c" uri="jakarta.tags.core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <c:set var="now" value="<%=new java.util.Date()%>" />

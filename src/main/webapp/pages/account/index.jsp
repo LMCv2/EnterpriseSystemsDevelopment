@@ -1,5 +1,5 @@
 <%@taglib prefix="c" uri="jakarta.tags.core" %>
-<%@taglib uri="/WEB-INF/tlds/taglib.tld" prefix="taglib" %>
+<%@taglib prefix="taglib" uri="/WEB-INF/tlds/taglib.tld" %>
 <taglib:layout title="Account">
   <div class="mb-3 flex justify-between">
     <input type="text" class="rounded border border-gray-300 px-3 py-2" />

@@ -1,4 +1,4 @@
-<%@taglib uri="/WEB-INF/tlds/taglib.tld" prefix="taglib" %>
+<%@taglib prefix="taglib" uri="/WEB-INF/tlds/taglib.tld" %>
 <%@taglib prefix="c" uri="jakarta.tags.core" %>
 <taglib:page title="Home">
   <div class="flex h-screen items-center justify-center bg-stone-600 bg-hero-graph-paper-stone-600">

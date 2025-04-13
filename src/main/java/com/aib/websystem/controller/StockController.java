@@ -14,7 +14,9 @@ import org.springframework.web.bind.annotation.SessionAttribute;
 
 import com.aib.websystem.entity.Account;
 import com.aib.websystem.entity.Location;
+import com.aib.websystem.entity.LocationType;
 import com.aib.websystem.entity.Stock;
+import com.aib.websystem.repository.LocationRepository;
 import com.aib.websystem.repository.StockRepository;
 
 import jakarta.persistence.criteria.Path;
@@ -25,19 +27,27 @@ public class StockController {
     @Autowired
     private StockRepository stockRepository;
 
+    @Autowired
+    private LocationRepository locationRepository;
+
     @GetMapping("/")
     public String getStocksPage(@SessionAttribute Account current_account, Model model) {
         if (current_account.getLocation() == null) {
             model.addAttribute("stocks", stockRepository.findAll(PageRequest.of(0, 10)));
         } else {
-            model.addAttribute("stocks", stockRepository.findByLocation(current_account.getLocation(), PageRequest.of(0, 10)));
+            model.addAttribute("stocks",
+                    stockRepository.findByLocation(current_account.getLocation(), PageRequest.of(0, 10)));
         }
         return "/pages/stock/index";
     }
 
     @GetMapping("/{id}/add")
     public String addStockPage(@PathVariable Long id, Model model) {
-        model.addAttribute("stock", stockRepository.findById(id).orElse(null));
+        Stock stock = stockRepository.findById(id).orElse(null);
+        // stockRepository.findByFruitAndLocationTypeNot(stock.getFruit(),
+        // LocationType.CENTRAL_WAREHOUSE, PageRequest.of(0, 10))
+        model.addAttribute("locations",
+                locationRepository.findByIdNotAndTypeNot(id, LocationType.CENTRAL_WAREHOUSE, PageRequest.of(0, 10)));
         return "/pages/stock/add";
     }
 

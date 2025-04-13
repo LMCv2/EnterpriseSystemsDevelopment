@@ -1,5 +1,5 @@
 <%@taglib prefix="c" uri="jakarta.tags.core" %>
-<%@taglib uri="/WEB-INF/tlds/taglib.tld" prefix="taglib" %>
+<%@taglib prefix="taglib" uri="/WEB-INF/tlds/taglib.tld" %>
 <%@taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <taglib:layout title="Location">
   <div class="mb-3 flex justify-between">

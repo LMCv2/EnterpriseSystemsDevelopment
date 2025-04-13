@@ -1,4 +1,4 @@
-<%@taglib uri="/WEB-INF/tlds/taglib.tld" prefix="taglib" %>
+<%@taglib prefix="taglib" uri="/WEB-INF/tlds/taglib.tld" %>
 <taglib:page title="Home">
   <h1>Create Account</h1>
     <form action="/" method="post">

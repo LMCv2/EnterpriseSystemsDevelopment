@@ -1,4 +1,4 @@
-<%@taglib uri="/WEB-INF/tlds/taglib.tld" prefix="taglib" %>
+<%@taglib prefix="taglib" uri="/WEB-INF/tlds/taglib.tld" %>
 <%@taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <taglib:layout title="Fruit">
   <h1 class="mb-3 text-3xl">Edit Fruit</h1>

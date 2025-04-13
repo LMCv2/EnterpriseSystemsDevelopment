@@ -1,11 +1,36 @@
-<%@taglib uri="/WEB-INF/tlds/taglib.tld" prefix="taglib" %>
-<taglib:layout title="Fruit">
-  <h2 class="font-bold">Update fruit quantity</h2>
-  <form id="updateFruitForm" action="/stock/update/${stock.id}" method="post"  class="space-y-3">
-    <div class="mb-3">
-      <label for="fruitType" class="form-label">Fruit ID: ${stock.fruit.id}<br>Fruit Name: ${stock.fruit.name}</label>
-      <input type="number" id="quantity" name="quantity" aria-describedby="helper-text-explanation" class="bg-gray-50 border border-gray-150 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="Input Quantity" value="${stock.quantity}" required />
+<%@taglib prefix="c" uri="jakarta.tags.core" %>
+<%@taglib prefix="taglib" uri="/WEB-INF/tlds/taglib.tld" %>
+<taglib:layout title="Stock">
+  <div class="mb-3 flex justify-between">
+    <input type="text" class="rounded border border-gray-300 px-3 py-2" />
   </div>
-    <button type="submit" class="w-full rounded border border-gray-300 px-3 py-2 hover:bg-gray-100">Update</button>
-  </form> 
+  <div class="rounded shadow">
+    <table class="w-full">
+      <tr class="bg-gray-50">
+        <th class="px-3 py-2 text-left">Id</th>
+        <th class="px-3 py-2 text-left">Name</th>
+        <th class="px-3 py-2 text-left">CityName</th>
+        <th class="px-3 py-2 text-left">Type</th>
+        <th class="px-3 py-2 text-left">Action</th>
+      </tr>
+      <c:forEach var="location" items="${locations.content}">
+        <tr>
+          <td class="px-3 py-2">${location.id}</td>
+          <td class="px-3 py-2">${location.name}</td>
+          <td class="px-3 py-2">${location.cityName}</td>
+          <td class="px-3 py-2">${location.type.label}</td>
+          <td class="flex px-3 py-2">
+            <a class="inline-block rounded-full p-2 hover:bg-gray-100" href="${location.id}">
+              <div class="i-material-symbols-edit?bg text-xl"></div>
+            </a>
+            <form:form action="${location.id}" method="delete">
+              <button type="submit" class="inline-block rounded-full p-2 hover:bg-gray-100">
+                <div class="i-material-symbols-delete?bg text-xl"></div>
+              </button>
+            </form:form>
+          </td>
+        </tr>
+      </c:forEach>
+    </table>
+  </div>
 </taglib:layout>
