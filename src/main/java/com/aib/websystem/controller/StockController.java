@@ -23,12 +23,14 @@ public class StockController {
     private StockRepository stockRepository;
 
     @GetMapping("/")
-    public String getStocksPage(@SessionAttribute Account current_account, Model model) {
+    public String getStocksPage(
+            @RequestParam(defaultValue = "1") Integer page,
+            @SessionAttribute Account current_account,
+            Model model) {
         if (current_account.getLocation() == null) {
-            model.addAttribute("stocks", stockRepository.findAll(PageRequest.of(0, 10)));
+            model.addAttribute("stocks", stockRepository.findAll(PageRequest.of(page - 1, 10)));
         } else {
-            model.addAttribute("stocks",
-                    stockRepository.findByLocation(current_account.getLocation(), PageRequest.of(0, 10)));
+            model.addAttribute("stocks", stockRepository.findByLocation(current_account.getLocation(), PageRequest.of(page - 1, 10)));
         }
         return "/pages/stock/index";
     }

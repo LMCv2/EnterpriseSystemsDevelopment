@@ -35,8 +35,8 @@ public class EventController {
     private LocationRepository locationRepository;
 
     @GetMapping("/")
-    public String getEventsPage(Model model) {
-        model.addAttribute("events", eventRepository.findAll(PageRequest.of(0, 10)));
+    public String getEventsPage(@RequestParam(defaultValue = "1") Integer page, Model model) {
+        model.addAttribute("events", eventRepository.findAll(PageRequest.of(page - 1, 10)));
         return "/pages/event/index";
     }
 
@@ -46,10 +46,11 @@ public class EventController {
     }
 
     // @GetMapping("/{id}")
-    // public String createBorrowing(@PathVariable Long id, @PathVariable String city, Model model,
-    //         @Spec(path = "city", spec = Like.class) Specification<Location> spec) {
-    //     model.addAttribute("stock", stockRepository.findById(id).orElse(null));
-    //     model.addAttribute("sameCity", locationRepository.findAll(spec));
-    //     return "/pages/event/new";
+    // public String createBorrowing(@PathVariable Long id, @PathVariable String
+    // city, Model model,
+    // @Spec(path = "city", spec = Like.class) Specification<Location> spec) {
+    // model.addAttribute("stock", stockRepository.findById(id).orElse(null));
+    // model.addAttribute("sameCity", locationRepository.findAll(spec));
+    // return "/pages/event/new";
     // }
 }

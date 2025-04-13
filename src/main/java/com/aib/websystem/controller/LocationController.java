@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.aib.websystem.entity.Location;
 import com.aib.websystem.entity.LocationType;
@@ -26,8 +27,8 @@ public class LocationController {
     private StockService stockService;
 
     @GetMapping("/")
-    public String getLocationsPage(Model model) {
-        model.addAttribute("locations", locationRepository.findAll(PageRequest.of(0, 10)));
+    public String getLocationsPage(@RequestParam(defaultValue = "1") Integer page, Model model) {
+        model.addAttribute("locations", locationRepository.findAll(PageRequest.of(page - 1, 10)));
         return "/pages/location/index";
     }
 

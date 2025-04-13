@@ -9,7 +9,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.aib.websystem.entity.Account;
 import com.aib.websystem.entity.Role;
@@ -26,8 +28,8 @@ public class AccountController {
     private LocationRepository locationRepository;
 
     @GetMapping("/")
-    public String getAccountsPage(Model model) {
-        model.addAttribute("accounts", accountRepository.findAll(PageRequest.of(0, 10)));
+    public String getAccountsPage(@RequestParam(defaultValue = "1") Integer page, Model model) {
+        model.addAttribute("accounts", accountRepository.findAll(PageRequest.of(page - 1, 10)));
         return "/pages/account/index";
     }
 

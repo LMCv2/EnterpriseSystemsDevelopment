@@ -8,26 +8,39 @@
       <span>Create</span>
     </a>
   </div>
-  <div class="rounded shadow">
-    <table class="w-full">
-      <tr class="bg-gray-50">
-        <th class="px-3 py-2 text-left">Username</th>
-        <th class="px-3 py-2 text-left">Role</th>
-        <th class="px-3 py-2 text-left">Location</th>
-        <th class="px-3 py-2 text-left">Action</th>
-      </tr>
-      <c:forEach var="account" items="${accounts.content}">
-      <tr>
-        <td class="px-3 py-2">${account.username}</td>
-        <td class="px-3 py-2">${account.role.label}</td>
-        <td class="px-3 py-2">${account.location.name}</td>
-        <td class="flex px-3 py-2">
-          <a class="inline-block rounded-full p-2 hover:bg-gray-100" href="${account.username}">
-            <div class="i-material-symbols-edit?bg text-xl"></div>
-          </a>
-        </td>
-      </tr>
-      </c:forEach>
+  <div class="divide-y rounded shadow">
+    <table class="w-full border-gray-200">
+      <tbody class="divide-y">
+        <tr class="border-gray-200 bg-stone-100">
+          <th class="px-3 py-2 text-left">Username</th>
+          <th class="px-3 py-2 text-left">Role</th>
+          <th class="px-3 py-2 text-left">Location</th>
+          <th class="px-3 py-2 text-left">Action</th>
+        </tr>
+        <c:forEach var="account" items="${accounts.content}">
+          <tr class="border-gray-200">
+            <td class="px-3 py-2">${account.username}</td>
+            <td class="px-3 py-2">${account.role.label}</td>
+            <td class="px-3 py-2">${account.location.name}</td>
+            <td class="flex px-3 py-2">
+              <a class="inline-block rounded-full p-2 hover:bg-gray-100" href="${account.username}">
+                <div class="i-material-symbols-edit?bg text-xl"></div>
+              </a>
+            </td>
+          </tr>
+        </c:forEach>
+      </tbody>
     </table>
+    <div class="flex items-center justify-between p-3">
+      <p>Showing ${accounts.number*accounts.size+1} to ${accounts.number*accounts.size+accounts.numberOfElements} of ${accounts.totalElements} results</p>
+      <div class="flex space-x-1">
+        <c:if test="${accounts.hasPrevious()}">
+          <a href="?page=${accounts.number}" class="rounded border border-gray-200 px-3 py-1 hover:bg-gray-100">Prev</a>
+        </c:if>
+        <c:if test="${accounts.hasNext()}">
+          <a href="?page=${accounts.number+2}" class="rounded border border-gray-200 px-3 py-1 hover:bg-gray-100">Next</a>
+        </c:if>
+      </div>
+    </div>
   </div>
 </taglib:layout>
