@@ -31,10 +31,16 @@ public class StockController {
         return "/pages/stock/index";
     }
 
-    @GetMapping("/{id}")
-    public String getAccount(@PathVariable Long id, Model model) {
+    @GetMapping("/{id}/add")
+    public String addStockPage(@PathVariable Long id, Model model) {
         model.addAttribute("stock", stockRepository.findById(id).orElse(null));
-        return "/pages/stock/update";
+        return "/pages/stock/add";
+    }
+
+    @GetMapping("/{id}/remove")
+    public String removeStockPage(@PathVariable Long id, Model model) {
+        model.addAttribute("stock", stockRepository.findById(id).orElse(null));
+        return "/pages/stock/remove";
     }
 
     @PostMapping("/update/{id}")
@@ -46,5 +52,4 @@ public class StockController {
         }
         return "redirect:/stock/";
     }
-
 }

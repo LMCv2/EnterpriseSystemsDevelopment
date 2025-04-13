@@ -114,8 +114,7 @@ public class CurrentAccountController extends HttpServlet {
         Fruit fruit = fruitRepository.findAll().iterator().next();
 
         // Create a specification that returns all locations
-        Specification<Location> allLocations = (root, query, criteriaBuilder) -> criteriaBuilder.isTrue(criteriaBuilder.literal(true));
-        Iterator<Location> it = locationRepository.findAll(allLocations).iterator();
+        Iterator<Location> it = locationRepository.findAll().iterator();
         eventRepository.save(new Event(fruit, 100, EventType.BORROWING, it.next(), it.next(), new Date(), new Date(), EventStatus.WAITAPPROVE));
 
         // account

@@ -20,8 +20,11 @@
           <td class="px-3 py-2">${stock.location.name}</td>
           <td class="px-3 py-2">${stock.quantity}</td>
           <td class="flex px-3 py-2">
-            <a class="inline-block rounded-full p-2 hover:bg-gray-100" href="${stock.id}">
-              <div class="i-material-symbols-edit?bg text-xl"></div>
+            <a class="inline-block rounded-full p-2 hover:bg-gray-100" href="${stock.id}/add">
+              <div class="i-material-symbols-add?bg text-xl"></div>
+            </a>
+            <a class="inline-block rounded-full p-2 hover:bg-gray-100" href="${stock.id}/remove">
+              <div class="i-material-symbols-remove?bg text-xl"></div>
             </a>
           </td>
         </tr>
