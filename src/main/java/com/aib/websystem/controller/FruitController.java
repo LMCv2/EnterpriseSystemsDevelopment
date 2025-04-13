@@ -4,15 +4,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
-import com.aib.websystem.entity.Account;
 import com.aib.websystem.entity.Fruit;
-import com.aib.websystem.entity.Role;
 import com.aib.websystem.repository.FruitRepository;
 
 @Controller
@@ -33,39 +32,33 @@ public class FruitController {
         return "/pages/fruit/new";
     }
 
-    @PostMapping("/update/{id}")
-    public String test(@PathVariable Long id, @RequestParam String fruitName) {
-        if (fruitRepository.existsById(id)) {
-            Fruit fruit = fruitRepository.findById(id).get();
-            fruit.setName(fruitName);
-            fruitRepository.save(fruit);
-        }
-        return "redirect:/fruit";
-    }
-
-    @PostMapping("/delete/{id}")
-    public String deleteAccount(@RequestParam Long id) {
-        if (fruitRepository.existsById(id)) {
-            fruitRepository.deleteById(id);
-        }
-        return "redirect:/fruit";
-    }
-
     @GetMapping("/{id}")
-    public String getAccount(@PathVariable Long id, Model model) {
+    public String updateFruitPage(@PathVariable Long id, Model model) {
         model.addAttribute("fruit", fruitRepository.findById(id).orElse(null));
         return "/pages/fruit/edit";
     }
 
-    @PostMapping("/add-fruit")
-    public String addFruit(@RequestParam String fruitName) {
-        try {
-            Fruit fruit = new Fruit(fruitName);
-            fruitRepository.save(fruit);
-            return "redirect:/fruit";
-        } catch (Exception e) {
-            return "redirect:/fruit";
-        }
+    @PostMapping("/new")
+    public String createFruit(Fruit fruit) {
+        fruitRepository.save(fruit);
+        return "redirect:/fruit/";
     }
 
+    @PutMapping("/{id}")
+    public String updateFruit(@PathVariable Long id, Fruit newFruit) {
+        if (fruitRepository.existsById(id)) {
+            Fruit originFruit = fruitRepository.findById(id).get();
+            originFruit.setName(newFruit.getName());
+            fruitRepository.save(originFruit);
+        }
+        return "redirect:/fruit/";
+    }
+
+    @DeleteMapping("/{id}")
+    public String deleteLocation(@PathVariable Long id) {
+        if (fruitRepository.existsById(id)) {
+            fruitRepository.deleteById(id);
+        }
+        return "redirect:/fruit/";
+    }
 }
