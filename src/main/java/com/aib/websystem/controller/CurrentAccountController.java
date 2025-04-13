@@ -1,8 +1,6 @@
 package com.aib.websystem.controller;
 
 import java.io.IOException;
-import java.time.LocalDateTime;
-import java.time.Month;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.Optional;
@@ -19,7 +17,6 @@ import com.aib.websystem.entity.Event;
 import com.aib.websystem.entity.EventType;
 import com.aib.websystem.entity.Fruit;
 import com.aib.websystem.entity.Role;
-import com.aib.websystem.entity.Stock;
 import com.aib.websystem.entity.Location;
 import com.aib.websystem.entity.LocationType;
 import com.aib.websystem.entity.EventStatus;
@@ -27,7 +24,7 @@ import com.aib.websystem.repository.AccountRepository;
 import com.aib.websystem.repository.FruitRepository;
 import com.aib.websystem.repository.LocationRepository;
 import com.aib.websystem.repository.EventRepository;
-import com.aib.websystem.repository.StockRepository;
+import com.aib.websystem.service.StockService;
 
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
@@ -40,7 +37,7 @@ import jakarta.servlet.http.HttpSession;
 @WebServlet(urlPatterns = { "" })
 public class CurrentAccountController extends HttpServlet {
     @Autowired
-    private AccountRepository accountRepository;
+    private EventRepository eventRepository;
 
     @Autowired
     private FruitRepository fruitRepository;
@@ -49,10 +46,10 @@ public class CurrentAccountController extends HttpServlet {
     private LocationRepository locationRepository;
 
     @Autowired
-    private StockRepository stockRepository;
+    private AccountRepository accountRepository;
 
     @Autowired
-    private EventRepository eventRepository;
+    private StockService stockService;
 
     private static final Logger logger = LoggerFactory.getLogger(WebsystemApplication.class);
 
@@ -88,29 +85,29 @@ public class CurrentAccountController extends HttpServlet {
     public void sysinit(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
         logger.info("init database");
 
+        // add admin
         String username = req.getParameter("username");
         String password = req.getParameter("password");
         accountRepository.save(new Account(username, password, Role.ADMIN));
 
-        fruitRepository.save(new Fruit("Apple"));
-        fruitRepository.save(new Fruit("Banana"));
-        fruitRepository.save(new Fruit("Orange"));
-        fruitRepository.save(new Fruit("Strawberry"));
-        fruitRepository.save(new Fruit("Mango"));
+        // add fruit
+        for (String name : new String[] { "Apple", "Banana", "Orange", "Strawberry", "Mango" }) {
+            Fruit fruit = new Fruit(name);
+            fruitRepository.save(fruit);
+            stockService.addFruitToAllLocation(fruit);
+        }
 
-        // warehouse
-        Iterator<Account> account = accountRepository.findAll().iterator();
-        Location source = new Location("Source Warehouse 1", "Hong Kong", LocationType.SOURCE_WAREHOUSE);
-        locationRepository.save(source);
-        locationRepository.save(new Location("Central Warehouse 1", "Hong Kong", LocationType.CENTRAL_WAREHOUSE));
-        locationRepository.save(new Location("Central Warehouse 2", "Hong Kong", LocationType.CENTRAL_WAREHOUSE));
-        locationRepository.save(new Location("Central Warehouse 3", "London", LocationType.CENTRAL_WAREHOUSE));
-        // bakery shop
-        locationRepository.save(new Location("Bakery Shop 1", "Hong Kong", LocationType.SHOP));
-
-        // stock
-        for (Fruit fruit : fruitRepository.findAll()) {
-            stockRepository.save(new Stock(fruit, source, 100));
+        // add location
+        for (Object[] item : new Object[][] {
+                { "Source Warehouse 1", "Hong Kong", LocationType.SOURCE_WAREHOUSE },
+                { "Central Warehouse 1", "Hong Kong", LocationType.CENTRAL_WAREHOUSE },
+                { "Central Warehouse 2", "Hong Kong", LocationType.CENTRAL_WAREHOUSE },
+                { "Central Warehouse 3", "London", LocationType.CENTRAL_WAREHOUSE },
+                { "Bakery Shop 1", "Hong Kong", LocationType.SHOP }
+        }) {
+            Location location = new Location((String) item[0], (String) item[1], (LocationType) item[2]);
+            locationRepository.save(location);
+            stockService.addAllFruitToLocation(location);
         }
 
         // borrowing

@@ -13,13 +13,17 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.aib.websystem.entity.Fruit;
 import com.aib.websystem.repository.FruitRepository;
+import com.aib.websystem.service.StockService;
 
 @Controller
 @RequestMapping("/fruit")
 public class FruitController {
     @Autowired
     private FruitRepository fruitRepository;
-
+    
+    @Autowired
+    private StockService stockService;
+ 
     @GetMapping("/")
     public String getFruitsPage(Model model) {
         model.addAttribute("fruits", fruitRepository.findAll(PageRequest.of(0, 10)));
@@ -41,6 +45,7 @@ public class FruitController {
     @PostMapping("/new")
     public String createFruit(Fruit fruit) {
         fruitRepository.save(fruit);
+        stockService.addFruitToAllLocation(fruit);
         return "redirect:/fruit/";
     }
 

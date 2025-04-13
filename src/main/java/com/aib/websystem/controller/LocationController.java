@@ -14,12 +14,16 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.aib.websystem.entity.Location;
 import com.aib.websystem.entity.LocationType;
 import com.aib.websystem.repository.LocationRepository;
+import com.aib.websystem.service.StockService;
 
 @Controller
 @RequestMapping("/location")
 public class LocationController {
     @Autowired
     private LocationRepository locationRepository;
+
+    @Autowired
+    private StockService stockService;
 
     @GetMapping("/")
     public String getLocationsPage(Model model) {
@@ -44,6 +48,7 @@ public class LocationController {
     @PostMapping("/new")
     public String createLocation(Location location) {
         locationRepository.save(location);
+        stockService.addAllFruitToLocation(location);
         return "redirect:/location/";
     }
 
