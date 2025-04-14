@@ -50,24 +50,19 @@ public class Event {
 
     @Getter
     @Setter
-    private Date arrivalDate;
-
-    @Getter
-    @Setter
     private EventStatus status;
 
     public Event(Fruit fruit, Integer quantity) {
-        this(fruit, quantity, EventType.CONSUMPTION, null, null, null, null, null);
+        this(fruit, quantity, EventType.CONSUMPTION, null, null, null, null);
     }
 
-    public Event(Fruit fruit, Integer quantity, EventType eventType, Location fromLocation, Location toLocation, Date eventDate, Date arrivalDate, EventStatus status) {
+    public Event(Fruit fruit, Integer quantity, EventType eventType, Location fromLocation, Location toLocation, Date eventDate, EventStatus status) {
         this.fruit = fruit;
         this.quantity = quantity;
         this.eventType = eventType;
         this.fromLocation = fromLocation;
         this.toLocation = toLocation;
         this.eventDate = eventDate;
-        this.arrivalDate = arrivalDate;
         this.status = status;
     }
 }

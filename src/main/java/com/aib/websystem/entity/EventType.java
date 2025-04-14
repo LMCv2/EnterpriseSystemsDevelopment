@@ -7,9 +7,8 @@ import lombok.Getter;
 
 public enum EventType {
     CONSUMPTION("Consumption"),
-    REPALENISH("Replenish"),
-    BORROWING("Borrowing"),
-    RESERVATION("Reservation");
+    RESERVATION("Reservation"),
+    BORROWING("Borrowing");
 
     public static Map<String, String> MAP = new LinkedHashMap<>();
 

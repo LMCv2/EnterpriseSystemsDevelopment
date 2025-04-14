@@ -115,7 +115,7 @@ public class CurrentAccountController extends HttpServlet {
 
         // Create a specification that returns all locations
         Iterator<Location> it = locationRepository.findAll().iterator();
-        eventRepository.save(new Event(fruit, 100, EventType.BORROWING, it.next(), it.next(), new Date(), new Date(), EventStatus.PENDING));
+        eventRepository.save(new Event(fruit, 100, EventType.RESERVATION, it.next(), it.next(), new Date(), EventStatus.PENDING));
 
         // account
         accountRepository.save(new Account("shop", "a", Role.SHOP_STAFF, it.next()));

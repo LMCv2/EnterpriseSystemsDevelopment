@@ -1,5 +1,8 @@
 package com.aib.websystem.controller;
 
+import java.net.http.HttpResponse;
+import java.util.Date;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -13,8 +16,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttribute;
 
 import com.aib.websystem.entity.Account;
+import com.aib.websystem.entity.Event;
+import com.aib.websystem.entity.EventStatus;
+import com.aib.websystem.entity.EventType;
+import com.aib.websystem.entity.Fruit;
 import com.aib.websystem.entity.LocationType;
 import com.aib.websystem.entity.Stock;
+import com.aib.websystem.repository.EventRepository;
 import com.aib.websystem.repository.StockRepository;
 
 @Controller
@@ -22,6 +30,9 @@ import com.aib.websystem.repository.StockRepository;
 public class StockController {
     @Autowired
     private StockRepository stockRepository;
+    
+    @Autowired
+    private EventRepository eventRepository;
 
     @GetMapping("/")
     public String getStocksPage(
@@ -72,6 +83,16 @@ public class StockController {
             Stock stock = stockRepository.findById(id).get();
             stock.setQuantity(quantity);
             stockRepository.save(stock);
+        }
+        return "redirect:/stock/";
+    }
+
+    @PostMapping("/reserve/{id}")
+    public String reserve(@PathVariable Long id, @RequestParam int reservation_number, @SessionAttribute Account current_account) {
+        Stock stock = stockRepository.findById(id).orElse(null);
+        
+        if (stockRepository.existsById(id)) {
+            eventRepository.save(new Event(stock.getFruit(), reservation_number, EventType.RESERVATION, stock.getLocation(), current_account.getLocation(), new Date(), EventStatus.PENDING));
         }
         return "redirect:/stock/";
     }
