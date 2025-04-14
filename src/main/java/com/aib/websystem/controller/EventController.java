@@ -30,8 +30,9 @@ public class EventController {
 
 
     @GetMapping("/")
-    public String getEventsPage(@RequestParam(defaultValue = "1") Integer page, Model model) {
-        model.addAttribute("events", eventRepository.findAll(PageRequest.of(page - 1, 10)));
+    public String getEventsPage(@RequestParam(defaultValue = "1") Integer page, Model model, @SessionAttribute Account current_account) {
+        //model.addAttribute("events", eventRepository.findAll(PageRequest.of(page - 1, 10)));
+        model.addAttribute("events", eventRepository.findByFromLocationOrToLocation(current_account.getLocation(), current_account.getLocation(), PageRequest.of(0, 10)));
         return "/pages/event/index";
     }
 
