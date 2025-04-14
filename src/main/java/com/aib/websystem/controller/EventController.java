@@ -15,6 +15,7 @@ import com.aib.websystem.entity.Account;
 import com.aib.websystem.entity.Event;
 import com.aib.websystem.entity.EventStatus;
 import com.aib.websystem.entity.EventType;
+import com.aib.websystem.entity.Role;
 import com.aib.websystem.entity.Stock;
 import com.aib.websystem.repository.EventRepository;
 import com.aib.websystem.repository.StockRepository;
@@ -28,11 +29,54 @@ public class EventController {
     @Autowired
     private StockRepository stockRepository;
 
-
     @GetMapping("/")
-    public String getEventsPage(@RequestParam(defaultValue = "1") Integer page, Model model, @SessionAttribute Account current_account) {
-        //model.addAttribute("events", eventRepository.findAll(PageRequest.of(page - 1, 10)));
-        model.addAttribute("events", eventRepository.findByFromLocationOrToLocation(current_account.getLocation(), current_account.getLocation(), PageRequest.of(0, 10)));
+    public String getEventsPage(@RequestParam(defaultValue = "all") String activeTag,
+            @RequestParam(defaultValue = "1") Integer page, Model model, @SessionAttribute Account current_account) {
+        // model.addAttribute("events", eventRepository.findAll(PageRequest.of(page - 1,
+        // 10)));
+        switch (activeTag) {
+            case "all":
+                model.addAttribute("events",
+                        eventRepository.findByFromLocationOrToLocation(current_account.getLocation(),
+                                current_account.getLocation(), PageRequest.of(page - 1, 10)));
+                break;
+
+            case "pending":
+            // model.addAttribute("events", eventRepository.findByFromLocationOrToLocation(current_account.getLocation(),
+            //         current_account.getLocation(), PageRequest.of(page - 1, 10)));
+                if (current_account.getRole() == Role.SOURCE_WAREHOUSE_STAFF) {
+                    model.addAttribute("events",
+                            eventRepository.findByStatusAndFromLocation(EventStatus.PENDING,
+                                    current_account.getLocation(), PageRequest.of(page - 1, 10)));
+                } else if (current_account.getRole() == Role.SHOP_STAFF) {
+                    model.addAttribute("events",
+                            eventRepository.findByStatusAndToLocation(EventStatus.PENDING,
+                                    current_account.getLocation(), PageRequest.of(page - 1, 10)));
+                }
+                break;
+            case "shipped":
+                if (current_account.getRole() == Role.SOURCE_WAREHOUSE_STAFF) {
+                    model.addAttribute("events",
+                            eventRepository.findByStatusAndFromLocation(EventStatus.SHIPPED,
+                                    current_account.getLocation(), PageRequest.of(page - 1, 10)));
+                } else if (current_account.getRole() == Role.SHOP_STAFF) {
+                    model.addAttribute("events",
+                            eventRepository.findByStatusAndToLocation(EventStatus.SHIPPED,
+                                    current_account.getLocation(), PageRequest.of(page - 1, 10)));
+                }
+                break;
+            case "delivered":
+                if (current_account.getRole() == Role.SOURCE_WAREHOUSE_STAFF) {
+                    model.addAttribute("events",
+                            eventRepository.findByStatusAndFromLocation(EventStatus.DELIVERED,
+                                    current_account.getLocation(), PageRequest.of(page - 1, 10)));
+                } else if (current_account.getRole() == Role.SHOP_STAFF) {
+                    model.addAttribute("events",
+                            eventRepository.findByStatusAndToLocation(EventStatus.DELIVERED,
+                                    current_account.getLocation(), PageRequest.of(page - 1, 10)));
+                }
+                break;
+        }
         return "/pages/event/index";
     }
 
@@ -50,11 +94,12 @@ public class EventController {
             case SHOP_STAFF:
             case CENTRAL_WAREHOUSE_STAFF:
                 Stock stock;
-                originEvent.setStatus(EventStatus.FINISH);
-                Page<Stock> stocks = stockRepository.findByFruitAndLocationType(originEvent.getFruit(), originEvent.getToLocation().getType(), null);
-                if(stocks.isEmpty()){
+                originEvent.setStatus(EventStatus.DELIVERED);
+                Page<Stock> stocks = stockRepository.findByFruitAndLocationType(originEvent.getFruit(),
+                        originEvent.getToLocation().getType(), null);
+                if (stocks.isEmpty()) {
                     stock = new Stock(originEvent.getFruit(), originEvent.getToLocation(), originEvent.getQuantity());
-                }else{
+                } else {
                     stock = stocks.getContent().get(0);
                     stock.setQuantity(stock.getQuantity() + originEvent.getQuantity());
                 }
@@ -62,7 +107,7 @@ public class EventController {
                 break;
             case SOURCE_WAREHOUSE_STAFF:
                 originEvent.setEventType(EventType.RESERVATION);
-                originEvent.setStatus(EventStatus.SHIPPING);
+                originEvent.setStatus(EventStatus.SHIPPED);
                 break;
             case SENIOR_MANAGEMENT:
                 break;
