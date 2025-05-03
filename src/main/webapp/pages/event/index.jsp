@@ -39,38 +39,38 @@
             <td class="px-3 py-2">${event.fromLocation.name}</td>
             <td class="px-3 py-2">${event.toLocation.name}</td>
             <td class="px-3 py-2">
-              <c:if test="${event.status=='PENDING'}">
-                <div class="flex items-center gap-1 rounded border border-blue-200 bg-blue-100 px-2 py-1 text-sm text-blue-500">
-                  <div class="i-material-symbols-autorenew-rounded?mask"></div>
-                  <span>${event.status.label}</span>
-                </div>
-              </c:if>
-              <c:if test="${event.status=='SHIPPED'}">
-                <div class="flex items-center gap-1 rounded border border-yellow-200 bg-yellow-100 px-2 py-1 text-sm text-yellow-500">
-                  <div class="i-material-symbols-delivery-truck-speed-rounded?mask"></div>
-                  <span>${event.status.label}</span>
-                </div>
-              </c:if>
-              <c:if test="${event.status=='DELIVERED'}">
-                <div class="flex items-center gap-1 rounded border border-green-200 bg-green-100 px-2 py-1 text-sm text-green-500">
-                  <div class="i-material-symbols-check-circle?mask"></div>
-                  <span>${event.status.label}</span>
-                </div>
-              </c:if>
-
-              <c:if test="${event.status=='REJECTED'}">
-                <div class="flex items-center gap-1 rounded border border-red-200 bg-red-100 px-2 py-1 text-sm text-red-500">
-                  <div class="i-material-symbols-cancel?mask"></div>
-                  <span>${event.status.label}</span>
-                </div>
-              </c:if>
-
-              <c:if test="${event.status=='CONFIRMED'}">
-                <div class="flex items-center gap-1 rounded border border-green-200 bg-green-100 px-2 py-1 text-sm text-green-500">
-                  <div class="i-material-symbols-check-circle?mask"></div>
-                  <span>${event.status.label}</span>
-                </div>
-              </c:if>
+              <div class="flex">
+                <c:if test="${event.status=='PENDING'}">
+                  <div class="flex items-center gap-1 rounded border border-blue-200 bg-blue-100 px-2 py-1 text-sm text-blue-500">
+                    <div class="i-material-symbols-autorenew-rounded?mask"></div>
+                    <span>${event.status.label}</span>
+                  </div>
+                </c:if>
+                <c:if test="${event.status=='SHIPPED'}">
+                  <div class="flex items-center gap-1 rounded border border-yellow-200 bg-yellow-100 px-2 py-1 text-sm text-yellow-500">
+                    <div class="i-material-symbols-delivery-truck-speed-rounded?mask"></div>
+                    <span>${event.status.label}</span>
+                  </div>
+                </c:if>
+                <c:if test="${event.status=='DELIVERED'}">
+                  <div class="flex items-center gap-1 rounded border border-green-200 bg-green-100 px-2 py-1 text-sm text-green-500">
+                    <div class="i-material-symbols-check-circle?mask"></div>
+                    <span>${event.status.label}</span>
+                  </div>
+                </c:if>
+                <c:if test="${event.status=='REJECTED'}">
+                  <div class="flex items-center gap-1 rounded border border-red-200 bg-red-100 px-2 py-1 text-sm text-red-500">
+                    <div class="i-material-symbols-cancel?mask"></div>
+                    <span>${event.status.label}</span>
+                  </div>
+                </c:if>
+                <c:if test="${event.status=='CONFIRMED'}">
+                  <div class="flex items-center gap-1 rounded border border-green-200 bg-green-100 px-2 py-1 text-sm text-green-500">
+                    <div class="i-material-symbols-check-circle?mask"></div>
+                    <span>${event.status.label}</span>
+                  </div>
+                </c:if>
+              </div>
             </td>
             <td class="px-3 py-2">
               <fmt:formatDate type="both" dateStyle="short" timeStyle="short" value="${event.eventDate}" />
