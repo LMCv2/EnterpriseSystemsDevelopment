@@ -18,6 +18,7 @@ import com.aib.websystem.entity.Event;
 import com.aib.websystem.entity.EventStatus;
 import com.aib.websystem.entity.EventType;
 import com.aib.websystem.entity.LocationType;
+import com.aib.websystem.entity.Role;
 import com.aib.websystem.entity.Stock;
 import com.aib.websystem.repository.EventRepository;
 import com.aib.websystem.repository.StockRepository;
@@ -33,7 +34,7 @@ public class StockController {
 
     @GetMapping("/")
     public String getStocksPage(@RequestParam(defaultValue = "1") Integer page, @SessionAttribute Account current_account, Model model) {
-        if (current_account.getLocation() == null) {
+        if (current_account.getRole() == Role.ADMIN) {
             model.addAttribute("stocks", stockRepository.findAll(PageRequest.of(page - 1, 10)));
         } else {
             model.addAttribute("stocks", stockRepository.findByLocation(current_account.getLocation(), PageRequest.of(page - 1, 10)));
@@ -42,10 +43,13 @@ public class StockController {
     }
 
     @GetMapping("/{id}/add")
-    public String addStockPage(@PathVariable Long id, Model model) {
+    public String addStockPage(@RequestParam(defaultValue = "reservation") String type, @PathVariable Long id, Model model) {
         Stock stock = stockRepository.findById(id).orElse(null);
-        model.addAttribute("reservation_stocks", stockRepository.findByFruitAndLocationType(stock.getFruit(), LocationType.SOURCE_WAREHOUSE, PageRequest.of(0, 10)));
-        model.addAttribute("borrowing_stocks", stockRepository.findByFruitAndLocationTypeAndLocationCityName(stock.getFruit(), LocationType.SHOP, stock.getLocation().getCityName(), PageRequest.of(0, 10)));
+        if (type.equals("reservation")) {
+            model.addAttribute("stocks", stockRepository.findByFruitAndLocationType(stock.getFruit(), LocationType.SOURCE_WAREHOUSE, PageRequest.of(0, 10)));
+        } else if (type.equals("borrowing")) {
+            model.addAttribute("stocks", stockRepository.findByFruitAndLocationTypeAndLocationCityNameAndIdNot(stock.getFruit(), LocationType.SHOP, stock.getLocation().getCityName(), stock.getId(), PageRequest.of(0, 10)));
+        }
         return "/pages/stock/add";
     }
 

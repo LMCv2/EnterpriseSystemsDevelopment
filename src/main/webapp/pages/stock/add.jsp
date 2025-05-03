@@ -12,58 +12,41 @@
     </div>
   </nav>
 
-  <div class="rounded shadow">
-    <h1>reserve [date box for 14 days, assume 3 day arrives?]</h1>
-    <table class="w-full">
-      <tr class="bg-gray-50">
-        <th class="px-3 py-2 text-left">Id</th>
-        <th class="px-3 py-2 text-left">Fruit</th>
-        <th class="px-3 py-2 text-left">Location</th>
-        <th class="px-3 py-2 text-left">Quantity</th>
-        <th class="px-3 py-2 text-left">Reserve</th>
-        <th class="px-3 py-2 text-left">Action</th>
-      </tr>
-      <c:forEach var="reservation_stocks" items="${reservation_stocks.content}">
-        <form action="/stock/reserve/${reservation_stocks.id}" method="post">
-          <tr>
-            <td class="px-3 py-2">${reservation_stocks.fruit.id}</td>
-            <td class="px-3 py-2">${reservation_stocks.fruit.name}</td>
-            <td class="px-3 py-2">${reservation_stocks.location.name}</td>
-            <td class="px-3 py-2">${reservation_stocks.quantity}</td>
-            <td class="px-3 py-2">
-              <input type="number" id="reservation_number" name="reservation_number" value="0" />
-            </td>
+  <div class="divide-y rounded shadow">
+    <table class="w-full border-gray-200">
+      <tbody class="divide-y">
+        <tr class="border-gray-200 bg-stone-100">
+          <th class="px-3 py-2 text-left">Id</th>
+          <th class="px-3 py-2 text-left">Fruit</th>
+          <th class="px-3 py-2 text-left">Location</th>
+          <th class="px-3 py-2 text-left">Quantity</th>
+          <th class="px-3 py-2 text-left">Action</th>
+        </tr>
+        <c:forEach var="stock" items="${stocks.content}">
+          <tr class="border-gray-200">
+            <td class="px-3 py-2">${stock.fruit.id}</td>
+            <td class="px-3 py-2">${stock.fruit.name}</td>
+            <td class="px-3 py-2">${stock.location.name}</td>
+            <td class="px-3 py-2">${stock.quantity}</td>
             <td class="flex px-3 py-2">
-              <button class="inline-block rounded-full p-2 hover:bg-gray-100" type="submit">
+              <a class="inline-block rounded-full p-2 hover:bg-gray-100" href="${stock.id}">
                 <div class="i-material-symbols-edit?bg text-xl"></div>
-              </button>
+              </a>
             </td>
           </tr>
-        </form>
-      </c:forEach>
+        </c:forEach>
+      </tbody>
     </table>
-    <h1>borrow</h1>
-    <table class="w-full">
-      <tr class="bg-gray-50">
-        <th class="px-3 py-2 text-left">Id</th>
-        <th class="px-3 py-2 text-left">Fruit</th>
-        <th class="px-3 py-2 text-left">Location</th>
-        <th class="px-3 py-2 text-left">Quantity</th>
-        <th class="px-3 py-2 text-left">Action</th>
-      </tr>
-      <c:forEach var="borrowing_stocks" items="${borrowing_stocks.content}">
-        <tr>
-          <td class="px-3 py-2">${borrowing_stocks.fruit.id}</td>
-          <td class="px-3 py-2">${borrowing_stocks.fruit.name}</td>
-          <td class="px-3 py-2">${borrowing_stocks.location.name}</td>
-          <td class="px-3 py-2">${borrowing_stocks.quantity}</td>
-          <td class="flex px-3 py-2">
-            <a class="inline-block rounded-full p-2 hover:bg-gray-100" href="">
-              <div class="i-material-symbols-edit?bg text-xl"></div>
-            </a>
-          </td>
-        </tr>
-      </c:forEach>
-    </table>
+    <div class="flex items-center justify-between p-3">
+      <p>Showing ${stocks.number*stocks.size+1} to ${stocks.number*stocks.size+stocks.numberOfElements} of ${stocks.totalElements} results</p>
+      <div class="flex space-x-1">
+        <c:if test="${stocks.hasPrevious()}">
+          <a href="?page=${stocks.number}" class="rounded border border-gray-200 px-3 py-1 hover:bg-gray-100">Prev</a>
+        </c:if>
+        <c:if test="${stocks.hasNext()}">
+          <a href="?page=${stocks.number+2}" class="rounded border border-gray-200 px-3 py-1 hover:bg-gray-100">Next</a>
+        </c:if>
+      </div>
+    </div>
   </div>
 </taglib:layout>

@@ -3,6 +3,7 @@ package com.aib.websystem.repository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.PagingAndSortingRepository;
 
@@ -16,5 +17,5 @@ public interface StockRepository extends JpaSpecificationExecutor<Long>, CrudRep
 
     Page<Stock> findByFruitAndLocationType(Fruit fruit, LocationType type, Pageable pageable);
 
-    Page<Stock> findByFruitAndLocationTypeAndLocationCityName(Fruit fruit, LocationType type, String cityName, Pageable pageable);
+    Page<Stock> findByFruitAndLocationTypeAndLocationCityNameAndIdNot(Fruit fruit, LocationType type, String cityName, Long id, Pageable pageable);
 }

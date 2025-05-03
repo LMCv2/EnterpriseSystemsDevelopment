@@ -2,7 +2,6 @@ package com.aib.websystem.controller;
 
 import java.io.IOException;
 import java.util.Date;
-import java.util.Iterator;
 import java.util.Optional;
 import java.util.Set;
 
@@ -16,6 +15,7 @@ import com.aib.websystem.entity.Event;
 import com.aib.websystem.entity.EventType;
 import com.aib.websystem.entity.Fruit;
 import com.aib.websystem.entity.Role;
+import com.aib.websystem.entity.Stock;
 import com.aib.websystem.entity.Location;
 import com.aib.websystem.entity.LocationSource;
 import com.aib.websystem.entity.LocationType;
@@ -23,6 +23,7 @@ import com.aib.websystem.entity.EventStatus;
 import com.aib.websystem.repository.AccountRepository;
 import com.aib.websystem.repository.FruitRepository;
 import com.aib.websystem.repository.LocationRepository;
+import com.aib.websystem.repository.StockRepository;
 import com.aib.websystem.repository.EventRepository;
 import com.aib.websystem.service.StockService;
 
@@ -36,6 +37,9 @@ import jakarta.servlet.http.HttpSession;
 
 @WebServlet(urlPatterns = { "" })
 public class CurrentAccountController extends HttpServlet {
+    @Autowired
+    private StockRepository stockRepository;
+
     @Autowired
     private EventRepository eventRepository;
 
@@ -90,35 +94,51 @@ public class CurrentAccountController extends HttpServlet {
         String password = req.getParameter("password");
         accountRepository.save(new Account(username, password, Role.ADMIN));
 
-        // add fruit
-        for (String name : new String[] { "Apple", "Banana", "Orange", "Strawberry", "Mango" }) {
-            Fruit fruit = new Fruit(name, LocationSource.PHILIPPINES);
-            fruitRepository.save(fruit);
-            stockService.addFruitToAllLocation(fruit);
+        // debug only
+        if (true) {
+            // add fruit
+            for (String name : new String[] { "Apple", "Banana", "Orange", "Strawberry", "Mango" }) {
+                Fruit fruit = new Fruit(name, LocationSource.PHILIPPINES);
+                fruitRepository.save(fruit);
+                stockService.addFruitToAllLocation(fruit);
+            }
+
+            for (Object[] item : new Object[][] {
+                    // source
+                    { "Apple Source 1", "Manila", LocationType.SOURCE_WAREHOUSE, LocationSource.PHILIPPINES, fruitRepository.findById(1L).get() },
+                    { "Apple Source 2", "Manila", LocationType.SOURCE_WAREHOUSE, LocationSource.PHILIPPINES, fruitRepository.findById(1L).get() },
+                    { "Banana Source 1", "Manila", LocationType.SOURCE_WAREHOUSE, LocationSource.PHILIPPINES, fruitRepository.findById(2L).get() },
+                    { "Banana Source 2", "Manila", LocationType.SOURCE_WAREHOUSE, LocationSource.PHILIPPINES, fruitRepository.findById(2L).get() },
+                    { "Orange Source 1", "Manila", LocationType.SOURCE_WAREHOUSE, LocationSource.PHILIPPINES, fruitRepository.findById(3L).get() },
+                    { "Orange Source 2", "Manila", LocationType.SOURCE_WAREHOUSE, LocationSource.PHILIPPINES, fruitRepository.findById(4L).get() },
+                    { "Strawberry Source 1", "Manila", LocationType.SOURCE_WAREHOUSE, LocationSource.PHILIPPINES, fruitRepository.findById(4L).get() },
+                    { "Strawberry Source 2", "Manila", LocationType.SOURCE_WAREHOUSE, LocationSource.PHILIPPINES, fruitRepository.findById(4L).get() },
+                    { "Mango Source 1", "Manila", LocationType.SOURCE_WAREHOUSE, LocationSource.PHILIPPINES, fruitRepository.findById(5L).get() },
+                    { "Mango Source 2", "Manila", LocationType.SOURCE_WAREHOUSE, LocationSource.PHILIPPINES, fruitRepository.findById(5L).get() },
+                    // central
+                    { "Central Warehouse 1", "Hong Kong", LocationType.CENTRAL_WAREHOUSE },
+                    { "Central Warehouse 2", "Hong Kong", LocationType.CENTRAL_WAREHOUSE },
+                    { "Central Warehouse 3", "London", LocationType.CENTRAL_WAREHOUSE },
+                    // shop
+                    { "Bakery Shop 1", "Hong Kong", LocationType.SHOP },
+                    { "Bakery Shop 2", "Hong Kong", LocationType.SHOP }
+            }) {
+                // add location
+                Location location = new Location((String) item[0], (String) item[1], (LocationType) item[2]);
+                locationRepository.save(location);
+                stockService.addAllFruitToLocation(location);
+
+                // add stock
+                if (item.length == 5) {
+                    eventRepository.save(new Event((Fruit) item[4], 100, EventType.CONSUMPTION, null, location, new Date(), EventStatus.CONFIRMED));
+                    stockRepository.save(new Stock((Fruit) item[4], location, 100));
+                }
+            }
+
+            // add shop account
+            accountRepository.save(new Account("shop1", "a", Role.SHOP_STAFF, locationRepository.findById(14L).get()));
+            accountRepository.save(new Account("shop2", "a", Role.SHOP_STAFF, locationRepository.findById(15L).get()));
         }
-
-        // add location
-        for (Object[] item : new Object[][] {
-                { "Source Warehouse 1", "Manila", LocationType.SOURCE_WAREHOUSE, LocationSource.PHILIPPINES },
-                { "Central Warehouse 1", "Hong Kong", LocationType.CENTRAL_WAREHOUSE },
-                { "Central Warehouse 2", "Hong Kong", LocationType.CENTRAL_WAREHOUSE },
-                { "Central Warehouse 3", "London", LocationType.CENTRAL_WAREHOUSE },
-                { "Bakery Shop 1", "Hong Kong", LocationType.SHOP }
-        }) {
-            Location location = new Location((String) item[0], (String) item[1], (LocationType) item[2]);
-            locationRepository.save(location);
-            stockService.addAllFruitToLocation(location);
-        }
-
-        // borrowing
-        Fruit fruit = fruitRepository.findAll().iterator().next();
-
-        // Create a specification that returns all locations
-        Iterator<Location> it = locationRepository.findAll().iterator();
-        eventRepository.save(new Event(fruit, 100, EventType.RESERVATION, it.next(), it.next(), new Date(), EventStatus.PENDING));
-
-        // account
-        accountRepository.save(new Account("shop", "a", Role.SHOP_STAFF, it.next()));
 
         res.sendRedirect("/");
     }

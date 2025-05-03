@@ -9,7 +9,8 @@ public enum EventStatus {
     PENDING("Pending"),
     SHIPPED("Shipped"),
     DELIVERED("Delivered"),
-    REJECTED("Rejected");
+    REJECTED("Rejected"),
+    CONFIRMED("Confirmed"); // for consumption only
 
     public static Map<String, String> MAP = new LinkedHashMap<>();
 
