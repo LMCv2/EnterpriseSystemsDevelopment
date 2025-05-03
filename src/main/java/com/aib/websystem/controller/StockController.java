@@ -27,20 +27,16 @@ import com.aib.websystem.repository.StockRepository;
 public class StockController {
     @Autowired
     private StockRepository stockRepository;
-    
+
     @Autowired
     private EventRepository eventRepository;
 
     @GetMapping("/")
-    public String getStocksPage(
-            @RequestParam(defaultValue = "1") Integer page,
-            @SessionAttribute Account current_account,
-            Model model) {
+    public String getStocksPage(@RequestParam(defaultValue = "1") Integer page, @SessionAttribute Account current_account, Model model) {
         if (current_account.getLocation() == null) {
             model.addAttribute("stocks", stockRepository.findAll(PageRequest.of(page - 1, 10)));
         } else {
-            model.addAttribute("stocks",
-                    stockRepository.findByLocation(current_account.getLocation(), PageRequest.of(page - 1, 10)));
+            model.addAttribute("stocks", stockRepository.findByLocation(current_account.getLocation(), PageRequest.of(page - 1, 10)));
         }
         return "/pages/stock/index";
     }
@@ -48,23 +44,8 @@ public class StockController {
     @GetMapping("/{id}/add")
     public String addStockPage(@PathVariable Long id, Model model) {
         Stock stock = stockRepository.findById(id).orElse(null);
-        model.addAttribute("stocks", stockRepository.findByFruitAndLocationType(stock.getFruit(),
-                LocationType.CENTRAL_WAREHOUSE, PageRequest.of(0, 10)));
-
-        model.addAttribute("reservation_stocks", stockRepository.findByFruitAndLocationType(
-                stock.getFruit(),
-                LocationType.SOURCE_WAREHOUSE,
-                PageRequest.of(0, 10)));
-
-        model.addAttribute("borrowing_stocks", stockRepository.findByFruitAndLocationTypeAndLocationCityName(
-                stock.getFruit(),
-                LocationType.SHOP, stock.getLocation().getCityName(),
-                PageRequest.of(0, 10)));
-
-        // Specification<Long> spec = (root, query, criteriaBuilder) ->
-        // criteriaBuilder.equal(root.get("fruit").get("id"), id);
-        // model.addAttribute("stocks", stockRepository.findAll(spec, PageRequest.of(0,
-        // 10)));
+        model.addAttribute("reservation_stocks", stockRepository.findByFruitAndLocationType(stock.getFruit(), LocationType.SOURCE_WAREHOUSE, PageRequest.of(0, 10)));
+        model.addAttribute("borrowing_stocks", stockRepository.findByFruitAndLocationTypeAndLocationCityName(stock.getFruit(), LocationType.SHOP, stock.getLocation().getCityName(), PageRequest.of(0, 10)));
         return "/pages/stock/add";
     }
 

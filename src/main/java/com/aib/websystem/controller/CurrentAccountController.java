@@ -99,7 +99,7 @@ public class CurrentAccountController extends HttpServlet {
 
         // add location
         for (Object[] item : new Object[][] {
-                { "Source Warehouse 1", "Manila", LocationType.SOURCE_WAREHOUSE, LocationSource.PHILIPPINES},
+                { "Source Warehouse 1", "Manila", LocationType.SOURCE_WAREHOUSE, LocationSource.PHILIPPINES },
                 { "Central Warehouse 1", "Hong Kong", LocationType.CENTRAL_WAREHOUSE },
                 { "Central Warehouse 2", "Hong Kong", LocationType.CENTRAL_WAREHOUSE },
                 { "Central Warehouse 3", "London", LocationType.CENTRAL_WAREHOUSE },
