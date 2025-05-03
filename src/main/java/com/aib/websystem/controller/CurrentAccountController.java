@@ -130,7 +130,7 @@ public class CurrentAccountController extends HttpServlet {
 
                 // add stock
                 if (item.length == 5) {
-                    eventRepository.save(new Event((Fruit) item[4], 100, EventType.CONSUMPTION, null, location, new Date(), EventStatus.CONFIRMED));
+                    // eventRepository.save(new Event((Fruit) item[4], 100, EventType.CONSUMPTION, null, location, new Date(), EventStatus.CONFIRMED));
                     stockRepository.save(new Stock((Fruit) item[4], location, 100));
                 }
             }
