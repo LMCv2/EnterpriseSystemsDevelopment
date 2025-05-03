@@ -9,10 +9,10 @@
 
   <nav class="flex justify-center">
     <div class="mb-3 flex space-x-1 rounded border border-gray-200 p-1">
-      <a href="?activeTag=all" class="rounded px-3 py-2 hover:bg-gray-100">All</a>
-      <a href="?activeTag=pending" class="rounded px-3 py-2 hover:bg-gray-100">Pending</a>
-      <a href="?activeTag=shipped" class="rounded px-3 py-2 hover:bg-gray-100">Shipped</a>
-      <a href="?activeTag=delivered" class="rounded px-3 py-2 hover:bg-gray-100">Delivered</a>
+      <a href="?status=all" class="rounded px-3 py-2 hover:bg-gray-100">All</a>
+      <c:forEach items="${status_items}" var="item">
+        <a href="?status=${item.value.toLowerCase()}" class="rounded px-3 py-2 hover:bg-gray-100">${item.value}</a>
+      </c:forEach>
     </div>
   </nav>
 

@@ -15,6 +15,7 @@ import com.aib.websystem.entity.Account;
 import com.aib.websystem.entity.Event;
 import com.aib.websystem.entity.EventStatus;
 import com.aib.websystem.entity.EventType;
+import com.aib.websystem.entity.LocationType;
 import com.aib.websystem.entity.Role;
 import com.aib.websystem.entity.Stock;
 import com.aib.websystem.repository.EventRepository;
@@ -30,53 +31,21 @@ public class EventController {
     private StockRepository stockRepository;
 
     @GetMapping("/")
-    public String getEventsPage(@RequestParam(defaultValue = "all") String activeTag,
-            @RequestParam(defaultValue = "1") Integer page, Model model, @SessionAttribute Account current_account) {
-        // model.addAttribute("events", eventRepository.findAll(PageRequest.of(page - 1,
-        // 10)));
-        switch (activeTag) {
-            case "all":
-                model.addAttribute("events",
-                        eventRepository.findByFromLocationOrToLocation(current_account.getLocation(),
-                                current_account.getLocation(), PageRequest.of(page - 1, 10)));
-                break;
-
-            case "pending":
-            // model.addAttribute("events", eventRepository.findByFromLocationOrToLocation(current_account.getLocation(),
-            //         current_account.getLocation(), PageRequest.of(page - 1, 10)));
-                if (current_account.getRole() == Role.SOURCE_WAREHOUSE_STAFF) {
-                    model.addAttribute("events",
-                            eventRepository.findByStatusAndFromLocation(EventStatus.PENDING,
-                                    current_account.getLocation(), PageRequest.of(page - 1, 10)));
-                } else if (current_account.getRole() == Role.SHOP_STAFF) {
-                    model.addAttribute("events",
-                            eventRepository.findByStatusAndToLocation(EventStatus.PENDING,
-                                    current_account.getLocation(), PageRequest.of(page - 1, 10)));
-                }
-                break;
-            case "shipped":
-                if (current_account.getRole() == Role.SOURCE_WAREHOUSE_STAFF) {
-                    model.addAttribute("events",
-                            eventRepository.findByStatusAndFromLocation(EventStatus.SHIPPED,
-                                    current_account.getLocation(), PageRequest.of(page - 1, 10)));
-                } else if (current_account.getRole() == Role.SHOP_STAFF) {
-                    model.addAttribute("events",
-                            eventRepository.findByStatusAndToLocation(EventStatus.SHIPPED,
-                                    current_account.getLocation(), PageRequest.of(page - 1, 10)));
-                }
-                break;
-            case "delivered":
-                if (current_account.getRole() == Role.SOURCE_WAREHOUSE_STAFF) {
-                    model.addAttribute("events",
-                            eventRepository.findByStatusAndFromLocation(EventStatus.DELIVERED,
-                                    current_account.getLocation(), PageRequest.of(page - 1, 10)));
-                } else if (current_account.getRole() == Role.SHOP_STAFF) {
-                    model.addAttribute("events",
-                            eventRepository.findByStatusAndToLocation(EventStatus.DELIVERED,
-                                    current_account.getLocation(), PageRequest.of(page - 1, 10)));
-                }
-                break;
+    public String getEventsPage(@RequestParam(defaultValue = "all") String status, @RequestParam(defaultValue = "1") Integer page, @SessionAttribute Account current_account, Model model) {
+        if (current_account.getRole() == Role.ADMIN) {
+            if (status.equals("all")) {
+                model.addAttribute("events", eventRepository.findAll(PageRequest.of(page - 1, 10)));
+            } else {
+                model.addAttribute("events", eventRepository.findByStatus(EventStatus.valueOf(status.toUpperCase()), PageRequest.of(page - 1, 10)));
+            }
+        } else {
+            if (status.equals("all")) {
+                model.addAttribute("events", eventRepository.findByLocation(current_account.getLocation(), PageRequest.of(page - 1, 10)));
+            } else {
+                model.addAttribute("events", eventRepository.findByLocationAndStatus(current_account.getLocation(), EventStatus.valueOf(status.toUpperCase()), PageRequest.of(page - 1, 10)));
+            }
         }
+        model.addAttribute("status_items", EventStatus.MAP);
         return "/pages/event/index";
     }
 

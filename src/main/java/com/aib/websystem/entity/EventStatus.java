@@ -7,9 +7,9 @@ import lombok.Getter;
 
 public enum EventStatus {
     PENDING("Pending"),
-    DELIVERED("Delivered"),
     SHIPPED("Shipped"),
-    REJECT("Rejected");
+    DELIVERED("Delivered"),
+    REJECTED("Rejected");
 
     public static Map<String, String> MAP = new LinkedHashMap<>();
 
