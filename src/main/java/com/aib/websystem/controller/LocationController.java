@@ -27,8 +27,13 @@ public class LocationController {
     private StockService stockService;
 
     @GetMapping("/")
-    public String getLocationsPage(@RequestParam(defaultValue = "1") Integer page, Model model) {
-        model.addAttribute("locations", locationRepository.findAll(PageRequest.of(page - 1, 10)));
+    public String getLocationsPage(@RequestParam(defaultValue = "all") String type, @RequestParam(defaultValue = "1") Integer page, Model model) {
+        if (type.equals("all")) {
+            model.addAttribute("locations", locationRepository.findAll(PageRequest.of(page - 1, 10)));
+        } else {
+            model.addAttribute("locations", locationRepository.findByType(LocationType.valueOf(type.toUpperCase()), PageRequest.of(page - 1, 10)));
+        }
+        model.addAttribute("locationType_items", LocationType.MAP);
         return "/pages/location/index";
     }
 

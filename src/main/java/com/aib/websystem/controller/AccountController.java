@@ -27,8 +27,13 @@ public class AccountController {
     private LocationRepository locationRepository;
 
     @GetMapping("/")
-    public String getAccountsPage(@RequestParam(defaultValue = "1") Integer page, Model model) {
-        model.addAttribute("accounts", accountRepository.findAll(PageRequest.of(page - 1, 10)));
+    public String getAccountsPage(@RequestParam(defaultValue = "all") String role, @RequestParam(defaultValue = "1") Integer page, Model model) {
+        if (role.equals("all")) {
+            model.addAttribute("accounts", accountRepository.findAll(PageRequest.of(page - 1, 10)));
+        } else {
+            model.addAttribute("accounts", accountRepository.findByRole(Role.valueOf(role.toUpperCase()), PageRequest.of(page - 1, 10)));
+        }
+        model.addAttribute("role_items", Role.MAP);
         return "/pages/account/index";
     }
 
