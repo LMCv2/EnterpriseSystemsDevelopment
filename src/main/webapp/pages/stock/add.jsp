@@ -4,6 +4,14 @@
   <div class="mb-3 flex justify-between">
     <input type="text" class="rounded border border-gray-300 px-3 py-2" />
   </div>
+
+  <nav class="flex justify-center">
+    <div class="mb-3 flex space-x-1 rounded border border-gray-200 p-1">
+      <a href="?type=reservation" class="rounded px-3 py-2 hover:bg-gray-100 ${param.type==null||param.type.equals('reservation')?'text-amber-600':''}">Reservation</a>
+      <a href="?type=borrowing" class="rounded px-3 py-2 hover:bg-gray-100 ${param.type.equals('borrowing')?'text-amber-600':''}">Borrowing</a>
+    </div>
+  </nav>
+
   <div class="rounded shadow">
     <h1>reserve [date box for 14 days, assume 3 day arrives?]</h1>
     <table class="w-full">
