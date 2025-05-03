@@ -66,7 +66,7 @@ public class LocationController {
     }
 
     @DeleteMapping("/{id}")
-    public String deleteFruit(@PathVariable Long id) {
+    public String deleteLocation(@PathVariable Long id) {
         if (locationRepository.existsById(id)) {
             locationRepository.deleteById(id);
         }

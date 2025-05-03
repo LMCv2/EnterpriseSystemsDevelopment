@@ -13,7 +13,6 @@ import com.aib.websystem.repository.StockRepository;
 
 @Service
 public class StockService {
-
     @Autowired
     private StockRepository stockRepository;
 
@@ -42,9 +41,8 @@ public class StockService {
     public boolean FruitExist(Fruit fruit, Location location) {
         if (stockRepository.findByFruitAndLocationType(fruit, location.getType(), null).isEmpty()) {
             return false;
-        }else{
+        } else {
             return true;
         }
-
     }
 }
