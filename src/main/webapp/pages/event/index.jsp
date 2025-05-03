@@ -55,10 +55,10 @@
       <p>Showing ${events.number*events.size+1} to ${events.number*events.size+events.numberOfElements} of ${events.totalElements} results</p>
       <div class="flex space-x-1">
         <c:if test="${events.hasPrevious()}">
-          <a href="?page=${events.number}" class="rounded border border-gray-200 px-3 py-1 hover:bg-gray-100">Prev</a>
+          <a href="?page=${events.number}${param.status==null?'':'&status='.concat(param.status)}" class="rounded border border-gray-200 px-3 py-1 hover:bg-gray-100">Prev</a>
         </c:if>
         <c:if test="${events.hasNext()}">
-          <a href="?page=${events.number+2}" class="rounded border border-gray-200 px-3 py-1 hover:bg-gray-100">Next</a>
+          <a href="?page=${events.number+2}${param.status==null?'':'&status='.concat(param.status)}" class="rounded border border-gray-200 px-3 py-1 hover:bg-gray-100">Next</a>
         </c:if>
       </div>
     </div>

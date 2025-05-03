@@ -45,10 +45,10 @@
       <p>Showing ${accounts.number*accounts.size+1} to ${accounts.number*accounts.size+accounts.numberOfElements} of ${accounts.totalElements} results</p>
       <div class="flex space-x-1">
         <c:if test="${accounts.hasPrevious()}">
-          <a href="?page=${accounts.number}" class="rounded border border-gray-200 px-3 py-1 hover:bg-gray-100">Prev</a>
+          <a href="?page=${accounts.number}${param.role==null?'':'&role='.concat(param.role)}" class="rounded border border-gray-200 px-3 py-1 hover:bg-gray-100">Prev</a>
         </c:if>
         <c:if test="${accounts.hasNext()}">
-          <a href="?page=${accounts.number+2}" class="rounded border border-gray-200 px-3 py-1 hover:bg-gray-100">Next</a>
+          <a href="?page=${accounts.number+2}${param.role==null?'':'&role='.concat(param.role)}" class="rounded border border-gray-200 px-3 py-1 hover:bg-gray-100">Next</a>
         </c:if>
       </div>
     </div>

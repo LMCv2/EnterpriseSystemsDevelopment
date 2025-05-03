@@ -53,10 +53,10 @@
       <p>Showing ${locations.number*locations.size+1} to ${locations.number*locations.size+locations.numberOfElements} of ${locations.totalElements} results</p>
       <div class="flex space-x-1">
         <c:if test="${locations.hasPrevious()}">
-          <a href="?page=${locations.number}" class="rounded border border-gray-200 px-3 py-1 hover:bg-gray-100">Prev</a>
+          <a href="?page=${locations.number}${param.type==null?'':'&type='.concat(param.type)}" class="rounded border border-gray-200 px-3 py-1 hover:bg-gray-100">Prev</a>
         </c:if>
         <c:if test="${locations.hasNext()}">
-          <a href="?page=${locations.number+2}" class="rounded border border-gray-200 px-3 py-1 hover:bg-gray-100">Next</a>
+          <a href="?page=${locations.number+2}${param.type==null?'':'&type='.concat(param.type)}" class="rounded border border-gray-200 px-3 py-1 hover:bg-gray-100">Next</a>
         </c:if>
       </div>
     </div>
