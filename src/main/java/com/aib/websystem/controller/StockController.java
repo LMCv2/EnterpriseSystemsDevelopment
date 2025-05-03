@@ -33,9 +33,14 @@ public class StockController {
     private EventRepository eventRepository;
 
     @GetMapping("/")
-    public String getStocksPage(@RequestParam(defaultValue = "1") Integer page, @SessionAttribute Account current_account, Model model) {
+    public String getStocksPage(@RequestParam(defaultValue = "all") String type, @RequestParam(defaultValue = "1") Integer page, @SessionAttribute Account current_account, Model model) {
         if (current_account.getRole() == Role.ADMIN) {
-            model.addAttribute("stocks", stockRepository.findAll(PageRequest.of(page - 1, 10)));
+            if (type.equals("all")) {
+                model.addAttribute("stocks", stockRepository.findAll(PageRequest.of(page - 1, 10)));
+            } else {
+                model.addAttribute("stocks", stockRepository.findByLocationType(LocationType.valueOf(type.toUpperCase()), PageRequest.of(page - 1, 10)));
+            }
+            model.addAttribute("locationType_items", LocationType.MAP);
         } else {
             model.addAttribute("stocks", stockRepository.findByLocation(current_account.getLocation(), PageRequest.of(page - 1, 10)));
         }

@@ -4,6 +4,18 @@
   <div class="mb-3 flex justify-between">
     <input type="text" class="rounded border border-gray-300 px-3 py-2" />
   </div>
+
+  <c:if test="${locationType_items!=null}">
+    <nav class="flex justify-center">
+      <div class="mb-3 flex space-x-1 rounded border border-gray-200 p-1">
+        <a href="?type=all" class="rounded px-3 py-2 hover:bg-gray-100 ${param.type==null||param.type.equals('all')?'text-amber-600':''}">All</a>
+        <c:forEach items="${locationType_items}" var="item">
+          <a href="?type=${item.key.toLowerCase()}" class="rounded px-3 py-2 hover:bg-gray-100 ${item.value.toLowerCase()==param.type?'text-amber-600':''}">${item.value}</a>
+        </c:forEach>
+      </div>
+    </nav>
+  </c:if>
+
   <div class="divide-y rounded shadow">
     <table class="w-full border-gray-200">
       <tbody class="divide-y">
