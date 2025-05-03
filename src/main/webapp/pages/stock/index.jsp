@@ -8,7 +8,7 @@
   <c:if test="${locationType_items!=null}">
     <nav class="flex justify-center">
       <div class="mb-3 flex space-x-1 rounded border border-gray-200 p-1">
-        <a href="?type=all" class="rounded px-3 py-2 hover:bg-gray-100 ${param.type==null||param.type.equals('all')?'text-amber-600':''}">All</a>
+        <a href="?type=all" class="${param.type==null||param.type.equals('all')?'text-amber-600':''} rounded px-3 py-2 hover:bg-gray-100">All</a>
         <c:forEach items="${locationType_items}" var="item">
           <a href="?type=${item.key.toLowerCase()}" class="rounded px-3 py-2 hover:bg-gray-100 ${item.key.toLowerCase()==param.type?'text-amber-600':''}">${item.value}</a>
         </c:forEach>
@@ -27,7 +27,7 @@
           <th class="px-3 py-2 text-left">Action</th>
         </tr>
         <c:forEach var="stock" items="${stocks.content}">
-          <tr class="border-gray-200">
+          <tr class="h-14 border-gray-200">
             <td class="px-3 py-2">${stock.id}</td>
             <td class="px-3 py-2">${stock.location.name}</td>
             <td class="px-3 py-2">${stock.fruit.name}</td>

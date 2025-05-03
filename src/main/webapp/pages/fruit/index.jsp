@@ -18,7 +18,7 @@
           <th class="px-3 py-2 text-left">Action</th>
         </tr>
         <c:forEach var="fruit" items="${fruits.content}">
-          <tr class="border-gray-200">
+          <tr class="h-14 border-gray-200">
             <td class="px-3 py-2">${fruit.id}</td>
             <td class="px-3 py-2">${fruit.name}</td>
             <td class="flex px-3 py-2">

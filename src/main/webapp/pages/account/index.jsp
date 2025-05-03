@@ -28,7 +28,7 @@
           <th class="px-3 py-2 text-left">Action</th>
         </tr>
         <c:forEach var="account" items="${accounts.content}">
-          <tr class="border-gray-200">
+          <tr class="h-14 border-gray-200">
             <td class="px-3 py-2">${account.username}</td>
             <td class="px-3 py-2">${account.role.label}</td>
             <td class="px-3 py-2">${account.location.name}</td>
