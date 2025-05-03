@@ -24,7 +24,7 @@
         </tr>
         <c:forEach var="stock" items="${stocks.content}">
           <tr class="border-gray-200">
-            <td class="px-3 py-2">${stock.fruit.id}</td>
+            <td class="px-3 py-2">${stock.id}</td>
             <td class="px-3 py-2">${stock.fruit.name}</td>
             <td class="px-3 py-2">${stock.location.name}</td>
             <td class="px-3 py-2">${stock.quantity}</td>

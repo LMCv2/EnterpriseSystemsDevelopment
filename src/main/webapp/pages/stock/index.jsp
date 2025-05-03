@@ -21,24 +21,31 @@
       <tbody class="divide-y">
         <tr class="border-gray-200 bg-stone-100">
           <th class="px-3 py-2 text-left">Id</th>
-          <th class="px-3 py-2 text-left">Fruit</th>
           <th class="px-3 py-2 text-left">Location</th>
+          <th class="px-3 py-2 text-left">Fruit</th>
           <th class="px-3 py-2 text-left">Quantity</th>
           <th class="px-3 py-2 text-left">Action</th>
         </tr>
         <c:forEach var="stock" items="${stocks.content}">
           <tr class="border-gray-200">
-            <td class="px-3 py-2">${stock.fruit.id}</td>
-            <td class="px-3 py-2">${stock.fruit.name}</td>
+            <td class="px-3 py-2">${stock.id}</td>
             <td class="px-3 py-2">${stock.location.name}</td>
+            <td class="px-3 py-2">${stock.fruit.name}</td>
             <td class="px-3 py-2">${stock.quantity}</td>
             <td class="flex px-3 py-2">
-              <a class="inline-block rounded-full p-2 hover:bg-gray-100" href="${stock.id}/add">
-                <div class="i-material-symbols-add?bg text-xl"></div>
-              </a>
-              <a class="inline-block rounded-full p-2 hover:bg-gray-100" href="${stock.id}/remove">
-                <div class="i-material-symbols-remove?bg text-xl"></div>
-              </a>
+              <c:if test="${stock.location.type=='SOURCE_WAREHOUSE'}">
+                <a class="inline-block rounded-full p-2 hover:bg-gray-100" href="${stock.id}/edit">
+                  <div class="i-material-symbols-edit?bg text-xl"></div>
+                </a>
+              </c:if>
+              <c:if test="${stock.location.type=='SHOP'}">
+                <a class="inline-block rounded-full p-2 hover:bg-gray-100" href="${stock.id}/add">
+                  <div class="i-material-symbols-add?bg text-xl"></div>
+                </a>
+                <a class="inline-block rounded-full p-2 hover:bg-gray-100" href="${stock.id}/remove">
+                  <div class="i-material-symbols-remove?bg text-xl"></div>
+                </a>
+              </c:if>
             </td>
           </tr>
         </c:forEach>
