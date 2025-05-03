@@ -1,7 +1,6 @@
 package com.aib.websystem.controller;
 
 import java.io.IOException;
-import java.util.Date;
 import java.util.Optional;
 import java.util.Set;
 
@@ -11,20 +10,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.aib.websystem.WebsystemApplication;
 import com.aib.websystem.entity.Account;
-import com.aib.websystem.entity.Event;
-import com.aib.websystem.entity.EventType;
 import com.aib.websystem.entity.Fruit;
 import com.aib.websystem.entity.Role;
 import com.aib.websystem.entity.Stock;
 import com.aib.websystem.entity.Location;
 import com.aib.websystem.entity.LocationSource;
 import com.aib.websystem.entity.LocationType;
-import com.aib.websystem.entity.EventStatus;
 import com.aib.websystem.repository.AccountRepository;
 import com.aib.websystem.repository.FruitRepository;
 import com.aib.websystem.repository.LocationRepository;
 import com.aib.websystem.repository.StockRepository;
-import com.aib.websystem.repository.EventRepository;
 import com.aib.websystem.service.StockService;
 
 import jakarta.servlet.RequestDispatcher;
@@ -39,9 +34,6 @@ import jakarta.servlet.http.HttpSession;
 public class CurrentAccountController extends HttpServlet {
     @Autowired
     private StockRepository stockRepository;
-
-    @Autowired
-    private EventRepository eventRepository;
 
     @Autowired
     private FruitRepository fruitRepository;
@@ -130,12 +122,14 @@ public class CurrentAccountController extends HttpServlet {
 
                 // add stock
                 if (item.length == 5) {
-                    // eventRepository.save(new Event((Fruit) item[4], 100, EventType.CONSUMPTION, null, location, new Date(), EventStatus.CONFIRMED));
                     stockRepository.save(new Stock((Fruit) item[4], location, 100));
                 }
             }
 
             // add shop account
+            accountRepository.save(new Account("source", "a", Role.SOURCE_WAREHOUSE_STAFF, locationRepository.findById(1L).get()));
+            accountRepository.save(new Account("central1", "a", Role.CENTRAL_WAREHOUSE_STAFF, locationRepository.findById(11L).get()));
+            accountRepository.save(new Account("central2", "a", Role.CENTRAL_WAREHOUSE_STAFF, locationRepository.findById(12L).get()));
             accountRepository.save(new Account("shop1", "a", Role.SHOP_STAFF, locationRepository.findById(14L).get()));
             accountRepository.save(new Account("shop2", "a", Role.SHOP_STAFF, locationRepository.findById(15L).get()));
         }
