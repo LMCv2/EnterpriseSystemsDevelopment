@@ -58,10 +58,28 @@ public class StockController {
         return "/pages/stock/add";
     }
 
+    @GetMapping("/{toId}/from/{fromId}")
+    public String addStockFromPage(@PathVariable Long fromId, @PathVariable Long toId, Model model) {
+        model.addAttribute("from_stocks", stockRepository.findById(fromId).orElse(null));
+        model.addAttribute("to_stocks", stockRepository.findById(toId).orElse(null));
+        return "/pages/stock/addfrom";
+    }
+
     @GetMapping("/{id}/remove")
     public String removeStockPage(@PathVariable Long id, Model model) {
         model.addAttribute("stock", stockRepository.findById(id).orElse(null));
         return "/pages/stock/remove";
+    }
+
+    @PostMapping("/{toId}/from/{fromId}")
+    public String createEvent(@PathVariable Long fromId, @PathVariable Long toId, @RequestParam int quantity, @SessionAttribute Account current_account) {
+        Stock fromStock = stockRepository.findById(fromId).orElse(null);
+        Stock toStack = stockRepository.findById(toId).orElse(null);
+        EventType eventType = fromStock.getLocation().getType() == LocationType.SHOP ? EventType.BORROWING : EventType.RESERVATION;
+        if (stockRepository.existsById(fromId)) {
+            eventRepository.save(new Event(fromStock.getFruit(), quantity, eventType, fromStock.getLocation(), toStack.getLocation(), new Date(), EventStatus.PENDING));
+        }
+        return "redirect:/stock/";
     }
 
     @PostMapping("/update/{id}")
@@ -70,15 +88,6 @@ public class StockController {
             Stock stock = stockRepository.findById(id).get();
             stock.setQuantity(quantity);
             stockRepository.save(stock);
-        }
-        return "redirect:/stock/";
-    }
-
-    @PostMapping("/reserve/{id}")
-    public String reserve(@PathVariable Long id, @RequestParam int reservation_number, @SessionAttribute Account current_account) {
-        Stock stock = stockRepository.findById(id).orElse(null);
-        if (stockRepository.existsById(id)) {
-            eventRepository.save(new Event(stock.getFruit(), reservation_number, EventType.RESERVATION, stock.getLocation(), current_account.getLocation(), new Date(), EventStatus.PENDING));
         }
         return "redirect:/stock/";
     }
