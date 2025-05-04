@@ -9,8 +9,8 @@
     </a>
   </div>
 
-  <nav class="flex justify-center">
-    <div class="mb-3 flex space-x-1 rounded border border-gray-200 p-2">
+  <nav class="mb-3 flex justify-center">
+    <div class="flex space-x-1 rounded border border-gray-200 p-2">
       <a href="?role=all" class="rounded px-3 py-1.5 hover:bg-gray-100 ${param.role==null||param.role.equals('all')?'bg-gray-100 text-amber-600':''}">All</a>
       <c:forEach items="${role_items}" var="item">
         <a href="?role=${item.key.toLowerCase()}" class="rounded px-3 py-1.5 hover:bg-gray-100 ${item.key.toLowerCase()==param.role?'bg-gray-100 text-amber-600':''}">${item.value}</a>
