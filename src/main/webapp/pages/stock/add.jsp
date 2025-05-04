@@ -29,7 +29,7 @@
             <td class="px-3 py-2">${stock.location.name}</td>
             <td class="px-3 py-2">${stock.quantity}</td>
             <td class="flex gap-3 px-3 py-2">
-              <a class="inline-flex items-center gap-1 p-2 text-amber-600" href="from/${stock.id}">
+              <a class="inline-flex items-center gap-1 py-2 text-amber-600" href="from/${stock.id}">
                 <div class="i-material-symbols-check?mask"></div>
                 <span class="hover:underline">Select</span>
               </a>

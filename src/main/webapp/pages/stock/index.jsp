@@ -34,17 +34,17 @@
             <td class="px-3 py-2">${stock.quantity}</td>
             <td class="flex gap-3 px-3 py-2">
               <c:if test="${stock.location.type=='SOURCE_WAREHOUSE'}">
-                <a class="inline-flex items-center gap-1 p-2 text-amber-600" href="${stock.id}/edit">
+                <a class="inline-flex items-center gap-1 py-2 text-amber-600" href="${stock.id}/edit">
                   <div class="i-material-symbols-edit?mask"></div>
                   <span class="hover:underline">Edit</span>
                 </a>
               </c:if>
               <c:if test="${stock.location.type=='SHOP'}">
-                <a class="inline-flex items-center gap-1 p-2 text-amber-600" href="${stock.id}/add">
+                <a class="inline-flex items-center gap-1 py-2 text-amber-600" href="${stock.id}/add">
                   <div class="i-material-symbols-add?mask"></div>
                   <span class="hover:underline">Add</span>
                 </a>
-                <a class="inline-flex items-center gap-1 p-2 text-amber-600" href="${stock.id}/remove">
+                <a class="inline-flex items-center gap-1 py-2 text-amber-600" href="${stock.id}/remove">
                   <div class="i-material-symbols-remove?mask"></div>
                   <span class="hover:underline">Remove</span>
                 </a>

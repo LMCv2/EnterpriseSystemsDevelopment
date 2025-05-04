@@ -76,7 +76,7 @@
               <fmt:formatDate type="both" dateStyle="short" timeStyle="short" value="${event.eventDate}" />
             </td>
             <td class="flex gap-3 px-3 py-2">
-              <button class="inline-flex items-center gap-1 p-2 text-amber-600" data-micromodal-trigger="modal">
+              <button class="inline-flex items-center gap-1 py-2 text-amber-600" data-micromodal-trigger="modal">
                 <div class="i-material-symbols-edit?mask"></div>
                 <span class="hover:underline">Edit</span>
               </button>

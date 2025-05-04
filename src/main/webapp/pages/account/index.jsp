@@ -33,7 +33,7 @@
             <td class="px-3 py-2">${account.role.label}</td>
             <td class="px-3 py-2">${account.location.name}</td>
             <td class="flex gap-3 px-3 py-2">
-              <a class="inline-flex items-center gap-1 p-2 text-amber-600" href="${account.username}">
+              <a class="inline-flex items-center gap-1 py-2 text-amber-600" href="${account.username}">
                 <div class="i-material-symbols-edit?mask"></div>
                 <span class="hover:underline">Edit</span>
               </a>
