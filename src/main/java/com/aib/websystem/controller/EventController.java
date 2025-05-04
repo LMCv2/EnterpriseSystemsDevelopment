@@ -74,9 +74,19 @@ public class EventController {
                 stockRepository.save(stock);
                 break;
             case CENTRAL_WAREHOUSE_STAFF:
+                Stock stock2;
                 originEvent.setFromLocation(originEvent.getToLocation());
                 originEvent.setToLocation(originEvent.getFinalToLocation());
                 originEvent.setStatus(EventStatus.DELIVERED);
+                Page<Stock> stocks2 = stockRepository.findByFruitAndLocationType(originEvent.getFruit(),
+                        originEvent.getToLocation().getType(), null);
+                if (stocks2.isEmpty()) {
+                    stock2 = new Stock(originEvent.getFruit(), originEvent.getToLocation(), originEvent.getQuantity());
+                } else {
+                    stock2 = stocks2.getContent().get(0);
+                    stock2.setQuantity(stock2.getQuantity() + originEvent.getQuantity());
+                }
+                stockRepository.save(stock2);
                 break;
             case SOURCE_WAREHOUSE_STAFF:
                 originEvent.setEventType(EventType.RESERVATION);
