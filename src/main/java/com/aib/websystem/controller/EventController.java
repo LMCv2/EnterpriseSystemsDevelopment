@@ -23,6 +23,7 @@ import com.aib.websystem.repository.StockRepository;
 @Controller
 @RequestMapping("/event")
 public class EventController {
+
     @Autowired
     private EventRepository eventRepository;
 
@@ -60,7 +61,6 @@ public class EventController {
             case ADMIN:
                 break;
             case SHOP_STAFF:
-            case CENTRAL_WAREHOUSE_STAFF:
                 Stock stock;
                 originEvent.setStatus(EventStatus.DELIVERED);
                 Page<Stock> stocks = stockRepository.findByFruitAndLocationType(originEvent.getFruit(),
@@ -72,6 +72,11 @@ public class EventController {
                     stock.setQuantity(stock.getQuantity() + originEvent.getQuantity());
                 }
                 stockRepository.save(stock);
+                break;
+            case CENTRAL_WAREHOUSE_STAFF:
+                originEvent.setFromLocation(originEvent.getToLocation());
+                originEvent.setToLocation(originEvent.getFinalToLocation());
+                originEvent.setStatus(EventStatus.DELIVERED);
                 break;
             case SOURCE_WAREHOUSE_STAFF:
                 originEvent.setEventType(EventType.RESERVATION);

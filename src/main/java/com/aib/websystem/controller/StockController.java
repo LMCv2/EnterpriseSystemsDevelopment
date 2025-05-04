@@ -86,7 +86,7 @@ public class StockController {
         if (stockRepository.existsById(fromId)) {
             if(eventType == EventType.RESERVATION) {
                 Page<Location> centralWarehouse = locationRepository.findByCityNameAndType(fromStock.getLocation().getCityName(), LocationType.CENTRAL_WAREHOUSE, PageRequest.of(0, 10));
-                eventRepository.save(new Event(fromStock.getFruit(), quantity, eventType, fromStock.getLocation(), toStack.getLocation(), fromStock.getLocation(), centralWarehouse.getContent().get(0), new Date(), EventStatus.PENDING));
+                eventRepository.save(new Event(fromStock.getFruit(), quantity, eventType, fromStock.getLocation(), centralWarehouse.getContent().get(0), fromStock.getLocation(), toStack.getLocation(), new Date(), EventStatus.PENDING));
             } else {
                 eventRepository.save(new Event(fromStock.getFruit(), quantity, eventType, fromStock.getLocation(), toStack.getLocation(), fromStock.getLocation(), toStack.getLocation(), new Date(), EventStatus.PENDING));
             }
