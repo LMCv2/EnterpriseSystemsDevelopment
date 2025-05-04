@@ -9,9 +9,9 @@
 
   <nav class="flex justify-center">
     <div class="mb-3 flex space-x-1 rounded border border-gray-200 p-2">
-      <a href="?status=all" class="rounded px-3 py-1 hover:bg-gray-100 ${param.status==null||param.status.equals('all')?'bg-gray-100 text-amber-600':''}">All</a>
+      <a href="?status=all" class="rounded px-3 py-1.5 hover:bg-gray-100 ${param.status==null||param.status.equals('all')?'bg-gray-100 text-amber-600':''}">All</a>
       <c:forEach items="${status_items}" var="item">
-        <a href="?status=${item.key.toLowerCase()}" class="rounded px-3 py-1 hover:bg-gray-100 ${item.key.toLowerCase()==param.status?'bg-gray-100 text-amber-600':''}">${item.value}</a>
+        <a href="?status=${item.key.toLowerCase()}" class="rounded px-3 py-1.5 hover:bg-gray-100 ${item.key.toLowerCase()==param.status?'bg-gray-100 text-amber-600':''}">${item.value}</a>
       </c:forEach>
     </div>
   </nav>

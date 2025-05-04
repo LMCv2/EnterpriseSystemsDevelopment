@@ -8,9 +8,9 @@
   <c:if test="${locationType_items!=null}">
     <nav class="flex justify-center">
       <div class="mb-3 flex space-x-1 rounded border border-gray-200 p-2">
-        <a href="?type=all" class="rounded px-3 py-1 hover:bg-gray-100 ${param.type==null||param.type.equals('all')?'bg-gray-100 text-amber-600':''}">All</a>
+        <a href="?type=all" class="rounded px-3 py-1.5 hover:bg-gray-100 ${param.type==null||param.type.equals('all')?'bg-gray-100 text-amber-600':''}">All</a>
         <c:forEach items="${locationType_items}" var="item">
-          <a href="?type=${item.key.toLowerCase()}" class="rounded px-3 py-1 hover:bg-gray-100 ${item.key.toLowerCase()==param.type?'bg-gray-100 text-amber-600':''}">${item.value}</a>
+          <a href="?type=${item.key.toLowerCase()}" class="rounded px-3 py-1.5 hover:bg-gray-100 ${item.key.toLowerCase()==param.type?'bg-gray-100 text-amber-600':''}">${item.value}</a>
         </c:forEach>
       </div>
     </nav>
