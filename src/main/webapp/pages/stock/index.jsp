@@ -32,18 +32,21 @@
             <td class="px-3 py-2">${stock.location.name}</td>
             <td class="px-3 py-2">${stock.fruit.name}</td>
             <td class="px-3 py-2">${stock.quantity}</td>
-            <td class="flex px-3 py-2">
+            <td class="flex gap-3 px-3 py-2">
               <c:if test="${stock.location.type=='SOURCE_WAREHOUSE'}">
-                <a class="inline-block rounded-full p-2 hover:bg-gray-100" href="${stock.id}/edit">
-                  <div class="i-material-symbols-edit?bg text-xl"></div>
+                <a class="inline-flex items-center gap-1 p-2 text-amber-600" href="${stock.id}/edit">
+                  <div class="i-material-symbols-edit?mask"></div>
+                  <span class="hover:underline">Edit</span>
                 </a>
               </c:if>
               <c:if test="${stock.location.type=='SHOP'}">
-                <a class="inline-block rounded-full p-2 hover:bg-gray-100" href="${stock.id}/add">
-                  <div class="i-material-symbols-add?bg text-xl"></div>
+                <a class="inline-flex items-center gap-1 p-2 text-amber-600" href="${stock.id}/add">
+                  <div class="i-material-symbols-add?mask"></div>
+                  <span class="hover:underline">Add</span>
                 </a>
-                <a class="inline-block rounded-full p-2 hover:bg-gray-100" href="${stock.id}/remove">
-                  <div class="i-material-symbols-remove?bg text-xl"></div>
+                <a class="inline-flex items-center gap-1 p-2 text-amber-600" href="${stock.id}/remove">
+                  <div class="i-material-symbols-remove?mask"></div>
+                  <span class="hover:underline">Remove</span>
                 </a>
               </c:if>
             </td>

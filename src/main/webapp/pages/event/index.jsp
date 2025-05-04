@@ -75,9 +75,10 @@
             <td class="px-3 py-2">
               <fmt:formatDate type="both" dateStyle="short" timeStyle="short" value="${event.eventDate}" />
             </td>
-            <td class="flex px-3 py-2">
-              <button class="inline-block rounded-full p-2 hover:bg-gray-100" data-micromodal-trigger="modal">
-                <div class="i-material-symbols-edit?bg text-xl"></div>
+            <td class="flex gap-3 px-3 py-2">
+              <button class="inline-flex items-center gap-1 p-2 text-amber-600" data-micromodal-trigger="modal">
+                <div class="i-material-symbols-edit?mask"></div>
+                <span class="hover:underline">Edit</span>
               </button>
               <div class="aria-hidden:hidden" id="modal" aria-hidden="true">
                 <div class="fixed inset-0 flex items-center justify-center bg-gray-950/50" data-micromodal-close>

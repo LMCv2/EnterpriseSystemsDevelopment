@@ -32,9 +32,10 @@
             <td class="px-3 py-2">${account.username}</td>
             <td class="px-3 py-2">${account.role.label}</td>
             <td class="px-3 py-2">${account.location.name}</td>
-            <td class="flex px-3 py-2">
-              <a class="inline-block rounded-full p-2 hover:bg-gray-100" href="${account.username}">
-                <div class="i-material-symbols-edit?bg text-xl"></div>
+            <td class="flex gap-3 px-3 py-2">
+              <a class="inline-flex items-center gap-1 p-2 text-amber-600" href="${account.username}">
+                <div class="i-material-symbols-edit?mask"></div>
+                <span class="hover:underline">Edit</span>
               </a>
             </td>
           </tr>

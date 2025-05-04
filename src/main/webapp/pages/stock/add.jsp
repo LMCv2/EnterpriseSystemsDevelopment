@@ -28,9 +28,10 @@
             <td class="px-3 py-2">${stock.fruit.name}</td>
             <td class="px-3 py-2">${stock.location.name}</td>
             <td class="px-3 py-2">${stock.quantity}</td>
-            <td class="flex px-3 py-2">
-              <a class="inline-block rounded-full p-2 hover:bg-gray-100" href="from/${stock.id}">
-                <div class="i-material-symbols-check?bg text-xl"></div>
+            <td class="flex gap-3 px-3 py-2">
+              <a class="inline-flex items-center gap-1 p-2 text-amber-600" href="from/${stock.id}">
+                <div class="i-material-symbols-check?mask"></div>
+                <span class="hover:underline">Select</span>
               </a>
             </td>
           </tr>
