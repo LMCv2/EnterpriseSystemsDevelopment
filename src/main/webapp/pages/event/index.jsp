@@ -39,8 +39,8 @@
             <td class="px-3 py-2">${event.fruit.name}</td>
             <td class="px-3 py-2">${event.quantity}</td>
             <td class="px-3 py-2">${event.eventType.label}</td>
-            <td class="px-3 py-2">${event.fromLocation.name}</td>
-            <td class="px-3 py-2">${event.toLocation.name}</td>
+            <td class="px-3 py-2">${event.originalFromLocation.name}</td>
+            <td class="px-3 py-2">${event.finalToLocation.name}</td>
             <td class="px-3 py-2">
               <div class="flex">
                 <c:if test="${event.status=='PENDING'}">

@@ -46,6 +46,16 @@ public class Event {
 
     @Getter
     @Setter
+    @ManyToOne
+    private Location OriginalFromLocation;
+
+    @Getter
+    @Setter
+    @ManyToOne
+    private Location FinalToLocation;
+
+    @Getter
+    @Setter
     private Date eventDate;
 
     @Getter
@@ -53,15 +63,27 @@ public class Event {
     private EventStatus status;
 
     public Event(Fruit fruit, Integer quantity) {
-        this(fruit, quantity, EventType.CONSUMPTION, null, null, null, null);
+        this(fruit, quantity, EventType.CONSUMPTION, null, null, null, null, null, null);
     }
-
+    
     public Event(Fruit fruit, Integer quantity, EventType eventType, Location fromLocation, Location toLocation, Date eventDate, EventStatus status) {
         this.fruit = fruit;
         this.quantity = quantity;
         this.eventType = eventType;
         this.fromLocation = fromLocation;
         this.toLocation = toLocation;
+        this.eventDate = eventDate;
+        this.status = status;
+    }
+
+    public Event(Fruit fruit, Integer quantity, EventType eventType, Location fromLocation, Location toLocation, Location originalFromLocation, Location finalToLocation, Date eventDate, EventStatus status) {
+        this.fruit = fruit;
+        this.quantity = quantity;
+        this.eventType = eventType;
+        this.fromLocation = fromLocation;
+        this.toLocation = toLocation;
+        this.OriginalFromLocation = originalFromLocation;
+        this.FinalToLocation = finalToLocation;
         this.eventDate = eventDate;
         this.status = status;
     }

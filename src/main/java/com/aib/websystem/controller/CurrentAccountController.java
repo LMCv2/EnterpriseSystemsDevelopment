@@ -90,23 +90,23 @@ public class CurrentAccountController extends HttpServlet {
         if (true) {
             // add fruit
             for (String name : new String[] { "Apple", "Banana", "Orange", "Strawberry", "Mango" }) {
-                Fruit fruit = new Fruit(name, LocationSource.PHILIPPINES);
+                Fruit fruit = new Fruit(name);
                 fruitRepository.save(fruit);
                 stockService.addFruitToAllLocation(fruit);
             }
 
             for (Object[] item : new Object[][] {
                     // source
-                    { "Apple Source 1", "Manila", LocationType.SOURCE_WAREHOUSE, LocationSource.PHILIPPINES, fruitRepository.findById(1L).get() },
-                    { "Apple Source 2", "Manila", LocationType.SOURCE_WAREHOUSE, LocationSource.PHILIPPINES, fruitRepository.findById(1L).get() },
-                    { "Banana Source 1", "Manila", LocationType.SOURCE_WAREHOUSE, LocationSource.PHILIPPINES, fruitRepository.findById(2L).get() },
-                    { "Banana Source 2", "Manila", LocationType.SOURCE_WAREHOUSE, LocationSource.PHILIPPINES, fruitRepository.findById(2L).get() },
-                    { "Orange Source 1", "Manila", LocationType.SOURCE_WAREHOUSE, LocationSource.PHILIPPINES, fruitRepository.findById(3L).get() },
-                    { "Orange Source 2", "Manila", LocationType.SOURCE_WAREHOUSE, LocationSource.PHILIPPINES, fruitRepository.findById(4L).get() },
-                    { "Strawberry Source 1", "Manila", LocationType.SOURCE_WAREHOUSE, LocationSource.PHILIPPINES, fruitRepository.findById(4L).get() },
-                    { "Strawberry Source 2", "Manila", LocationType.SOURCE_WAREHOUSE, LocationSource.PHILIPPINES, fruitRepository.findById(4L).get() },
-                    { "Mango Source 1", "Manila", LocationType.SOURCE_WAREHOUSE, LocationSource.PHILIPPINES, fruitRepository.findById(5L).get() },
-                    { "Mango Source 2", "Manila", LocationType.SOURCE_WAREHOUSE, LocationSource.PHILIPPINES, fruitRepository.findById(5L).get() },
+                    { "Apple Source 1", "Manila", LocationType.SOURCE_WAREHOUSE, fruitRepository.findById(1L).get() },
+                    { "Apple Source 2", "Manila", LocationType.SOURCE_WAREHOUSE, fruitRepository.findById(1L).get() },
+                    { "Banana Source 1", "Manila", LocationType.SOURCE_WAREHOUSE, fruitRepository.findById(2L).get() },
+                    { "Banana Source 2", "Manila", LocationType.SOURCE_WAREHOUSE, fruitRepository.findById(2L).get() },
+                    { "Orange Source 1", "Manila", LocationType.SOURCE_WAREHOUSE, fruitRepository.findById(3L).get() },
+                    { "Orange Source 2", "Manila", LocationType.SOURCE_WAREHOUSE, fruitRepository.findById(4L).get() },
+                    { "Strawberry Source 1", "Manila", LocationType.SOURCE_WAREHOUSE, fruitRepository.findById(4L).get() },
+                    { "Strawberry Source 2", "Manila", LocationType.SOURCE_WAREHOUSE, fruitRepository.findById(4L).get() },
+                    { "Mango Source 1", "Manila", LocationType.SOURCE_WAREHOUSE, fruitRepository.findById(5L).get() },
+                    { "Mango Source 2", "Manila", LocationType.SOURCE_WAREHOUSE, fruitRepository.findById(5L).get() },
                     // central
                     { "Central Warehouse 1", "Hong Kong", LocationType.CENTRAL_WAREHOUSE },
                     { "Central Warehouse 2", "Hong Kong", LocationType.CENTRAL_WAREHOUSE },

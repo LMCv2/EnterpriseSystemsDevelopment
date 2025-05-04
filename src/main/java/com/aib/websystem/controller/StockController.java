@@ -1,8 +1,10 @@
 package com.aib.websystem.controller;
 
+import java.lang.reflect.AccessFlag;
 import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,10 +19,12 @@ import com.aib.websystem.entity.Account;
 import com.aib.websystem.entity.Event;
 import com.aib.websystem.entity.EventStatus;
 import com.aib.websystem.entity.EventType;
+import com.aib.websystem.entity.Location;
 import com.aib.websystem.entity.LocationType;
 import com.aib.websystem.entity.Role;
 import com.aib.websystem.entity.Stock;
 import com.aib.websystem.repository.EventRepository;
+import com.aib.websystem.repository.LocationRepository;
 import com.aib.websystem.repository.StockRepository;
 
 @Controller
@@ -31,6 +35,9 @@ public class StockController {
 
     @Autowired
     private EventRepository eventRepository;
+
+    @Autowired
+    private LocationRepository locationRepository;
 
     @GetMapping("/")
     public String getStocksPage(@RequestParam(defaultValue = "all") String type, @RequestParam(defaultValue = "1") Integer page, @SessionAttribute Account current_account, Model model) {
@@ -77,7 +84,12 @@ public class StockController {
         Stock toStack = stockRepository.findById(toId).orElse(null);
         EventType eventType = fromStock.getLocation().getType() == LocationType.SHOP ? EventType.BORROWING : EventType.RESERVATION;
         if (stockRepository.existsById(fromId)) {
-            eventRepository.save(new Event(fromStock.getFruit(), quantity, eventType, fromStock.getLocation(), toStack.getLocation(), new Date(), EventStatus.PENDING));
+            if(eventType == EventType.RESERVATION) {
+                Page<Location> centralWarehouse = locationRepository.findByCityNameAndType(fromStock.getLocation().getCityName(), LocationType.CENTRAL_WAREHOUSE, PageRequest.of(0, 10));
+                eventRepository.save(new Event(fromStock.getFruit(), quantity, eventType, fromStock.getLocation(), toStack.getLocation(), fromStock.getLocation(), centralWarehouse.getContent().get(0), new Date(), EventStatus.PENDING));
+            } else {
+                eventRepository.save(new Event(fromStock.getFruit(), quantity, eventType, fromStock.getLocation(), toStack.getLocation(), fromStock.getLocation(), toStack.getLocation(), new Date(), EventStatus.PENDING));
+            }
         }
         return "redirect:/stock/";
     }
