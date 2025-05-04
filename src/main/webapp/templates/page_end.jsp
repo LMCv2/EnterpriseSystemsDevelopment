@@ -8,5 +8,8 @@
   </head>
   <body>
     ${children} -->
+    <script>
+      MicroModal.init();
+    </script>
   </body>
 </html>

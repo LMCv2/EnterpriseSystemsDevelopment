@@ -6,6 +6,7 @@
     <title>${title}</title>
     <link rel="stylesheet" href="/static/uno.css" />
     <link rel="icon" type="image/x-icon" href="/static/favicon.ico" />
+    <script src="/static/micromodal.min.js"></script>
   </head>
   <body>
     <!-- ${children}
