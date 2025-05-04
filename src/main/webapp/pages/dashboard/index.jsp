@@ -12,8 +12,8 @@
           <p>Hi there, I'm some modal content!</p>
         </main>
         <footer class="flex gap-3">
-          <button class="rounded bg-amber-600 px-3 py-2 text-white hover:bg-amber-700">Approve</button>
-          <button class="rounded border border-gray-300 px-3 py-2 hover:bg-gray-100" data-micromodal-close>Cancel</button>
+          <button class="rounded bg-amber-600 px-3 py-1.5 text-white hover:bg-amber-700">Approve</button>
+          <button class="rounded border border-gray-300 px-3 py-1.5 hover:bg-gray-100" data-micromodal-close>Cancel</button>
         </footer>
       </div>
     </div>

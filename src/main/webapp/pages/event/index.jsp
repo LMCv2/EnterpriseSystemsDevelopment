@@ -76,9 +76,25 @@
               <fmt:formatDate type="both" dateStyle="short" timeStyle="short" value="${event.eventDate}" />
             </td>
             <td class="flex px-3 py-2">
-              <a class="inline-block rounded-full p-2 hover:bg-gray-100" href="${event.id}">
+              <button class="inline-block rounded-full p-2 hover:bg-gray-100" data-micromodal-trigger="modal">
                 <div class="i-material-symbols-edit?bg text-xl"></div>
-              </a>
+              </button>
+              <div class="aria-hidden:hidden" id="modal" aria-hidden="true">
+                <div class="fixed inset-0 flex items-center justify-center bg-gray-950/50" data-micromodal-close>
+                  <div class="space-y-6 rounded bg-white p-6">
+                    <header class="flex">
+                      <h3 class="font-semibold">Modal Title</h3>
+                    </header>
+                    <main>
+                      <p>Hi there, I'm some modal content!</p>
+                    </main>
+                    <footer class="flex gap-3">
+                      <a class="rounded bg-amber-600 px-3 py-1.5 text-white hover:bg-amber-700" href="${event.id}">Approve</a>
+                      <button class="rounded border border-gray-300 px-3 py-1.5 hover:bg-gray-100" data-micromodal-close>Cancel</button>
+                    </footer>
+                  </div>
+                </div>
+              </div>
             </td>
           </tr>
         </c:forEach>
