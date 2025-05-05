@@ -113,7 +113,7 @@ public class CurrentAccountController extends HttpServlet {
                     { "Mango Source 2", "Manila", LocationType.SOURCE_WAREHOUSE, fruitRepository.findById(5L).get() },
                     // central
                     { "Central Warehouse 1", "Hong Kong", LocationType.CENTRAL_WAREHOUSE },
-                    { "Central Warehouse 2", "Hong Kong", LocationType.CENTRAL_WAREHOUSE },
+                    //{ "Central Warehouse 2", "Hong Kong", LocationType.CENTRAL_WAREHOUSE },
                     { "Central Warehouse 3", "London", LocationType.CENTRAL_WAREHOUSE },
                     // shop
                     { "Bakery Shop 1", "Hong Kong", LocationType.SHOP },
