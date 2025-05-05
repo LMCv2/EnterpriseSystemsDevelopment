@@ -20,10 +20,26 @@ public class ReservationSchedule {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
+    //default today
+    @Getter
+    private Date deliveredDate;
+
+    //after 3 days, start count 14 days
     @Getter
     private Date startDate;
 
-    public ReservationSchedule(Date startDate) {
+    //after 14 days of start date
+    @Getter
+    private Date endDate;
+
+    //after 14 days of delivered date
+    @Getter
+    private Date nextReservedDate;
+
+    public ReservationSchedule(Date deliveredDate, Date startDate, Date endDate, Date nextReservedDate) {
         this.startDate = startDate;
+        this.deliveredDate = deliveredDate;
+        this.endDate = endDate;
+        this.nextReservedDate = nextReservedDate;
     }
 }

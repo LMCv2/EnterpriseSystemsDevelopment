@@ -138,10 +138,27 @@ public class CurrentAccountController extends HttpServlet {
             accountRepository.save(new Account("shop2", "a", Role.SHOP_STAFF, locationRepository.findById(15L).get()));
 
             // start reservation schedule
+            java.util.Date today = new java.util.Date(); // deliveredDate
+            
+            // Calculate date 3 days after today (startDate)
             java.util.Calendar calendar = java.util.Calendar.getInstance();
+            calendar.setTime(today);
             calendar.add(java.util.Calendar.DAY_OF_MONTH, 3);
             java.util.Date threeDaysLater = calendar.getTime();
-            reservationScheduleRepository.save(new ReservationSchedule(threeDaysLater));
+            
+            // Calculate date 14 days after startDate (endDate)
+            java.util.Calendar calendar2 = java.util.Calendar.getInstance();
+            calendar2.setTime(threeDaysLater);
+            calendar2.add(java.util.Calendar.DAY_OF_MONTH, 14);
+            java.util.Date endDate = calendar2.getTime();
+            
+            // Calculate date 14 days after deliveredDate (nextReservedDate)
+            java.util.Calendar calendar3 = java.util.Calendar.getInstance();
+            calendar3.setTime(today);
+            calendar3.add(java.util.Calendar.DAY_OF_MONTH, 14);
+            java.util.Date nextReservedDate = calendar3.getTime();
+            
+            reservationScheduleRepository.save(new ReservationSchedule(today, threeDaysLater, endDate, nextReservedDate));
         }
 
         res.sendRedirect("/");
