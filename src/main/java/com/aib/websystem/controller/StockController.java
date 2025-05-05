@@ -6,6 +6,7 @@ import java.util.Date;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,10 +22,12 @@ import com.aib.websystem.entity.EventStatus;
 import com.aib.websystem.entity.EventType;
 import com.aib.websystem.entity.Location;
 import com.aib.websystem.entity.LocationType;
+import com.aib.websystem.entity.ReservationSchedule;
 import com.aib.websystem.entity.Role;
 import com.aib.websystem.entity.Stock;
 import com.aib.websystem.repository.EventRepository;
 import com.aib.websystem.repository.LocationRepository;
+import com.aib.websystem.repository.ReservationScheduleRepository;
 import com.aib.websystem.repository.StockRepository;
 
 @Controller
@@ -38,6 +41,9 @@ public class StockController {
 
     @Autowired
     private LocationRepository locationRepository;
+
+    @Autowired
+    private ReservationScheduleRepository reservationScheduleRepository;
 
     @GetMapping("/")
     public String getStocksPage(@RequestParam(defaultValue = "all") String type, @RequestParam(defaultValue = "1") Integer page, @SessionAttribute Account current_account, Model model) {
@@ -87,7 +93,8 @@ public class StockController {
             if(eventType == EventType.RESERVATION) {
                 // be careful, each city MUST has his own central warehouse(only one)
                 Page<Location> centralWarehouse = locationRepository.findByCityNameAndType(toStack.getLocation().getCityName(), LocationType.CENTRAL_WAREHOUSE, PageRequest.of(0, 10));
-                eventRepository.save(new Event(fromStock.getFruit(), quantity, eventType, fromStock.getLocation(), centralWarehouse.getContent().get(0), fromStock.getLocation(), toStack.getLocation(), new Date(), EventStatus.PENDING));
+                Iterable<ReservationSchedule> reservationSchedule = reservationScheduleRepository.findAll(Sort.by(Sort.Direction.DESC, "id"));
+                eventRepository.save(new Event(fromStock.getFruit(), quantity, eventType, fromStock.getLocation(), centralWarehouse.getContent().get(0), fromStock.getLocation(), toStack.getLocation(), new Date(), EventStatus.PENDING, reservationSchedule.iterator().hasNext() ? reservationSchedule.iterator().next() : null));
             } else {
                 eventRepository.save(new Event(fromStock.getFruit(), quantity, eventType, fromStock.getLocation(), toStack.getLocation(), fromStock.getLocation(), toStack.getLocation(), new Date(), EventStatus.PENDING));
             }

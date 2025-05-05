@@ -62,20 +62,11 @@ public class Event {
     @Setter
     private EventStatus status;
 
-    public Event(Fruit fruit, Integer quantity) {
-        this(fruit, quantity, EventType.CONSUMPTION, null, null, null, null, null, null);
-    }
+    @Getter
+    @Setter
+    @ManyToOne
+    private ReservationSchedule reservationSchedule;
     
-    public Event(Fruit fruit, Integer quantity, EventType eventType, Location fromLocation, Location toLocation, Date eventDate, EventStatus status) {
-        this.fruit = fruit;
-        this.quantity = quantity;
-        this.eventType = eventType;
-        this.fromLocation = fromLocation;
-        this.toLocation = toLocation;
-        this.eventDate = eventDate;
-        this.status = status;
-    }
-
     public Event(Fruit fruit, Integer quantity, EventType eventType, Location fromLocation, Location toLocation, Location originalFromLocation, Location finalToLocation, Date eventDate, EventStatus status) {
         this.fruit = fruit;
         this.quantity = quantity;
@@ -86,5 +77,19 @@ public class Event {
         this.FinalToLocation = finalToLocation;
         this.eventDate = eventDate;
         this.status = status;
+        this.reservationSchedule = null;
+    }
+
+    public Event(Fruit fruit, Integer quantity, EventType eventType, Location fromLocation, Location toLocation, Location originalFromLocation, Location finalToLocation, Date eventDate, EventStatus status, ReservationSchedule reservationSchedule) {
+        this.fruit = fruit;
+        this.quantity = quantity;
+        this.eventType = eventType;
+        this.fromLocation = fromLocation;
+        this.toLocation = toLocation;
+        this.OriginalFromLocation = originalFromLocation;
+        this.FinalToLocation = finalToLocation;
+        this.eventDate = eventDate;
+        this.status = status;
+        this.reservationSchedule = reservationSchedule;
     }
 }
