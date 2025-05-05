@@ -57,6 +57,7 @@ public class StockController {
         } else {
             model.addAttribute("stocks", stockRepository.findByLocation(current_account.getLocation(), PageRequest.of(page - 1, 10)));
         }
+        model.addAttribute("current_account", current_account);
         return "/pages/stock/index";
     }
 
@@ -69,6 +70,12 @@ public class StockController {
             model.addAttribute("stocks", stockRepository.findByFruitAndLocationTypeAndLocationCityNameAndIdNot(stock.getFruit(), LocationType.SHOP, stock.getLocation().getCityName(), stock.getId(), PageRequest.of(0, 10)));
         }
         return "/pages/stock/add";
+    }
+
+    @GetMapping("/totalReservedNeeds")
+    public String getTotalReservedNeedsPage(@RequestParam(defaultValue = "1") Integer page, @SessionAttribute Account current_account, Model model) {
+        model.addAttribute("stocksNeeds", eventRepository.findByLocationGroupByFruit(current_account.getLocation(), PageRequest.of(page - 1, 10)));
+        return "/pages/stock/totalReservedNeeds";
     }
 
     @GetMapping("/{toId}/from/{fromId}")

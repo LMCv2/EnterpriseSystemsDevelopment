@@ -19,4 +19,7 @@ public interface EventRepository extends CrudRepository<Event, Long>, PagingAndS
 
     @Query("select e from Event e where (e.fromLocation = ?1 OR e.toLocation = ?1 OR e.OriginalFromLocation = ?1 OR e.FinalToLocation = ?1) and e.status = ?2")
     Page<Event> findByLocationAndStatus(Location location, EventStatus status, Pageable pageable);
+
+    @Query("select e.fruit, e.toLocation, SUM(e.quantity) from Event e where e.fromLocation = ?1 OR e.toLocation = ?1 OR e.OriginalFromLocation = ?1 OR e.FinalToLocation = ?1 GROUP BY e.fruit, e.toLocation")
+    Page<Object[]> findByLocationGroupByFruit(Location location, Pageable pageable);
 }
