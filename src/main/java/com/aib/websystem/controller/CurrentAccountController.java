@@ -14,11 +14,12 @@ import com.aib.websystem.entity.Fruit;
 import com.aib.websystem.entity.Role;
 import com.aib.websystem.entity.Stock;
 import com.aib.websystem.entity.Location;
-import com.aib.websystem.entity.LocationSource;
 import com.aib.websystem.entity.LocationType;
+import com.aib.websystem.entity.ReservationSchedule;
 import com.aib.websystem.repository.AccountRepository;
 import com.aib.websystem.repository.FruitRepository;
 import com.aib.websystem.repository.LocationRepository;
+import com.aib.websystem.repository.ReservationScheduleRepository;
 import com.aib.websystem.repository.StockRepository;
 import com.aib.websystem.service.StockService;
 
@@ -46,6 +47,9 @@ public class CurrentAccountController extends HttpServlet {
 
     @Autowired
     private StockService stockService;
+
+    @Autowired
+    private ReservationScheduleRepository reservationScheduleRepository;
 
     private static final Logger logger = LoggerFactory.getLogger(WebsystemApplication.class);
 
@@ -132,6 +136,12 @@ public class CurrentAccountController extends HttpServlet {
             accountRepository.save(new Account("central2", "a", Role.CENTRAL_WAREHOUSE_STAFF, locationRepository.findById(12L).get()));
             accountRepository.save(new Account("shop1", "a", Role.SHOP_STAFF, locationRepository.findById(14L).get()));
             accountRepository.save(new Account("shop2", "a", Role.SHOP_STAFF, locationRepository.findById(15L).get()));
+
+            // start reservation schedule
+            java.util.Calendar calendar = java.util.Calendar.getInstance();
+            calendar.add(java.util.Calendar.DAY_OF_MONTH, 3);
+            java.util.Date threeDaysLater = calendar.getTime();
+            reservationScheduleRepository.save(new ReservationSchedule(threeDaysLater));
         }
 
         res.sendRedirect("/");
