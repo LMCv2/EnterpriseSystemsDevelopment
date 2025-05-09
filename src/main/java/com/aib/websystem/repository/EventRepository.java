@@ -25,4 +25,7 @@ public interface EventRepository extends CrudRepository<Event, Long>, PagingAndS
 
     @Query("select e.fruit, s.quantity, SUM(e.quantity) from Event e INNER JOIN Stock s ON e.fruit = s.fruit where s.location = ?1 AND e.OriginalFromLocation = ?1 AND e.status = 0 GROUP BY e.fruit, s.quantity")
     Page<Object[]> findFruitStockAndEventTotalByLocation(Location location, Pageable pageable);
+
+    @Query("select e.fruit, s.quantity, SUM(e.quantity) from Event e INNER JOIN Stock s ON e.fruit = s.fruit where s.location = ?1 AND e.toLocation = ?1 AND e.status = 1 GROUP BY e.fruit, s.quantity")
+    Page<Object[]> findFruitStockAndActiveEventTotalByLocation(Location location, Pageable pageable);
 }

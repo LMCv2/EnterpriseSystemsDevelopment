@@ -13,6 +13,12 @@
             <span>Total reserved needs</span>
           </a>
         </c:if>
+        <c:if test="${current_account.getRole() == 'CENTRAL_WAREHOUSE_STAFF'}">
+          <a href="warehousing" class="flex items-center rounded border border-gray-300 px-3 py-2 hover:bg-gray-100">
+            <div class="i-material-symbols-add mr-3"></div>
+            <span>Warehousing</span>
+          </a>
+        </c:if>
       </div>
 
       <c:if test="${locationType_items!=null}">

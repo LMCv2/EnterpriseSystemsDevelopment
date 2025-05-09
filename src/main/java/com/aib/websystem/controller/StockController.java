@@ -20,6 +20,7 @@ import com.aib.websystem.entity.Account;
 import com.aib.websystem.entity.Event;
 import com.aib.websystem.entity.EventStatus;
 import com.aib.websystem.entity.EventType;
+import com.aib.websystem.entity.Fruit;
 import com.aib.websystem.entity.Location;
 import com.aib.websystem.entity.LocationType;
 import com.aib.websystem.entity.ReservationSchedule;
@@ -74,7 +75,8 @@ public class StockController {
 
     @GetMapping("/{id}/addReservedNeeds")
     public String addReservedNeeds(@PathVariable Long id, @RequestParam(defaultValue = "0") Integer qty, @SessionAttribute Account current_account, Model model) {
-        Stock stock = stockRepository.findById(id).orElse(null);
+        Fruit fruit = stockRepository.findById(id).orElse(null).getFruit();
+        Stock stock = stockRepository.findByFruitAndLocation(fruit, current_account.getLocation(), PageRequest.of(0, 10)).getContent().get(0);
         stock.setQuantity(stock.getQuantity() + qty);
         stockRepository.save(stock);
         return "redirect:/stock/";
@@ -85,6 +87,12 @@ public class StockController {
     public String getTotalReservedNeedsPage(@RequestParam(defaultValue = "1") Integer page, @SessionAttribute Account current_account, Model model) {
         model.addAttribute("selectionFruitList", eventRepository.findFruitStockAndEventTotalByLocation(current_account.getLocation(), PageRequest.of(page - 1, 10)));
         return "/pages/stock/totalReservedNeedsOverall";
+    }
+
+    @GetMapping("/warehousing")
+    public String warehousing(@RequestParam(defaultValue = "1") Integer page, @SessionAttribute Account current_account, Model model) {
+        model.addAttribute("warehousingList", eventRepository.findFruitStockAndActiveEventTotalByLocation(current_account.getLocation(), PageRequest.of(page - 1, 10)));
+        return "/pages/stock/warehousing";
     }
 
     @GetMapping("/detail")
