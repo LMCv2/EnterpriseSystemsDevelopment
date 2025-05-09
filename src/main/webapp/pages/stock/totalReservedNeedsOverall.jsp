@@ -15,6 +15,7 @@
         <tr class="border-gray-200 bg-stone-100">
           <th class="px-3 py-2 text-left">Id</th>
           <th class="px-3 py-2 text-left">Fruit Name</th>
+          <th class="px-3 py-2 text-left">Inventory</th>
           <th class="px-3 py-2 text-left">Quantity</th>
           <th class="px-3 py-2 text-left">Action</th>
         </tr>
@@ -24,9 +25,10 @@
             <td class="px-3 py-2">${fruit[0].id}</td>
             <td class="px-3 py-2">${fruit[0].name}</td>
             <td class="px-3 py-2">${fruit[1]}</td>
-            <td><a class="inline-flex items-center gap-1 py-2 text-amber-600" href="${fruit[0].id}/addReservedNeeds?qty=${fruit[1]}">
+            <td class="px-3 py-2">${fruit[2]}</td>
+            <td><a class="inline-flex items-center gap-1 py-2 text-amber-600" href="${fruit[0].id}/addReservedNeeds?qty=${fruit[2] - fruit[1]}">
               <div class="i-material-symbols-add?mask"></div>
-              <span class="hover:underline">Add ${fruit[1]}</span>
+              <span class="hover:underline">Add ${fruit[2] - fruit[1]}</span>
             </a></td>
           </tr>
         </c:forEach>

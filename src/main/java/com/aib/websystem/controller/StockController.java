@@ -83,7 +83,7 @@ public class StockController {
 
     @GetMapping("/totalReservedNeedsOverall")
     public String getTotalReservedNeedsPage(@RequestParam(defaultValue = "1") Integer page, @SessionAttribute Account current_account, Model model) {
-        model.addAttribute("selectionFruitList", eventRepository.sumQuantityByLocationGroupByFruit(current_account.getLocation(), PageRequest.of(page - 1, 10)));
+        model.addAttribute("selectionFruitList", eventRepository.findFruitStockAndEventTotalByLocation(current_account.getLocation(), PageRequest.of(page - 1, 10)));
         return "/pages/stock/totalReservedNeedsOverall";
     }
 
