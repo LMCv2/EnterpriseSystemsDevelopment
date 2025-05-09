@@ -16,6 +16,7 @@
           <th class="px-3 py-2 text-left">Id</th>
           <th class="px-3 py-2 text-left">Fruit Name</th>
           <th class="px-3 py-2 text-left">Quantity</th>
+          <th class="px-3 py-2 text-left">Action</th>
         </tr>
         <c:forEach items="${selectionFruitList.content}" var="fruit">
           <tr class="h-14 border-gray-200 cursor-pointer hover:bg-gray-50" 
@@ -23,6 +24,10 @@
             <td class="px-3 py-2">${fruit[0].id}</td>
             <td class="px-3 py-2">${fruit[0].name}</td>
             <td class="px-3 py-2">${fruit[1]}</td>
+            <td><a class="inline-flex items-center gap-1 py-2 text-amber-600" href="${fruit[0].id}/addReservedNeeds?qty=${fruit[1]}">
+              <div class="i-material-symbols-add?mask"></div>
+              <span class="hover:underline">Add ${fruit[1]}</span>
+            </a></td>
           </tr>
         </c:forEach>
       </tbody>

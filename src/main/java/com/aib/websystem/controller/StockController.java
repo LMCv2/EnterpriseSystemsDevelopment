@@ -72,9 +72,17 @@ public class StockController {
         return "/pages/stock/add";
     }
 
+    @GetMapping("/{id}/addReservedNeeds")
+    public String addReservedNeeds(@PathVariable Long id, @RequestParam(defaultValue = "0") Integer qty, @SessionAttribute Account current_account, Model model) {
+        Stock stock = stockRepository.findById(id).orElse(null);
+        stock.setQuantity(stock.getQuantity() + qty);
+        stockRepository.save(stock);
+        return "redirect:/stock/";
+        //return "redirect:/stock/totalReservedNeedsOverall";
+    }
+
     @GetMapping("/totalReservedNeedsOverall")
     public String getTotalReservedNeedsPage(@RequestParam(defaultValue = "1") Integer page, @SessionAttribute Account current_account, Model model) {
-        model.addAttribute("stocksNeeds", eventRepository.findByLocationGroupByFruit(current_account.getLocation(), PageRequest.of(page - 1, 10)));
         model.addAttribute("selectionFruitList", eventRepository.sumQuantityByLocationGroupByFruit(current_account.getLocation(), PageRequest.of(page - 1, 10)));
         return "/pages/stock/totalReservedNeedsOverall";
     }
