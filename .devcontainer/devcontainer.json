@@ -1,0 +1,7 @@
+{
+    "name": "Default Linux Universal",
+    "image": "mcr.microsoft.com/devcontainers/universal:2-linux",
+    "extensions": [
+        "vscjava.vscode-java-pack"
+    ]
+}
