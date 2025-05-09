@@ -22,7 +22,7 @@ public class LayoutTag extends PageTag {
 
     @Override
     public void setTitle(String title) {
-        super.setTitle(title + " | System");
+        super.setTitle(title);
     }
 
     @Override

@@ -41,6 +41,7 @@
     </c:if>
   </nav>
   <div class="flex-1 p-3">
+    <h1 class="mb-3 text-2xl font-bold">${title}</h1>
 
-  <!-- </div>
+<!-- </div>
 </div> -->
