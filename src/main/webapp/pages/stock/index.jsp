@@ -8,7 +8,7 @@
           <input type="search" class="outline-hidden placeholder:text-gray-400" placeholder="Search" />
         </div>
         <c:if test="${current_account.getRole() == 'SOURCE_WAREHOUSE_STAFF'}">
-          <a href="totalReservedNeeds" class="flex items-center rounded border border-gray-300 px-3 py-2 hover:bg-gray-100">
+          <a href="totalReservedNeedsOverall" class="flex items-center rounded border border-gray-300 px-3 py-2 hover:bg-gray-100">
             <div class="i-material-symbols-add mr-3"></div>
             <span>Total reserved needs</span>
           </a>

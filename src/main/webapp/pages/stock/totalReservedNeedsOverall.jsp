@@ -15,23 +15,20 @@
         <tr class="border-gray-200 bg-stone-100">
           <th class="px-3 py-2 text-left">Id</th>
           <th class="px-3 py-2 text-left">Fruit Name</th>
-          <th class="px-3 py-2 text-left">City Name</th>
-          <th class="px-3 py-2 text-left">Warehouse Name</th>
           <th class="px-3 py-2 text-left">Quantity</th>
         </tr>
-        <c:forEach items="${stocksNeeds.content}" var="fruitStat">
-          <tr class="h-14 border-gray-200">
-            <td class="px-3 py-2">${fruitStat[0].id}</td>
-            <td class="px-3 py-2">${fruitStat[0].name}</td>
-            <td class="px-3 py-2">${fruitStat[1].cityName}</td>
-            <td class="px-3 py-2">${fruitStat[1].name}</td>
-            <td class="px-3 py-2">${fruitStat[2]}</td>
+        <c:forEach items="${selectionFruitList.content}" var="fruit">
+          <tr class="h-14 border-gray-200 cursor-pointer hover:bg-gray-50" 
+              onclick="window.location.href='detail?id=${fruit[0].id}'">
+            <td class="px-3 py-2">${fruit[0].id}</td>
+            <td class="px-3 py-2">${fruit[0].name}</td>
+            <td class="px-3 py-2">${fruit[1]}</td>
           </tr>
         </c:forEach>
       </tbody>
     </table>
     <div class="flex items-center justify-between p-3">
-      <p>Showing ${stocksNeeds.number*accounts.size+1} to ${stocksNeeds.number*stocksNeeds.size+stocksNeeds.numberOfElements} of ${stocksNeeds.totalElements} results</p>
+      <p>Showing ${selectionFruitList.number*accounts.size+1} to ${selectionFruitList.number*selectionFruitList.size+selectionFruitList.numberOfElements} of ${selectionFruitList.totalElements} results</p>
       <div class="flex space-x-1">
         <c:if test="${accounts.hasPrevious()}">
           <a href="?page=${accounts.number}${param.role==null?'':'&role='.concat(param.role)}" class="rounded border border-gray-200 px-3 py-1 hover:bg-gray-100">Prev</a>

@@ -72,8 +72,15 @@ public class StockController {
         return "/pages/stock/add";
     }
 
-    @GetMapping("/totalReservedNeeds")
+    @GetMapping("/totalReservedNeedsOverall")
     public String getTotalReservedNeedsPage(@RequestParam(defaultValue = "1") Integer page, @SessionAttribute Account current_account, Model model) {
+        model.addAttribute("stocksNeeds", eventRepository.findByLocationGroupByFruit(current_account.getLocation(), PageRequest.of(page - 1, 10)));
+        model.addAttribute("selectionFruitList", eventRepository.sumQuantityByLocationGroupByFruit(current_account.getLocation(), PageRequest.of(page - 1, 10)));
+        return "/pages/stock/totalReservedNeedsOverall";
+    }
+
+    @GetMapping("/detail")
+    public String getTotalReservedNeedsDetailPage(@RequestParam(defaultValue = "1") Integer page, @SessionAttribute Account current_account, Model model) {
         model.addAttribute("stocksNeeds", eventRepository.findByLocationGroupByFruit(current_account.getLocation(), PageRequest.of(page - 1, 10)));
         return "/pages/stock/totalReservedNeeds";
     }
