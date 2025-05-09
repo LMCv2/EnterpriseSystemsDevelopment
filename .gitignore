@@ -58,3 +58,4 @@ dist-ssr
 *.sw?
 
 uno.css
+.pnpm-store
