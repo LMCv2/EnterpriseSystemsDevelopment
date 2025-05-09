@@ -89,8 +89,18 @@ public class EventController {
                 stockRepository.save(stock2);
                 break;
             case SOURCE_WAREHOUSE_STAFF:
-                originEvent.setEventType(EventType.RESERVATION);
-                originEvent.setStatus(EventStatus.SHIPPED);
+                Stock stock3;
+                Page<Stock> stocks3 = stockRepository.findByFruitAndLocation(originEvent.getFruit(),
+                        current_account.getLocation(), null);
+                stock3 = stocks3.getContent().get(0);
+                if (stock3.getQuantity() >= originEvent.getQuantity()) {
+                    originEvent.setEventType(EventType.RESERVATION);
+                    originEvent.setStatus(EventStatus.SHIPPED);
+                    stock3.setQuantity(stock3.getQuantity() - originEvent.getQuantity());
+                } else {
+
+                }
+                stockRepository.save(stock3);
                 break;
             case SENIOR_MANAGEMENT:
                 break;
