@@ -1,5 +1,7 @@
 package com.aib.websystem.repository;
 
+import java.util.Optional;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.repository.CrudRepository;
@@ -17,7 +19,7 @@ public interface StockRepository extends CrudRepository<Stock, Long>, PagingAndS
 
     Page<Stock> findByFruitAndLocationType(Fruit fruit, LocationType type, Pageable pageable);
 
-    Page<Stock> findByFruitAndLocation(Fruit fruit, Location location, Pageable pageable);
+    Optional<Stock> findByFruitAndLocation(Fruit fruit, Location location);
 
     Page<Stock> findByFruitAndLocationTypeAndLocationCityNameAndIdNot(Fruit fruit, LocationType type, String cityName, Long id, Pageable pageable);
 }

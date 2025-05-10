@@ -9,7 +9,8 @@
                 "vscjava.vscode-java-pack",
                 "ms-azuretools.vscode-docker",
                 "antfu.unocss",
-                "esbenp.prettier-vscode"
+                "esbenp.prettier-vscode",
+                "cweijan.vscode-mysql-client2"
             ]
         }
     }

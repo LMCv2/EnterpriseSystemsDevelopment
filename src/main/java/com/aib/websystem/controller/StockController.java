@@ -75,7 +75,7 @@ public class StockController {
     @GetMapping("/{id}/addReservedNeeds")
     public String addReservedNeeds(@PathVariable Long id, @RequestParam(defaultValue = "0") Integer qty, @SessionAttribute Account current_account, Model model) {
         Fruit fruit = stockRepository.findById(id).orElse(null).getFruit();
-        Stock stock = stockRepository.findByFruitAndLocation(fruit, current_account.getLocation(), PageRequest.of(0, 10)).getContent().get(0);
+        Stock stock = stockRepository.findByFruitAndLocation(fruit, current_account.getLocation()).get();
         stock.setQuantity(stock.getQuantity() + qty);
         stockRepository.save(stock);
         return "redirect:/stock/";

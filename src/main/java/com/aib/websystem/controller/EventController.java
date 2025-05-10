@@ -1,7 +1,8 @@
 package com.aib.websystem.controller;
 
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -59,23 +60,19 @@ public class EventController {
                 case ADMIN:
                     break;
                 case SHOP_STAFF:
-                    Stock stock;
-                    Page<Stock> stocks;
-
                     if (originEvent.getEventType() == EventType.RESERVATION || (originEvent.getEventType() == EventType.BORROWING && originEvent.getStatus() == EventStatus.DELIVERED)) {
                         originEvent.setStatus(EventStatus.CONFIRMED);
-                        stocks = stockRepository.findByFruitAndLocation(originEvent.getFruit(), originEvent.getToLocation(), null);
-                        stock = stocks.getContent().get(0);
+                        Optional<Stock> stocks = stockRepository.findByFruitAndLocation(originEvent.getFruit(), originEvent.getToLocation());
+                        Stock stock = stocks.get();
                         if (stocks.isEmpty()) {
                             stock = new Stock(originEvent.getFruit(), originEvent.getToLocation(), originEvent.getQuantity());
                         } else {
                             stock.setQuantity(stock.getQuantity() + originEvent.getQuantity());
                         }
                         stockRepository.save(stock);
-                        break;
                     } else {
-                        stocks = stockRepository.findByFruitAndLocation(originEvent.getFruit(), originEvent.getFromLocation(), null);
-                        stock = stocks.getContent().get(0);
+                        Optional<Stock> stocks = stockRepository.findByFruitAndLocation(originEvent.getFruit(), originEvent.getFromLocation());
+                        Stock stock = stocks.get();
                         if (stock.getQuantity() >= originEvent.getQuantity()) {
                             originEvent.setStatus(EventStatus.DELIVERED);
                             stock.setQuantity(stock.getQuantity() - originEvent.getQuantity());
@@ -85,11 +82,7 @@ public class EventController {
                     }
                     break;
                 case CENTRAL_WAREHOUSE_STAFF:
-                    Stock stock2;
-
-                    Page<Stock> stocks2 = stockRepository.findByFruitAndLocation(originEvent.getFruit(),
-                            originEvent.getToLocation(), null);
-                    stock2 = stocks2.getContent().get(0);
+                    Stock stock2 = stockRepository.findByFruitAndLocation(originEvent.getFruit(), originEvent.getToLocation()).get();
                     if (stock2.getQuantity() >= originEvent.getQuantity()) {
                         originEvent.setStatus(EventStatus.DELIVERED);
                         originEvent.setFromLocation(originEvent.getToLocation());
@@ -98,14 +91,10 @@ public class EventController {
                     } else {
                         redirectAttributes.addFlashAttribute("error", "Error occurred while processing the event. Tthe stock is not enough.");
                     }
-
                     stockRepository.save(stock2);
                     break;
                 case SOURCE_WAREHOUSE_STAFF:
-                    Stock stock3;
-                    Page<Stock> stocks3 = stockRepository.findByFruitAndLocation(originEvent.getFruit(),
-                            current_account.getLocation(), null);
-                    stock3 = stocks3.getContent().get(0);
+                    Stock stock3 = stockRepository.findByFruitAndLocation(originEvent.getFruit(), current_account.getLocation()).get();
                     if (stock3.getQuantity() >= originEvent.getQuantity()) {
                         originEvent.setStatus(EventStatus.SHIPPED);
                         stock3.setQuantity(stock3.getQuantity() - originEvent.getQuantity());
@@ -117,21 +106,10 @@ public class EventController {
                 case SENIOR_MANAGEMENT:
                     break;
             }
-
         } else {
             originEvent.setStatus(EventStatus.REJECTED);
         }
         eventRepository.save(originEvent);
-
         return "redirect:/event/";
     }
-
-    // @GetMapping("/{id}")
-    // public String createBorrowing(@PathVariable Long id, @PathVariable String
-    // city, Model model,
-    // @Spec(path = "city", spec = Like.class) Specification<Location> spec) {
-    // model.addAttribute("stock", stockRepository.findById(id).orElse(null));
-    // model.addAttribute("sameCity", locationRepository.findAll(spec));
-    // return "/pages/event/new";
-    // }
 }
