@@ -136,7 +136,7 @@ public class StockController {
     public String test(@PathVariable Long id, @RequestParam int quantity) {
         if (stockRepository.existsById(id)) {
             Stock stock = stockRepository.findById(id).get();
-            stock.setQuantity(quantity);
+            stock.setQuantity(stock.getQuantity() - quantity);
             stockRepository.save(stock);
         }
         return "redirect:/stock/";

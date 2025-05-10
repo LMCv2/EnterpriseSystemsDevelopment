@@ -4,8 +4,7 @@
 <taglib:layout title="Dashboard">
   <p>Hello, ${current_account.username}!</p>
   <div class="mb-4">
-    <p>Today's date: <input type="date" class="rounded border border-gray-300 px-3 py-1.5" value=""/></p>
-    <p>Reserve Expiration Date and Pending Delivery Date (3 days): <fmt:formatDate type="date" pattern="yyyy-MM-dd" value="${reservation_schedules[0].deliveredDate}" /></p>
+    <p>Expected shipping date (approximately 3 days): <fmt:formatDate type="date" pattern="yyyy-MM-dd" value="${reservation_schedules[0].deliveredDate}" /></p>
     <p>Reserve the fruits from <fmt:formatDate type="date" pattern="yyyy-MM-dd" value="${reservation_schedules[0].startDate}" /> to <fmt:formatDate type="date" pattern="yyyy-MM-dd" value="${reservation_schedules[0].endDate}" /></p>
     <p>Next reserve Date: <fmt:formatDate type="date" pattern="yyyy-MM-dd" value="${reservation_schedules[0].nextReservedDate}" /></p>
   </div>
