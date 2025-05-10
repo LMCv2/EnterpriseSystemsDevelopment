@@ -86,10 +86,10 @@ public class EventController {
                             originEvent.setStatus(EventStatus.DELIVERED);
                             stock.setQuantity(stock.getQuantity() - originEvent.getQuantity());
                         } else {
-                            redirectAttributes.addFlashAttribute("error", "Error occurred while processing the event. The stock is not enough.");
+                            redirectAttributes.addFlashAttribute("error", (stock.getQuantity() >= originEvent.getQuantity()) + "Error occurred while processing the event. The stock is not enough.");
                         }
                     }
-
+                    break;
                 case CENTRAL_WAREHOUSE_STAFF:
                     Stock stock2;
 

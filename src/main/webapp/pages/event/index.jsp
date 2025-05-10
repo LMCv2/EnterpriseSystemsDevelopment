@@ -157,7 +157,7 @@
                             </div>
                           </c:when>
                           <c:when
-                            test="${current_account.getLocation().type=='SHOP' && event.status =='PENDING' && event.toLocation.type=='SHOP'}">
+                            test="${current_account.getLocation().type=='SHOP' && event.status =='PENDING' && event.toLocation.type=='SHOP' && event.fromLocation.id == current_account.getLocation().id}">
                             <div class="space-y-6 rounded bg-white p-6">
                               <header class="flex">
                                 <h3 class="font-semibold">Change Event Status</h3>
