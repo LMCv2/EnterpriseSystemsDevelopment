@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttribute;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.aib.websystem.entity.Account;
 import com.aib.websystem.entity.Event;
@@ -47,6 +48,7 @@ public class EventController {
         }
         model.addAttribute("status_items", EventStatus.MAP);
         model.addAttribute("current_account", current_account);
+
         return "/pages/event/index";
     }
 
@@ -56,9 +58,11 @@ public class EventController {
     }
 
     @GetMapping("/{id}")
-    public String getEventPage(@PathVariable Long id, @RequestParam(defaultValue = "confirm") String action, @SessionAttribute Account current_account) {
+    public String getEventPage(@PathVariable Long id, @RequestParam(defaultValue = "confirm") String action, @SessionAttribute Account current_account, Model model, RedirectAttributes redirectAttributes) {
         Event originEvent = eventRepository.findById(id).orElse(null);
-        if(action.equals("confirm")) {
+        redirectAttributes.addFlashAttribute("error", "Error occurred while processing the event. Maybe the stock is not enough.");
+
+        if (action.equals("confirm")) {
             switch (current_account.getRole()) {
                 case ADMIN:
                     break;
@@ -82,9 +86,12 @@ public class EventController {
                     Page<Stock> stocks2 = stockRepository.findByFruitAndLocation(originEvent.getFruit(),
                             originEvent.getFromLocation(), null);
                     stock2 = stocks2.getContent().get(0);
-                    originEvent.setStatus(EventStatus.DELIVERED);
-                    stock2.setQuantity(stock2.getQuantity() - originEvent.getQuantity());
-    
+                    if (stock2.getQuantity() > originEvent.getQuantity()) {
+                        originEvent.setStatus(EventStatus.DELIVERED);
+                        stock2.setQuantity(stock2.getQuantity() - originEvent.getQuantity());
+                    } else {
+                        redirectAttributes.addFlashAttribute("error", "Error occurred while processing the event. Tthe stock is not enough.");
+                    }
                     stockRepository.save(stock2);
                     break;
                 case SOURCE_WAREHOUSE_STAFF:
@@ -92,22 +99,24 @@ public class EventController {
                     Page<Stock> stocks3 = stockRepository.findByFruitAndLocation(originEvent.getFruit(),
                             current_account.getLocation(), null);
                     stock3 = stocks3.getContent().get(0);
-                    if (stock3.getQuantity() >= originEvent.getQuantity()) {
+                    if (stock3.getQuantity() > originEvent.getQuantity()) {
                         originEvent.setEventType(EventType.RESERVATION);
                         originEvent.setStatus(EventStatus.SHIPPED);
                         stock3.setQuantity(stock3.getQuantity() - originEvent.getQuantity());
                     } else {
-    
+                        redirectAttributes.addFlashAttribute("error", "Error occurred while processing the event. The stock is not enough.");
                     }
                     stockRepository.save(stock3);
                     break;
                 case SENIOR_MANAGEMENT:
                     break;
             }
-        }else{
+
+        } else {
             originEvent.setStatus(EventStatus.REJECTED);
         }
         eventRepository.save(originEvent);
+
         return "redirect:/event/";
     }
 

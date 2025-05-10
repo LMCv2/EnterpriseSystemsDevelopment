@@ -1,6 +1,11 @@
 <%@taglib prefix="taglib" uri="/WEB-INF/tlds/taglib.tld" %>
   <%@taglib prefix="c" uri="jakarta.tags.core" %>
     <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+      <script>
+        <c:if test="${error != null}">
+          alert("${error}");
+        </c:if>
+      </script>
       <c:set var="now" value="<%=new java.util.Date()%>" />
       <taglib:layout title="Event">
         <div class="mb-3 flex justify-between">
