@@ -13,7 +13,3 @@ public interface LocationRepository extends CrudRepository<Location, Long>, Pagi
 
     Page<Location> findByCityNameAndType(String cityName, LocationType locationType, Pageable pageable);
 }
-
-// public interface LocationRepository extends JpaRepository<Location, Long>,
-// JpaSpecificationExecutor<Location> {
-// }

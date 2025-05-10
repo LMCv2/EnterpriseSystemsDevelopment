@@ -22,19 +22,16 @@ public class StockService {
     @Autowired
     private LocationRepository locationRepository;
 
-    public void addAllFruitToLocation(Location location) {
-        // if (location.getType() != LocationType.SOURCE_WAREHOUSE) {
-        //     for (Fruit fruit : fruitRepository.findAll()) {
-        //         stockRepository.save(new Stock(fruit, location, 0));
-        //     }
-        // }
-        for (Fruit fruit : fruitRepository.findAll()) {
-            stockRepository.save(new Stock(fruit, location, 0));
-        }
-    }
-
     public void addFruitToLocation(Fruit fruit, Location location) {
         stockRepository.save(new Stock(fruit, location, 0));
+    }
+
+    public void addAllFruitToLocation(Location location) {
+        if (location.getType() != LocationType.SOURCE_WAREHOUSE) {
+            for (Fruit fruit : fruitRepository.findAll()) {
+                stockRepository.save(new Stock(fruit, location, 0));
+            }
+        }
     }
 
     public void addFruitToAllLocation(Fruit fruit) {
@@ -42,14 +39,6 @@ public class StockService {
             if (location.getType() != LocationType.SOURCE_WAREHOUSE) {
                 stockRepository.save(new Stock(fruit, location, 0));
             }
-        }
-    }
-
-    public boolean FruitExist(Fruit fruit, Location location) {
-        if (stockRepository.findByFruitAndLocationType(fruit, location.getType(), null).isEmpty()) {
-            return false;
-        } else {
-            return true;
         }
     }
 }

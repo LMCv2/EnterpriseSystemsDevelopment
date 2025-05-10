@@ -11,7 +11,6 @@ import com.aib.websystem.entity.EventStatus;
 import com.aib.websystem.entity.Location;
 
 public interface EventRepository extends CrudRepository<Event, Long>, PagingAndSortingRepository<Event, Long> {
-
     Page<Event> findByStatus(EventStatus status, Pageable pageable);
 
     @Query("select e from Event e where e.fromLocation = ?1 OR e.toLocation = ?1 OR e.OriginalFromLocation = ?1 OR e.FinalToLocation = ?1")

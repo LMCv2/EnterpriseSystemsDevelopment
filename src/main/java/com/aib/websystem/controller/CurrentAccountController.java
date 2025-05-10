@@ -111,11 +111,11 @@ public class CurrentAccountController extends HttpServlet {
                     { "Strawberry Source 2 JP", "Tokyo", LocationType.SOURCE_WAREHOUSE, fruitRepository.findById(4L).get() },
                     { "Mango Source 1 PH", "Manila", LocationType.SOURCE_WAREHOUSE, fruitRepository.findById(5L).get() },
                     { "Mango Source 2 JP", "Tokyo", LocationType.SOURCE_WAREHOUSE, fruitRepository.findById(5L).get() },
-                    { "Mango Source 1 HK", "Hong Kong", LocationType.SOURCE_WAREHOUSE, fruitRepository.findById(5L).get() },
-                    { "Mango Source 2 JP", "Hong Kong", LocationType.SOURCE_WAREHOUSE, fruitRepository.findById(5L).get() },
+                    { "Mango Source 3 HK", "Hong Kong", LocationType.SOURCE_WAREHOUSE, fruitRepository.findById(5L).get() },
+                    { "Mango Source 4 HK", "Hong Kong", LocationType.SOURCE_WAREHOUSE, fruitRepository.findById(5L).get() },
                     // central
                     { "Central Warehouse 1 HK", "Hong Kong", LocationType.CENTRAL_WAREHOUSE },
-                    //{ "Central Warehouse 2", "Hong Kong", LocationType.CENTRAL_WAREHOUSE },
+                    // { "Central Warehouse 2", "Hong Kong", LocationType.CENTRAL_WAREHOUSE },
                     { "Central Warehouse 3 UK", "London", LocationType.CENTRAL_WAREHOUSE },
                     // shop
                     { "Bakery Shop 1 HK", "Hong Kong", LocationType.SHOP },
@@ -125,49 +125,43 @@ public class CurrentAccountController extends HttpServlet {
                 // add location
                 Location location = new Location((String) item[0], (String) item[1], (LocationType) item[2]);
                 locationRepository.save(location);
-                if(item.length == 4) {
+                if (item.length == 4) {
                     stockService.addFruitToLocation((Fruit) item[3], location);
-                }else{
+                } else {
                     stockService.addAllFruitToLocation(location);
-                }
-                
-
-                // add stock
-                if (item.length == 5) {
-                    stockRepository.save(new Stock((Fruit) item[4], location, 100));
                 }
             }
 
-            // add shop account
+            // add account
             accountRepository.save(new Account("source1PH", "a", Role.SOURCE_WAREHOUSE_STAFF, locationRepository.findById(1L).get()));
             accountRepository.save(new Account("source2JP", "a", Role.SOURCE_WAREHOUSE_STAFF, locationRepository.findById(2L).get()));
             accountRepository.save(new Account("central1HK", "a", Role.CENTRAL_WAREHOUSE_STAFF, locationRepository.findById(13L).get()));
             accountRepository.save(new Account("central2UK", "a", Role.CENTRAL_WAREHOUSE_STAFF, locationRepository.findById(14L).get()));
             accountRepository.save(new Account("shop1HK", "a", Role.SHOP_STAFF, locationRepository.findById(15L).get()));
-            accountRepository.save(new Account("shop2HK", "a", Role.SHOP_STAFF, locationRepository.findById(17L).get()));
-            accountRepository.save(new Account("shop3UK", "a", Role.SHOP_STAFF, locationRepository.findById(16L).get()));
+            accountRepository.save(new Account("shop2HK", "a", Role.SHOP_STAFF, locationRepository.findById(16L).get()));
+            accountRepository.save(new Account("shop3UK", "a", Role.SHOP_STAFF, locationRepository.findById(17L).get()));
 
             // start reservation schedule
             java.util.Date today = new java.util.Date(); // deliveredDate
-            
+
             // Calculate date 3 days after today (startDate)
             java.util.Calendar calendar = java.util.Calendar.getInstance();
             calendar.setTime(today);
             calendar.add(java.util.Calendar.DAY_OF_MONTH, 3);
             java.util.Date threeDaysLater = calendar.getTime();
-            
+
             // Calculate date 14 days after startDate (endDate)
             java.util.Calendar calendar2 = java.util.Calendar.getInstance();
             calendar2.setTime(threeDaysLater);
             calendar2.add(java.util.Calendar.DAY_OF_MONTH, 14);
             java.util.Date endDate = calendar2.getTime();
-            
+
             // Calculate date 14 days after deliveredDate (nextReservedDate)
             java.util.Calendar calendar3 = java.util.Calendar.getInstance();
             calendar3.setTime(today);
             calendar3.add(java.util.Calendar.DAY_OF_MONTH, 14);
             java.util.Date nextReservedDate = calendar3.getTime();
-            
+
             reservationScheduleRepository.save(new ReservationSchedule(today, threeDaysLater, endDate, nextReservedDate));
         }
 
