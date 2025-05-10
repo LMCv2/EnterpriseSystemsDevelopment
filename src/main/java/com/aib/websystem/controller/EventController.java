@@ -51,11 +51,6 @@ public class EventController {
         return "/pages/event/index";
     }
 
-    @GetMapping("/new")
-    public String getNewEventPage() {
-        return "/pages/event/new";
-    }
-
     @GetMapping("/{id}")
     public String getEventPage(@PathVariable Long id, @RequestParam(defaultValue = "confirm") String action, @SessionAttribute Account current_account, Model model, RedirectAttributes redirectAttributes) {
         Event originEvent = eventRepository.findById(id).orElse(null);
