@@ -1,8 +1,7 @@
 <%@taglib prefix="c" uri="jakarta.tags.core" %>
 <%@taglib prefix="taglib" uri="/WEB-INF/tlds/taglib.tld" %>
 <%@taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
-<taglib:layout title="Fruit">
-  <h1 class="mb-3 text-3xl">View Fruit</h1>
+<taglib:layout title="View Fruit">
   <div class="mb-3 max-w-xl space-y-3">
     <div>
       <label for="name">Name:</label>

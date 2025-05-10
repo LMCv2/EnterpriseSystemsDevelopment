@@ -7,6 +7,5 @@
       <input type="number" id="quantity" name="quantity" min="0" class="w-full rounded border border-gray-300 px-3 py-2" />
     </div>
     <input type="submit" value="Create" class="w-full rounded border border-gray-300 px-3 py-2 hover:bg-gray-100" />
-
   </form>
 </taglib:layout>

@@ -24,7 +24,6 @@ import com.aib.websystem.repository.StockRepository;
 @Controller
 @RequestMapping("/event")
 public class EventController {
-
     @Autowired
     private EventRepository eventRepository;
 
@@ -67,7 +66,7 @@ public class EventController {
                 case SHOP_STAFF:
                     Stock stock;
                     Page<Stock> stocks;
-                    
+
                     if (originEvent.getEventType() == EventType.RESERVATION || (originEvent.getEventType() == EventType.BORROWING && originEvent.getStatus() == EventStatus.DELIVERED)) {
                         originEvent.setStatus(EventStatus.CONFIRMED);
                         stocks = stockRepository.findByFruitAndLocation(originEvent.getFruit(), originEvent.getToLocation(), null);

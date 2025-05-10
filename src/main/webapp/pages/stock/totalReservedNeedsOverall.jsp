@@ -6,7 +6,6 @@
       <div class="i-material-symbols-search?mask text-2xl text-gray-400"></div>
       <input type="search" class="outline-hidden placeholder:text-gray-400" placeholder="Search" />
     </div>
-    
   </div>
 
   <div class="divide-y rounded shadow">
