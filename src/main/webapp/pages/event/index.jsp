@@ -94,20 +94,71 @@
                     </button>
                     <div class="aria-hidden:hidden" id="modal-${event.id}" aria-hidden="true">
                       <div class="fixed inset-0 flex items-center justify-center bg-gray-950/50" data-micromodal-close>
-                        <div class="space-y-6 rounded bg-white p-6">
-                          <header class="flex">
-                            <h3 class="font-semibold">Modal Title</h3>
-                          </header>
-                          <main>
-                            <p>Hi there, I'm some modal content! ${event.id}</p>
-                          </main>
-                          <footer class="flex gap-3">
-                            <a class="rounded bg-amber-600 px-3 py-1.5 text-white hover:bg-amber-700"
-                              href="${event.id}">Approve</a>
-                            <button class="rounded border border-gray-300 px-3 py-1.5 hover:bg-gray-100"
-                              data-micromodal-close>Cancel</button>
-                          </footer>
-                        </div>
+
+                        <c:choose>
+                          <c:when test="${current_account.getLocation().type=='SHOP' && event.status =='DELIVERED' && event.toLocation.type=='SHOP'}">
+                            <div class="space-y-6 rounded bg-white p-6">
+                              <header class="flex">
+                                <h3 class="font-semibold">Change Event Status</h3>
+                              </header>
+                              <main>
+                                <p>Are you sure you already received the goods?</p>
+                              </main>
+                              <footer class="flex gap-3">
+                                <a class="rounded bg-amber-600 px-3 py-1.5 text-white hover:bg-amber-700"
+                                  href="${event.id}">Confirm</a>
+                                <button class="rounded border border-gray-300 px-3 py-1.5 hover:bg-gray-100"
+                                  data-micromodal-close>Cancel</button>
+                              </footer>
+                            </div>
+                          </c:when>
+                          <c:when test="${current_account.getLocation().type=='SOURCE_WAREHOUSE' && event.status =='PENDING' && event.toLocation.type=='CENTRAL_WAREHOUSE'}">
+                            <div class="space-y-6 rounded bg-white p-6">
+                              <header class="flex">
+                                <h3 class="font-semibold">Change Event Status</h3>
+                              </header>
+                              <main>
+                                <p>Are you sure delivering the goods?</p>
+                              </main>
+                              <footer class="flex gap-3">
+                                <a class="rounded bg-amber-600 px-3 py-1.5 text-white hover:bg-amber-700"
+                                  href="${event.id}">Confirm</a>
+                                <button class="rounded border border-gray-300 px-3 py-1.5 hover:bg-gray-100"
+                                  data-micromodal-close>Cancel</button>
+                              </footer>
+                            </div>
+                          </c:when>
+                          <c:when test="${current_account.getLocation().type=='CENTRAL_WAREHOUSE' && event.status =='SHIPPED' && event.toLocation.type=='CENTRAL_WAREHOUSE'}">
+                            <div class="space-y-6 rounded bg-white p-6">
+                              <header class="flex">
+                                <h3 class="font-semibold">Change Event Status</h3>
+                              </header>
+                              <main>
+                                <p>Are you sure delivering the goods?</p>
+                              </main>
+                              <footer class="flex gap-3">
+                                <a class="rounded bg-amber-600 px-3 py-1.5 text-white hover:bg-amber-700"
+                                  href="${event.id}">Confirm</a>
+                                <button class="rounded border border-gray-300 px-3 py-1.5 hover:bg-gray-100"
+                                  data-micromodal-close>Cancel</button>
+                              </footer>
+                            </div>
+                          </c:when>
+                          <c:otherwise>
+                            <div class="space-y-6 rounded bg-white p-6">
+                              <header class="flex">
+                                <h3 class="font-semibold">Error</h3>
+                              </header>
+                              <main>
+                                <p>You a not permitted to do the action</p>
+                              </main>
+                              <footer class="flex gap-3">
+                                <button class="rounded border border-gray-300 px-3 py-1.5 hover:bg-gray-100"
+                                  data-micromodal-close>Cancel</button>
+                              </footer>
+                            </div>
+                          </c:otherwise>
+                        </c:choose>
                       </div>
 
                     </div>

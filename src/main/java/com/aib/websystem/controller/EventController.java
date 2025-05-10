@@ -46,6 +46,7 @@ public class EventController {
             }
         }
         model.addAttribute("status_items", EventStatus.MAP);
+        model.addAttribute("current_account", current_account);
         return "/pages/event/index";
     }
 
