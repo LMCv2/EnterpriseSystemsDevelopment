@@ -62,9 +62,9 @@
                       <div class="i-material-symbols-add?mask"></div>
                       <span class="hover:underline">Add</span>
                     </a>
-                    <a class="inline-flex items-center gap-1 py-2 text-amber-600" href="${stock.id}/remove">
+                    <a class="inline-flex items-center gap-1 py-2 text-amber-600" href="${stock.id}/consume">
                       <div class="i-material-symbols-remove?mask"></div>
-                      <span class="hover:underline">Remove</span>
+                      <span class="hover:underline">Consume</span>
                     </a>
                   </c:if>
                 </td>

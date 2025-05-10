@@ -108,10 +108,10 @@ public class StockController {
         return "/pages/stock/addfrom";
     }
 
-    @GetMapping("/{id}/remove")
+    @GetMapping("/{id}/consume")
     public String removeStockPage(@PathVariable Long id, Model model) {
         model.addAttribute("stock", stockRepository.findById(id).orElse(null));
-        return "/pages/stock/remove";
+        return "/pages/stock/consume";
     }
 
     @PostMapping("/{toId}/from/{fromId}")
