@@ -101,28 +101,36 @@ public class CurrentAccountController extends HttpServlet {
 
             for (Object[] item : new Object[][] {
                     // source
-                    { "Apple Source 1", "Manila", LocationType.SOURCE_WAREHOUSE, fruitRepository.findById(1L).get() },
-                    { "Apple Source 2", "Manila", LocationType.SOURCE_WAREHOUSE, fruitRepository.findById(1L).get() },
-                    { "Banana Source 1", "Manila", LocationType.SOURCE_WAREHOUSE, fruitRepository.findById(2L).get() },
-                    { "Banana Source 2", "Manila", LocationType.SOURCE_WAREHOUSE, fruitRepository.findById(2L).get() },
-                    { "Orange Source 1", "Manila", LocationType.SOURCE_WAREHOUSE, fruitRepository.findById(3L).get() },
-                    { "Orange Source 2", "Manila", LocationType.SOURCE_WAREHOUSE, fruitRepository.findById(4L).get() },
-                    { "Strawberry Source 1", "Manila", LocationType.SOURCE_WAREHOUSE, fruitRepository.findById(4L).get() },
-                    { "Strawberry Source 2", "Manila", LocationType.SOURCE_WAREHOUSE, fruitRepository.findById(4L).get() },
-                    { "Mango Source 1", "Manila", LocationType.SOURCE_WAREHOUSE, fruitRepository.findById(5L).get() },
-                    { "Mango Source 2", "Manila", LocationType.SOURCE_WAREHOUSE, fruitRepository.findById(5L).get() },
+                    { "Apple Source 1 PH", "Manila", LocationType.SOURCE_WAREHOUSE, fruitRepository.findById(1L).get() },
+                    { "Apple Source 2 JP", "Tokyo", LocationType.SOURCE_WAREHOUSE, fruitRepository.findById(1L).get() },
+                    { "Banana Source 1 PH", "Manila", LocationType.SOURCE_WAREHOUSE, fruitRepository.findById(2L).get() },
+                    { "Banana Source 2 JP", "Tokyo", LocationType.SOURCE_WAREHOUSE, fruitRepository.findById(2L).get() },
+                    { "Orange Source 1 PH", "Manila", LocationType.SOURCE_WAREHOUSE, fruitRepository.findById(3L).get() },
+                    { "Orange Source 2 JP", "Tokyo", LocationType.SOURCE_WAREHOUSE, fruitRepository.findById(3L).get() },
+                    { "Strawberry Source 1 PH", "Manila", LocationType.SOURCE_WAREHOUSE, fruitRepository.findById(4L).get() },
+                    { "Strawberry Source 2 JP", "Tokyo", LocationType.SOURCE_WAREHOUSE, fruitRepository.findById(4L).get() },
+                    { "Mango Source 1 PH", "Manila", LocationType.SOURCE_WAREHOUSE, fruitRepository.findById(5L).get() },
+                    { "Mango Source 2 JP", "Tokyo", LocationType.SOURCE_WAREHOUSE, fruitRepository.findById(5L).get() },
+                    { "Mango Source 1 HK", "Hong Kong", LocationType.SOURCE_WAREHOUSE, fruitRepository.findById(5L).get() },
+                    { "Mango Source 2 JP", "Hong Kong", LocationType.SOURCE_WAREHOUSE, fruitRepository.findById(5L).get() },
                     // central
-                    { "Central Warehouse 1", "Hong Kong", LocationType.CENTRAL_WAREHOUSE },
+                    { "Central Warehouse 1 HK", "Hong Kong", LocationType.CENTRAL_WAREHOUSE },
                     //{ "Central Warehouse 2", "Hong Kong", LocationType.CENTRAL_WAREHOUSE },
-                    { "Central Warehouse 3", "London", LocationType.CENTRAL_WAREHOUSE },
+                    { "Central Warehouse 3 UK", "London", LocationType.CENTRAL_WAREHOUSE },
                     // shop
-                    { "Bakery Shop 1", "Hong Kong", LocationType.SHOP },
-                    { "Bakery Shop 2", "Hong Kong", LocationType.SHOP }
+                    { "Bakery Shop 1 HK", "Hong Kong", LocationType.SHOP },
+                    { "Bakery Shop 2 UK", "London", LocationType.SHOP },
+                    { "Bakery Shop 3 HK", "Hong Kong", LocationType.SHOP }
             }) {
                 // add location
                 Location location = new Location((String) item[0], (String) item[1], (LocationType) item[2]);
                 locationRepository.save(location);
-                stockService.addAllFruitToLocation(location);
+                if(item.length == 4) {
+                    stockService.addFruitToLocation((Fruit) item[3], location);
+                }else{
+                    stockService.addAllFruitToLocation(location);
+                }
+                
 
                 // add stock
                 if (item.length == 5) {
@@ -131,11 +139,13 @@ public class CurrentAccountController extends HttpServlet {
             }
 
             // add shop account
-            accountRepository.save(new Account("source", "a", Role.SOURCE_WAREHOUSE_STAFF, locationRepository.findById(1L).get()));
-            accountRepository.save(new Account("central1", "a", Role.CENTRAL_WAREHOUSE_STAFF, locationRepository.findById(11L).get()));
-            accountRepository.save(new Account("central2", "a", Role.CENTRAL_WAREHOUSE_STAFF, locationRepository.findById(12L).get()));
-            accountRepository.save(new Account("shop1", "a", Role.SHOP_STAFF, locationRepository.findById(14L).get()));
-            accountRepository.save(new Account("shop2", "a", Role.SHOP_STAFF, locationRepository.findById(15L).get()));
+            accountRepository.save(new Account("source1PH", "a", Role.SOURCE_WAREHOUSE_STAFF, locationRepository.findById(1L).get()));
+            accountRepository.save(new Account("source2JP", "a", Role.SOURCE_WAREHOUSE_STAFF, locationRepository.findById(2L).get()));
+            accountRepository.save(new Account("central1HK", "a", Role.CENTRAL_WAREHOUSE_STAFF, locationRepository.findById(13L).get()));
+            accountRepository.save(new Account("central2UK", "a", Role.CENTRAL_WAREHOUSE_STAFF, locationRepository.findById(14L).get()));
+            accountRepository.save(new Account("shop1HK", "a", Role.SHOP_STAFF, locationRepository.findById(15L).get()));
+            accountRepository.save(new Account("shop2HK", "a", Role.SHOP_STAFF, locationRepository.findById(17L).get()));
+            accountRepository.save(new Account("shop3UK", "a", Role.SHOP_STAFF, locationRepository.findById(16L).get()));
 
             // start reservation schedule
             java.util.Date today = new java.util.Date(); // deliveredDate
