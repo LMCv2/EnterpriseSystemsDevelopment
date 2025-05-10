@@ -156,6 +156,25 @@
                               </footer>
                             </div>
                           </c:when>
+                          <c:when
+                            test="${current_account.getLocation().type=='SHOP' && event.status =='PENDING' && event.toLocation.type=='SHOP'}">
+                            <div class="space-y-6 rounded bg-white p-6">
+                              <header class="flex">
+                                <h3 class="font-semibold">Change Event Status</h3>
+                              </header>
+                              <main>
+                                <p>Are you sure delivering the goods?</p>
+                              </main>
+                              <footer class="flex gap-3">
+                                <a class="rounded bg-amber-600 px-3 py-1.5 text-white hover:bg-amber-700"
+                                  href="${event.id}">Confirm</a>
+                                <a class="rounded bg-red-600 px-3 py-1.5 text-white hover:bg-red-700"
+                                  href="${event.id}?action=reject">Reject</a>
+                                <button class="rounded border border-gray-300 px-3 py-1.5 hover:bg-gray-100"
+                                  data-micromodal-close>Cancel</button>
+                              </footer>
+                            </div>
+                          </c:when>
                           <c:otherwise>
                             <div class="space-y-6 rounded bg-white p-6">
                               <header class="flex">
