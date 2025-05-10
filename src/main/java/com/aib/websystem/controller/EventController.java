@@ -60,8 +60,6 @@ public class EventController {
     @GetMapping("/{id}")
     public String getEventPage(@PathVariable Long id, @RequestParam(defaultValue = "confirm") String action, @SessionAttribute Account current_account, Model model, RedirectAttributes redirectAttributes) {
         Event originEvent = eventRepository.findById(id).orElse(null);
-        redirectAttributes.addFlashAttribute("error", "Error occurred while processing the event. Maybe the stock is not enough.");
-
         if (action.equals("confirm")) {
             switch (current_account.getRole()) {
                 case ADMIN:
@@ -86,7 +84,7 @@ public class EventController {
                     Page<Stock> stocks2 = stockRepository.findByFruitAndLocation(originEvent.getFruit(),
                             originEvent.getFromLocation(), null);
                     stock2 = stocks2.getContent().get(0);
-                    if (stock2.getQuantity() > originEvent.getQuantity()) {
+                    if (stock2.getQuantity() >= originEvent.getQuantity()) {
                         originEvent.setStatus(EventStatus.DELIVERED);
                         stock2.setQuantity(stock2.getQuantity() - originEvent.getQuantity());
                     } else {
@@ -99,8 +97,7 @@ public class EventController {
                     Page<Stock> stocks3 = stockRepository.findByFruitAndLocation(originEvent.getFruit(),
                             current_account.getLocation(), null);
                     stock3 = stocks3.getContent().get(0);
-                    if (stock3.getQuantity() > originEvent.getQuantity()) {
-                        originEvent.setEventType(EventType.RESERVATION);
+                    if (stock3.getQuantity() >= originEvent.getQuantity()) {
                         originEvent.setStatus(EventStatus.SHIPPED);
                         stock3.setQuantity(stock3.getQuantity() - originEvent.getQuantity());
                     } else {
