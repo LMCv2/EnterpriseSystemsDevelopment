@@ -56,52 +56,56 @@ public class EventController {
     }
 
     @GetMapping("/{id}")
-    public String getEventPage(@PathVariable Long id, @SessionAttribute Account current_account) {
+    public String getEventPage(@PathVariable Long id, @RequestParam(defaultValue = "confirm") String action, @SessionAttribute Account current_account) {
         Event originEvent = eventRepository.findById(id).orElse(null);
-        switch (current_account.getRole()) {
-            case ADMIN:
-                break;
-            case SHOP_STAFF:
-                Stock stock;
-                originEvent.setStatus(EventStatus.CONFIRMED);
-                Page<Stock> stocks = stockRepository.findByFruitAndLocationType(originEvent.getFruit(),
-                        originEvent.getToLocation().getType(), null);
-                if (stocks.isEmpty()) {
-                    stock = new Stock(originEvent.getFruit(), originEvent.getToLocation(), originEvent.getQuantity());
-                } else {
-                    stock = stocks.getContent().get(0);
-                    stock.setQuantity(stock.getQuantity() + originEvent.getQuantity());
-                }
-                stockRepository.save(stock);
-                break;
-            case CENTRAL_WAREHOUSE_STAFF:
-                Stock stock2;
-                originEvent.setFromLocation(originEvent.getToLocation());
-                originEvent.setToLocation(originEvent.getFinalToLocation());
-                Page<Stock> stocks2 = stockRepository.findByFruitAndLocation(originEvent.getFruit(),
-                        originEvent.getFromLocation(), null);
-                stock2 = stocks2.getContent().get(0);
-                originEvent.setStatus(EventStatus.DELIVERED);
-                stock2.setQuantity(stock2.getQuantity() - originEvent.getQuantity());
-
-                stockRepository.save(stock2);
-                break;
-            case SOURCE_WAREHOUSE_STAFF:
-                Stock stock3;
-                Page<Stock> stocks3 = stockRepository.findByFruitAndLocation(originEvent.getFruit(),
-                        current_account.getLocation(), null);
-                stock3 = stocks3.getContent().get(0);
-                if (stock3.getQuantity() >= originEvent.getQuantity()) {
-                    originEvent.setEventType(EventType.RESERVATION);
-                    originEvent.setStatus(EventStatus.SHIPPED);
-                    stock3.setQuantity(stock3.getQuantity() - originEvent.getQuantity());
-                } else {
-
-                }
-                stockRepository.save(stock3);
-                break;
-            case SENIOR_MANAGEMENT:
-                break;
+        if(action.equals("confirm")) {
+            switch (current_account.getRole()) {
+                case ADMIN:
+                    break;
+                case SHOP_STAFF:
+                    Stock stock;
+                    originEvent.setStatus(EventStatus.CONFIRMED);
+                    Page<Stock> stocks = stockRepository.findByFruitAndLocationType(originEvent.getFruit(),
+                            originEvent.getToLocation().getType(), null);
+                    if (stocks.isEmpty()) {
+                        stock = new Stock(originEvent.getFruit(), originEvent.getToLocation(), originEvent.getQuantity());
+                    } else {
+                        stock = stocks.getContent().get(0);
+                        stock.setQuantity(stock.getQuantity() + originEvent.getQuantity());
+                    }
+                    stockRepository.save(stock);
+                    break;
+                case CENTRAL_WAREHOUSE_STAFF:
+                    Stock stock2;
+                    originEvent.setFromLocation(originEvent.getToLocation());
+                    originEvent.setToLocation(originEvent.getFinalToLocation());
+                    Page<Stock> stocks2 = stockRepository.findByFruitAndLocation(originEvent.getFruit(),
+                            originEvent.getFromLocation(), null);
+                    stock2 = stocks2.getContent().get(0);
+                    originEvent.setStatus(EventStatus.DELIVERED);
+                    stock2.setQuantity(stock2.getQuantity() - originEvent.getQuantity());
+    
+                    stockRepository.save(stock2);
+                    break;
+                case SOURCE_WAREHOUSE_STAFF:
+                    Stock stock3;
+                    Page<Stock> stocks3 = stockRepository.findByFruitAndLocation(originEvent.getFruit(),
+                            current_account.getLocation(), null);
+                    stock3 = stocks3.getContent().get(0);
+                    if (stock3.getQuantity() >= originEvent.getQuantity()) {
+                        originEvent.setEventType(EventType.RESERVATION);
+                        originEvent.setStatus(EventStatus.SHIPPED);
+                        stock3.setQuantity(stock3.getQuantity() - originEvent.getQuantity());
+                    } else {
+    
+                    }
+                    stockRepository.save(stock3);
+                    break;
+                case SENIOR_MANAGEMENT:
+                    break;
+            }
+        }else{
+            originEvent.setStatus(EventStatus.REJECTED);
         }
         eventRepository.save(originEvent);
         return "redirect:/event/";

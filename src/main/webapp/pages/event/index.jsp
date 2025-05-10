@@ -96,7 +96,8 @@
                       <div class="fixed inset-0 flex items-center justify-center bg-gray-950/50" data-micromodal-close>
 
                         <c:choose>
-                          <c:when test="${current_account.getLocation().type=='SHOP' && event.status =='DELIVERED' && event.toLocation.type=='SHOP'}">
+                          <c:when
+                            test="${current_account.getLocation().type=='SHOP' && event.status =='DELIVERED' && event.toLocation.type=='SHOP'}">
                             <div class="space-y-6 rounded bg-white p-6">
                               <header class="flex">
                                 <h3 class="font-semibold">Change Event Status</h3>
@@ -112,7 +113,8 @@
                               </footer>
                             </div>
                           </c:when>
-                          <c:when test="${current_account.getLocation().type=='SOURCE_WAREHOUSE' && event.status =='PENDING' && event.toLocation.type=='CENTRAL_WAREHOUSE'}">
+                          <c:when
+                            test="${current_account.getLocation().type=='SOURCE_WAREHOUSE' && event.status =='PENDING' && event.toLocation.type=='CENTRAL_WAREHOUSE'}">
                             <div class="space-y-6 rounded bg-white p-6">
                               <header class="flex">
                                 <h3 class="font-semibold">Change Event Status</h3>
@@ -123,12 +125,15 @@
                               <footer class="flex gap-3">
                                 <a class="rounded bg-amber-600 px-3 py-1.5 text-white hover:bg-amber-700"
                                   href="${event.id}">Confirm</a>
+                                <a class="rounded bg-red-600 px-3 py-1.5 text-white hover:bg-red-700"
+                                  href="${event.id}?action=reject">Reject</a>
                                 <button class="rounded border border-gray-300 px-3 py-1.5 hover:bg-gray-100"
                                   data-micromodal-close>Cancel</button>
                               </footer>
                             </div>
                           </c:when>
-                          <c:when test="${current_account.getLocation().type=='CENTRAL_WAREHOUSE' && event.status =='SHIPPED' && event.toLocation.type=='CENTRAL_WAREHOUSE'}">
+                          <c:when
+                            test="${current_account.getLocation().type=='CENTRAL_WAREHOUSE' && event.status =='SHIPPED' && event.toLocation.type=='CENTRAL_WAREHOUSE'}">
                             <div class="space-y-6 rounded bg-white p-6">
                               <header class="flex">
                                 <h3 class="font-semibold">Change Event Status</h3>
@@ -139,6 +144,8 @@
                               <footer class="flex gap-3">
                                 <a class="rounded bg-amber-600 px-3 py-1.5 text-white hover:bg-amber-700"
                                   href="${event.id}">Confirm</a>
+                                <a class="rounded bg-red-600 px-3 py-1.5 text-white hover:bg-red-700"
+                                  href="${event.id}?action=reject">Reject</a>
                                 <button class="rounded border border-gray-300 px-3 py-1.5 hover:bg-gray-100"
                                   data-micromodal-close>Cancel</button>
                               </footer>
