@@ -79,17 +79,19 @@ public class EventController {
                     break;
                 case CENTRAL_WAREHOUSE_STAFF:
                     Stock stock2;
-                    originEvent.setFromLocation(originEvent.getToLocation());
-                    originEvent.setToLocation(originEvent.getFinalToLocation());
+
                     Page<Stock> stocks2 = stockRepository.findByFruitAndLocation(originEvent.getFruit(),
-                            originEvent.getFromLocation(), null);
+                            originEvent.getToLocation(), null);
                     stock2 = stocks2.getContent().get(0);
                     if (stock2.getQuantity() >= originEvent.getQuantity()) {
                         originEvent.setStatus(EventStatus.DELIVERED);
+                        originEvent.setFromLocation(originEvent.getToLocation());
+                        originEvent.setToLocation(originEvent.getFinalToLocation());
                         stock2.setQuantity(stock2.getQuantity() - originEvent.getQuantity());
                     } else {
                         redirectAttributes.addFlashAttribute("error", "Error occurred while processing the event. Tthe stock is not enough.");
                     }
+
                     stockRepository.save(stock2);
                     break;
                 case SOURCE_WAREHOUSE_STAFF:
