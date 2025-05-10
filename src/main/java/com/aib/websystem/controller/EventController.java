@@ -62,7 +62,7 @@ public class EventController {
                 break;
             case SHOP_STAFF:
                 Stock stock;
-                originEvent.setStatus(EventStatus.DELIVERED);
+                originEvent.setStatus(EventStatus.CONFIRMED);
                 Page<Stock> stocks = stockRepository.findByFruitAndLocationType(originEvent.getFruit(),
                         originEvent.getToLocation().getType(), null);
                 if (stocks.isEmpty()) {
@@ -75,21 +75,13 @@ public class EventController {
                 break;
             case CENTRAL_WAREHOUSE_STAFF:
                 Stock stock2;
-                Page<Stock> stocks2 = stockRepository.findByFruitAndLocation(originEvent.getFruit(),
-                        originEvent.getFinalToLocation(), null);
-                stock2 = stocks2.getContent().get(0);
                 originEvent.setFromLocation(originEvent.getToLocation());
                 originEvent.setToLocation(originEvent.getFinalToLocation());
+                Page<Stock> stocks2 = stockRepository.findByFruitAndLocation(originEvent.getFruit(),
+                        originEvent.getFromLocation(), null);
+                stock2 = stocks2.getContent().get(0);
                 originEvent.setStatus(EventStatus.DELIVERED);
-                if (stocks2.isEmpty()) {
-                    stock2 = new Stock(originEvent.getFruit(), originEvent.getToLocation(), originEvent.getQuantity());
-                } else {
-                    stock2.setQuantity(stock2.getQuantity() + originEvent.getQuantity());
-                    stocks2 = stockRepository.findByFruitAndLocation(originEvent.getFruit(),
-                            originEvent.getFromLocation(), null);
-                    stock2 = stocks2.getContent().get(0);
-                    stock2.setQuantity(stock2.getQuantity() - originEvent.getQuantity());
-                }
+                stock2.setQuantity(stock2.getQuantity() - originEvent.getQuantity());
 
                 stockRepository.save(stock2);
                 break;
