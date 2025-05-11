@@ -1,5 +1,7 @@
 package com.aib.websystem.entity;
 
+import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 
 import jakarta.persistence.Entity;
@@ -11,11 +13,16 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+import jakarta.persistence.EntityListeners;
 
 @Entity
 @ToString
 @NoArgsConstructor
-public class Location {
+@EntityListeners(AuditingEntityListener.class)
+public class Location implements Serializable {
     @Id
     @Getter
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -36,6 +43,14 @@ public class Location {
     @Getter
     @OneToMany
     private List<Stock> stock;
+
+    @CreatedDate
+    @Getter
+    private Date createDate;
+
+    @LastModifiedDate
+    @Getter
+    private Date lastModifiedDate;
 
     public Location(String name, String cityName, LocationType type) {
         this.name = name;

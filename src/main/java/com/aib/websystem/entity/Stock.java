@@ -1,10 +1,17 @@
 package com.aib.websystem.entity;
 
+import java.io.Serializable;
+import java.util.Date;
+
 import jakarta.persistence.Entity;
+import jakarta.persistence.EntityListeners;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -13,7 +20,8 @@ import lombok.ToString;
 @Entity
 @ToString
 @NoArgsConstructor
-public class Stock {
+@EntityListeners(AuditingEntityListener.class)
+public class Stock implements Serializable {
     @Id
     @Getter
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -30,6 +38,14 @@ public class Stock {
     @Getter
     @Setter
     private Integer quantity;
+
+    @CreatedDate
+    @Getter
+    private Date createDate;
+
+    @LastModifiedDate
+    @Getter
+    private Date lastModifiedDate;
 
     public Stock(Fruit fruit, Location location, Integer quantity) {
         this.fruit = fruit;

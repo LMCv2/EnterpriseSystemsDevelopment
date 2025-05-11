@@ -1,19 +1,26 @@
 package com.aib.websystem.entity;
 
+import java.io.Serializable;
 import java.util.Date;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+import jakarta.persistence.EntityListeners;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
+import lombok.Setter;
 
 @Entity
 @ToString
 @NoArgsConstructor
-public class ReservationSchedule {
+@EntityListeners(AuditingEntityListener.class)
+public class ReservationSchedule implements Serializable {
     @Id
     @Getter
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -34,6 +41,14 @@ public class ReservationSchedule {
     //after 14 days of delivered date
     @Getter
     private Date nextReservedDate;
+
+    @CreatedDate
+    @Getter
+    private Date createDate;
+
+    @LastModifiedDate
+    @Getter
+    private Date lastModifiedDate;
 
     public ReservationSchedule(Date deliveredDate, Date startDate, Date endDate, Date nextReservedDate) {
         this.startDate = startDate;
