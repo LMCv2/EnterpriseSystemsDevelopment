@@ -4,7 +4,12 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+
 import jakarta.persistence.Entity;
+import jakarta.persistence.EntityListeners;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -13,10 +18,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
-import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.LastModifiedDate;
-import org.springframework.data.jpa.domain.support.AuditingEntityListener;
-import jakarta.persistence.EntityListeners;
 
 @Entity
 @ToString
@@ -44,12 +45,12 @@ public class Location implements Serializable {
     @OneToMany
     private List<Stock> stock;
 
-    @CreatedDate
     @Getter
+    @CreatedDate
     private Date createDate;
 
-    @LastModifiedDate
     @Getter
+    @LastModifiedDate
     private Date lastModifiedDate;
 
     public Location(String name, String cityName, LocationType type) {

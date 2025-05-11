@@ -3,15 +3,16 @@ package com.aib.websystem.entity;
 import java.io.Serializable;
 import java.util.Date;
 
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+
 import jakarta.persistence.Entity;
+import jakarta.persistence.EntityListeners;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
-import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.LastModifiedDate;
-import org.springframework.data.jpa.domain.support.AuditingEntityListener;
-import jakarta.persistence.EntityListeners;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -57,10 +58,6 @@ public class Event implements Serializable {
 
     @Getter
     @Setter
-    private Date eventDate;
-
-    @Getter
-    @Setter
     private EventStatus status;
 
     @Getter
@@ -68,34 +65,25 @@ public class Event implements Serializable {
     @ManyToOne
     private ReservationSchedule reservationSchedule;
 
-    @CreatedDate
     @Getter
+    @CreatedDate
     private Date createDate;
 
-    @LastModifiedDate
     @Getter
+    @LastModifiedDate
     private Date lastModifiedDate;
 
-    public Event(Fruit fruit, Integer quantity, EventType eventType, Location fromLocation, Location throughLocation, Location toLocation, Date eventDate, EventStatus status) {
-        this.fruit = fruit;
-        this.quantity = quantity;
-        this.eventType = eventType;
-        this.fromLocation = fromLocation;
-        this.toLocation = toLocation;
-        this.throughLocation = throughLocation;
-        this.eventDate = eventDate;
-        this.status = status;
-        this.reservationSchedule = null;
+    public Event(Fruit fruit, Integer quantity, EventType eventType, Location fromLocation, Location throughLocation, Location toLocation, EventStatus status) {
+        this(fruit, quantity, eventType, fromLocation, throughLocation, toLocation, status, null);
     }
 
-    public Event(Fruit fruit, Integer quantity, EventType eventType, Location fromLocation, Location throughLocation, Location toLocation, Date eventDate, EventStatus status, ReservationSchedule reservationSchedule) {
+    public Event(Fruit fruit, Integer quantity, EventType eventType, Location fromLocation, Location throughLocation, Location toLocation, EventStatus status, ReservationSchedule reservationSchedule) {
         this.fruit = fruit;
         this.quantity = quantity;
         this.eventType = eventType;
         this.fromLocation = fromLocation;
         this.throughLocation = throughLocation;
         this.toLocation = toLocation;
-        this.eventDate = eventDate;
         this.status = status;
         this.reservationSchedule = reservationSchedule;
     }

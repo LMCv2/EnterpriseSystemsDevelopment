@@ -79,7 +79,7 @@
               </div>
             </td>
             <td class="px-3 py-2">
-              <fmt:formatDate type="both" dateStyle="short" timeStyle="short" value="${event[0].eventDate}" />
+              <fmt:formatDate type="both" dateStyle="short" timeStyle="short" value="${event[0].createDate}" />
             </td>
             <td class="flex gap-3 px-3 py-2">
               <button class="inline-flex items-center gap-1 py-2 text-amber-600" data-micromodal-trigger="modal-${event[0].id}">

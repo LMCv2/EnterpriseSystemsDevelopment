@@ -20,6 +20,7 @@ import com.aib.websystem.entity.Account;
 import com.aib.websystem.entity.Event;
 import com.aib.websystem.entity.EventStatus;
 import com.aib.websystem.entity.EventType;
+import com.aib.websystem.entity.Fruit;
 import com.aib.websystem.entity.Location;
 import com.aib.websystem.entity.LocationType;
 import com.aib.websystem.entity.ReservationSchedule;
@@ -89,16 +90,18 @@ public class StockController {
     public String createReplenishEvent(@PathVariable Long fromId, @PathVariable Long toId, @RequestParam int quantity, @SessionAttribute Account current_account) {
         Stock fromStock = stockRepository.findById(fromId).orElse(null);
         Stock toStack = stockRepository.findById(toId).orElse(null);
+        Fruit fruit = fromStock.getFruit();
         EventType eventType = fromStock.getLocation().getType() == LocationType.SHOP ? EventType.BORROWING : EventType.RESERVATION;
+        Location fromLocation = fromStock.getLocation();
+        Location toLocation = toStack.getLocation();
         if (stockRepository.existsById(fromId)) {
             if (eventType == EventType.RESERVATION) {
                 // be careful, each city MUST has his own central warehouse(only one)
                 Page<Location> centralWarehouse = locationRepository.findByCityNameAndType(toStack.getLocation().getCityName(), LocationType.CENTRAL_WAREHOUSE, PageRequest.of(0, 10));
                 Iterable<ReservationSchedule> reservationSchedule = reservationScheduleRepository.findAll(Sort.by(Sort.Direction.DESC, "id"));
-                eventRepository.save(new Event(fromStock.getFruit(), quantity, eventType, fromStock.getLocation(), centralWarehouse.getContent().get(0), toStack.getLocation(), new Date(), EventStatus.PENDING,
-                        reservationSchedule.iterator().hasNext() ? reservationSchedule.iterator().next() : null));
+                eventRepository.save(new Event(fruit, quantity, eventType, fromLocation, centralWarehouse.getContent().get(0), toLocation, EventStatus.PENDING, reservationSchedule.iterator().hasNext() ? reservationSchedule.iterator().next() : null));
             } else {
-                eventRepository.save(new Event(fromStock.getFruit(), quantity, eventType, fromStock.getLocation(), null, toStack.getLocation(), new Date(), EventStatus.PENDING));
+                eventRepository.save(new Event(fruit, quantity, eventType, fromLocation, null, toLocation, EventStatus.PENDING));
             }
         }
         return "redirect:/stock/";
