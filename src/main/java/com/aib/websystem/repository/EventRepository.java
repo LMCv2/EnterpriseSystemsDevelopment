@@ -10,6 +10,7 @@ import org.springframework.data.repository.PagingAndSortingRepository;
 
 import com.aib.websystem.entity.Event;
 import com.aib.websystem.entity.EventStatus;
+import com.aib.websystem.entity.Fruit;
 import com.aib.websystem.entity.Location;
 
 public interface EventRepository extends CrudRepository<Event, Long>, PagingAndSortingRepository<Event, Long> {
@@ -21,11 +22,19 @@ public interface EventRepository extends CrudRepository<Event, Long>, PagingAndS
     @Query("select e from Event e where (e.fromLocation = ?1 OR e.throughLocation = ?1 OR e.toLocation = ?1) and e.status = ?2")
     Page<Event> findByLocationAndStatus(Location location, EventStatus status, Pageable pageable);
 
-    @Query(value = "SELECT * FROM event e WHERE (e.status, e.through_location_id) IN " +
-           "(SELECT status, through_location_id FROM event GROUP BY status, through_location_id)",
-           nativeQuery = true)
-    Page<List<Event>> findByTest(Pageable pageable);
+    // grouped events
+    @Query("select distinct e.fruit, e.fromLocation, e.throughLocation from Event e")
+    Page<Object[]> findDistinct(Pageable pageable);
 
+    @Query("select distinct e.fruit, e.fromLocation, e.throughLocation from Event e where e.fromLocation = ?1")
+    Page<Object[]> findDistinctByFromLocation(Location fromLocation, Pageable pageable);
+
+    @Query("select distinct e.fruit, e.fromLocation, e.throughLocation from Event e where e.throughLocation = ?1")
+    Page<Object[]> findDistinctByThroughLocation(Location throughLocation, Pageable pageable);
+
+    List<Event> findByFruitAndFromLocationAndThroughLocation(Fruit fruit, Location fromLocation, Location throughLocation);
+
+    //
     @Query("select e.fruit, e.toLocation, SUM(e.quantity) from Event e where e.fromLocation = ?1 AND e.status = 0 GROUP BY e.fruit, e.toLocation")
     Page<Object[]> findByLocationGroupByFruit(Location location, Pageable pageable);
 
@@ -34,10 +43,4 @@ public interface EventRepository extends CrudRepository<Event, Long>, PagingAndS
 
     @Query("select e.fruit, s.quantity, SUM(e.quantity) from Event e INNER JOIN Stock s ON e.fruit = s.fruit where s.location = ?1 AND e.toLocation = ?1 AND e.status = 1 GROUP BY e.fruit, s.quantity")
     Page<Object[]> findFruitStockAndActiveEventTotalByLocation(Location location, Pageable pageable);
-
-    @Query("SELECT e FROM Event e WHERE e.status = ?1 AND e.throughLocation = ?2")
-    List<Event> findByStatusAndThroughLocation(EventStatus status, Location throughLocation);
-
-    @Query("SELECT DISTINCT e.status, e.throughLocation FROM Event e")
-    Page<Object[]> findDistinctStatusAndLocation(Pageable pageable);
 }

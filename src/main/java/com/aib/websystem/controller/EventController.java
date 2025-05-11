@@ -35,27 +35,30 @@ public class EventController {
 
     @GetMapping("/")
     public String getEventsPage(@RequestParam(defaultValue = "all") String status, @RequestParam(defaultValue = "1") Integer page, @SessionAttribute Account current_account, Model model) {
+        model.addAttribute("status_items", EventStatus.MAP);
+        model.addAttribute("current_account", current_account);
+
         if (current_account.getRole() == Role.ADMIN) {
             if (status.equals("all")) {
                 model.addAttribute("events", eventRepository.findAll(PageRequest.of(page - 1, 10)));
             } else {
                 model.addAttribute("events", eventRepository.findByStatus(EventStatus.valueOf(status.toUpperCase()), PageRequest.of(page - 1, 10)));
             }
+            return "/pages/event/index";
         } else if (current_account.getRole() == Role.SOURCE_WAREHOUSE_STAFF) {
-            model.addAttribute("events", eventService.getGroupedEvents(PageRequest.of(page - 1, 10)));
-            model.addAttribute("status_items", EventStatus.MAP);
-            model.addAttribute("current_account", current_account);
-            return "/pages/event/index2";
+            model.addAttribute("events", eventService.findGroupedEventsByFromLocation(current_account.getLocation(), PageRequest.of(page - 1, 10)));
+            return "/pages/event/indexGroup";
+        } else if (current_account.getRole() == Role.CENTRAL_WAREHOUSE_STAFF) {
+            model.addAttribute("events", eventService.findGroupedEventsByThroughLocation(current_account.getLocation(), PageRequest.of(page - 1, 10)));
+            return "/pages/event/indexGroup";
         } else {
             if (status.equals("all")) {
                 model.addAttribute("events", eventRepository.findByLocation(current_account.getLocation(), PageRequest.of(page - 1, 10)));
             } else {
                 model.addAttribute("events", eventRepository.findByLocationAndStatus(current_account.getLocation(), EventStatus.valueOf(status.toUpperCase()), PageRequest.of(page - 1, 10)));
             }
+            return "/pages/event/index";
         }
-        model.addAttribute("status_items", EventStatus.MAP);
-        model.addAttribute("current_account", current_account);
-        return "/pages/event/index";
     }
 
     //

@@ -10,7 +10,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.aib.websystem.entity.Event;
-import com.aib.websystem.entity.EventStatus;
+import com.aib.websystem.entity.Fruit;
 import com.aib.websystem.entity.Location;
 import com.aib.websystem.repository.EventRepository;
 
@@ -19,14 +19,26 @@ public class EventService {
     @Autowired
     private EventRepository eventRepository;
 
-    public Page<List<Event>> getGroupedEvents(Pageable pageable) {
-        Page<Object[]> distinctGroups = eventRepository.findDistinctStatusAndLocation(pageable);
+    public Page<List<Event>> findGroupedEvents(Pageable pageable) {
+        Page<Object[]> distinctGroups = eventRepository.findDistinct(pageable);
         List<List<Event>> groupedEvents = distinctGroups.getContent().stream()
-                .map(group -> {
-                    EventStatus status = (EventStatus) group[0];
-                    Location throughLocation = (Location) group[1];
-                    return eventRepository.findByStatusAndThroughLocation(status, throughLocation);
-                })
+                .map(group -> eventRepository.findByFruitAndFromLocationAndThroughLocation((Fruit) group[0], (Location) group[1], (Location) group[2]))
+                .collect(Collectors.toList());
+        return new PageImpl<>(groupedEvents, pageable, distinctGroups.getTotalElements());
+    }
+
+    public Page<List<Event>> findGroupedEventsByFromLocation(Location fromLocation, Pageable pageable) {
+        Page<Object[]> distinctGroups = eventRepository.findDistinctByFromLocation(fromLocation, pageable);
+        List<List<Event>> groupedEvents = distinctGroups.getContent().stream()
+                .map(group -> eventRepository.findByFruitAndFromLocationAndThroughLocation((Fruit) group[0], (Location) group[1], (Location) group[2]))
+                .collect(Collectors.toList());
+        return new PageImpl<>(groupedEvents, pageable, distinctGroups.getTotalElements());
+    }
+
+    public Page<List<Event>> findGroupedEventsByThroughLocation(Location throughLocation, Pageable pageable) {
+        Page<Object[]> distinctGroups = eventRepository.findDistinctByThroughLocation(throughLocation, pageable);
+        List<List<Event>> groupedEvents = distinctGroups.getContent().stream()
+                .map(group -> eventRepository.findByFruitAndFromLocationAndThroughLocation((Fruit) group[0], (Location) group[1], (Location) group[2]))
                 .collect(Collectors.toList());
         return new PageImpl<>(groupedEvents, pageable, distinctGroups.getTotalElements());
     }

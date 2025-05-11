@@ -40,10 +40,10 @@
           <tr class="h-14 border-gray-200">
             <td class="px-3 py-2">${event[0].id}</td>
             <td class="px-3 py-2">${event[0].fruit.name}</td>
-            <td class="px-3 py-2">${event[0].quantity}</td>
+            <td class="px-3 py-2">${event.stream().map(e -> e.quantity).sum()}</td>
             <td class="px-3 py-2">${event[0].eventType.label}</td>
             <td class="px-3 py-2">${event[0].fromLocation.name}</td>
-            <td class="px-3 py-2">${event[0].toLocation.name}</td>
+            <td class="px-3 py-2">${event[0].throughLocation.name}</td>
             <td class="px-3 py-2">
               <div class="flex">
                 <c:if test="${event[0].status=='PENDING'}">
