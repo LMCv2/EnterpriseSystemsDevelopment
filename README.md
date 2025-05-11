@@ -124,6 +124,38 @@ graph TD
     end
 ```
 
+## Brief description
+
+### Event State Machine
+
+```mermaid
+stateDiagram-v2
+    [*] --> Pending
+    
+    state Borrowing {
+        Pending --> Shipped: Approve
+        Pending --> Rejected: Reject
+        Shipped --> Delivered: Deliver
+        Delivered --> [*]
+        Rejected --> [*]
+    }
+```
+
+```mermaid
+stateDiagram-v2
+    [*] --> Pending
+    
+    state Reservation {
+        Pending --> ShippedCentral: Approve
+        Pending --> Rejected: Reject
+        ShippedCentral --> DeliveredCentral: Delivered to central warehouse
+        DeliveredCentral --> Shipped: Shipped to shop
+        Shipped --> Delivered: Deliver to shop
+        Delivered --> [*]
+        Rejected --> [*]
+    }
+```
+
 ## Database Structure
 
 ```mermaid
