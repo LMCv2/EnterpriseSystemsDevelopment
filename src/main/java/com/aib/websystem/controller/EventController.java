@@ -1,7 +1,5 @@
 package com.aib.websystem.controller;
 
-import java.util.Optional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
@@ -16,7 +14,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.aib.websystem.entity.Account;
 import com.aib.websystem.entity.Event;
 import com.aib.websystem.entity.EventStatus;
-import com.aib.websystem.entity.EventType;
 import com.aib.websystem.entity.Role;
 import com.aib.websystem.entity.Stock;
 import com.aib.websystem.repository.EventRepository;

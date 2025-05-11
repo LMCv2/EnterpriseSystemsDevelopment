@@ -11,6 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttribute;
@@ -61,17 +62,70 @@ public class StockController {
         return "/pages/stock/index";
     }
 
-    @GetMapping("/{id}/add")
-    public String addStockPage(@RequestParam(defaultValue = "reservation") String type, @PathVariable Long id, Model model) {
+    @GetMapping("/{id}/replenish")
+    public String replenishStockPage(@RequestParam(defaultValue = "reservation") String type, @PathVariable Long id, Model model) {
         Stock stock = stockRepository.findById(id).orElse(null);
         if (type.equals("reservation")) {
             model.addAttribute("stocks", stockRepository.findByFruitAndLocationType(stock.getFruit(), LocationType.SOURCE_WAREHOUSE, PageRequest.of(0, 10)));
         } else if (type.equals("borrowing")) {
             model.addAttribute("stocks", stockRepository.findByFruitAndLocationTypeAndLocationCityNameAndIdNot(stock.getFruit(), LocationType.SHOP, stock.getLocation().getCityName(), stock.getId(), PageRequest.of(0, 10)));
         }
-        return "/pages/stock/add";
+        return "/pages/stock/replenish";
     }
 
+    @GetMapping("/{toId}/from/{fromId}")
+    public String replenishStockFromPage(@PathVariable Long fromId, @PathVariable Long toId, Model model) {
+        model.addAttribute("from_stocks", stockRepository.findById(fromId).orElse(null));
+        model.addAttribute("to_stocks", stockRepository.findById(toId).orElse(null));
+        return "/pages/stock/addfrom";
+    }
+
+    @GetMapping("/{id}/consume")
+    public String consumeStockPage(@PathVariable Long id, Model model) {
+        model.addAttribute("stock", stockRepository.findById(id).orElse(null));
+        return "/pages/stock/consume";
+    }
+
+    @PostMapping("/{toId}/from/{fromId}")
+    public String createReplenishEvent(@PathVariable Long fromId, @PathVariable Long toId, @RequestParam int quantity, @SessionAttribute Account current_account) {
+        Stock fromStock = stockRepository.findById(fromId).orElse(null);
+        Stock toStack = stockRepository.findById(toId).orElse(null);
+        EventType eventType = fromStock.getLocation().getType() == LocationType.SHOP ? EventType.BORROWING : EventType.RESERVATION;
+        if (stockRepository.existsById(fromId)) {
+            if (eventType == EventType.RESERVATION) {
+                // be careful, each city MUST has his own central warehouse(only one)
+                Page<Location> centralWarehouse = locationRepository.findByCityNameAndType(toStack.getLocation().getCityName(), LocationType.CENTRAL_WAREHOUSE, PageRequest.of(0, 10));
+                Iterable<ReservationSchedule> reservationSchedule = reservationScheduleRepository.findAll(Sort.by(Sort.Direction.DESC, "id"));
+                eventRepository.save(new Event(fromStock.getFruit(), quantity, eventType, fromStock.getLocation(), centralWarehouse.getContent().get(0), toStack.getLocation(), new Date(), EventStatus.PENDING,
+                        reservationSchedule.iterator().hasNext() ? reservationSchedule.iterator().next() : null));
+            } else {
+                eventRepository.save(new Event(fromStock.getFruit(), quantity, eventType, fromStock.getLocation(), null, toStack.getLocation(), new Date(), EventStatus.PENDING));
+            }
+        }
+        return "redirect:/stock/";
+    }
+
+    @PostMapping("/{id}/consume")
+    public String createConsumeEvent(@PathVariable Long id, @RequestParam int quantity) {
+        if (stockRepository.existsById(id)) {
+            Stock stock = stockRepository.findById(id).get();
+            stock.setQuantity(stock.getQuantity() - quantity);
+            stockRepository.save(stock);
+        }
+        return "redirect:/stock/";
+    }
+
+    @PutMapping("/{id}/update")
+    public String updateStock(@PathVariable Long id, @RequestParam int quantity) {
+        if (stockRepository.existsById(id)) {
+            Stock stock = stockRepository.findById(id).get();
+            stock.setQuantity(quantity);
+            stockRepository.save(stock);
+        }
+        return "redirect:/stock/";
+    }
+
+    //
     @GetMapping("/{id}/addReservedNeeds")
     public String addReservedNeeds(@PathVariable Long id, @RequestParam(defaultValue = "0") Integer qty, @SessionAttribute Account current_account, Model model) {
         Fruit fruit = stockRepository.findById(id).orElse(null).getFruit();
@@ -79,7 +133,6 @@ public class StockController {
         stock.setQuantity(stock.getQuantity() + qty);
         stockRepository.save(stock);
         return "redirect:/stock/";
-        // return "redirect:/stock/totalReservedNeedsOverall";
     }
 
     @GetMapping("/totalReservedNeedsOverall")
@@ -99,45 +152,5 @@ public class StockController {
         model.addAttribute("stocksNeeds", eventRepository.findByLocationGroupByFruit(current_account.getLocation(), PageRequest.of(page - 1, 10)));
         return "/pages/stock/totalReservedNeeds";
     }
-
-    @GetMapping("/{toId}/from/{fromId}")
-    public String addStockFromPage(@PathVariable Long fromId, @PathVariable Long toId, Model model) {
-        model.addAttribute("from_stocks", stockRepository.findById(fromId).orElse(null));
-        model.addAttribute("to_stocks", stockRepository.findById(toId).orElse(null));
-        return "/pages/stock/addfrom";
-    }
-
-    @GetMapping("/{id}/consume")
-    public String removeStockPage(@PathVariable Long id, Model model) {
-        model.addAttribute("stock", stockRepository.findById(id).orElse(null));
-        return "/pages/stock/consume";
-    }
-
-    @PostMapping("/{toId}/from/{fromId}")
-    public String createEvent(@PathVariable Long fromId, @PathVariable Long toId, @RequestParam int quantity, @SessionAttribute Account current_account) {
-        Stock fromStock = stockRepository.findById(fromId).orElse(null);
-        Stock toStack = stockRepository.findById(toId).orElse(null);
-        EventType eventType = fromStock.getLocation().getType() == LocationType.SHOP ? EventType.BORROWING : EventType.RESERVATION;
-        if (stockRepository.existsById(fromId)) {
-            if (eventType == EventType.RESERVATION) {
-                // be careful, each city MUST has his own central warehouse(only one)
-                Page<Location> centralWarehouse = locationRepository.findByCityNameAndType(toStack.getLocation().getCityName(), LocationType.CENTRAL_WAREHOUSE, PageRequest.of(0, 10));
-                Iterable<ReservationSchedule> reservationSchedule = reservationScheduleRepository.findAll(Sort.by(Sort.Direction.DESC, "id"));
-                eventRepository.save(new Event(fromStock.getFruit(), quantity, eventType, fromStock.getLocation(), centralWarehouse.getContent().get(0), toStack.getLocation(), new Date(), EventStatus.PENDING, reservationSchedule.iterator().hasNext() ? reservationSchedule.iterator().next() : null));
-            } else {
-                eventRepository.save(new Event(fromStock.getFruit(), quantity, eventType, fromStock.getLocation(), null, toStack.getLocation(), new Date(), EventStatus.PENDING));
-            }
-        }
-        return "redirect:/stock/";
-    }
-
-    @PostMapping("/update/{id}")
-    public String test(@PathVariable Long id, @RequestParam int quantity) {
-        if (stockRepository.existsById(id)) {
-            Stock stock = stockRepository.findById(id).get();
-            stock.setQuantity(stock.getQuantity() - quantity);
-            stockRepository.save(stock);
-        }
-        return "redirect:/stock/";
-    }
+    //
 }
