@@ -1,28 +1,40 @@
 <%@taglib prefix="taglib" uri="/WEB-INF/tlds/taglib.tld" %>
 <%@taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <taglib:layout title="Edit Account">
-  <form:form action="${account.username}" method="put" modelAttribute="account" class="max-w-xl space-y-3">
+  <div class="flex gap-3">
     <div>
-      <label for="username">Username:</label>
-      <form:input type="text" id="username" path="username" disabled="true" class="w-full rounded border border-gray-300 px-3 py-2" />
+      <form:form action="${account.username}" method="put" modelAttribute="account" class="w-xl space-y-3 rounded border border-gray-300 p-3">
+        <div>
+          <label for="username">Username:</label>
+          <form:input type="text" id="username" path="username" disabled="true" class="w-full rounded border border-gray-300 px-3 py-2" />
+        </div>
+        <div>
+          <label for="password">Password:</label>
+          <form:input type="password" id="password" path="password" class="w-full rounded border border-gray-300 px-3 py-2" />
+        </div>
+        <div>
+          <label for="role">Role:</label>
+          <form:select id="role" path="role" class="w-full rounded border border-gray-300 px-3 py-2">
+            <form:options items="${role_items}" />
+          </form:select>
+        </div>
+        <div>
+          <label for="location">Location:</label>
+          <form:select id="location" path="location" class="w-full rounded border border-gray-300 px-3 py-2">
+            <form:option value="" label="--Please Select--" />
+            <form:options items="${location_items}" itemLabel="name" />
+          </form:select>
+        </div>
+        <input type="submit" value="Save Changes" class="w-full rounded border border-gray-300 px-3 py-2 hover:bg-gray-100" />
+      </form:form>
     </div>
     <div>
-      <label for="password">Password:</label>
-      <form:input type="password" id="password" path="password" class="w-full rounded border border-gray-300 px-3 py-2" />
+      <div class="rounded border border-gray-300 p-3">
+        <p>Created at</p>
+        <p>${account.createDate}</p>
+        <p>Last modified at</p>
+        <p>${account.lastModifiedDate}</p>
+      </div>
     </div>
-    <div>
-      <label for="role">Role:</label>
-      <form:select id="role" path="role" class="w-full rounded border border-gray-300 px-3 py-2">
-        <form:options items="${role_items}" />
-      </form:select>
-    </div>
-    <div>
-      <label for="location">Location:</label>
-      <form:select id="location" path="location" class="w-full rounded border border-gray-300 px-3 py-2">
-        <form:option value="" label="--Please Select--"/>
-        <form:options items="${location_items}" itemLabel="name" />
-      </form:select>
-    </div>
-    <input type="submit" value="Save Changes" class="w-full rounded border border-gray-300 px-3 py-2 hover:bg-gray-100" />
-  </form:form>
+  </div>
 </taglib:layout>
