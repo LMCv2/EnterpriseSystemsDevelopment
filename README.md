@@ -51,6 +51,43 @@ http://127.0.0.1:8080/
 
 ## Report
 
+## Site Map
+
+```mermaid
+graph TD
+    B[Login Page]
+    
+    B --> D[Account]
+    B --> E[Fruit]
+    B --> F[Location]
+    B --> G[Stock]
+    B --> H[Event]
+    
+    D --> D1[Account List]
+    D --> D2[Add Account]
+    D --> D3[Edit Account]
+    
+    E --> E1[Fruit List]
+    E --> E2[Add Fruit]
+    E --> E3[Edit Fruit]
+    
+    F --> F1[Location List]
+    F --> F2[Add Location]
+    F --> F3[Edit Location]
+    
+    G --> G1[Edit Stock for Source Warehouse]
+    G --> G2[Add Stock for Shop]
+    G --> G3[Consume Stock for Shop]
+    
+    G2 --> G2A[Create Reservation]
+    G2 --> G2B[Create Borrowing]
+
+    H --> H1[Event List]
+    H --> H2[Processing Reservation]
+    H --> H3[Processing Borrowing]
+    H --> H4[Processing  Consumption]
+```
+
 ## System Structure
 
 ```mermaid
