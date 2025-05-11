@@ -7,6 +7,8 @@ import lombok.Getter;
 
 public enum EventStatus {
     PENDING("Pending"),
+    SHIPPEDCENTRAL("Shipped"), // Shipped to central warehouse
+    DELIVEREDCENTRAL("Shipped"), // Delivered to central warehouse
     SHIPPED("Shipped"),
     DELIVERED("Delivered"),
     REJECTED("Rejected"),

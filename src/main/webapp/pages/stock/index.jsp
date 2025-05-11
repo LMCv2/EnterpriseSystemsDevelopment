@@ -57,7 +57,7 @@
               <c:if test="${stock.location.type=='SHOP'}">
                 <a class="inline-flex items-center gap-1 py-2 text-amber-600" href="${stock.id}/add">
                   <div class="i-material-symbols-add?mask"></div>
-                  <span class="hover:underline">Add</span>
+                  <span class="hover:underline">Replenish</span>
                 </a>
                 <a class="inline-flex items-center gap-1 py-2 text-amber-600" href="${stock.id}/consume">
                   <div class="i-material-symbols-remove?mask"></div>

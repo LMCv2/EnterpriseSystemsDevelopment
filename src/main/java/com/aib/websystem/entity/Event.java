@@ -42,17 +42,12 @@ public class Event {
     @Getter
     @Setter
     @ManyToOne
+    private Location throughLocation;
+
+    @Getter
+    @Setter
+    @ManyToOne
     private Location toLocation;
-
-    @Getter
-    @Setter
-    @ManyToOne
-    private Location OriginalFromLocation;
-
-    @Getter
-    @Setter
-    @ManyToOne
-    private Location FinalToLocation;
 
     @Getter
     @Setter
@@ -66,28 +61,26 @@ public class Event {
     @Setter
     @ManyToOne
     private ReservationSchedule reservationSchedule;
-    
-    public Event(Fruit fruit, Integer quantity, EventType eventType, Location fromLocation, Location toLocation, Location originalFromLocation, Location finalToLocation, Date eventDate, EventStatus status) {
+
+    public Event(Fruit fruit, Integer quantity, EventType eventType, Location fromLocation, Location throughLocation, Location toLocation, Date eventDate, EventStatus status) {
         this.fruit = fruit;
         this.quantity = quantity;
         this.eventType = eventType;
         this.fromLocation = fromLocation;
         this.toLocation = toLocation;
-        this.OriginalFromLocation = originalFromLocation;
-        this.FinalToLocation = finalToLocation;
+        this.throughLocation = throughLocation;
         this.eventDate = eventDate;
         this.status = status;
         this.reservationSchedule = null;
     }
 
-    public Event(Fruit fruit, Integer quantity, EventType eventType, Location fromLocation, Location toLocation, Location originalFromLocation, Location finalToLocation, Date eventDate, EventStatus status, ReservationSchedule reservationSchedule) {
+    public Event(Fruit fruit, Integer quantity, EventType eventType, Location fromLocation, Location throughLocation, Location toLocation, Date eventDate, EventStatus status, ReservationSchedule reservationSchedule) {
         this.fruit = fruit;
         this.quantity = quantity;
         this.eventType = eventType;
         this.fromLocation = fromLocation;
+        this.throughLocation = throughLocation;
         this.toLocation = toLocation;
-        this.OriginalFromLocation = originalFromLocation;
-        this.FinalToLocation = finalToLocation;
         this.eventDate = eventDate;
         this.status = status;
         this.reservationSchedule = reservationSchedule;

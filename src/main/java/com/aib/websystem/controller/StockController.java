@@ -79,7 +79,7 @@ public class StockController {
         stock.setQuantity(stock.getQuantity() + qty);
         stockRepository.save(stock);
         return "redirect:/stock/";
-        //return "redirect:/stock/totalReservedNeedsOverall";
+        // return "redirect:/stock/totalReservedNeedsOverall";
     }
 
     @GetMapping("/totalReservedNeedsOverall")
@@ -119,13 +119,13 @@ public class StockController {
         Stock toStack = stockRepository.findById(toId).orElse(null);
         EventType eventType = fromStock.getLocation().getType() == LocationType.SHOP ? EventType.BORROWING : EventType.RESERVATION;
         if (stockRepository.existsById(fromId)) {
-            if(eventType == EventType.RESERVATION) {
+            if (eventType == EventType.RESERVATION) {
                 // be careful, each city MUST has his own central warehouse(only one)
                 Page<Location> centralWarehouse = locationRepository.findByCityNameAndType(toStack.getLocation().getCityName(), LocationType.CENTRAL_WAREHOUSE, PageRequest.of(0, 10));
                 Iterable<ReservationSchedule> reservationSchedule = reservationScheduleRepository.findAll(Sort.by(Sort.Direction.DESC, "id"));
-                eventRepository.save(new Event(fromStock.getFruit(), quantity, eventType, fromStock.getLocation(), centralWarehouse.getContent().get(0), fromStock.getLocation(), toStack.getLocation(), new Date(), EventStatus.PENDING, reservationSchedule.iterator().hasNext() ? reservationSchedule.iterator().next() : null));
+                eventRepository.save(new Event(fromStock.getFruit(), quantity, eventType, fromStock.getLocation(), centralWarehouse.getContent().get(0), toStack.getLocation(), new Date(), EventStatus.PENDING, reservationSchedule.iterator().hasNext() ? reservationSchedule.iterator().next() : null));
             } else {
-                eventRepository.save(new Event(fromStock.getFruit(), quantity, eventType, fromStock.getLocation(), toStack.getLocation(), fromStock.getLocation(), toStack.getLocation(), new Date(), EventStatus.PENDING));
+                eventRepository.save(new Event(fromStock.getFruit(), quantity, eventType, fromStock.getLocation(), null, toStack.getLocation(), new Date(), EventStatus.PENDING));
             }
         }
         return "redirect:/stock/";

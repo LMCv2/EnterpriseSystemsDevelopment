@@ -54,62 +54,61 @@ public class EventController {
 
     @GetMapping("/{id}")
     public String getEventPage(@PathVariable Long id, @RequestParam(defaultValue = "confirm") String action, @SessionAttribute Account current_account, Model model, RedirectAttributes redirectAttributes) {
-        Event originEvent = eventRepository.findById(id).orElse(null);
+        Event event = eventRepository.findById(id).get();
         if (action.equals("confirm")) {
             switch (current_account.getRole()) {
                 case ADMIN:
                     break;
-                case SHOP_STAFF:
-                    if (originEvent.getEventType() == EventType.RESERVATION || (originEvent.getEventType() == EventType.BORROWING && originEvent.getStatus() == EventStatus.DELIVERED)) {
-                        originEvent.setStatus(EventStatus.CONFIRMED);
-                        Optional<Stock> stocks = stockRepository.findByFruitAndLocation(originEvent.getFruit(), originEvent.getToLocation());
-                        Stock stock = stocks.get();
-                        if (stocks.isEmpty()) {
-                            stock = new Stock(originEvent.getFruit(), originEvent.getToLocation(), originEvent.getQuantity());
-                        } else {
-                            stock.setQuantity(stock.getQuantity() + originEvent.getQuantity());
-                        }
-                        stockRepository.save(stock);
-                    } else {
-                        Optional<Stock> stocks = stockRepository.findByFruitAndLocation(originEvent.getFruit(), originEvent.getFromLocation());
-                        Stock stock = stocks.get();
-                        if (stock.getQuantity() >= originEvent.getQuantity()) {
-                            originEvent.setStatus(EventStatus.DELIVERED);
-                            stock.setQuantity(stock.getQuantity() - originEvent.getQuantity());
-                        } else {
-                            redirectAttributes.addFlashAttribute("error", (stock.getQuantity() >= originEvent.getQuantity()) + "Error occurred while processing the event. The stock is not enough.");
-                        }
-                    }
-                    break;
-                case CENTRAL_WAREHOUSE_STAFF:
-                    Stock stock2 = stockRepository.findByFruitAndLocation(originEvent.getFruit(), originEvent.getToLocation()).get();
-                    if (stock2.getQuantity() >= originEvent.getQuantity()) {
-                        originEvent.setStatus(EventStatus.DELIVERED);
-                        originEvent.setFromLocation(originEvent.getToLocation());
-                        originEvent.setToLocation(originEvent.getFinalToLocation());
-                        stock2.setQuantity(stock2.getQuantity() - originEvent.getQuantity());
-                    } else {
-                        redirectAttributes.addFlashAttribute("error", "Error occurred while processing the event. Tthe stock is not enough.");
-                    }
-                    stockRepository.save(stock2);
+                case SENIOR_MANAGEMENT:
                     break;
                 case SOURCE_WAREHOUSE_STAFF:
-                    Stock stock3 = stockRepository.findByFruitAndLocation(originEvent.getFruit(), current_account.getLocation()).get();
-                    if (stock3.getQuantity() >= originEvent.getQuantity()) {
-                        originEvent.setStatus(EventStatus.SHIPPED);
-                        stock3.setQuantity(stock3.getQuantity() - originEvent.getQuantity());
+                    Stock stock3 = stockRepository.findByFruitAndLocation(event.getFruit(), event.getFromLocation()).get();
+                    if (stock3.getQuantity() >= event.getQuantity()) {
+                        event.setStatus(EventStatus.SHIPPEDCENTRAL);
+                        stock3.setQuantity(stock3.getQuantity() - event.getQuantity());
+                        stockRepository.save(stock3);
                     } else {
                         redirectAttributes.addFlashAttribute("error", "Error occurred while processing the event. The stock is not enough.");
                     }
-                    stockRepository.save(stock3);
                     break;
-                case SENIOR_MANAGEMENT:
+                case CENTRAL_WAREHOUSE_STAFF:
+                    Stock stock2 = stockRepository.findByFruitAndLocation(event.getFruit(), event.getThroughLocation()).get();
+                    if (event.getStatus() == EventStatus.SHIPPEDCENTRAL) {
+                        event.setStatus(EventStatus.DELIVEREDCENTRAL);
+                        stock2.setQuantity(stock2.getQuantity() + event.getQuantity());
+                        stockRepository.save(stock2);
+                    } else if (event.getStatus() == EventStatus.DELIVEREDCENTRAL) {
+                        if (stock2.getQuantity() >= event.getQuantity()) {
+                            event.setStatus(EventStatus.SHIPPED);
+                            stock2.setQuantity(stock2.getQuantity() - event.getQuantity());
+                            stockRepository.save(stock2);
+                        } else {
+                            redirectAttributes.addFlashAttribute("error", "Error occurred while processing the event. Tthe stock is not enough.");
+                        }
+                    }
+                    break;
+                case SHOP_STAFF:
+                    if (event.getStatus() == EventStatus.SHIPPED) {
+                        event.setStatus(EventStatus.DELIVERED);
+                        Stock stock = stockRepository.findByFruitAndLocation(event.getFruit(), event.getToLocation()).get();
+                        stock.setQuantity(stock.getQuantity() + event.getQuantity());
+                        stockRepository.save(stock);
+                    } else {
+                        Stock stock = stockRepository.findByFruitAndLocation(event.getFruit(), event.getFromLocation()).get();
+                        if (stock.getQuantity() >= event.getQuantity()) {
+                            event.setStatus(EventStatus.SHIPPED);
+                            stock.setQuantity(stock.getQuantity() - event.getQuantity());
+                            stockRepository.save(stock);
+                        } else {
+                            redirectAttributes.addFlashAttribute("error", (stock.getQuantity() >= event.getQuantity()) + "Error occurred while processing the event. The stock is not enough.");
+                        }
+                    }
                     break;
             }
         } else {
-            originEvent.setStatus(EventStatus.REJECTED);
+            event.setStatus(EventStatus.REJECTED);
         }
-        eventRepository.save(originEvent);
+        eventRepository.save(event);
         return "redirect:/event/";
     }
 }
