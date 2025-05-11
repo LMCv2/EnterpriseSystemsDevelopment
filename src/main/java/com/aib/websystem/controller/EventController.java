@@ -14,14 +14,19 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.aib.websystem.entity.Account;
 import com.aib.websystem.entity.Event;
 import com.aib.websystem.entity.EventStatus;
+import com.aib.websystem.entity.Fruit;
 import com.aib.websystem.entity.Role;
 import com.aib.websystem.entity.Stock;
 import com.aib.websystem.repository.EventRepository;
 import com.aib.websystem.repository.StockRepository;
+import com.aib.websystem.service.EventService;
 
 @Controller
 @RequestMapping("/event")
 public class EventController {
+    @Autowired
+    private EventService eventService;
+
     @Autowired
     private EventRepository eventRepository;
 
@@ -36,6 +41,11 @@ public class EventController {
             } else {
                 model.addAttribute("events", eventRepository.findByStatus(EventStatus.valueOf(status.toUpperCase()), PageRequest.of(page - 1, 10)));
             }
+        } else if (current_account.getRole() == Role.SOURCE_WAREHOUSE_STAFF) {
+            model.addAttribute("events", eventService.getGroupedEvents(PageRequest.of(page - 1, 10)));
+            model.addAttribute("status_items", EventStatus.MAP);
+            model.addAttribute("current_account", current_account);
+            return "/pages/event/index2";
         } else {
             if (status.equals("all")) {
                 model.addAttribute("events", eventRepository.findByLocation(current_account.getLocation(), PageRequest.of(page - 1, 10)));
@@ -45,9 +55,37 @@ public class EventController {
         }
         model.addAttribute("status_items", EventStatus.MAP);
         model.addAttribute("current_account", current_account);
-
         return "/pages/event/index";
     }
+
+    //
+    @GetMapping("/{id}/addReservedNeeds")
+    public String addReservedNeeds(@PathVariable Long id, @RequestParam(defaultValue = "0") Integer qty, @SessionAttribute Account current_account, Model model) {
+        Fruit fruit = stockRepository.findById(id).orElse(null).getFruit();
+        Stock stock = stockRepository.findByFruitAndLocation(fruit, current_account.getLocation()).get();
+        stock.setQuantity(stock.getQuantity() + qty);
+        stockRepository.save(stock);
+        return "redirect:/stock/";
+    }
+
+    @GetMapping("/totalReservedNeedsOverall")
+    public String getTotalReservedNeedsPage(@RequestParam(defaultValue = "1") Integer page, @SessionAttribute Account current_account, Model model) {
+        model.addAttribute("selectionFruitList", eventRepository.findFruitStockAndEventTotalByLocation(current_account.getLocation(), PageRequest.of(page - 1, 10)));
+        return "/pages/stock/totalReservedNeedsOverall";
+    }
+
+    @GetMapping("/warehousing")
+    public String warehousing(@RequestParam(defaultValue = "1") Integer page, @SessionAttribute Account current_account, Model model) {
+        model.addAttribute("warehousingList", eventRepository.findFruitStockAndActiveEventTotalByLocation(current_account.getLocation(), PageRequest.of(page - 1, 10)));
+        return "/pages/stock/warehousing";
+    }
+
+    @GetMapping("/detail")
+    public String getTotalReservedNeedsDetailPage(@RequestParam(defaultValue = "1") Integer page, @SessionAttribute Account current_account, Model model) {
+        model.addAttribute("stocksNeeds", eventRepository.findByLocationGroupByFruit(current_account.getLocation(), PageRequest.of(page - 1, 10)));
+        return "/pages/stock/totalReservedNeeds";
+    }
+    //
 
     @GetMapping("/{id}")
     public String getEventPage(@PathVariable Long id, @RequestParam(defaultValue = "confirm") String action, @SessionAttribute Account current_account, Model model, RedirectAttributes redirectAttributes) {
