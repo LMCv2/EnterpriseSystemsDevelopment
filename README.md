@@ -49,7 +49,45 @@ http://127.0.0.1:8080/
 * [Using Spring Data JDBC](https://github.com/spring-projects/spring-data-examples/tree/master/jdbc/basics)
 * [Accessing data with MySQL](https://spring.io/guides/gs/accessing-data-mysql/)
 
-## ERD
+## Report
+
+## System Structure
+
+```mermaid
+graph TD
+    A[JSP] --> C[Controller]
+    C --> M[Model]
+    M --> D1[JPA Repository]
+    D2 --> E[(MySQL)]
+    
+    subgraph View
+    A1[Account Management Page] --> A
+    A2[Fruit Management Page] --> A
+    A3[Location  Management Page] --> A
+    A4[Event Management Page] --> A
+    end
+    
+    subgraph Controller
+    C1[Account Controller] --> C
+    C2[Fruit Controller] --> C
+    C3[Location Controller] --> C
+    C4[Event Controller] --> C
+    end
+    
+    subgraph Model
+    M1[Account] --> M
+    M2[Fruit] --> M
+    M3[Location] --> M
+    M4[Event] --> M
+    end
+
+    subgraph Data Access
+    D1[JPA Repository] --> D2
+    D2[JDBC]
+    end
+```
+
+## Database Structure
 
 ```mermaid
 erDiagram
@@ -96,3 +134,16 @@ erDiagram
         string date
     }
 ```
+
+## Skill Checklist
+
+- [x] Dynamically Generate HTML (JSP EL, JSTL)
+- [x] Accept User Inputs (Current Account Controller, getParameter)
+- [x] JSP Action (layout_start.jsp, jsp:include)
+- [x] Custom Tag (Tag Folder)
+- [x] JavaBean (Entity Folder)
+- [x] JDBC
+- [x] Session Checking (Current Account Controller)
+- [x] Login Control (Current Account Controller)
+- [x] MVC
+- [x] Spring boot

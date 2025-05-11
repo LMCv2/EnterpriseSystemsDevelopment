@@ -10,7 +10,8 @@
                 "ms-azuretools.vscode-docker",
                 "antfu.unocss",
                 "esbenp.prettier-vscode",
-                "cweijan.vscode-mysql-client2"
+                "cweijan.vscode-mysql-client2",
+                "bierner.markdown-mermaid"
             ]
         }
     }
