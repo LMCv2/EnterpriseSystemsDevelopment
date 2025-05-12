@@ -22,12 +22,12 @@
 
   <nav class="mb-3 flex justify-center">
     <div class="flex space-x-1 rounded border border-gray-200 p-2">
-      <a href="?status=all" class="rounded px-3 py-1.5 hover:bg-gray-100 ${param.status==null||param.status.equals('all')?'bg-gray-100 text-amber-600':''}">All</a>
-      <a href="?status=pending" class="rounded px-3 py-1.5 hover:bg-gray-100 ${param.status.equals('pending')?'bg-gray-100 text-amber-600':''}">Pending</a>
-      <a href="?status=shipped" class="rounded px-3 py-1.5 hover:bg-gray-100 ${param.status.equals('shipped')?'bg-gray-100 text-amber-600':''}">Shipped</a>
-      <a href="?status=delivered" class="rounded px-3 py-1.5 hover:bg-gray-100 ${param.status.equals('delivered')?'bg-gray-100 text-amber-600':''}">Delivered</a>
-      <a href="?status=rejected" class="rounded px-3 py-1.5 hover:bg-gray-100 ${param.status.equals('rejected')?'bg-gray-100 text-amber-600':''}">Rejected</a>
-      <a href="?status=confirmed" class="rounded px-3 py-1.5 hover:bg-gray-100 ${param.status.equals('confirmed')?'bg-gray-100 text-amber-600':''}">Confirmed</a>
+      <a href="?status=all${param.type==null?'':'&type='.concat(param.type)}" class="rounded px-3 py-1.5 hover:bg-gray-100 ${param.status==null||param.status.equals('all')?'bg-gray-100 text-amber-600':''}">All</a>
+      <a href="?status=pending${param.type==null?'':'&type='.concat(param.type)}" class="rounded px-3 py-1.5 hover:bg-gray-100 ${param.status.equals('pending')?'bg-gray-100 text-amber-600':''}">Pending</a>
+      <a href="?status=shipped${param.type==null?'':'&type='.concat(param.type)}" class="rounded px-3 py-1.5 hover:bg-gray-100 ${param.status.equals('shipped')?'bg-gray-100 text-amber-600':''}">Shipped</a>
+      <a href="?status=delivered${param.type==null?'':'&type='.concat(param.type)}" class="rounded px-3 py-1.5 hover:bg-gray-100 ${param.status.equals('delivered')?'bg-gray-100 text-amber-600':''}">Delivered</a>
+      <a href="?status=rejected${param.type==null?'':'&type='.concat(param.type)}" class="rounded px-3 py-1.5 hover:bg-gray-100 ${param.status.equals('rejected')?'bg-gray-100 text-amber-600':''}">Rejected</a>
+      <a href="?status=confirmed${param.type==null?'':'&type='.concat(param.type)}" class="rounded px-3 py-1.5 hover:bg-gray-100 ${param.status.equals('confirmed')?'bg-gray-100 text-amber-600':''}">Confirmed</a>
     </div>
   </nav>
 
@@ -182,10 +182,10 @@
       <p>Showing ${events.number*events.size+1} to ${events.number*events.size+events.numberOfElements} of ${events.totalElements} results</p>
       <div class="flex space-x-1">
         <c:if test="${events.hasPrevious()}">
-          <a href="?page=${events.number}${param.status==null?'':'&status='.concat(param.status)}" class="rounded border border-gray-200 px-3 py-1 hover:bg-gray-100">Prev</a>
+          <a href="?page=${events.number}${param.type==null?'':'&type='.concat(param.type)}${param.status==null?'':'&status='.concat(param.status)}" class="rounded border border-gray-200 px-3 py-1 hover:bg-gray-100">Prev</a>
         </c:if>
         <c:if test="${events.hasNext()}">
-          <a href="?page=${events.number+2}${param.status==null?'':'&status='.concat(param.status)}" class="rounded border border-gray-200 px-3 py-1 hover:bg-gray-100">Next</a>
+          <a href="?page=${events.number+2}${param.type==null?'':'&type='.concat(param.type)}${param.status==null?'':'&status='.concat(param.status)}" class="rounded border border-gray-200 px-3 py-1 hover:bg-gray-100">Next</a>
         </c:if>
       </div>
     </div>
