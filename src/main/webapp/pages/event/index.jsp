@@ -96,8 +96,8 @@
                   <div class="i-material-symbols-close?mask"></div>
                   <span class="hover:underline">Reject</span>
                 </button>
-                <div class="aria-hidden:hidden" id="modal-${event.id}-approve" aria-hidden="true">
-                  <div class="fixed inset-0 flex items-center justify-center bg-gray-950/50" data-micromodal-close>
+                <div class="fixed inset-0 z-40 aria-hidden:hidden" id="modal-${event.id}-approve" aria-hidden="true">
+                  <div class="flex h-full items-center justify-center bg-gray-950/50" data-micromodal-close>
                     <div class="space-y-6 rounded bg-white p-6">
                       <header class="flex">
                         <h3 class="font-semibold">Change Event Status</h3>
@@ -117,8 +117,8 @@
                     </div>
                   </div>
                 </div>
-                <div class="aria-hidden:hidden" id="modal-${event.id}-reject" aria-hidden="true">
-                  <div class="fixed inset-0 flex items-center justify-center bg-gray-950/50" data-micromodal-close>
+                <div class="fixed inset-0 z-40 aria-hidden:hidden" id="modal-${event.id}-reject" aria-hidden="true">
+                  <div class="flex h-full items-center justify-center bg-gray-950/50" data-micromodal-close>
                     <div class="space-y-6 rounded bg-white p-6">
                       <header class="flex">
                         <h3 class="font-semibold">Change Event Status</h3>
@@ -146,8 +146,8 @@
                   <div class="i-material-symbols-check?mask"></div>
                   <span class="hover:underline">Delivering</span>
                 </button>
-                <div class="aria-hidden:hidden" id="modal-${event.id}-delivering" aria-hidden="true">
-                  <div class="fixed inset-0 flex items-center justify-center bg-gray-950/50" data-micromodal-close>
+                <div class="fixed inset-0 z-40 aria-hidden:hidden" id="modal-${event.id}-delivering" aria-hidden="true">
+                  <div class="flex h-full items-center justify-center bg-gray-950/50" data-micromodal-close>
                     <div class="space-y-6 rounded bg-white p-6">
                       <header class="flex">
                         <h3 class="font-semibold">Change Event Status</h3>
@@ -175,8 +175,8 @@
                   <div class="i-material-symbols-check?mask"></div>
                   <span class="hover:underline">Receive</span>
                 </button>
-                <div class="aria-hidden:hidden" id="modal-${event.id}-receive" aria-hidden="true">
-                  <div class="fixed inset-0 flex items-center justify-center bg-gray-950/50" data-micromodal-close>
+                <div class="fixed inset-0 z-40 aria-hidden:hidden" id="modal-${event.id}-receive" aria-hidden="true">
+                  <div class="flex h-full items-center justify-center bg-gray-950/50" data-micromodal-close>
                     <div class="space-y-6 rounded bg-white p-6">
                       <header class="flex">
                         <h3 class="font-semibold">Change Event Status</h3>
