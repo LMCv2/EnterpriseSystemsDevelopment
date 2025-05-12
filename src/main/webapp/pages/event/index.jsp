@@ -85,7 +85,7 @@
             <td class="flex gap-3 px-3 py-2">
 
               <!-- when delivered to warehouse -->
-              <c:if test="${event.status=='DELIVEREDCENTRAL'}">
+              <c:if test="${event.status=='DELIVEREDCENTRAL'&&(current_account.role=='CENTRAL_WAREHOUSE_STAFF'||current_account.role=='ADMIN')}">
                 <button class="inline-flex items-center gap-1 py-2 text-amber-600" data-micromodal-trigger="modal-${event.id}-delivering">
                   <div class="i-material-symbols-check?mask"></div>
                   <span class="hover:underline">Delivering</span>
@@ -114,7 +114,7 @@
               </c:if>
 
               <!-- when shipped -->
-              <c:if test="${event.status=='SHIPPED'}">
+              <c:if test="${event.status=='SHIPPED'&&(current_account.role=='SHOP_STAFF'||current_account.role=='ADMIN')}">
                 <button class="inline-flex items-center gap-1 py-2 text-amber-600" data-micromodal-trigger="modal-${event.id}-receive">
                   <div class="i-material-symbols-check?mask"></div>
                   <span class="hover:underline">Receive</span>
@@ -141,7 +141,6 @@
                   </div>
                 </div>
               </c:if>
-              <!-- current_account.getLocation().type=='SHOP' -->
                
             </td>
           </tr>

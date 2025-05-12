@@ -82,7 +82,7 @@
             <td class="flex gap-3 px-3 py-2">
 
               <!-- when pending -->
-              <c:if test="${event[0].status=='PENDING'}">
+              <c:if test="${event[0].status=='PENDING'&&(current_account.role=='SOURCE_WAREHOUSE_STAFF'||current_account.role=='ADMIN')}">
                 <button class="inline-flex items-center gap-1 py-2 text-amber-600" data-micromodal-trigger="modal-${event[0].id}-approve">
                   <div class="i-material-symbols-check?mask"></div>
                   <span class="hover:underline">Approve</span>
@@ -140,7 +140,7 @@
               </c:if>
 
               <!-- when shipped -->
-              <c:if test="${event[0].status=='SHIPPEDCENTRAL'}">
+              <c:if test="${event[0].status=='SHIPPEDCENTRAL'&&(current_account.role=='CENTRAL_WAREHOUSE_STAFF'||current_account.role=='ADMIN')}">
                 <button class="inline-flex items-center gap-1 py-2 text-amber-600" data-micromodal-trigger="modal-${event[0].id}-receive">
                   <div class="i-material-symbols-check?mask"></div>
                   <span class="hover:underline">Receive</span>

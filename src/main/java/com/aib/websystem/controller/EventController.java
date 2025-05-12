@@ -113,7 +113,7 @@ public class EventController {
 
     @PutMapping("/groupApprove")
     public String groupApprove(@RequestParam("events") List<Event> events, @RequestHeader(value = "Referer") String referer, @SessionAttribute Account current_account, RedirectAttributes redirectAttributes) {
-        if (current_account.getRole() == Role.SOURCE_WAREHOUSE_STAFF) {
+        if (current_account.getRole() == Role.SOURCE_WAREHOUSE_STAFF || current_account.getRole() == Role.ADMIN) {
             Integer totalQuantity = events.stream().mapToInt(Event::getQuantity).sum();
             Stock stock = stockRepository.findByFruitAndLocation(events.get(0).getFruit(), events.get(0).getFromLocation()).get();
             if (stock.getQuantity() >= totalQuantity) {
@@ -132,16 +132,18 @@ public class EventController {
 
     @PutMapping("/groupReject")
     public String groupReject(@RequestParam("events") List<Event> events, @RequestHeader(value = "Referer") String referer, @SessionAttribute Account current_account, RedirectAttributes redirectAttributes) {
-        for (Event event : events) {
-            event.setStatus(EventStatus.REJECTED);
-            eventRepository.save(event);
+        if (current_account.getRole() == Role.SOURCE_WAREHOUSE_STAFF || current_account.getRole() == Role.ADMIN) {
+            for (Event event : events) {
+                event.setStatus(EventStatus.REJECTED);
+                eventRepository.save(event);
+            }
         }
         return "redirect:" + (referer == null ? "/event/" : referer);
     }
 
     @PutMapping("/groupReceive")
     public String groupReceive(@RequestParam("events") List<Event> events, @RequestHeader(value = "Referer") String referer, @SessionAttribute Account current_account, RedirectAttributes redirectAttributes) {
-        if (current_account.getRole() == Role.CENTRAL_WAREHOUSE_STAFF) {
+        if (current_account.getRole() == Role.CENTRAL_WAREHOUSE_STAFF || current_account.getRole() == Role.ADMIN) {
             Integer totalQuantity = events.stream().mapToInt(Event::getQuantity).sum();
             Stock stock = stockRepository.findByFruitAndLocation(events.get(0).getFruit(), events.get(0).getThroughLocation()).get();
             stock.setQuantity(stock.getQuantity() + totalQuantity);
@@ -156,7 +158,7 @@ public class EventController {
 
     @PutMapping("/delivering")
     public String delivering(@RequestParam("event") Event event, @RequestHeader(value = "Referer") String referer, @SessionAttribute Account current_account, RedirectAttributes redirectAttributes) {
-        if (current_account.getRole() == Role.CENTRAL_WAREHOUSE_STAFF) {
+        if (current_account.getRole() == Role.CENTRAL_WAREHOUSE_STAFF || current_account.getRole() == Role.ADMIN) {
             Stock stock = stockRepository.findByFruitAndLocation(event.getFruit(), event.getThroughLocation()).get();
             if (stock.getQuantity() >= event.getQuantity()) {
                 stock.setQuantity(stock.getQuantity() - event.getQuantity());
@@ -172,7 +174,7 @@ public class EventController {
 
     @PutMapping("/receive")
     public String receive(@RequestParam("event") Event event, @RequestHeader(value = "Referer") String referer, @SessionAttribute Account current_account, RedirectAttributes redirectAttributes) {
-        if (current_account.getRole() == Role.SHOP_STAFF) {
+        if (current_account.getRole() == Role.SHOP_STAFF || current_account.getRole() == Role.ADMIN) {
             Stock stock = stockRepository.findByFruitAndLocation(event.getFruit(), event.getToLocation()).get();
             stock.setQuantity(stock.getQuantity() + event.getQuantity());
             stockRepository.save(stock);
@@ -184,7 +186,7 @@ public class EventController {
 
     @PutMapping("/approve")
     public String approve(@RequestParam("event") Event event, @RequestHeader(value = "Referer") String referer, @SessionAttribute Account current_account, RedirectAttributes redirectAttributes) {
-        if (current_account.getRole() == Role.SHOP_STAFF) {
+        if (current_account.getRole() == Role.SHOP_STAFF || current_account.getRole() == Role.ADMIN) {
             Stock stock = stockRepository.findByFruitAndLocation(event.getFruit(), event.getFromLocation()).get();
             if (stock.getQuantity() >= event.getQuantity()) {
                 stock.setQuantity(stock.getQuantity() - event.getQuantity());
@@ -200,8 +202,10 @@ public class EventController {
 
     @PutMapping("/reject")
     public String reject(@RequestParam("event") Event event, @RequestHeader(value = "Referer") String referer, @SessionAttribute Account current_account, RedirectAttributes redirectAttributes) {
-        event.setStatus(EventStatus.REJECTED);
-        eventRepository.save(event);
+        if (current_account.getRole() == Role.SHOP_STAFF || current_account.getRole() == Role.ADMIN) {
+            event.setStatus(EventStatus.REJECTED);
+            eventRepository.save(event);
+        }
         return "redirect:" + (referer == null ? "/event/" : referer);
     }
 }
