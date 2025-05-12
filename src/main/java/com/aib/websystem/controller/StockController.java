@@ -86,6 +86,12 @@ public class StockController {
         return "/pages/stock/consume";
     }
 
+    @GetMapping("/{id}/edit")
+    public String updateStockPage(@PathVariable Long id, Model model) {
+        model.addAttribute("stock", stockRepository.findById(id).orElse(null));
+        return "/pages/stock/edit";
+    }
+
     @PostMapping("/{toId}/from/{fromId}")
     public String createReplenishEvent(@PathVariable Long fromId, @PathVariable Long toId, @RequestParam int quantity, @SessionAttribute Account current_account) {
         Stock fromStock = stockRepository.findById(fromId).orElse(null);
