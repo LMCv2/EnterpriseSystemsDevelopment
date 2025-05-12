@@ -34,15 +34,23 @@ public class EventController {
     private StockRepository stockRepository;
 
     @GetMapping("/")
-    public String getEventsPage(@RequestParam(defaultValue = "all") String status, @RequestParam(defaultValue = "1") Integer page, @SessionAttribute Account current_account, Model model) {
+    public String getEventsPage(@RequestParam(defaultValue = "event") String type, @RequestParam(defaultValue = "all") String status, @RequestParam(defaultValue = "1") Integer page, @SessionAttribute Account current_account, Model model) {
         model.addAttribute("status_items", EventStatus.MAP);
         model.addAttribute("current_account", current_account);
-
         if (current_account.getRole() == Role.ADMIN) {
-            if (status.equals("all")) {
-                model.addAttribute("events", eventRepository.findAll(PageRequest.of(page - 1, 10)));
-            } else {
-                model.addAttribute("events", eventRepository.findByStatus(EventStatus.valueOf(status.toUpperCase()), PageRequest.of(page - 1, 10)));
+            if (type.equals("event")) {
+                if (status.equals("all")) {
+                    model.addAttribute("events", eventRepository.findAll(PageRequest.of(page - 1, 10)));
+                } else {
+                    model.addAttribute("events", eventRepository.findByStatus(EventStatus.valueOf(status.toUpperCase()), PageRequest.of(page - 1, 10)));
+                }
+            } else if (type.equals("eventgroup")) {
+                if (status.equals("all")) {
+                    model.addAttribute("events", eventService.findGroupedEvents(PageRequest.of(page - 1, 10)));
+                } else {
+                    model.addAttribute("events", eventService.findGroupedEventsByStatus(EventStatus.valueOf(status.toUpperCase()), PageRequest.of(page - 1, 10)));
+                }
+                return "/pages/event/indexGroup";
             }
             return "/pages/event/index";
         } else if (current_account.getRole() == Role.SOURCE_WAREHOUSE_STAFF) {

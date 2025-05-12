@@ -23,16 +23,25 @@ public interface EventRepository extends CrudRepository<Event, Long>, PagingAndS
     Page<Event> findByLocationAndStatus(Location location, EventStatus status, Pageable pageable);
 
     // grouped events
-    @Query("select distinct e.fruit, e.fromLocation, e.throughLocation from Event e")
+    @Query("select distinct e.fruit, e.timePeriod, e.fromLocation, e.throughLocation from Event e")
     Page<Object[]> findDistinct(Pageable pageable);
 
-    @Query("select distinct e.fruit, e.fromLocation, e.throughLocation from Event e where e.fromLocation = ?1")
+    @Query("select distinct e.fruit, e.timePeriod, e.fromLocation, e.throughLocation from Event e where e.status = ?1")
+    Page<Object[]> findDistinctByStatus(EventStatus status, Pageable pageable);
+
+    @Query("select distinct e.fruit, e.timePeriod, e.fromLocation, e.throughLocation from Event e where e.fromLocation = ?1")
     Page<Object[]> findDistinctByFromLocation(Location fromLocation, Pageable pageable);
 
-    @Query("select distinct e.fruit, e.fromLocation, e.throughLocation from Event e where e.throughLocation = ?1")
+    @Query("select distinct e.fruit, e.timePeriod, e.fromLocation, e.throughLocation from Event e where e.fromLocation = ?1 and e.status = ?2")
+    Page<Object[]> findDistinctByFromLocationAndStatus(Location fromLocation, EventStatus status, Pageable pageable);
+
+    @Query("select distinct e.fruit, e.timePeriod, e.fromLocation, e.throughLocation from Event e where e.throughLocation = ?1")
     Page<Object[]> findDistinctByThroughLocation(Location throughLocation, Pageable pageable);
 
-    List<Event> findByFruitAndFromLocationAndThroughLocation(Fruit fruit, Location fromLocation, Location throughLocation);
+    @Query("select distinct e.fruit, e.timePeriod, e.fromLocation, e.throughLocation from Event e where e.throughLocation = ?1 and e.status = ?2")
+    Page<Object[]> findDistinctByThroughLocationAndStatus(Location throughLocation, EventStatus status, Pageable pageable);
+
+    List<Event> findByFruitAndTimePeriodAndFromLocationAndThroughLocation(Fruit fruit, Integer timePeriod, Location fromLocation, Location throughLocation);
 
     //
     @Query("select e.fruit, e.toLocation, SUM(e.quantity) from Event e where e.fromLocation = ?1 AND e.status = 0 GROUP BY e.fruit, e.toLocation")
