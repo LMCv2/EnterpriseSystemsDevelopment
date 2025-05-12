@@ -66,7 +66,7 @@
                     <span>Shipped</span>
                   </div>
                 </c:if>
-                <c:if test="${event[0].status=='DELIVEREDCENTRAL'}">
+                <c:if test="${event[0].status=='DELIVEREDCENTRAL'||event[0].status=='SHIPPED'||event[0].status=='DELIVERED'}">
                   <div class="flex items-center gap-1 rounded border border-green-200 bg-green-100 px-2 py-1 text-sm text-green-500">
                     <div class="i-material-symbols-check-circle?mask"></div>
                     <span>Delivered</span>

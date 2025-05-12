@@ -29,17 +29,26 @@ public interface EventRepository extends CrudRepository<Event, Long>, PagingAndS
     @Query("select distinct e.fruit, e.timePeriod, e.fromLocation, e.throughLocation from Event e where e.status = ?1")
     Page<Object[]> findDistinctByStatus(EventStatus status, Pageable pageable);
 
+    @Query("select distinct e.fruit, e.timePeriod, e.fromLocation, e.throughLocation from Event e where (e.status = SHIPPEDCENTRAL or e.status = SHIPPED or e.status = DELIVERED)")
+    Page<Object[]> findDistinctByDeliveredStatus(Pageable pageable);
+    
     @Query("select distinct e.fruit, e.timePeriod, e.fromLocation, e.throughLocation from Event e where e.fromLocation = ?1")
     Page<Object[]> findDistinctByFromLocation(Location fromLocation, Pageable pageable);
 
     @Query("select distinct e.fruit, e.timePeriod, e.fromLocation, e.throughLocation from Event e where e.fromLocation = ?1 and e.status = ?2")
     Page<Object[]> findDistinctByFromLocationAndStatus(Location fromLocation, EventStatus status, Pageable pageable);
 
+    @Query("select distinct e.fruit, e.timePeriod, e.fromLocation, e.throughLocation from Event e where e.fromLocation = ?1 and (e.status = SHIPPEDCENTRAL or e.status = SHIPPED or e.status = DELIVERED)")
+    Page<Object[]> findDistinctByFromLocationAndDeliveredStatus(Location fromLocation, Pageable pageable);
+
     @Query("select distinct e.fruit, e.timePeriod, e.fromLocation, e.throughLocation from Event e where e.throughLocation = ?1")
     Page<Object[]> findDistinctByThroughLocation(Location throughLocation, Pageable pageable);
 
     @Query("select distinct e.fruit, e.timePeriod, e.fromLocation, e.throughLocation from Event e where e.throughLocation = ?1 and e.status = ?2")
     Page<Object[]> findDistinctByThroughLocationAndStatus(Location throughLocation, EventStatus status, Pageable pageable);
+
+    @Query("select distinct e.fruit, e.timePeriod, e.fromLocation, e.throughLocation from Event e where e.throughLocation = ?1 and (e.status = SHIPPEDCENTRAL or e.status = SHIPPED or e.status = DELIVERED)")
+    Page<Object[]> findDistinctByThroughLocationAndDeliveredStatus(Location throughLocation, Pageable pageable);
 
     List<Event> findByFruitAndTimePeriodAndFromLocationAndThroughLocation(Fruit fruit, Integer timePeriod, Location fromLocation, Location throughLocation);
 

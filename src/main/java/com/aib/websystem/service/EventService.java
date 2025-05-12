@@ -36,6 +36,14 @@ public class EventService {
         return new PageImpl<>(groupedEvents, pageable, distinctGroups.getTotalElements());
     }
 
+    public Page<List<Event>> findGroupedEventsByDeliveredStatus(Pageable pageable) {
+        Page<Object[]> distinctGroups = eventRepository.findDistinctByDeliveredStatus(pageable);
+        List<List<Event>> groupedEvents = distinctGroups.getContent().stream()
+                .map(group -> eventRepository.findByFruitAndTimePeriodAndFromLocationAndThroughLocation((Fruit) group[0], (Integer) group[1], (Location) group[2], (Location) group[3]))
+                .collect(Collectors.toList());
+        return new PageImpl<>(groupedEvents, pageable, distinctGroups.getTotalElements());
+    }
+
     public Page<List<Event>> findGroupedEventsByFromLocation(Location fromLocation, Pageable pageable) {
         Page<Object[]> distinctGroups = eventRepository.findDistinctByFromLocation(fromLocation, pageable);
         List<List<Event>> groupedEvents = distinctGroups.getContent().stream()
@@ -52,6 +60,14 @@ public class EventService {
         return new PageImpl<>(groupedEvents, pageable, distinctGroups.getTotalElements());
     }
 
+    public Page<List<Event>> findGroupedEventsByFromLocationAndDeliveredStatus(Location fromLocation, Pageable pageable) {
+        Page<Object[]> distinctGroups = eventRepository.findDistinctByFromLocationAndDeliveredStatus(fromLocation, pageable);
+        List<List<Event>> groupedEvents = distinctGroups.getContent().stream()
+                .map(group -> eventRepository.findByFruitAndTimePeriodAndFromLocationAndThroughLocation((Fruit) group[0], (Integer) group[1], (Location) group[2], (Location) group[3]))
+                .collect(Collectors.toList());
+        return new PageImpl<>(groupedEvents, pageable, distinctGroups.getTotalElements());
+    }
+
     public Page<List<Event>> findGroupedEventsByThroughLocation(Location throughLocation, Pageable pageable) {
         Page<Object[]> distinctGroups = eventRepository.findDistinctByThroughLocation(throughLocation, pageable);
         List<List<Event>> groupedEvents = distinctGroups.getContent().stream()
@@ -62,6 +78,14 @@ public class EventService {
 
     public Page<List<Event>> findGroupedEventsByThroughLocationAndStatus(Location throughLocation, EventStatus status, Pageable pageable) {
         Page<Object[]> distinctGroups = eventRepository.findDistinctByThroughLocationAndStatus(throughLocation, status, pageable);
+        List<List<Event>> groupedEvents = distinctGroups.getContent().stream()
+                .map(group -> eventRepository.findByFruitAndTimePeriodAndFromLocationAndThroughLocation((Fruit) group[0], (Integer) group[1], (Location) group[2], (Location) group[3]))
+                .collect(Collectors.toList());
+        return new PageImpl<>(groupedEvents, pageable, distinctGroups.getTotalElements());
+    }
+
+    public Page<List<Event>> findGroupedEventsByThroughLocationAndDeliveredStatus(Location throughLocation, Pageable pageable) {
+        Page<Object[]> distinctGroups = eventRepository.findDistinctByThroughLocationAndDeliveredStatus(throughLocation, pageable);
         List<List<Event>> groupedEvents = distinctGroups.getContent().stream()
                 .map(group -> eventRepository.findByFruitAndTimePeriodAndFromLocationAndThroughLocation((Fruit) group[0], (Integer) group[1], (Location) group[2], (Location) group[3]))
                 .collect(Collectors.toList());

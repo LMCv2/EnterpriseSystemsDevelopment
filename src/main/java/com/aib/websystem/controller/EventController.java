@@ -53,7 +53,13 @@ public class EventController {
                 if (status.equals("all")) {
                     model.addAttribute("events", eventService.findGroupedEvents(PageRequest.of(page - 1, 10)));
                 } else {
-                    model.addAttribute("events", eventService.findGroupedEventsByStatus(EventStatus.valueOf(status.toUpperCase()), PageRequest.of(page - 1, 10)));
+                    if (status.equals("shipped")) {
+                        model.addAttribute("events", eventService.findGroupedEventsByStatus(EventStatus.SHIPPEDCENTRAL, PageRequest.of(page - 1, 10)));
+                    } else if (status.equals("delivered")) {
+                        model.addAttribute("events", eventService.findGroupedEventsByDeliveredStatus(PageRequest.of(page - 1, 10)));
+                    } else {
+                        model.addAttribute("events", eventService.findGroupedEventsByStatus(EventStatus.valueOf(status.toUpperCase()), PageRequest.of(page - 1, 10)));
+                    }
                 }
                 return "/pages/event/indexGroup";
             }
@@ -61,7 +67,13 @@ public class EventController {
             if (status.equals("all")) {
                 model.addAttribute("events", eventService.findGroupedEventsByFromLocation(current_account.getLocation(), PageRequest.of(page - 1, 10)));
             } else {
-                model.addAttribute("events", eventService.findGroupedEventsByFromLocationAndStatus(current_account.getLocation(), EventStatus.valueOf(status.toUpperCase()), PageRequest.of(page - 1, 10)));
+                if (status.equals("shipped")) {
+                    model.addAttribute("events", eventService.findGroupedEventsByFromLocationAndStatus(current_account.getLocation(), EventStatus.SHIPPEDCENTRAL, PageRequest.of(page - 1, 10)));
+                } else if (status.equals("delivered")) {
+                    model.addAttribute("events", eventService.findGroupedEventsByFromLocationAndDeliveredStatus(current_account.getLocation(), PageRequest.of(page - 1, 10)));
+                } else {
+                    model.addAttribute("events", eventService.findGroupedEventsByFromLocationAndStatus(current_account.getLocation(), EventStatus.valueOf(status.toUpperCase()), PageRequest.of(page - 1, 10)));
+                }
             }
             return "/pages/event/indexGroup";
         } else if (current_account.getRole() == Role.CENTRAL_WAREHOUSE_STAFF) {
@@ -76,7 +88,13 @@ public class EventController {
                 if (status.equals("all")) {
                     model.addAttribute("events", eventService.findGroupedEventsByThroughLocation(current_account.getLocation(), PageRequest.of(page - 1, 10)));
                 } else {
-                    model.addAttribute("events", eventService.findGroupedEventsByThroughLocationAndStatus(current_account.getLocation(), EventStatus.valueOf(status.toUpperCase()), PageRequest.of(page - 1, 10)));
+                    if (status.equals("shipped")) {
+                        model.addAttribute("events", eventService.findGroupedEventsByThroughLocationAndStatus(current_account.getLocation(), EventStatus.SHIPPEDCENTRAL, PageRequest.of(page - 1, 10)));
+                    } else if (status.equals("delivered")) {
+                        model.addAttribute("events", eventService.findGroupedEventsByThroughLocationAndDeliveredStatus(current_account.getLocation(), PageRequest.of(page - 1, 10)));
+                    } else {
+                        model.addAttribute("events", eventService.findGroupedEventsByThroughLocationAndStatus(current_account.getLocation(), EventStatus.valueOf(status.toUpperCase()), PageRequest.of(page - 1, 10)));
+                    }
                 }
                 return "/pages/event/indexGroup";
             }
