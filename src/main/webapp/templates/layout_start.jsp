@@ -1,8 +1,8 @@
 <%@taglib prefix="c" uri="jakarta.tags.core" %>
-<jsp:include page="layout_header.jsp"/>
+<jsp:include page="layout_header.jsp" />
 
 <div class="flex h-screen pt-16">
-  <nav class="flex h-full w-56 flex-col p-3 shadow">
+  <nav class="flex h-full w-56 flex-col gap-1 p-3 shadow">
     <c:if test="${permissions.contains('dashboard')}">
       <a href="/dashboard/" class="flex items-center px-3 py-3 hover:bg-gray-100 ${pageContext.request.requestURI.contains('/dashboard/')?'bg-gray-100 text-amber-600':''}">
         <div class="i-material-symbols-dashboard-outline-rounded?mask mr-3 ${pageContext.request.requestURI.contains('/dashboard/')?'text-amber-600':''}"></div>
