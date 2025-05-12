@@ -123,7 +123,7 @@ public class StockController {
         return "redirect:/stock/";
     }
 
-    @PutMapping("/{id}/update")
+    @PutMapping("/{id}/edit")
     public String editStock(@PathVariable Long id, @RequestParam int quantity) {
         if (stockRepository.existsById(id)) {
             Stock stock = stockRepository.findById(id).get();

@@ -3,7 +3,7 @@
 <taglib:layout title="Edit Location">
   <div class="flex gap-3">
     <div>
-      <form:form action="${location.id}" method="put" modelAttribute="location" class="w-xl space-y-3 rounded border border-gray-300 p-3">
+      <form:form action="edit" method="put" modelAttribute="location" class="w-xl space-y-3 rounded border border-gray-300 p-3">
         <div>
           <label for="name">Name:</label>
           <form:input type="text" id="name" path="name" class="w-full rounded border border-gray-300 px-3 py-2" />

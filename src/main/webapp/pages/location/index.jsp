@@ -39,7 +39,7 @@
             <td class="px-3 py-2">${location.cityName}</td>
             <td class="px-3 py-2">${location.type.label}</td>
             <td class="flex gap-3 px-3 py-2">
-              <a class="inline-flex items-center gap-1 py-2 text-amber-600" href="${location.id}">
+              <a class="inline-flex items-center gap-1 py-2 text-amber-600" href="${location.id}/edit">
                 <div class="i-material-symbols-edit?mask"></div>
                 <span class="hover:underline">Edit</span>
               </a>

@@ -44,7 +44,7 @@ public class LocationController {
         return "/pages/location/create";
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/{id}/edit")
     public String editLocationPage(@PathVariable Long id, Model model) {
         model.addAttribute("location", locationRepository.findById(id).orElse(null));
         model.addAttribute("locationType_items", LocationType.MAP);
@@ -58,7 +58,7 @@ public class LocationController {
         return "redirect:/location/";
     }
 
-    @PutMapping("/{id}")
+    @PutMapping("/{id}/edit")
     public String editLocation(@PathVariable Long id, Location newLocation) {
         if (locationRepository.existsById(id)) {
             Location originLocation = locationRepository.findById(id).get();

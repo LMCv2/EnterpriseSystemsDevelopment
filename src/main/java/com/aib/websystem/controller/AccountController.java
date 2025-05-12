@@ -45,7 +45,7 @@ public class AccountController {
         return "/pages/account/create";
     }
 
-    @GetMapping("/{username}")
+    @GetMapping("/{username}/edit")
     public String editAccountPage(@PathVariable String username, Model model) {
         model.addAttribute("account", accountRepository.findById(username).orElse(null));
         model.addAttribute("role_items", Role.MAP);
@@ -61,7 +61,7 @@ public class AccountController {
         return "redirect:/account/";
     }
 
-    @PutMapping("/{username}")
+    @PutMapping("/{username}/edit")
     public String editAccount(@PathVariable String username, Account newAccount) {
         if (accountRepository.existsById(username)) {
             Account originAccount = accountRepository.findById(username).get();
