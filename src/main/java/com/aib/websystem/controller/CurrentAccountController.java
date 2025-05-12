@@ -109,9 +109,9 @@ public class CurrentAccountController extends HttpServlet {
                     { "Mango Source 3 HK", "Hong Kong", LocationType.SOURCE_WAREHOUSE, fruitRepository.findById(5L).get() },
                     { "Mango Source 4 HK", "Hong Kong", LocationType.SOURCE_WAREHOUSE, fruitRepository.findById(5L).get() },
                     // central
-                    { "Central Warehouse 1 HK", "Hong Kong", LocationType.CENTRAL_WAREHOUSE },
-                    // { "Central Warehouse 2", "Hong Kong", LocationType.CENTRAL_WAREHOUSE },
-                    { "Central Warehouse 3 UK", "London", LocationType.CENTRAL_WAREHOUSE },
+                    { "Central Warehouse 1 UK", "London", LocationType.CENTRAL_WAREHOUSE },
+                    { "Central Warehouse 2 HK", "Hong Kong", LocationType.CENTRAL_WAREHOUSE },
+                    // { "Central Warehouse 3 HK", "Hong Kong", LocationType.CENTRAL_WAREHOUSE },
                     // shop
                     { "Bakery Shop 1 HK", "Hong Kong", LocationType.SHOP },
                     { "Bakery Shop 2 UK", "London", LocationType.SHOP },
@@ -135,27 +135,6 @@ public class CurrentAccountController extends HttpServlet {
             accountRepository.save(new Account("shop1HK", "a", Role.SHOP_STAFF, locationRepository.findById(15L).get()));
             accountRepository.save(new Account("shop2HK", "a", Role.SHOP_STAFF, locationRepository.findById(16L).get()));
             accountRepository.save(new Account("shop3UK", "a", Role.SHOP_STAFF, locationRepository.findById(17L).get()));
-
-            // start reservation schedule
-            java.util.Date today = new java.util.Date(); // deliveredDate
-
-            // Calculate date 3 days after today (startDate)
-            java.util.Calendar calendar = java.util.Calendar.getInstance();
-            calendar.setTime(today);
-            calendar.add(java.util.Calendar.DAY_OF_MONTH, 3);
-            java.util.Date threeDaysLater = calendar.getTime();
-
-            // Calculate date 14 days after startDate (endDate)
-            java.util.Calendar calendar2 = java.util.Calendar.getInstance();
-            calendar2.setTime(threeDaysLater);
-            calendar2.add(java.util.Calendar.DAY_OF_MONTH, 14);
-            java.util.Date endDate = calendar2.getTime();
-
-            // Calculate date 14 days after deliveredDate (nextReservedDate)
-            java.util.Calendar calendar3 = java.util.Calendar.getInstance();
-            calendar3.setTime(today);
-            calendar3.add(java.util.Calendar.DAY_OF_MONTH, 14);
-            java.util.Date nextReservedDate = calendar3.getTime();
         }
 
         res.sendRedirect("/");

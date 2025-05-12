@@ -73,14 +73,18 @@ public class Event implements Serializable {
     @LastModifiedDate
     private Date lastModifiedDate;
 
-    public Event(Fruit fruit, Integer quantity, EventType eventType, Location fromLocation, Location throughLocation, Location toLocation, EventStatus status) {
+    public Event(Fruit fruit, Integer quantity, EventType eventType, Location fromLocation, Location toLocation) {
+        this(fruit, quantity, eventType, fromLocation, null, toLocation);
+    }
+
+    public Event(Fruit fruit, Integer quantity, EventType eventType, Location fromLocation, Location throughLocation, Location toLocation) {
         this.fruit = fruit;
         this.quantity = quantity;
         this.eventType = eventType;
         this.fromLocation = fromLocation;
         this.throughLocation = throughLocation;
         this.toLocation = toLocation;
-        this.status = status;
-        this.timePeriod = TimePeriodConverter.convertToTimePeriod(createDate);
+        this.status = EventStatus.PENDING;
+        this.timePeriod = TimePeriodConverter.convertToTimePeriod(new Date());
     }
 }

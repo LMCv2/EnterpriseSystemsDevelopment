@@ -99,9 +99,9 @@ public class StockController {
             if (eventType == EventType.RESERVATION) {
                 // be careful, each city MUST has his own central warehouse(only one)
                 Page<Location> centralWarehouse = locationRepository.findByCityNameAndType(toStack.getLocation().getCityName(), LocationType.CENTRAL_WAREHOUSE, PageRequest.of(0, 10));
-                eventRepository.save(new Event(fruit, quantity, eventType, fromLocation, centralWarehouse.getContent().get(0), toLocation, EventStatus.PENDING));
+                eventRepository.save(new Event(fruit, quantity, eventType, fromLocation, centralWarehouse.getContent().get(0), toLocation));
             } else {
-                eventRepository.save(new Event(fruit, quantity, eventType, fromLocation, null, toLocation, EventStatus.PENDING));
+                eventRepository.save(new Event(fruit, quantity, eventType, fromLocation, toLocation));
             }
         }
         return "redirect:/stock/";
