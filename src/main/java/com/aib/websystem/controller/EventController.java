@@ -6,9 +6,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttribute;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.aib.websystem.entity.Account;
@@ -164,5 +166,20 @@ public class EventController {
         }
         eventRepository.save(event);
         return "redirect:/event/";
+    }
+
+    @PutMapping("/{id}/groupApprove")
+    public String groupApprove(@RequestHeader(value = "Referer") String referer) {
+        return "redirect:" + (referer == null ? "/event/" : referer);
+    }
+
+    @PutMapping("/{id}/groupReject")
+    public String groupReject(@RequestHeader(value = "Referer") String referer) {
+        return "redirect:" + (referer == null ? "/event/" : referer);
+    }
+
+    @PutMapping("/{id}/groupReceive")
+    public String groupReceive(@RequestHeader(value = "Referer") String referer) {
+        return "redirect:" + (referer == null ? "/event/" : referer);
     }
 }
