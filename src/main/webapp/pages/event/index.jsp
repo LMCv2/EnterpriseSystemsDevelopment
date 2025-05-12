@@ -84,6 +84,60 @@
             <td class="px-3 py-2"><fmt:formatDate type="both" dateStyle="short" timeStyle="short" value="${event.createDate}" /></td>
             <td class="flex gap-3 px-3 py-2">
 
+              <!-- when pending -->
+              <c:if test="${event.status=='PENDING'&&event.eventType=='BORROWING'&&(current_account.role=='SHOP_STAFF'||current_account.role=='ADMIN')}">
+                <button class="inline-flex items-center gap-1 py-2 text-amber-600" data-micromodal-trigger="modal-${event.id}-approve">
+                  <div class="i-material-symbols-check?mask"></div>
+                  <span class="hover:underline">Approve</span>
+                </button>
+                <button class="inline-flex items-center gap-1 py-2 text-red-600" data-micromodal-trigger="modal-${event.id}-reject">
+                  <div class="i-material-symbols-close?mask"></div>
+                  <span class="hover:underline">Reject</span>
+                </button>
+                <div class="aria-hidden:hidden" id="modal-${event.id}-approve" aria-hidden="true">
+                  <div class="fixed inset-0 flex items-center justify-center bg-gray-950/50" data-micromodal-close>
+                    <div class="space-y-6 rounded bg-white p-6">
+                      <header class="flex">
+                        <h3 class="font-semibold">Change Event Status</h3>
+                      </header>
+                      <main>
+                        <p>Are you sure delivering the goods?</p>
+                      </main>
+                      <footer class="flex gap-3">
+                        <form:form action="approve" method="put">
+                          <input type="hidden" name="event" value="${event.id}">
+                          <button type="submit" class="rounded bg-amber-600 px-3 py-1.5 text-white hover:bg-amber-700">
+                            Approve
+                          </button>
+                        </form:form>
+                        <button class="rounded border border-gray-300 px-3 py-1.5 hover:bg-gray-100" data-micromodal-close>Cancel</button>
+                      </footer>
+                    </div>
+                  </div>
+                </div>
+                <div class="aria-hidden:hidden" id="modal-${event.id}-reject" aria-hidden="true">
+                  <div class="fixed inset-0 flex items-center justify-center bg-gray-950/50" data-micromodal-close>
+                    <div class="space-y-6 rounded bg-white p-6">
+                      <header class="flex">
+                        <h3 class="font-semibold">Change Event Status</h3>
+                      </header>
+                      <main>
+                        <p>Are you sure rejecting the goods?</p>
+                      </main>
+                      <footer class="flex gap-3">
+                        <form:form action="reject" method="put">
+                          <input type="hidden" name="event" value="${event.id}">
+                          <button type="submit" class="rounded bg-amber-600 px-3 py-1.5 text-white hover:bg-amber-700">
+                            Reject
+                          </button>
+                        </form:form>
+                        <button class="rounded border border-gray-300 px-3 py-1.5 hover:bg-gray-100" data-micromodal-close>Cancel</button>
+                      </footer>
+                    </div>
+                  </div>
+                </div>
+              </c:if>
+
               <!-- when delivered to warehouse -->
               <c:if test="${event.status=='DELIVEREDCENTRAL'&&(current_account.role=='CENTRAL_WAREHOUSE_STAFF'||current_account.role=='ADMIN')}">
                 <button class="inline-flex items-center gap-1 py-2 text-amber-600" data-micromodal-trigger="modal-${event.id}-delivering">
