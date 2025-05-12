@@ -25,7 +25,7 @@
             <td class="px-3 py-2">${fruit.id}</td>
             <td class="px-3 py-2">${fruit.name}</td>
             <td class="flex gap-3 px-3 py-2">
-              <a class="inline-flex items-center gap-1 py-2 text-gray-700" href="${fruit.id}/view">
+              <a class="inline-flex items-center gap-1 py-2 text-gray-700" href="${fruit.id}">
                 <div class="i-material-symbols-visibility?mask text-gray-400"></div>
                 <span class="hover:underline">View</span>
               </a>
@@ -33,7 +33,7 @@
                 <div class="i-material-symbols-edit?mask"></div>
                 <span class="hover:underline">Edit</span>
               </a>
-              <form:form action="${fruit.id}" method="delete">
+              <form:form action="${fruit.id}/delete" method="delete">
                 <button type="submit" class="inline-flex items-center gap-1 py-2 text-red-600">
                   <div class="i-material-symbols-delete?mask"></div>
                   <span class="hover:underline">Delete</span>

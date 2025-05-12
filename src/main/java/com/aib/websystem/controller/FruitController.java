@@ -36,12 +36,12 @@ public class FruitController {
         return "/pages/fruit/index";
     }
 
-    @GetMapping("/{id}/view")
+    @GetMapping("/{id}")
     public String getFruitPage(@PathVariable Long id, Model model) {
         Fruit fruit = fruitRepository.findById(id).orElse(null);
         model.addAttribute("fruit", fruit);
         model.addAttribute("stocks", stockRepository.findByFruitAndLocationType(fruit, LocationType.SOURCE_WAREHOUSE, PageRequest.of(0, 10)));
-        return "/pages/fruit/get";
+        return "/pages/fruit/view";
     }
 
     @GetMapping("/create")
@@ -73,7 +73,7 @@ public class FruitController {
         return "redirect:/fruit/";
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/{id}/delete")
     public String deleteFruit(@PathVariable Long id) {
         if (fruitRepository.existsById(id)) {
             fruitRepository.deleteById(id);

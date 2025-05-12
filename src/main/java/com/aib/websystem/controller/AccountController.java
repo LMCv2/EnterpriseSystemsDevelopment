@@ -73,7 +73,7 @@ public class AccountController {
         return "redirect:/account/";
     }
 
-    @DeleteMapping("/{username}")
+    @DeleteMapping("/{username}/delete")
     public String deleteAccount(@PathVariable String username) {
         if (accountRepository.existsById(username)) {
             accountRepository.deleteById(username);

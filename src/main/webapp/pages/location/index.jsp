@@ -43,7 +43,7 @@
                 <div class="i-material-symbols-edit?mask"></div>
                 <span class="hover:underline">Edit</span>
               </a>
-              <form:form action="${location.id}" method="delete">
+              <form:form action="${location.id}/delete" method="delete">
                 <button type="submit" class="inline-flex items-center gap-1 py-2 text-red-600">
                   <div class="i-material-symbols-delete?mask"></div>
                   <span class="hover:underline">Delete</span>

@@ -70,7 +70,7 @@ public class LocationController {
         return "redirect:/location/";
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/{id}/delete")
     public String deleteLocation(@PathVariable Long id) {
         if (locationRepository.existsById(id)) {
             locationRepository.deleteById(id);
