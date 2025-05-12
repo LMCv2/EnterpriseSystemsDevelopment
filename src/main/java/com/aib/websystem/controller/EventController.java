@@ -65,12 +65,21 @@ public class EventController {
             }
             return "/pages/event/indexGroup";
         } else if (current_account.getRole() == Role.CENTRAL_WAREHOUSE_STAFF) {
-            if (status.equals("all")) {
-                model.addAttribute("events", eventService.findGroupedEventsByThroughLocation(current_account.getLocation(), PageRequest.of(page - 1, 10)));
-            } else {
-                model.addAttribute("events", eventService.findGroupedEventsByThroughLocationAndStatus(current_account.getLocation(), EventStatus.valueOf(status.toUpperCase()), PageRequest.of(page - 1, 10)));
+            if (type.equals("event")) {
+                if (status.equals("all")) {
+                    model.addAttribute("events", eventRepository.findByLocation(current_account.getLocation(), PageRequest.of(page - 1, 10)));
+                } else {
+                    model.addAttribute("events", eventRepository.findByLocationAndStatus(current_account.getLocation(), EventStatus.valueOf(status.toUpperCase()), PageRequest.of(page - 1, 10)));
+                }
+                return "/pages/event/index";
+            } else if (type.equals("eventgroup")) {
+                if (status.equals("all")) {
+                    model.addAttribute("events", eventService.findGroupedEventsByThroughLocation(current_account.getLocation(), PageRequest.of(page - 1, 10)));
+                } else {
+                    model.addAttribute("events", eventService.findGroupedEventsByThroughLocationAndStatus(current_account.getLocation(), EventStatus.valueOf(status.toUpperCase()), PageRequest.of(page - 1, 10)));
+                }
+                return "/pages/event/indexGroup";
             }
-            return "/pages/event/indexGroup";
         } else if (current_account.getRole() == Role.SHOP_STAFF) {
             if (status.equals("all")) {
                 model.addAttribute("events", eventRepository.findByLocation(current_account.getLocation(), PageRequest.of(page - 1, 10)));
