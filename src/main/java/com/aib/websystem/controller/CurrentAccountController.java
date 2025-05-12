@@ -12,13 +12,11 @@ import com.aib.websystem.WebsystemApplication;
 import com.aib.websystem.entity.Account;
 import com.aib.websystem.entity.Fruit;
 import com.aib.websystem.entity.Role;
-import com.aib.websystem.entity.Stock;
 import com.aib.websystem.entity.Location;
 import com.aib.websystem.entity.LocationType;
 import com.aib.websystem.repository.AccountRepository;
 import com.aib.websystem.repository.FruitRepository;
 import com.aib.websystem.repository.LocationRepository;
-import com.aib.websystem.repository.StockRepository;
 import com.aib.websystem.service.StockService;
 
 import jakarta.servlet.RequestDispatcher;
@@ -31,9 +29,6 @@ import jakarta.servlet.http.HttpSession;
 
 @WebServlet(urlPatterns = { "" })
 public class CurrentAccountController extends HttpServlet {
-    @Autowired
-    private StockRepository stockRepository;
-
     @Autowired
     private FruitRepository fruitRepository;
 

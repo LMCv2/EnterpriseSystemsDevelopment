@@ -1,5 +1,7 @@
 <%@taglib prefix="c" uri="jakarta.tags.core" %>
+<%@taglib prefix="fmt" uri="jakarta.tags.fmt" %>
 <%@taglib prefix="taglib" uri="/WEB-INF/tlds/taglib.tld" %>
+<%@taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <taglib:layout title="Replenish">
   <div class="mb-3 flex justify-between">
     <div class="flex items-center gap-2 rounded p-2 ring-1 ring-gray-300 focus-within:ring-2 focus-within:ring-amber-600">

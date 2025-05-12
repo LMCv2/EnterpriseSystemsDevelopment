@@ -1,4 +1,7 @@
+<%@taglib prefix="c" uri="jakarta.tags.core" %>
+<%@taglib prefix="fmt" uri="jakarta.tags.fmt" %>
 <%@taglib prefix="taglib" uri="/WEB-INF/tlds/taglib.tld" %>
+<%@taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <taglib:page title="Home">
   <h1>Create Account</h1>
     <form action="/" method="post">

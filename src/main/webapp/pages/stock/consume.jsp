@@ -1,4 +1,7 @@
+<%@taglib prefix="c" uri="jakarta.tags.core" %>
+<%@taglib prefix="fmt" uri="jakarta.tags.fmt" %>
 <%@taglib prefix="taglib" uri="/WEB-INF/tlds/taglib.tld" %>
+<%@taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <taglib:layout title="Consumption">
   <h1 class="mb-3 text-3xl">Consumption of ${stock.fruit.name}</h1>
   <form id="updateFruitForm" action="/stock/update/${stock.id}" method="post" class="max-w-xl space-y-3">

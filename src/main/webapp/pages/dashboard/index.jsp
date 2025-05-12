@@ -1,6 +1,7 @@
-<%@taglib prefix="taglib" uri="/WEB-INF/tlds/taglib.tld" %>
 <%@taglib prefix="c" uri="jakarta.tags.core" %>
-<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@taglib prefix="fmt" uri="jakarta.tags.fmt" %>
+<%@taglib prefix="taglib" uri="/WEB-INF/tlds/taglib.tld" %>
+<%@taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <taglib:layout title="Dashboard">
   
   <div class="mb-3 flex justify-between rounded p-3 shadow">

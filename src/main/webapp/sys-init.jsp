@@ -1,5 +1,7 @@
-<%@taglib prefix="taglib" uri="/WEB-INF/tlds/taglib.tld" %>
 <%@taglib prefix="c" uri="jakarta.tags.core" %>
+<%@taglib prefix="fmt" uri="jakarta.tags.fmt" %>
+<%@taglib prefix="taglib" uri="/WEB-INF/tlds/taglib.tld" %>
+<%@taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <taglib:page title="Home">
   <div class="flex h-screen items-center justify-center bg-stone-600 bg-hero-graph-paper-stone-600">
     <div class="rounded bg-white p-6 space-y-3">
