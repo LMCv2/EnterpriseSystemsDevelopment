@@ -50,20 +50,14 @@
             <td class="px-3 py-2">${stock.fruit.name}</td>
             <td class="px-3 py-2">${stock.quantity}</td>
             <td class="flex gap-3 px-3 py-2">
-              <c:if test="${stock.location.type=='SOURCE_WAREHOUSE'}">
-                <a class="inline-flex items-center gap-1 py-2 text-amber-600" href="${stock.id}/edit">
-                  <div class="i-material-symbols-edit?mask"></div>
-                  <span class="hover:underline">Edit</span>
-                </a>
-              </c:if>
+              <a class="inline-flex items-center gap-1 py-2 text-amber-600" href="${stock.id}/edit">
+                <div class="i-material-symbols-edit?mask"></div>
+                <span class="hover:underline">Edit</span>
+              </a>
               <c:if test="${stock.location.type=='SHOP'}">
                 <a class="inline-flex items-center gap-1 py-2 text-amber-600" href="${stock.id}/replenish">
                   <div class="i-material-symbols-add?mask"></div>
                   <span class="hover:underline">Replenish</span>
-                </a>
-                <a class="inline-flex items-center gap-1 py-2 text-amber-600" href="${stock.id}/consume">
-                  <div class="i-material-symbols-remove?mask"></div>
-                  <span class="hover:underline">Consume</span>
                 </a>
               </c:if>
             </td>

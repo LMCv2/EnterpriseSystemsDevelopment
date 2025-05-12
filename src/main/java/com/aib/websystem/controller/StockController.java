@@ -71,12 +71,6 @@ public class StockController {
         return "/pages/stock/addfrom";
     }
 
-    @GetMapping("/{id}/consume")
-    public String consumeStockPage(@PathVariable Long id, Model model) {
-        model.addAttribute("stock", stockRepository.findById(id).orElse(null));
-        return "/pages/stock/consume";
-    }
-
     @GetMapping("/{id}/edit")
     public String editStockPage(@PathVariable Long id, Model model) {
         model.addAttribute("stock", stockRepository.findById(id).orElse(null));
@@ -99,16 +93,6 @@ public class StockController {
             } else {
                 eventRepository.save(new Event(fruit, quantity, eventType, fromLocation, toLocation));
             }
-        }
-        return "redirect:/stock/";
-    }
-
-    @PutMapping("/{id}/consume")
-    public String createConsumeEvent(@PathVariable Long id, @RequestParam int quantity) {
-        if (stockRepository.existsById(id)) {
-            Stock stock = stockRepository.findById(id).get();
-            stock.setQuantity(stock.getQuantity() - quantity);
-            stockRepository.save(stock);
         }
         return "redirect:/stock/";
     }
