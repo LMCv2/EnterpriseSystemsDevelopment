@@ -103,7 +103,7 @@ public class StockController {
         return "redirect:/stock/";
     }
 
-    @PostMapping("/{id}/consume")
+    @PutMapping("/{id}/consume")
     public String createConsumeEvent(@PathVariable Long id, @RequestParam int quantity) {
         if (stockRepository.existsById(id)) {
             Stock stock = stockRepository.findById(id).get();

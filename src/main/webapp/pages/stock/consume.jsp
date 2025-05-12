@@ -3,12 +3,23 @@
 <%@taglib prefix="taglib" uri="/WEB-INF/tlds/taglib.tld" %>
 <%@taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <taglib:layout title="Consumption">
-  <h1 class="mb-3 text-3xl">Consumption of ${stock.fruit.name}</h1>
-  <form id="updateFruitForm" action="/stock/update/${stock.id}" method="post" class="max-w-xl space-y-3">
+  <div class="flex gap-3">
     <div>
-      <label for="fruitType">Quantity:</label>
-      <input type="number" id="quantity" name="quantity" min="0" max="${stock.quantity}" aria-describedby="helper-text-explanation" class="bg-gray-50 border border-gray-150 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="Input Quantity" required />
+      <form:form action="consume" method="put" modelAttribute="stock" class="w-xl space-y-3 rounded border border-gray-300 p-3">
+        <div>
+          <label for="quantity">Quantity:</label>
+          <form:input type="number" id="quantity" path="quantity" min="0" max="${stock.quantity}" class="w-full rounded border border-gray-300 px-3 py-2" placeholder="Input Quantity" required="required" />
+        </div>
+        <input type="submit" value="Save Changes" class="w-full rounded border border-gray-300 px-3 py-2 hover:bg-gray-100" />
+      </form:form>
     </div>
-    <input type="submit" value="Save Changes" class="w-full rounded border border-gray-300 px-3 py-2 hover:bg-gray-100" />
-  </form>
+    <div>
+      <div class="rounded border border-gray-300 p-3">
+        <p>Created at</p>
+        <p>${stock.createDate}</p>
+        <p>Last modified at</p>
+        <p>${stock.lastModifiedDate}</p>
+      </div>
+    </div>
+  </div>
 </taglib:layout>
