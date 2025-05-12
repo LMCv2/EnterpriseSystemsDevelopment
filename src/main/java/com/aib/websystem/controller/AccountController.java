@@ -46,7 +46,7 @@ public class AccountController {
     }
 
     @GetMapping("/{username}")
-    public String updateAccountPage(@PathVariable String username, Model model) {
+    public String editAccountPage(@PathVariable String username, Model model) {
         model.addAttribute("account", accountRepository.findById(username).orElse(null));
         model.addAttribute("role_items", Role.MAP);
         model.addAttribute("location_items", locationRepository.findAll());
@@ -62,7 +62,7 @@ public class AccountController {
     }
 
     @PutMapping("/{username}")
-    public String updateAccount(@PathVariable String username, Account newAccount) {
+    public String editAccount(@PathVariable String username, Account newAccount) {
         if (accountRepository.existsById(username)) {
             Account originAccount = accountRepository.findById(username).get();
             originAccount.setPassword(newAccount.getPassword());

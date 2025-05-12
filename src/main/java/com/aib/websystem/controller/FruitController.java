@@ -51,7 +51,7 @@ public class FruitController {
     }
 
     @GetMapping("/{id}/edit")
-    public String updateFruitPage(@PathVariable Long id, Model model) {
+    public String editFruitPage(@PathVariable Long id, Model model) {
         model.addAttribute("fruit", fruitRepository.findById(id).orElse(null));
         return "/pages/fruit/edit";
     }
@@ -63,8 +63,8 @@ public class FruitController {
         return "redirect:/fruit/";
     }
 
-    @PutMapping("/{id}")
-    public String updateFruit(@PathVariable Long id, Fruit newFruit) {
+    @PutMapping("/{id}/edit")
+    public String editFruit(@PathVariable Long id, Fruit newFruit) {
         if (fruitRepository.existsById(id)) {
             Fruit originFruit = fruitRepository.findById(id).get();
             originFruit.setName(newFruit.getName());

@@ -87,7 +87,7 @@ public class StockController {
     }
 
     @GetMapping("/{id}/edit")
-    public String updateStockPage(@PathVariable Long id, Model model) {
+    public String editStockPage(@PathVariable Long id, Model model) {
         model.addAttribute("stock", stockRepository.findById(id).orElse(null));
         return "/pages/stock/edit";
     }
@@ -124,7 +124,7 @@ public class StockController {
     }
 
     @PutMapping("/{id}/update")
-    public String updateStock(@PathVariable Long id, @RequestParam int quantity) {
+    public String editStock(@PathVariable Long id, @RequestParam int quantity) {
         if (stockRepository.existsById(id)) {
             Stock stock = stockRepository.findById(id).get();
             stock.setQuantity(quantity);
