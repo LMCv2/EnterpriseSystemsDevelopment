@@ -4,6 +4,8 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -39,70 +41,73 @@ public class EventController {
 
     @GetMapping("/")
     public String getEventsPage(@RequestParam(defaultValue = "event") String type, @RequestParam(defaultValue = "all") String status, @RequestParam(defaultValue = "1") Integer page, @SessionAttribute Account current_account, Model model) {
+        PageRequest eventPageRequest = PageRequest.of(page - 1, 10, Direction.DESC, "createDate");
+        PageRequest groupEventPageRequest = PageRequest.of(page - 1, 10, Direction.DESC, "timePeriod");
         model.addAttribute("current_account", current_account);
         model.addAttribute("status_items", EventStatus.MAP);
         if (current_account.getRole() == Role.ADMIN) {
             if (type.equals("event")) {
                 if (status.equals("all")) {
-                    model.addAttribute("events", eventRepository.findAll(PageRequest.of(page - 1, 10)));
+                    model.addAttribute("events", eventRepository.findAll(eventPageRequest));
                 } else {
-                    model.addAttribute("events", eventRepository.findByStatus(EventStatus.valueOf(status.toUpperCase()), PageRequest.of(page - 1, 10)));
+                    model.addAttribute("events", eventRepository.findByStatus(EventStatus.valueOf(status.toUpperCase()), eventPageRequest));
                 }
                 return "/pages/event/index";
             } else if (type.equals("eventgroup")) {
                 if (status.equals("all")) {
-                    model.addAttribute("events", eventService.findGroupedEvents(PageRequest.of(page - 1, 10)));
+                    model.addAttribute("events", eventService.findGroupedEvents(groupEventPageRequest));
                 } else {
                     if (status.equals("shipped")) {
-                        model.addAttribute("events", eventService.findGroupedEventsByStatus(EventStatus.SHIPPEDCENTRAL, PageRequest.of(page - 1, 10)));
+                        model.addAttribute("events", eventService.findGroupedEventsByStatus(EventStatus.SHIPPEDCENTRAL, groupEventPageRequest));
                     } else if (status.equals("delivered")) {
-                        model.addAttribute("events", eventService.findGroupedEventsByDeliveredStatus(PageRequest.of(page - 1, 10)));
+                        model.addAttribute("events", eventService.findGroupedEventsByDeliveredStatus(groupEventPageRequest));
                     } else {
-                        model.addAttribute("events", eventService.findGroupedEventsByStatus(EventStatus.valueOf(status.toUpperCase()), PageRequest.of(page - 1, 10)));
+                        model.addAttribute("events", eventService.findGroupedEventsByStatus(EventStatus.valueOf(status.toUpperCase()), groupEventPageRequest));
                     }
                 }
                 return "/pages/event/indexGroup";
             }
         } else if (current_account.getRole() == Role.SOURCE_WAREHOUSE_STAFF) {
             if (status.equals("all")) {
-                model.addAttribute("events", eventService.findGroupedEventsByFromLocation(current_account.getLocation(), PageRequest.of(page - 1, 10)));
+                model.addAttribute("events", eventService.findGroupedEventsByFromLocation(current_account.getLocation(), groupEventPageRequest));
             } else {
                 if (status.equals("shipped")) {
-                    model.addAttribute("events", eventService.findGroupedEventsByFromLocationAndStatus(current_account.getLocation(), EventStatus.SHIPPEDCENTRAL, PageRequest.of(page - 1, 10)));
+                    model.addAttribute("events", eventService.findGroupedEventsByFromLocationAndStatus(current_account.getLocation(), EventStatus.SHIPPEDCENTRAL, groupEventPageRequest));
                 } else if (status.equals("delivered")) {
-                    model.addAttribute("events", eventService.findGroupedEventsByFromLocationAndDeliveredStatus(current_account.getLocation(), PageRequest.of(page - 1, 10)));
+                    model.addAttribute("events", eventService.findGroupedEventsByFromLocationAndDeliveredStatus(current_account.getLocation(), groupEventPageRequest));
                 } else {
-                    model.addAttribute("events", eventService.findGroupedEventsByFromLocationAndStatus(current_account.getLocation(), EventStatus.valueOf(status.toUpperCase()), PageRequest.of(page - 1, 10)));
+                    model.addAttribute("events", eventService.findGroupedEventsByFromLocationAndStatus(current_account.getLocation(), EventStatus.valueOf(status.toUpperCase()), groupEventPageRequest));
                 }
             }
             return "/pages/event/indexGroup";
         } else if (current_account.getRole() == Role.CENTRAL_WAREHOUSE_STAFF) {
             if (type.equals("event")) {
                 if (status.equals("all")) {
-                    model.addAttribute("events", eventRepository.findByLocation(current_account.getLocation(), PageRequest.of(page - 1, 10)));
+                    model.addAttribute("events", eventRepository.findByLocation(current_account.getLocation(), eventPageRequest));
                 } else {
-                    model.addAttribute("events", eventRepository.findByLocationAndStatus(current_account.getLocation(), EventStatus.valueOf(status.toUpperCase()), PageRequest.of(page - 1, 10)));
+                    model.addAttribute("events", eventRepository.findByLocationAndStatus(current_account.getLocation(), EventStatus.valueOf(status.toUpperCase()), eventPageRequest));
                 }
                 return "/pages/event/index";
             } else if (type.equals("eventgroup")) {
                 if (status.equals("all")) {
-                    model.addAttribute("events", eventService.findGroupedEventsByThroughLocation(current_account.getLocation(), PageRequest.of(page - 1, 10)));
+                    model.addAttribute("events", eventService.findGroupedEventsByThroughLocation(current_account.getLocation(), groupEventPageRequest));
                 } else {
                     if (status.equals("shipped")) {
-                        model.addAttribute("events", eventService.findGroupedEventsByThroughLocationAndStatus(current_account.getLocation(), EventStatus.SHIPPEDCENTRAL, PageRequest.of(page - 1, 10)));
+                        model.addAttribute("events", eventService.findGroupedEventsByThroughLocationAndStatus(current_account.getLocation(), EventStatus.SHIPPEDCENTRAL, groupEventPageRequest));
                     } else if (status.equals("delivered")) {
-                        model.addAttribute("events", eventService.findGroupedEventsByThroughLocationAndDeliveredStatus(current_account.getLocation(), PageRequest.of(page - 1, 10)));
+                        model.addAttribute("events", eventService.findGroupedEventsByThroughLocationAndDeliveredStatus(current_account.getLocation(), groupEventPageRequest));
                     } else {
-                        model.addAttribute("events", eventService.findGroupedEventsByThroughLocationAndStatus(current_account.getLocation(), EventStatus.valueOf(status.toUpperCase()), PageRequest.of(page - 1, 10)));
+                        model.addAttribute("events",
+                                eventService.findGroupedEventsByThroughLocationAndStatus(current_account.getLocation(), EventStatus.valueOf(status.toUpperCase()), groupEventPageRequest));
                     }
                 }
                 return "/pages/event/indexGroup";
             }
         } else if (current_account.getRole() == Role.SHOP_STAFF) {
             if (status.equals("all")) {
-                model.addAttribute("events", eventRepository.findByLocation(current_account.getLocation(), PageRequest.of(page - 1, 10)));
+                model.addAttribute("events", eventRepository.findByLocation(current_account.getLocation(), eventPageRequest));
             } else {
-                model.addAttribute("events", eventRepository.findByLocationAndStatus(current_account.getLocation(), EventStatus.valueOf(status.toUpperCase()), PageRequest.of(page - 1, 10)));
+                model.addAttribute("events", eventRepository.findByLocationAndStatus(current_account.getLocation(), EventStatus.valueOf(status.toUpperCase()), eventPageRequest));
             }
             return "/pages/event/index";
         }
