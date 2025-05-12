@@ -23,12 +23,10 @@ import com.aib.websystem.entity.EventType;
 import com.aib.websystem.entity.Fruit;
 import com.aib.websystem.entity.Location;
 import com.aib.websystem.entity.LocationType;
-import com.aib.websystem.entity.ReservationSchedule;
 import com.aib.websystem.entity.Role;
 import com.aib.websystem.entity.Stock;
 import com.aib.websystem.repository.EventRepository;
 import com.aib.websystem.repository.LocationRepository;
-import com.aib.websystem.repository.ReservationScheduleRepository;
 import com.aib.websystem.repository.StockRepository;
 
 @Controller
@@ -42,9 +40,6 @@ public class StockController {
 
     @Autowired
     private LocationRepository locationRepository;
-
-    @Autowired
-    private ReservationScheduleRepository reservationScheduleRepository;
 
     @GetMapping("/")
     public String getStocksPage(@RequestParam(defaultValue = "all") String type, @RequestParam(defaultValue = "1") Integer page, @SessionAttribute Account current_account, Model model) {
@@ -104,8 +99,7 @@ public class StockController {
             if (eventType == EventType.RESERVATION) {
                 // be careful, each city MUST has his own central warehouse(only one)
                 Page<Location> centralWarehouse = locationRepository.findByCityNameAndType(toStack.getLocation().getCityName(), LocationType.CENTRAL_WAREHOUSE, PageRequest.of(0, 10));
-                Iterable<ReservationSchedule> reservationSchedule = reservationScheduleRepository.findAll(Sort.by(Sort.Direction.DESC, "id"));
-                eventRepository.save(new Event(fruit, quantity, eventType, fromLocation, centralWarehouse.getContent().get(0), toLocation, EventStatus.PENDING, reservationSchedule.iterator().hasNext() ? reservationSchedule.iterator().next() : null));
+                eventRepository.save(new Event(fruit, quantity, eventType, fromLocation, centralWarehouse.getContent().get(0), toLocation, EventStatus.PENDING));
             } else {
                 eventRepository.save(new Event(fruit, quantity, eventType, fromLocation, null, toLocation, EventStatus.PENDING));
             }

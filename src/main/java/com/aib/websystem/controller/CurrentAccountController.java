@@ -15,11 +15,9 @@ import com.aib.websystem.entity.Role;
 import com.aib.websystem.entity.Stock;
 import com.aib.websystem.entity.Location;
 import com.aib.websystem.entity.LocationType;
-import com.aib.websystem.entity.ReservationSchedule;
 import com.aib.websystem.repository.AccountRepository;
 import com.aib.websystem.repository.FruitRepository;
 import com.aib.websystem.repository.LocationRepository;
-import com.aib.websystem.repository.ReservationScheduleRepository;
 import com.aib.websystem.repository.StockRepository;
 import com.aib.websystem.service.StockService;
 
@@ -47,9 +45,6 @@ public class CurrentAccountController extends HttpServlet {
 
     @Autowired
     private StockService stockService;
-
-    @Autowired
-    private ReservationScheduleRepository reservationScheduleRepository;
 
     private static final Logger logger = LoggerFactory.getLogger(WebsystemApplication.class);
 
@@ -161,8 +156,6 @@ public class CurrentAccountController extends HttpServlet {
             calendar3.setTime(today);
             calendar3.add(java.util.Calendar.DAY_OF_MONTH, 14);
             java.util.Date nextReservedDate = calendar3.getTime();
-
-            reservationScheduleRepository.save(new ReservationSchedule(today, threeDaysLater, endDate, nextReservedDate));
         }
 
         res.sendRedirect("/");

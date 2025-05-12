@@ -7,6 +7,8 @@ import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
+import com.aib.websystem.util.TimePeriodConverter;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.EntityListeners;
 import jakarta.persistence.GeneratedValue;
@@ -61,9 +63,7 @@ public class Event implements Serializable {
     private EventStatus status;
 
     @Getter
-    @Setter
-    @ManyToOne
-    private ReservationSchedule reservationSchedule;
+    private Integer timePeriod;
 
     @Getter
     @CreatedDate
@@ -74,10 +74,6 @@ public class Event implements Serializable {
     private Date lastModifiedDate;
 
     public Event(Fruit fruit, Integer quantity, EventType eventType, Location fromLocation, Location throughLocation, Location toLocation, EventStatus status) {
-        this(fruit, quantity, eventType, fromLocation, throughLocation, toLocation, status, null);
-    }
-
-    public Event(Fruit fruit, Integer quantity, EventType eventType, Location fromLocation, Location throughLocation, Location toLocation, EventStatus status, ReservationSchedule reservationSchedule) {
         this.fruit = fruit;
         this.quantity = quantity;
         this.eventType = eventType;
@@ -85,6 +81,6 @@ public class Event implements Serializable {
         this.throughLocation = throughLocation;
         this.toLocation = toLocation;
         this.status = status;
-        this.reservationSchedule = reservationSchedule;
+        this.timePeriod = TimePeriodConverter.convertToTimePeriod(createDate);
     }
 }
