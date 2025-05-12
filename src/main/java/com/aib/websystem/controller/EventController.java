@@ -40,6 +40,7 @@ public class EventController {
     @GetMapping("/")
     public String getEventsPage(@RequestParam(defaultValue = "event") String type, @RequestParam(defaultValue = "all") String status, @RequestParam(defaultValue = "1") Integer page, @SessionAttribute Account current_account, Model model) {
         model.addAttribute("current_account", current_account);
+        model.addAttribute("status_items", EventStatus.MAP);
         if (current_account.getRole() == Role.ADMIN) {
             if (type.equals("event")) {
                 if (status.equals("all")) {
@@ -115,10 +116,6 @@ public class EventController {
         Event event = eventRepository.findById(id).get();
         if (action.equals("confirm")) {
             switch (current_account.getRole()) {
-                case ADMIN:
-                    break;
-                case SENIOR_MANAGEMENT:
-                    break;
                 case SOURCE_WAREHOUSE_STAFF:
                     Stock stock3 = stockRepository.findByFruitAndLocation(event.getFruit(), event.getFromLocation()).get();
                     if (stock3.getQuantity() >= event.getQuantity()) {
@@ -194,6 +191,20 @@ public class EventController {
             event.setStatus(EventStatus.DELIVEREDCENTRAL);
             eventRepository.save(event);
         }
+        return "redirect:" + (referer == null ? "/event/" : referer);
+    }
+
+    @PutMapping("/delivering")
+    public String delivering(@RequestParam("event") Event event, @RequestHeader(value = "Referer") String referer) {
+        event.setStatus(EventStatus.SHIPPED);
+        eventRepository.save(event);
+        return "redirect:" + (referer == null ? "/event/" : referer);
+    }
+
+    @PutMapping("/receive")
+    public String receive(@RequestParam("event") Event event, @RequestHeader(value = "Referer") String referer) {
+        event.setStatus(EventStatus.DELIVERED);
+        eventRepository.save(event);
         return "redirect:" + (referer == null ? "/event/" : referer);
     }
 }
