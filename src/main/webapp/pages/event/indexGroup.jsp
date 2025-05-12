@@ -55,31 +55,25 @@
                 <c:if test="${event[0].status=='PENDING'}">
                   <div class="flex items-center gap-1 rounded border border-blue-200 bg-blue-100 px-2 py-1 text-sm text-blue-500">
                     <div class="i-material-symbols-autorenew-rounded?mask"></div>
-                    <span>${event[0].status.label}</span>
+                    <span>Pending</span>
                   </div>
                 </c:if>
-                <c:if test="${event[0].status=='SHIPPED'}">
+                <c:if test="${event[0].status=='SHIPPEDCENTRAL'}">
                   <div class="flex items-center gap-1 rounded border border-yellow-200 bg-yellow-100 px-2 py-1 text-sm text-yellow-500">
                     <div class="i-material-symbols-delivery-truck-speed-rounded?mask"></div>
-                    <span>${event[0].status.label}</span>
+                    <span>Shipped</span>
                   </div>
                 </c:if>
-                <c:if test="${event[0].status=='DELIVERED'}">
+                <c:if test="${event[0].status=='DELIVEREDCENTRAL'}">
                   <div class="flex items-center gap-1 rounded border border-green-200 bg-green-100 px-2 py-1 text-sm text-green-500">
                     <div class="i-material-symbols-check-circle?mask"></div>
-                    <span>${event[0].status.label}</span>
+                    <span>Delivered</span>
                   </div>
                 </c:if>
                 <c:if test="${event[0].status=='REJECTED'}">
                   <div class="flex items-center gap-1 rounded border border-red-200 bg-red-100 px-2 py-1 text-sm text-red-500">
                     <div class="i-material-symbols-cancel?mask"></div>
-                    <span>${event[0].status.label}</span>
-                  </div>
-                </c:if>
-                <c:if test="${event[0].status=='CONFIRMED'}">
-                  <div class="flex items-center gap-1 rounded border border-green-200 bg-green-100 px-2 py-1 text-sm text-green-500">
-                    <div class="i-material-symbols-check-circle?mask"></div>
-                    <span>${event[0].status.label}</span>
+                    <span>Rejected</span>
                   </div>
                 </c:if>
               </div>
@@ -107,7 +101,10 @@
                         <p>Are you sure delivering the goods?</p>
                       </main>
                       <footer class="flex gap-3">
-                        <form:form action="${event[0].id}/groupApprove" method="put">
+                        <form:form action="groupApprove" method="put">
+                          <c:forEach var="e" items="${event}" varStatus="status">
+                            <input type="hidden" name="events" value="${e.id}">
+                          </c:forEach>
                           <button type="submit" class="rounded bg-amber-600 px-3 py-1.5 text-white hover:bg-amber-700">
                             Approve
                           </button>
@@ -127,7 +124,10 @@
                         <p>Are you sure rejecting the goods?</p>
                       </main>
                       <footer class="flex gap-3">
-                        <form:form action="${event[0].id}/groupReject" method="put">
+                        <form:form action="groupReject" method="put">
+                          <c:forEach var="e" items="${event}" varStatus="status">
+                            <input type="hidden" name="events" value="${e.id}">
+                          </c:forEach>
                           <button type="submit" class="rounded bg-amber-600 px-3 py-1.5 text-white hover:bg-amber-700">
                             Reject
                           </button>
@@ -140,12 +140,12 @@
               </c:if>
 
               <!-- when shipped -->
-              <c:if test="${event[0].status=='SHIPPED'}">
-                <button class="inline-flex items-center gap-1 py-2 text-amber-600" data-micromodal-trigger="modal-${event[0].id}-approve">
+              <c:if test="${event[0].status=='SHIPPEDCENTRAL'}">
+                <button class="inline-flex items-center gap-1 py-2 text-amber-600" data-micromodal-trigger="modal-${event[0].id}-receive">
                   <div class="i-material-symbols-check?mask"></div>
                   <span class="hover:underline">Receive</span>
                 </button>
-                <div class="aria-hidden:hidden" id="modal-${event[0].id}" aria-hidden="true">
+                <div class="aria-hidden:hidden" id="modal-${event[0].id}-receive" aria-hidden="true">
                   <div class="fixed inset-0 flex items-center justify-center bg-gray-950/50" data-micromodal-close>
                     <div class="space-y-6 rounded bg-white p-6">
                       <header class="flex">
@@ -155,7 +155,10 @@
                         <p>Are you sure you already received the goods?</p>
                       </main>
                       <footer class="flex gap-3">
-                        <form:form action="${event[0].id}/groupReceive" method="put">
+                        <form:form action="groupReceive" method="put">
+                          <c:forEach var="e" items="${event}" varStatus="status">
+                            <input type="hidden" name="events" value="${e.id}">
+                          </c:forEach>
                           <button type="submit" class="rounded bg-amber-600 px-3 py-1.5 text-white hover:bg-amber-700">
                             Receive
                           </button>

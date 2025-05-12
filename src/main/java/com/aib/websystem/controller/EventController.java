@@ -1,5 +1,7 @@
 package com.aib.websystem.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
@@ -168,18 +170,30 @@ public class EventController {
         return "redirect:/event/";
     }
 
-    @PutMapping("/{id}/groupApprove")
-    public String groupApprove(@RequestHeader(value = "Referer") String referer) {
+    @PutMapping("/groupApprove")
+    public String groupApprove(@RequestParam("events") List<Event> events, @RequestHeader(value = "Referer") String referer) {
+        for (Event event : events) {
+            event.setStatus(EventStatus.SHIPPEDCENTRAL);
+            eventRepository.save(event);
+        }
         return "redirect:" + (referer == null ? "/event/" : referer);
     }
 
-    @PutMapping("/{id}/groupReject")
-    public String groupReject(@RequestHeader(value = "Referer") String referer) {
+    @PutMapping("/groupReject")
+    public String groupReject(@RequestParam("events") List<Event> events, @RequestHeader(value = "Referer") String referer) {
+        for (Event event : events) {
+            event.setStatus(EventStatus.REJECTED);
+            eventRepository.save(event);
+        }
         return "redirect:" + (referer == null ? "/event/" : referer);
     }
 
-    @PutMapping("/{id}/groupReceive")
-    public String groupReceive(@RequestHeader(value = "Referer") String referer) {
+    @PutMapping("/groupReceive")
+    public String groupReceive(@RequestParam("events") List<Event> events, @RequestHeader(value = "Referer") String referer) {
+        for (Event event : events) {
+            event.setStatus(EventStatus.DELIVEREDCENTRAL);
+            eventRepository.save(event);
+        }
         return "redirect:" + (referer == null ? "/event/" : referer);
     }
 }
