@@ -23,9 +23,10 @@
   <nav class="mb-3 flex justify-center">
     <div class="flex space-x-1 rounded border border-gray-200 p-2">
       <a href="?status=all" class="rounded px-3 py-1.5 hover:bg-gray-100 ${param.status==null||param.status.equals('all')?'bg-gray-100 text-amber-600':''}">All</a>
-      <c:forEach items="${status_items}" var="item">
-        <a href="?status=${item.key.toLowerCase()}" class="rounded px-3 py-1.5 hover:bg-gray-100 ${item.key.toLowerCase()==param.status?'bg-gray-100 text-amber-600':''}">${item.value}</a>
-      </c:forEach>
+      <a href="?status=pending" class="rounded px-3 py-1.5 hover:bg-gray-100 ${param.status.equals('pending')?'bg-gray-100 text-amber-600':''}">Pending</a>
+      <a href="?status=shipped" class="rounded px-3 py-1.5 hover:bg-gray-100 ${param.status.equals('shipped')?'bg-gray-100 text-amber-600':''}">Shipped</a>
+      <a href="?status=delivered" class="rounded px-3 py-1.5 hover:bg-gray-100 ${param.status.equals('delivered')?'bg-gray-100 text-amber-600':''}">Delivered</a>
+      <a href="?status=rejected" class="rounded px-3 py-1.5 hover:bg-gray-100 ${param.status.equals('rejected')?'bg-gray-100 text-amber-600':''}">Rejected</a>
     </div>
   </nav>
 
@@ -36,7 +37,6 @@
           <th class="px-3 py-2 text-left">Id</th>
           <th class="px-3 py-2 text-left">Fruit</th>
           <th class="px-3 py-2 text-left">Quantity</th>
-          <th class="px-3 py-2 text-left">EventType</th>
           <th class="px-3 py-2 text-left">Origin</th>
           <th class="px-3 py-2 text-left">Destination</th>
           <th class="px-3 py-2 text-left">Status</th>
@@ -48,7 +48,6 @@
             <td class="px-3 py-2">${event[0].id}</td>
             <td class="px-3 py-2">${event[0].fruit.name}</td>
             <td class="px-3 py-2">${event.stream().map(e -> e.quantity).sum()}</td>
-            <td class="px-3 py-2">${event[0].eventType.label}</td>
             <td class="px-3 py-2">${event[0].fromLocation.name}</td>
             <td class="px-3 py-2">${event[0].throughLocation.name}</td>
             <td class="px-3 py-2">
