@@ -111,73 +111,27 @@ public class EventController {
     }
     //
 
-    @GetMapping("/{id}")
-    public String getEventPage(@PathVariable Long id, @RequestParam(defaultValue = "confirm") String action, @SessionAttribute Account current_account, Model model, RedirectAttributes redirectAttributes) {
-        Event event = eventRepository.findById(id).get();
-        if (action.equals("confirm")) {
-            switch (current_account.getRole()) {
-                case SOURCE_WAREHOUSE_STAFF:
-                    Stock stock3 = stockRepository.findByFruitAndLocation(event.getFruit(), event.getFromLocation()).get();
-                    if (stock3.getQuantity() >= event.getQuantity()) {
-                        event.setStatus(EventStatus.SHIPPEDCENTRAL);
-                        stock3.setQuantity(stock3.getQuantity() - event.getQuantity());
-                        stockRepository.save(stock3);
-                    } else {
-                        redirectAttributes.addFlashAttribute("error", "Error occurred while processing the event. The stock is not enough.");
-                    }
-                    break;
-                case CENTRAL_WAREHOUSE_STAFF:
-                    Stock stock2 = stockRepository.findByFruitAndLocation(event.getFruit(), event.getThroughLocation()).get();
-                    if (event.getStatus() == EventStatus.SHIPPEDCENTRAL) {
-                        event.setStatus(EventStatus.DELIVEREDCENTRAL);
-                        stock2.setQuantity(stock2.getQuantity() + event.getQuantity());
-                        stockRepository.save(stock2);
-                    } else if (event.getStatus() == EventStatus.DELIVEREDCENTRAL) {
-                        if (stock2.getQuantity() >= event.getQuantity()) {
-                            event.setStatus(EventStatus.SHIPPED);
-                            stock2.setQuantity(stock2.getQuantity() - event.getQuantity());
-                            stockRepository.save(stock2);
-                        } else {
-                            redirectAttributes.addFlashAttribute("error", "Error occurred while processing the event. Tthe stock is not enough.");
-                        }
-                    }
-                    break;
-                case SHOP_STAFF:
-                    if (event.getStatus() == EventStatus.SHIPPED) {
-                        event.setStatus(EventStatus.DELIVERED);
-                        Stock stock = stockRepository.findByFruitAndLocation(event.getFruit(), event.getToLocation()).get();
-                        stock.setQuantity(stock.getQuantity() + event.getQuantity());
-                        stockRepository.save(stock);
-                    } else {
-                        Stock stock = stockRepository.findByFruitAndLocation(event.getFruit(), event.getFromLocation()).get();
-                        if (stock.getQuantity() >= event.getQuantity()) {
-                            event.setStatus(EventStatus.SHIPPED);
-                            stock.setQuantity(stock.getQuantity() - event.getQuantity());
-                            stockRepository.save(stock);
-                        } else {
-                            redirectAttributes.addFlashAttribute("error", (stock.getQuantity() >= event.getQuantity()) + "Error occurred while processing the event. The stock is not enough.");
-                        }
-                    }
-                    break;
-            }
-        } else {
-            event.setStatus(EventStatus.REJECTED);
-        }
-        eventRepository.save(event);
-        return "redirect:/event/";
-    }
-
     @PutMapping("/groupApprove")
-    public String groupApprove(@RequestParam("events") List<Event> events, @RequestHeader(value = "Referer") String referer) {
-        for (Event event : events) {
-            event.setStatus(EventStatus.SHIPPEDCENTRAL);
-            eventRepository.save(event);
+    public String groupApprove(@RequestParam("events") List<Event> events, @RequestHeader(value = "Referer") String referer, @SessionAttribute Account current_account, RedirectAttributes redirectAttributes) {
+        if (current_account.getRole() == Role.SOURCE_WAREHOUSE_STAFF) {
+            Integer totalQuantity = events.stream().mapToInt(Event::getQuantity).sum();
+            Stock stock = stockRepository.findByFruitAndLocation(events.get(0).getFruit(), events.get(0).getFromLocation()).get();
+            if (stock.getQuantity() >= totalQuantity) {
+                stock.setQuantity(stock.getQuantity() - totalQuantity);
+                stockRepository.save(stock);
+                for (Event event : events) {
+                    event.setStatus(EventStatus.SHIPPEDCENTRAL);
+                    eventRepository.save(event);
+                }
+            } else {
+                redirectAttributes.addFlashAttribute("error", "Error occurred while processing the event. The stock is not enough.");
+            }
         }
         return "redirect:" + (referer == null ? "/event/" : referer);
     }
 
     @PutMapping("/groupReject")
-    public String groupReject(@RequestParam("events") List<Event> events, @RequestHeader(value = "Referer") String referer) {
+    public String groupReject(@RequestParam("events") List<Event> events, @RequestHeader(value = "Referer") String referer, @SessionAttribute Account current_account, RedirectAttributes redirectAttributes) {
         for (Event event : events) {
             event.setStatus(EventStatus.REJECTED);
             eventRepository.save(event);
@@ -186,24 +140,67 @@ public class EventController {
     }
 
     @PutMapping("/groupReceive")
-    public String groupReceive(@RequestParam("events") List<Event> events, @RequestHeader(value = "Referer") String referer) {
-        for (Event event : events) {
-            event.setStatus(EventStatus.DELIVEREDCENTRAL);
-            eventRepository.save(event);
+    public String groupReceive(@RequestParam("events") List<Event> events, @RequestHeader(value = "Referer") String referer, @SessionAttribute Account current_account, RedirectAttributes redirectAttributes) {
+        if (current_account.getRole() == Role.CENTRAL_WAREHOUSE_STAFF) {
+            Integer totalQuantity = events.stream().mapToInt(Event::getQuantity).sum();
+            Stock stock = stockRepository.findByFruitAndLocation(events.get(0).getFruit(), events.get(0).getThroughLocation()).get();
+            stock.setQuantity(stock.getQuantity() + totalQuantity);
+            stockRepository.save(stock);
+            for (Event event : events) {
+                event.setStatus(EventStatus.DELIVEREDCENTRAL);
+                eventRepository.save(event);
+            }
         }
         return "redirect:" + (referer == null ? "/event/" : referer);
     }
 
     @PutMapping("/delivering")
-    public String delivering(@RequestParam("event") Event event, @RequestHeader(value = "Referer") String referer) {
-        event.setStatus(EventStatus.SHIPPED);
-        eventRepository.save(event);
+    public String delivering(@RequestParam("event") Event event, @RequestHeader(value = "Referer") String referer, @SessionAttribute Account current_account, RedirectAttributes redirectAttributes) {
+        if (current_account.getRole() == Role.CENTRAL_WAREHOUSE_STAFF) {
+            Stock stock = stockRepository.findByFruitAndLocation(event.getFruit(), event.getThroughLocation()).get();
+            if (stock.getQuantity() >= event.getQuantity()) {
+                stock.setQuantity(stock.getQuantity() - event.getQuantity());
+                stockRepository.save(stock);
+                event.setStatus(EventStatus.SHIPPED);
+                eventRepository.save(event);
+            } else {
+                redirectAttributes.addFlashAttribute("error", "Error occurred while processing the event. Tthe stock is not enough.");
+            }
+        }
         return "redirect:" + (referer == null ? "/event/" : referer);
     }
 
     @PutMapping("/receive")
-    public String receive(@RequestParam("event") Event event, @RequestHeader(value = "Referer") String referer) {
-        event.setStatus(EventStatus.DELIVERED);
+    public String receive(@RequestParam("event") Event event, @RequestHeader(value = "Referer") String referer, @SessionAttribute Account current_account, RedirectAttributes redirectAttributes) {
+        if (current_account.getRole() == Role.SHOP_STAFF) {
+            Stock stock = stockRepository.findByFruitAndLocation(event.getFruit(), event.getToLocation()).get();
+            stock.setQuantity(stock.getQuantity() + event.getQuantity());
+            stockRepository.save(stock);
+            event.setStatus(EventStatus.DELIVERED);
+            eventRepository.save(event);
+        }
+        return "redirect:" + (referer == null ? "/event/" : referer);
+    }
+
+    @PutMapping("/approve")
+    public String approve(@RequestParam("event") Event event, @RequestHeader(value = "Referer") String referer, @SessionAttribute Account current_account, RedirectAttributes redirectAttributes) {
+        if (current_account.getRole() == Role.SHOP_STAFF) {
+            Stock stock = stockRepository.findByFruitAndLocation(event.getFruit(), event.getFromLocation()).get();
+            if (stock.getQuantity() >= event.getQuantity()) {
+                stock.setQuantity(stock.getQuantity() - event.getQuantity());
+                stockRepository.save(stock);
+                event.setStatus(EventStatus.SHIPPED);
+                eventRepository.save(event);
+            } else {
+                redirectAttributes.addFlashAttribute("error", (stock.getQuantity() >= event.getQuantity()) + "Error occurred while processing the event. The stock is not enough.");
+            }
+        }
+        return "redirect:" + (referer == null ? "/event/" : referer);
+    }
+
+    @PutMapping("/reject")
+    public String reject(@RequestParam("event") Event event, @RequestHeader(value = "Referer") String referer, @SessionAttribute Account current_account, RedirectAttributes redirectAttributes) {
+        event.setStatus(EventStatus.REJECTED);
         eventRepository.save(event);
         return "redirect:" + (referer == null ? "/event/" : referer);
     }
