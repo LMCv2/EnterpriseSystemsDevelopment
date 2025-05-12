@@ -1,7 +1,7 @@
 <%@taglib prefix="taglib" uri="/WEB-INF/tlds/taglib.tld" %>
 <%@taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <taglib:layout title="Create Account">
-  <form:form action="new" method="post" modelAttribute="account" class="max-w-xl space-y-3">
+  <form:form action="create" method="post" modelAttribute="account" class="max-w-xl space-y-3">
     <div>
       <label for="username">Username:</label>
       <form:input type="text" id="username" path="username" class="w-full rounded border border-gray-300 px-3 py-2" />

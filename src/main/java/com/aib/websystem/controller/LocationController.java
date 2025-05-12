@@ -37,11 +37,11 @@ public class LocationController {
         return "/pages/location/index";
     }
 
-    @GetMapping("/new")
+    @GetMapping("/create")
     public String createLocationPage(Model model) {
         model.addAttribute("location", new Location());
         model.addAttribute("locationType_items", LocationType.MAP);
-        return "/pages/location/new";
+        return "/pages/location/create";
     }
 
     @GetMapping("/{id}")
@@ -51,7 +51,7 @@ public class LocationController {
         return "/pages/location/edit";
     }
 
-    @PostMapping("/new")
+    @PostMapping("/create")
     public String createLocation(Location location) {
         locationRepository.save(location);
         stockService.addAllFruitToLocation(location);

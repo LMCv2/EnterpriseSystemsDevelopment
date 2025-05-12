@@ -37,12 +37,12 @@ public class AccountController {
         return "/pages/account/index";
     }
 
-    @GetMapping("/new")
+    @GetMapping("/create")
     public String createAccountPage(Model model) {
         model.addAttribute("account", new Account());
         model.addAttribute("role_items", Role.MAP);
         model.addAttribute("location_items", locationRepository.findAll());
-        return "/pages/account/new";
+        return "/pages/account/create";
     }
 
     @GetMapping("/{username}")
@@ -53,7 +53,7 @@ public class AccountController {
         return "/pages/account/edit";
     }
 
-    @PostMapping("/new")
+    @PostMapping("/create")
     public String createAccount(Account account) {
         if (!accountRepository.existsById(account.getUsername())) {
             accountRepository.save(account);

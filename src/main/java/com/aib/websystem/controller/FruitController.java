@@ -44,10 +44,10 @@ public class FruitController {
         return "/pages/fruit/get";
     }
 
-    @GetMapping("/new")
+    @GetMapping("/create")
     public String createFruitPage(Model model) {
         model.addAttribute("fruit", new Fruit());
-        return "/pages/fruit/new";
+        return "/pages/fruit/create";
     }
 
     @GetMapping("/{id}/edit")
@@ -56,7 +56,7 @@ public class FruitController {
         return "/pages/fruit/edit";
     }
 
-    @PostMapping("/new")
+    @PostMapping("/create")
     public String createFruit(Fruit fruit) {
         fruitRepository.save(fruit);
         stockService.addFruitToAllLocation(fruit);
