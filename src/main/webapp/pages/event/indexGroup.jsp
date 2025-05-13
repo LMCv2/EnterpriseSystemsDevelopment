@@ -25,13 +25,6 @@
     </script>
   </c:if>
 
-  <div class="mb-3 flex justify-between">
-    <div class="flex items-center gap-2 rounded p-2 ring-1 ring-gray-300 focus-within:ring-2 focus-within:ring-amber-600">
-      <div class="i-material-symbols-search?mask text-2xl text-gray-400"></div>
-      <input type="search" class="outline-hidden placeholder:text-gray-400" placeholder="Search" />
-    </div>
-  </div>
-
   <c:if test="${current_account.role=='CENTRAL_WAREHOUSE_STAFF'||current_account.role=='ADMIN'}">
     <nav class="mb-3 flex justify-center">
       <div class="flex space-x-1 rounded-lg border border-gray-200 p-2">
@@ -52,7 +45,12 @@
   </nav>
 
   <div class="divide-y divide-gray-200 rounded-lg border border-gray-200">
-    <div class="p-3"></div>
+    <div class="justify-right flex p-3">
+      <div class="flex items-center gap-2 rounded p-2 ring-1 ring-gray-300 focus-within:ring-2 focus-within:ring-amber-600">
+        <div class="i-material-symbols-search?mask text-2xl text-gray-400"></div>
+        <input type="search" class="outline-hidden placeholder:text-gray-400" placeholder="Search" />
+      </div>
+    </div>
     <table class="w-full">
       <tbody class="divide-y">
         <tr class="border-gray-200 bg-stone-100">

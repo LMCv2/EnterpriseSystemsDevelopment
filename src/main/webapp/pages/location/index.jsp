@@ -4,11 +4,7 @@
 <%@taglib prefix="taglib" uri="/WEB-INF/tlds/taglib.tld" %>
 <%@taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <taglib:layout title="Location">
-  <div class="mb-3 flex justify-between">
-    <div class="flex items-center gap-2 rounded p-2 ring-1 ring-gray-300 focus-within:ring-2 focus-within:ring-amber-600">
-      <div class="i-material-symbols-search?mask text-2xl text-gray-400"></div>
-      <input type="search" class="outline-hidden placeholder:text-gray-400" placeholder="Search" />
-    </div>
+  <div class="mb-3 flex justify-right">
     <a href="create" class="flex items-center rounded-lg border bg-amber-600 px-3 py-1.5 text-white hover:bg-amber-500">
       <div class="i-material-symbols-add?mask mr-3"></div>
       <span>New Location</span>
@@ -26,7 +22,12 @@
   </nav>
 
   <div class="divide-y divide-gray-200 rounded-lg border border-gray-200">
-    <div class="p-3"></div>
+    <div class="justify-right flex p-3">
+      <div class="flex items-center gap-2 rounded p-2 ring-1 ring-gray-300 focus-within:ring-2 focus-within:ring-amber-600">
+        <div class="i-material-symbols-search?mask text-2xl text-gray-400"></div>
+        <input type="search" class="outline-hidden placeholder:text-gray-400" placeholder="Search" />
+      </div>
+    </div>
     <table class="w-full">
       <tbody class="divide-y">
         <tr class="border-gray-200 bg-stone-100">

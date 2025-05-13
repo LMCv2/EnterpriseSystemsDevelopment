@@ -4,13 +4,6 @@
 <%@taglib prefix="taglib" uri="/WEB-INF/tlds/taglib.tld" %>
 <%@taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <taglib:layout title="Replenish">
-  <div class="mb-3 flex justify-between">
-    <div class="flex items-center gap-2 rounded p-2 ring-1 ring-gray-300 focus-within:ring-2 focus-within:ring-amber-600">
-      <div class="i-material-symbols-search?mask text-2xl text-gray-400"></div>
-      <input type="search" class="outline-hidden placeholder:text-gray-400" placeholder="Search" />
-    </div>
-  </div>
-
   <nav class="mb-3 flex justify-center">
     <div class="flex space-x-1 rounded-lg border border-gray-200 p-2">
       <a href="?type=reservation" class="rounded-lg px-3 py-1.5 hover:bg-gray-100 ${param.type==null||param.type.equals('reservation')?'bg-gray-100 text-amber-600':''}">Reservation</a>
@@ -19,7 +12,12 @@
   </nav>
 
   <div class="divide-y divide-gray-200 rounded-lg border border-gray-200">
-    <div class="p-3"></div>
+    <div class="justify-right flex p-3">
+      <div class="flex items-center gap-2 rounded p-2 ring-1 ring-gray-300 focus-within:ring-2 focus-within:ring-amber-600">
+        <div class="i-material-symbols-search?mask text-2xl text-gray-400"></div>
+        <input type="search" class="outline-hidden placeholder:text-gray-400" placeholder="Search" />
+      </div>
+    </div>
     <table class="w-full">
       <tbody class="divide-y">
         <tr class="border-gray-200 bg-stone-100">
