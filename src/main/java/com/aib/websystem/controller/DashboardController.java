@@ -3,6 +3,7 @@ package com.aib.websystem.controller;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -15,15 +16,19 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.aib.websystem.entity.ReserveNeedDTO;
 import com.aib.websystem.entity.SeasonalConsumptionDTO;
+import com.aib.websystem.service.DashboardService;
 import com.aib.websystem.service.EventService;
 import com.aib.websystem.util.TimePeriodConverter;
 
 @Controller
 @RequestMapping("/dashboard")
 public class DashboardController {
-
+    
     @Autowired
     private EventService eventService;
+    
+    @Autowired
+    private DashboardService dashboardService;
 
     @GetMapping("/")
     public String getDashboardPage(
@@ -60,11 +65,22 @@ public class DashboardController {
         } catch (ParseException e) {
             endDate = timePeriodRange[1];
         }
+
         Page<ReserveNeedDTO> reserveNeeds = eventService.aggregateReserveNeeds(groupBy, startDate, endDate, PageRequest.of(page - 1, 10));
         model.addAttribute("reserveNeeds", reserveNeeds);
 
         Page<SeasonalConsumptionDTO> seasonalConsumption = eventService.aggregateSeasonalConsumption(groupBy, startDate, endDate, PageRequest.of(page - 1, 10));
         model.addAttribute("seasonalConsumption", seasonalConsumption);
+
+        // cards
+        List<Long> dailyEventCounts = dashboardService.getDailyEventCounts(startDate, endDate);
+        model.addAttribute("dailyEventCounts", dailyEventCounts);
+        
+        List<Long> dailyTotalQuantities = dashboardService.getDailyTotalQuantities(startDate, endDate);
+        model.addAttribute("dailyTotalQuantities", dailyTotalQuantities);
+        
+        Long pendingEventsCount = dashboardService.getPendingEventsCount();
+        model.addAttribute("pendingEventsCount", pendingEventsCount);
 
         return "/pages/dashboard/index";
     }

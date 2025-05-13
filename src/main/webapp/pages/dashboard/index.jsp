@@ -49,27 +49,25 @@
   <div class="mb-3 grid grid-cols-3 gap-3">
     <div class="rounded bg-white shadow">
       <div class="p-6">
-        <div class="mb-1 text-sm text-gray-400">Card1</div>
-        <div class="mb-2 text-3xl font-bold">1234</div>
+        <div class="mb-1 text-sm text-gray-400">Reservation Number</div>
+        <div class="mb-2 text-3xl font-bold">${dailyEventCounts.stream().sum()}</div>
         <div class="mb-2 flex items-center text-sm text-green-600">32k increase</div>
       </div>
       <canvas id="card1" width="120" height="28"></canvas>
     </div>
     <div class="rounded bg-white shadow">
       <div class="p-6">
-        <div class="mb-1 text-sm text-gray-400">Card2</div>
-        <div class="mb-2 text-3xl font-bold">1234</div>
+        <div class="mb-1 text-sm text-gray-400">Reservation Quantity</div>
+        <div class="mb-2 text-3xl font-bold">${dailyTotalQuantities.stream().sum()}</div>
         <div class="mb-2 flex items-center text-sm text-red-500">3% decrease</div>
       </div>
       <canvas id="card2" width="120" height="28"></canvas>
     </div>
     <div class="rounded bg-white shadow">
       <div class="p-6">
-        <div class="mb-1 text-sm text-gray-400">Card3</div>
-        <div class="mb-2 text-3xl font-bold">1234</div>
-        <div class="mb-2 flex items-center text-sm text-green-600">7% increase</div>
+        <div class="mb-1 text-sm text-gray-400">Unfinished Reservations</div>
+        <div class="mb-2 text-3xl font-bold">${pendingEventsCount}</div>
       </div>
-      <canvas id="card3" width="120" height="28"></canvas>
     </div>
   </div>
 
@@ -171,10 +169,10 @@
     new Chart(document.getElementById("card1"), {
       type: "line",
       data: {
-        labels: Array(12).fill(""),
+        labels: ${dailyEventCounts},
         datasets: [
           {
-            data: [2, 4, 3, 6, 8, 7, 9, 8, 10, 9, 8, 9],
+            data: ${dailyEventCounts},
             borderColor: "#22c55e",
             backgroundColor: "rgba(34,197,94,0.15)",
             fill: true,
@@ -199,40 +197,12 @@
     new Chart(document.getElementById("card2"), {
       type: "line",
       data: {
-        labels: Array(12).fill(""),
+        labels: ${dailyTotalQuantities},
         datasets: [
           {
-            data: [8, 7, 6, 5, 6, 7, 8, 7, 6, 5, 4, 3],
+            data: ${dailyTotalQuantities},
             borderColor: "#ef4444",
             backgroundColor: "rgba(239,68,68,0.15)",
-            fill: true,
-            tension: 0.4,
-            pointRadius: 0,
-            borderWidth: 2,
-          },
-        ],
-      },
-      options: {
-        plugins: { legend: { display: false }, tooltip: { enabled: false } },
-        scales: {
-          x: { display: false, grid: { display: false } },
-          y: { display: false, grid: { display: false } },
-        },
-        elements: { line: { borderJoinStyle: "round" } },
-        layout: { padding: 0 },
-        responsive: false,
-      },
-    });
-
-    new Chart(document.getElementById("card3"), {
-      type: "line",
-      data: {
-        labels: Array(12).fill(""),
-        datasets: [
-          {
-            data: [2, 3, 4, 5, 6, 7, 8, 7, 8, 9, 10, 11],
-            borderColor: "#22c55e",
-            backgroundColor: "rgba(34,197,94,0.15)",
             fill: true,
             tension: 0.4,
             pointRadius: 0,

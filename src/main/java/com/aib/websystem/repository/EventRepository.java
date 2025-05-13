@@ -26,6 +26,14 @@ public interface EventRepository extends CrudRepository<Event, Long>, PagingAndS
     @Query("select e from Event e where (e.fromLocation = ?1 OR e.throughLocation = ?1 OR e.toLocation = ?1) and e.status = ?2")
     Page<Event> findByLocationAndStatus(Location location, EventStatus status, Pageable pageable);
 
+    // Dashboard queries
+    Long countByCreateDateBetween(Date startDate, Date endDate);
+    
+    @Query("SELECT SUM(e.quantity) FROM Event e WHERE e.createDate BETWEEN ?1 AND ?2")
+    Long sumQuantityByCreateDateBetween(Date startDate, Date endDate);
+    
+    Long countByStatusNotIn(List<EventStatus> statuses);
+
     // grouped events
     @Query("select distinct e.fruit, e.timePeriod, e.fromLocation, e.throughLocation from Event e")
     Page<Object[]> findDistinct(Pageable pageable);
