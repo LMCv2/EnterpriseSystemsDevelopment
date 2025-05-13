@@ -15,7 +15,7 @@
       </div>
       <form action="/" method="post">
         <input type="hidden" name="action" value="signout" />
-        <button type="submit" class="flex cursor-pointer items-center rounded-lg border border-gray-200 px-3 py-2">
+        <button type="submit" class="flex cursor-pointer items-center rounded-lg border border-gray-200 px-3 py-2 hover:bg-gray-100">
           <div class="i-material-symbols-logout?bg mr-3"></div>
           <span>Sign out</span>
         </button>
