@@ -79,7 +79,7 @@
     </table>
     <c:if test="${accounts.totalElements==0}"><div class="p-3 text-gray-400">No Records</div></c:if>
     <div class="flex items-center justify-between p-3">
-      <p>Showing ${accounts.number*accounts.size+1} to ${accounts.number*accounts.size+accounts.numberOfElements} of ${accounts.totalElements} results</p>
+      <p>Showing ${accounts.totalElements==0?0:accounts.number*accounts.size+1} to ${accounts.number*accounts.size+accounts.numberOfElements} of ${accounts.totalElements} results</p>
       <div class="flex space-x-1">
         <c:if test="${accounts.hasPrevious()}">
           <a href="?page=${accounts.number}${param.role==null?'':'&role='.concat(param.role)}" class="rounded border border-gray-200 px-3 py-1 hover:bg-gray-100">Prev</a>

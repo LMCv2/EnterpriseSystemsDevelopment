@@ -197,7 +197,7 @@
     </table>
     <c:if test="${events.totalElements==0}"><div class="p-3 text-gray-400">No Records</div></c:if>
     <div class="flex items-center justify-between p-3">
-      <p>Showing ${events.number*events.size+1} to ${events.number*events.size+events.numberOfElements} of ${events.totalElements} results</p>
+      <p>Showing ${events.totalElements==0?0:events.number*events.size+1} to ${events.number*events.size+events.numberOfElements} of ${events.totalElements} results</p>
       <div class="flex space-x-1">
         <c:if test="${events.hasPrevious()}">
           <a href="?page=${events.number}${param.type==null?'':'&type='.concat(param.type)}${param.status==null?'':'&status='.concat(param.status)}" class="rounded border border-gray-200 px-3 py-1 hover:bg-gray-100">Prev</a>

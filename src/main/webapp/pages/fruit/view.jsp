@@ -31,7 +31,7 @@
     </table>
     <c:if test="${stocks.totalElements==0}"><div class="p-3 text-gray-400">No Records</div></c:if>
     <div class="flex items-center justify-between p-3">
-      <p>Showing ${stocks.number*stocks.size+1} to ${stocks.number*stocks.size+stocks.numberOfElements} of ${stocks.totalElements} results</p>
+      <p>Showing ${stocks.totalElements==0?0:stocks.number*stocks.size+1} to ${stocks.number*stocks.size+stocks.numberOfElements} of ${stocks.totalElements} results</p>
       <div class="flex space-x-1">
         <c:if test="${stocks.hasPrevious()}">
           <a href="?page=${stocks.number}${param.type==null?'':'&type='.concat(param.type)}" class="rounded border border-gray-200 px-3 py-1 hover:bg-gray-100">Prev</a>

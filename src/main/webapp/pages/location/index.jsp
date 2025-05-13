@@ -83,7 +83,7 @@
     </table>
     <c:if test="${locations.totalElements==0}"><div class="p-3 text-gray-400">No Records</div></c:if>
     <div class="flex items-center justify-between p-3">
-      <p>Showing ${locations.number*locations.size+1} to ${locations.number*locations.size+locations.numberOfElements} of ${locations.totalElements} results</p>
+      <p>Showing ${locations.totalElements==0?0:locations.number*locations.size+1} to ${locations.number*locations.size+locations.numberOfElements} of ${locations.totalElements} results</p>
       <div class="flex space-x-1">
         <c:if test="${locations.hasPrevious()}">
           <a href="?page=${locations.number}${param.type==null?'':'&type='.concat(param.type)}" class="rounded border border-gray-200 px-3 py-1 hover:bg-gray-100">Prev</a>

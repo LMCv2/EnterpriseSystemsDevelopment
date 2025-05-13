@@ -98,7 +98,7 @@
       </table>
       <c:if test="${reserveNeeds.totalElements==0}"><div class="p-3 text-gray-400">No Records</div></c:if>
       <div class="flex items-center justify-between p-3">
-        <p>Showing ${reserveNeeds.number*reserveNeeds.size+1} to ${reserveNeeds.number*reserveNeeds.size+reserveNeeds.numberOfElements} of ${reserveNeeds.totalElements} results</p>
+        <p>Showing ${reserveNeeds.totalElements==0?0:reserveNeeds.number*reserveNeeds.size+1} to ${reserveNeeds.number*reserveNeeds.size+reserveNeeds.numberOfElements} of ${reserveNeeds.totalElements} results</p>
         <div class="flex space-x-1">
           <c:if test="${reserveNeeds.hasPrevious()}">
             <a href="?page=${reserveNeeds.number}&groupBy=${param.groupBy}" class="rounded border border-gray-200 px-3 py-1 hover:bg-gray-100">Prev</a>
@@ -136,7 +136,7 @@
       </table>
       <c:if test="${seasonalConsumption.totalElements==0}"><div class="p-3 text-gray-400">No Records</div></c:if>
       <div class="flex items-center justify-between p-3">
-        <p>Showing ${seasonalConsumption.number*seasonalConsumption.size+1} to ${seasonalConsumption.number*seasonalConsumption.size+seasonalConsumption.numberOfElements} of ${seasonalConsumption.totalElements} results</p>
+        <p>Showing ${seasonalConsumption.totalElements==0?0:seasonalConsumption.number*seasonalConsumption.size+1} to ${seasonalConsumption.number*seasonalConsumption.size+seasonalConsumption.numberOfElements} of ${seasonalConsumption.totalElements} results</p>
         <div class="flex space-x-1">
           <c:if test="${seasonalConsumption.hasPrevious()}">
             <a href="?page=${seasonalConsumption.number}&groupBy=${param.groupBy}" class="rounded border border-gray-200 px-3 py-1 hover:bg-gray-100">Prev</a>
@@ -174,7 +174,7 @@
       </table>
       <c:if test="${deliveryForecasts.totalElements==0}"><div class="p-3 text-gray-400">No Records</div></c:if>
       <div class="flex items-center justify-between p-3">
-        <p>Showing ${deliveryForecasts.number*deliveryForecasts.size+1} to ${deliveryForecasts.number*deliveryForecasts.size+deliveryForecasts.numberOfElements} of ${deliveryForecasts.totalElements} results</p>
+        <p>Showing ${deliveryForecasts.totalElements==0?0:deliveryForecasts.number*deliveryForecasts.size+1} to ${deliveryForecasts.number*deliveryForecasts.size+deliveryForecasts.numberOfElements} of ${deliveryForecasts.totalElements} results</p>
         <div class="flex space-x-1">
           <c:if test="${deliveryForecasts.hasPrevious()}">
             <a href="?page=${deliveryForecasts.number}&groupBy=${param.groupBy}" class="rounded border border-gray-200 px-3 py-1 hover:bg-gray-100">Prev</a>
