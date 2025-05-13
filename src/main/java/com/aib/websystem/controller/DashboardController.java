@@ -3,7 +3,6 @@ package com.aib.websystem.controller;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -27,41 +26,42 @@ public class DashboardController {
 
     @GetMapping("/")
     public String getDashboardPage(
-            @RequestParam(required = false) String startDate,
-            @RequestParam(required = false) String endDate,
+            @RequestParam(required = false) String startDateString,
+            @RequestParam(required = false) String endDateString,
             @RequestParam(required = false, defaultValue = "shop") String groupBy,
             @RequestParam(defaultValue = "1") Integer page,
             Model model) {
 
         Integer timePeriod = TimePeriodConverter.convertToTimePeriod(new Date());
         Date[] timePeriodRange = TimePeriodConverter.convertToDateRange(timePeriod);
-
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-        Date start = null;
-        Date end = null;
-
-        try {
-            if (startDate != null && !startDate.isEmpty()) {
-                start = dateFormat.parse(startDate);
-            } else {
-                start = timePeriodRange[0];
-            }
-
-            if (endDate != null && !endDate.isEmpty()) {
-                end = dateFormat.parse(endDate);
-            } else {
-                end = timePeriodRange[1];
-            }
-        } catch (ParseException e) {
-            start = timePeriodRange[0];
-            end = timePeriodRange[1];
-        }
-
-        Page<ReserveNeedDTO> reserveNeeds = eventService.aggregateReserveNeeds(groupBy, start, end, PageRequest.of(page - 1, 10));
-
         model.addAttribute("timePeriod", timePeriod);
         model.addAttribute("timePeriodRange", timePeriodRange);
+
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        if (startDateString == null) {
+            startDateString = dateFormat.format(timePeriodRange[0]);
+        }
+        if (endDateString == null) {
+            endDateString = dateFormat.format(timePeriodRange[1]);
+        }
+        model.addAttribute("startDate", startDateString);
+        model.addAttribute("endDate", endDateString);
+
+        Date startDate = null;
+        Date endDate = null;
+        try {
+            startDate = dateFormat.parse(startDateString);
+        } catch (ParseException e) {
+            startDate = timePeriodRange[0];
+        }
+        try {
+            endDate = dateFormat.parse(endDateString);
+        } catch (ParseException e) {
+            endDate = timePeriodRange[1];
+        }
+        Page<ReserveNeedDTO> reserveNeeds = eventService.aggregateReserveNeeds(groupBy, startDate, endDate, PageRequest.of(page - 1, 10));
         model.addAttribute("reserveNeeds", reserveNeeds);
+
         return "/pages/dashboard/index";
     }
 }

@@ -37,12 +37,12 @@
       </select>
     </div>
     <div class="flex-1">
-      <label for="startDate">Start date</label>
-      <input type="date" name="startDate" value="${param.startDate}" class="w-full rounded border border-gray-300 px-3 py-2 mt-1" /> 
+      <label for="startDateString">Start date</label>
+      <input type="date" name="startDateString" value="${startDate}" class="w-full rounded border border-gray-300 px-3 py-2 mt-1" /> 
     </div>
     <div class="flex-1">
-      <label for="endDate">End date</label>
-      <input type="date" name="endDate" value="${param.endDate}" class="w-full rounded border border-gray-300 px-3 py-2 mt-1" />
+      <label for="endDateString">End date</label>
+      <input type="date" name="endDateString" value="${endDate}" class="w-full rounded border border-gray-300 px-3 py-2 mt-1" />
     </div>
   </form>
 
