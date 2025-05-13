@@ -50,18 +50,14 @@
     <div class="rounded bg-white shadow">
       <div class="m-6 mb-0">
         <div class="mb-1 text-sm text-gray-400">Reservation Number</div>
-        <div class="mb-2">
-          <span class="text-3xl font-bold">${dailyEventCounts.stream().sum()}</span>
-        </div>
+        <div class="mb-2 text-3xl font-bold">${dailyEventCounts.stream().sum()}</div>
       </div>
       <canvas id="card1" class="w-full" height="24"></canvas>
     </div>
     <div class="rounded bg-white shadow">
       <div class="m-6 mb-0">
         <div class="mb-1 text-sm text-gray-400">Reservation Quantity</div>
-        <div class="mb-2">
-          <span class="text-3xl font-bold">${dailyTotalQuantities.stream().sum()}</span>
-        </div>
+        <div class="mb-2 text-3xl font-bold">${dailyTotalQuantities.stream().sum()}</div>
       </div>
       <canvas id="card2" class="w-full" height="24"></canvas>
     </div>
