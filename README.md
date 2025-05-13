@@ -60,7 +60,7 @@ http://127.0.0.1:8080/
 - [X] Borrow fruits from other shops in the same cities 
 - [X] Check the fruits on delivery (borrow/reserve)
 - [X] Update fruits stock level in the shop/warehouse
-- [ ] Check-in, Check-out, Approve-Reserve, Approve-Borrow
+- [X] Check-in, Check-out, Approve-Reserve, Approve-Borrow
 
 ### Analytic & Report
 - [X] Show a list of reserve needs of the selected shop/city/country (hints: aggregation of the reserve records)

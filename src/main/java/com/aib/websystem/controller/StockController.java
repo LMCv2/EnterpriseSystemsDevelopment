@@ -9,12 +9,15 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttribute;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.aib.websystem.entity.Account;
 import com.aib.websystem.entity.Event;
+import com.aib.websystem.entity.EventStatus;
 import com.aib.websystem.entity.Fruit;
 import com.aib.websystem.entity.Location;
 import com.aib.websystem.entity.LocationType;
@@ -23,6 +26,10 @@ import com.aib.websystem.entity.Stock;
 import com.aib.websystem.repository.EventRepository;
 import com.aib.websystem.repository.LocationRepository;
 import com.aib.websystem.repository.StockRepository;
+import com.aib.websystem.util.TimePeriodConverter;
+
+import java.util.Date;
+import java.util.List;
 
 @Controller
 @RequestMapping("/stock")
@@ -77,7 +84,8 @@ public class StockController {
     }
 
     @PostMapping("/{toId}/from/{fromId}")
-    public String createReplenishEvent(@PathVariable Long fromId, @PathVariable Long toId, @RequestParam Long quantity, @SessionAttribute Account current_account) {
+    public String createReplenishEvent(@PathVariable Long fromId, @PathVariable Long toId, @RequestParam Long quantity, @RequestHeader(value = "Referer") String referer, @SessionAttribute Account current_account,
+            RedirectAttributes redirectAttributes) {
         Stock fromStock = stockRepository.findById(fromId).orElse(null);
         Stock toStack = stockRepository.findById(toId).orElse(null);
         Fruit fruit = fromStock.getFruit();
@@ -87,7 +95,19 @@ public class StockController {
             if (fromStock.getLocation().getType() == LocationType.SOURCE_WAREHOUSE) {
                 // be careful, each city MUST has his own central warehouse(only one)
                 Page<Location> centralWarehouse = locationRepository.findByCountryAndCityAndType(toStack.getLocation().getCountry(), toStack.getLocation().getCity(), LocationType.CENTRAL_WAREHOUSE, PageRequest.of(0, 10));
-                eventRepository.save(new Event(fruit, quantity, fromLocation, centralWarehouse.getContent().get(0), toLocation));
+
+                List<Event> shippedEvents = eventRepository.findByFruitAndTimePeriodAndFromLocationAndThroughLocationAndStatusNot(
+                        fruit,
+                        TimePeriodConverter.convertToTimePeriod(new Date()),
+                        fromLocation,
+                        centralWarehouse.getContent().get(0),
+                        EventStatus.PENDING);
+                if (shippedEvents.isEmpty()) {
+                    eventRepository.save(new Event(fruit, quantity, fromLocation, centralWarehouse.getContent().get(0), toLocation));
+                } else {
+                    redirectAttributes.addFlashAttribute("error", "This reservation has been dispatched, please come back for the next reservation!");
+                    return "redirect:" + (referer == null ? "/stock/" : referer);
+                }
             } else if (fromStock.getLocation().getType() == LocationType.SHOP) {
                 eventRepository.save(new Event(fruit, quantity, fromLocation, toLocation));
             }
