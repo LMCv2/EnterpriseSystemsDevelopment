@@ -102,7 +102,7 @@
                 </c:if>
               </div>
             </td>
-            <td class="px-3 py-2"><fmt:formatDate type="both" dateStyle="short" timeStyle="short" value="${event.createDate}" /></td>
+            <td class="px-3 py-2"><fmt:formatDate pattern="yyyy-MM-dd HH:mm:ss" value="${event.createDate}" /></td>
             <td class="flex gap-3 px-3 py-2">
 
               <!-- when pending -->

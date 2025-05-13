@@ -35,9 +35,9 @@
     <div>
       <div class="rounded border border-gray-300 p-3">
         <p>Created at</p>
-        <p><fmt:formatDate type="both" dateStyle="short" timeStyle="short" value="${location.createDate}" /></p>
+        <p><fmt:formatDate pattern="yyyy-MM-dd HH:mm:ss" value="${location.createDate}" /></p>
         <p>Last modified at</p>
-        <p><fmt:formatDate type="both" dateStyle="short" timeStyle="short" value="${location.lastModifiedDate}" /></p>
+        <p><fmt:formatDate pattern="yyyy-MM-dd HH:mm:ss" value="${location.lastModifiedDate}" /></p>
       </div>
     </div>
   </div>

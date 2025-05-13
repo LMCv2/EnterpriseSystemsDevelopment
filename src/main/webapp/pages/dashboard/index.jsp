@@ -23,7 +23,7 @@
     </div>
     <div class="mb-3 w-full rounded border border-gray-200 p-3">
       <div class="text-lg font-bold">#${timePeriod}</div>
-      <div class="text-gray-400">Reserve the fruits from <fmt:formatDate type="date" pattern="yyyy-MM-dd" value="${timePeriodRange[0]}" /> to <fmt:formatDate type="date" pattern="yyyy-MM-dd" value="${timePeriodRange[1]}" /></div>
+      <div class="text-gray-400">Reserve the fruits from <fmt:formatDate pattern="yyyy-MM-dd" value="${timePeriodRange[0]}" /> to <fmt:formatDate pattern="yyyy-MM-dd" value="${timePeriodRange[1]}" /></div>
     </div>
   </div>
 
