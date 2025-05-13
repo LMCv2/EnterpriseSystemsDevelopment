@@ -64,7 +64,7 @@ http://127.0.0.1:8080/
 
 ### Analytic & Report
 - [X] Show a list of reserve needs of the selected shop/city/country (hints: aggregation of the reserve records)
-- [ ] Show a list of consumption records of the selected shop/city/country under different seasons
+- [X] Show a list of consumption records of the selected shop/city/country under different seasons
 
 ### Account Management
 - [X] Show a list of existing users

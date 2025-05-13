@@ -110,11 +110,11 @@ public class Event implements Serializable {
         calendar.setTime(now);
         this.year = calendar.get(Calendar.YEAR);
         this.season = switch (calendar.get(Calendar.MONTH) + 1) {
-            case 3, 4, 5 -> "spring";
-            case 6, 7, 8 -> "summer";
-            case 9, 10, 11 -> "autumn";
-            case 12, 1, 2 -> "winter";
-            default -> "unknown";
+            case 3, 4, 5 -> "Spring";
+            case 6, 7, 8 -> "Summer";
+            case 9, 10, 11 -> "Autumn";
+            case 12, 1, 2 -> "Winter";
+            default -> "Unknown";
         };
     }
 }
