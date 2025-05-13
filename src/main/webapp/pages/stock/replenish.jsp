@@ -18,8 +18,9 @@
     </div>
   </nav>
 
-  <div class="divide-y rounded shadow">
-    <table class="w-full border-gray-200">
+  <div class="divide-y divide-gray-200 rounded-lg border border-gray-200">
+    <div class="p-3"></div>
+    <table class="w-full">
       <tbody class="divide-y">
         <tr class="border-gray-200 bg-stone-100">
           <th class="px-3 py-2 text-left">Id</th>
@@ -44,6 +45,7 @@
         </c:forEach>
       </tbody>
     </table>
+    <c:if test="${stocks.totalElements==0}"><div class="p-3 text-gray-400">No Records</div></c:if>
     <div class="flex items-center justify-between p-3">
       <p>Showing ${stocks.number*stocks.size+1} to ${stocks.number*stocks.size+stocks.numberOfElements} of ${stocks.totalElements} results</p>
       <div class="flex space-x-1">
