@@ -7,7 +7,7 @@
   <c:if test="${error != null}">
     <div class="fixed inset-0 z-40 aria-hidden:hidden" id="modal-error" aria-hidden="true">
       <div class="flex h-full items-center justify-center bg-gray-950/50" data-micromodal-close>
-        <div class="space-y-6 rounded bg-white p-6">
+        <div class="space-y-6 rounded-lg bg-white p-6">
           <header class="flex">
             <h3 class="font-semibold">Error</h3>
           </header>
@@ -15,7 +15,7 @@
             <p>${error}</p>
           </main>
           <footer class="flex gap-3">
-            <button class="rounded bg-amber-600 px-3 py-1.5 text-white hover:bg-amber-700" data-micromodal-close>Confirm</button>
+            <button class="rounded-lg bg-amber-600 px-3 py-1.5 text-white hover:bg-amber-700" data-micromodal-close>Confirm</button>
           </footer>
         </div>
       </div>
@@ -116,7 +116,7 @@
                 </button>
                 <div class="fixed inset-0 z-40 aria-hidden:hidden" id="modal-${event.id}-approve" aria-hidden="true">
                   <div class="flex h-full items-center justify-center bg-gray-950/50" data-micromodal-close>
-                    <div class="space-y-6 rounded bg-white p-6">
+                    <div class="space-y-6 rounded-lg bg-white p-6">
                       <header class="flex">
                         <h3 class="font-semibold">Change Event Status</h3>
                       </header>
@@ -126,18 +126,18 @@
                       <footer class="flex gap-3">
                         <form:form action="approve" method="put">
                           <input type="hidden" name="event" value="${event.id}">
-                          <button type="submit" class="rounded bg-amber-600 px-3 py-1.5 text-white hover:bg-amber-700">
+                          <button type="submit" class="rounded-lg bg-amber-600 px-3 py-1.5 text-white hover:bg-amber-700">
                             Approve
                           </button>
                         </form:form>
-                        <button class="rounded border border-gray-300 px-3 py-1.5 hover:bg-gray-100" data-micromodal-close>Cancel</button>
+                        <button class="rounded-lg border border-gray-300 px-3 py-1.5 hover:bg-gray-100" data-micromodal-close>Cancel</button>
                       </footer>
                     </div>
                   </div>
                 </div>
                 <div class="fixed inset-0 z-40 aria-hidden:hidden" id="modal-${event.id}-reject" aria-hidden="true">
                   <div class="flex h-full items-center justify-center bg-gray-950/50" data-micromodal-close>
-                    <div class="space-y-6 rounded bg-white p-6">
+                    <div class="space-y-6 rounded-lg bg-white p-6">
                       <header class="flex">
                         <h3 class="font-semibold">Change Event Status</h3>
                       </header>
@@ -147,11 +147,11 @@
                       <footer class="flex gap-3">
                         <form:form action="reject" method="put">
                           <input type="hidden" name="event" value="${event.id}">
-                          <button type="submit" class="rounded bg-amber-600 px-3 py-1.5 text-white hover:bg-amber-700">
+                          <button type="submit" class="rounded-lg bg-amber-600 px-3 py-1.5 text-white hover:bg-amber-700">
                             Reject
                           </button>
                         </form:form>
-                        <button class="rounded border border-gray-300 px-3 py-1.5 hover:bg-gray-100" data-micromodal-close>Cancel</button>
+                        <button class="rounded-lg border border-gray-300 px-3 py-1.5 hover:bg-gray-100" data-micromodal-close>Cancel</button>
                       </footer>
                     </div>
                   </div>
@@ -166,7 +166,7 @@
                 </button>
                 <div class="fixed inset-0 z-40 aria-hidden:hidden" id="modal-${event.id}-delivering" aria-hidden="true">
                   <div class="flex h-full items-center justify-center bg-gray-950/50" data-micromodal-close>
-                    <div class="space-y-6 rounded bg-white p-6">
+                    <div class="space-y-6 rounded-lg bg-white p-6">
                       <header class="flex">
                         <h3 class="font-semibold">Change Event Status</h3>
                       </header>
@@ -176,11 +176,11 @@
                       <footer class="flex gap-3">
                         <form:form action="delivering" method="put">
                           <input type="hidden" name="event" value="${event.id}">
-                          <button type="submit" class="rounded bg-amber-600 px-3 py-1.5 text-white hover:bg-amber-700">
+                          <button type="submit" class="rounded-lg bg-amber-600 px-3 py-1.5 text-white hover:bg-amber-700">
                             Delivering
                           </button>
                         </form:form>
-                        <button class="rounded border border-gray-300 px-3 py-1.5 hover:bg-gray-100" data-micromodal-close>Cancel</button>
+                        <button class="rounded-lg border border-gray-300 px-3 py-1.5 hover:bg-gray-100" data-micromodal-close>Cancel</button>
                       </footer>
                     </div>
                   </div>
@@ -195,7 +195,7 @@
                 </button>
                 <div class="fixed inset-0 z-40 aria-hidden:hidden" id="modal-${event.id}-receive" aria-hidden="true">
                   <div class="flex h-full items-center justify-center bg-gray-950/50" data-micromodal-close>
-                    <div class="space-y-6 rounded bg-white p-6">
+                    <div class="space-y-6 rounded-lg bg-white p-6">
                       <header class="flex">
                         <h3 class="font-semibold">Change Event Status</h3>
                       </header>
@@ -205,11 +205,11 @@
                       <footer class="flex gap-3">
                         <form:form action="receive" method="put">
                           <input type="hidden" name="event" value="${event.id}">
-                          <button type="submit" class="rounded bg-amber-600 px-3 py-1.5 text-white hover:bg-amber-700">
+                          <button type="submit" class="rounded-lg bg-amber-600 px-3 py-1.5 text-white hover:bg-amber-700">
                             Receive
                           </button>
                         </form:form>
-                        <button class="rounded border border-gray-300 px-3 py-1.5 hover:bg-gray-100" data-micromodal-close>Cancel</button>
+                        <button class="rounded-lg border border-gray-300 px-3 py-1.5 hover:bg-gray-100" data-micromodal-close>Cancel</button>
                       </footer>
                     </div>
                   </div>
@@ -226,10 +226,10 @@
       <p>Showing ${events.totalElements==0?0:events.number*events.size+1} to ${events.number*events.size+events.numberOfElements} of ${events.totalElements} results</p>
       <div class="flex space-x-1">
         <c:if test="${events.hasPrevious()}">
-          <a href="?page=${events.number}${param.type==null?'':'&type='.concat(param.type)}${param.status==null?'':'&status='.concat(param.status)}" class="rounded border border-gray-200 px-3 py-1 hover:bg-gray-100">Prev</a>
+          <a href="?page=${events.number}${param.type==null?'':'&type='.concat(param.type)}${param.status==null?'':'&status='.concat(param.status)}" class="rounded-lg border border-gray-200 px-3 py-1 hover:bg-gray-100">Prev</a>
         </c:if>
         <c:if test="${events.hasNext()}">
-          <a href="?page=${events.number+2}${param.type==null?'':'&type='.concat(param.type)}${param.status==null?'':'&status='.concat(param.status)}" class="rounded border border-gray-200 px-3 py-1 hover:bg-gray-100">Next</a>
+          <a href="?page=${events.number+2}${param.type==null?'':'&type='.concat(param.type)}${param.status==null?'':'&status='.concat(param.status)}" class="rounded-lg border border-gray-200 px-3 py-1 hover:bg-gray-100">Next</a>
         </c:if>
       </div>
     </div>

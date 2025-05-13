@@ -101,10 +101,10 @@
         <p>Showing ${reserveNeeds.totalElements==0?0:reserveNeeds.number*reserveNeeds.size+1} to ${reserveNeeds.number*reserveNeeds.size+reserveNeeds.numberOfElements} of ${reserveNeeds.totalElements} results</p>
         <div class="flex space-x-1">
           <c:if test="${reserveNeeds.hasPrevious()}">
-            <a href="?page=${reserveNeeds.number}&groupBy=${param.groupBy}" class="rounded border border-gray-200 px-3 py-1 hover:bg-gray-100">Prev</a>
+            <a href="?page=${reserveNeeds.number}&groupBy=${param.groupBy}" class="rounded-lg border border-gray-200 px-3 py-1 hover:bg-gray-100">Prev</a>
           </c:if>
           <c:if test="${reserveNeeds.hasNext()}">
-            <a href="?page=${reserveNeeds.number+2}&groupBy=${param.groupBy}" class="rounded border border-gray-200 px-3 py-1 hover:bg-gray-100">Next</a>
+            <a href="?page=${reserveNeeds.number+2}&groupBy=${param.groupBy}" class="rounded-lg border border-gray-200 px-3 py-1 hover:bg-gray-100">Next</a>
           </c:if>
         </div>
       </div>
@@ -139,10 +139,10 @@
         <p>Showing ${seasonalConsumption.totalElements==0?0:seasonalConsumption.number*seasonalConsumption.size+1} to ${seasonalConsumption.number*seasonalConsumption.size+seasonalConsumption.numberOfElements} of ${seasonalConsumption.totalElements} results</p>
         <div class="flex space-x-1">
           <c:if test="${seasonalConsumption.hasPrevious()}">
-            <a href="?page=${seasonalConsumption.number}&groupBy=${param.groupBy}" class="rounded border border-gray-200 px-3 py-1 hover:bg-gray-100">Prev</a>
+            <a href="?page=${seasonalConsumption.number}&groupBy=${param.groupBy}" class="rounded-lg border border-gray-200 px-3 py-1 hover:bg-gray-100">Prev</a>
           </c:if>
           <c:if test="${seasonalConsumption.hasNext()}">
-            <a href="?page=${seasonalConsumption.number+2}&groupBy=${param.groupBy}" class="rounded border border-gray-200 px-3 py-1 hover:bg-gray-100">Next</a>
+            <a href="?page=${seasonalConsumption.number+2}&groupBy=${param.groupBy}" class="rounded-lg border border-gray-200 px-3 py-1 hover:bg-gray-100">Next</a>
           </c:if>
         </div>
       </div>
@@ -177,10 +177,10 @@
         <p>Showing ${deliveryForecasts.totalElements==0?0:deliveryForecasts.number*deliveryForecasts.size+1} to ${deliveryForecasts.number*deliveryForecasts.size+deliveryForecasts.numberOfElements} of ${deliveryForecasts.totalElements} results</p>
         <div class="flex space-x-1">
           <c:if test="${deliveryForecasts.hasPrevious()}">
-            <a href="?page=${deliveryForecasts.number}&groupBy=${param.groupBy}" class="rounded border border-gray-200 px-3 py-1 hover:bg-gray-100">Prev</a>
+            <a href="?page=${deliveryForecasts.number}&groupBy=${param.groupBy}" class="rounded-lg border border-gray-200 px-3 py-1 hover:bg-gray-100">Prev</a>
           </c:if>
           <c:if test="${deliveryForecasts.hasNext()}">
-            <a href="?page=${deliveryForecasts.number+2}&groupBy=${param.groupBy}" class="rounded border border-gray-200 px-3 py-1 hover:bg-gray-100">Next</a>
+            <a href="?page=${deliveryForecasts.number+2}&groupBy=${param.groupBy}" class="rounded-lg border border-gray-200 px-3 py-1 hover:bg-gray-100">Next</a>
           </c:if>
         </div>
       </div>

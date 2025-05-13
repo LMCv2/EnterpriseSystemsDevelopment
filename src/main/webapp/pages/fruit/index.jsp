@@ -53,7 +53,7 @@
                 </button>
                 <div class="fixed inset-0 z-40 aria-hidden:hidden" id="modal-${fruit.id}-delete" aria-hidden="true">
                   <div class="flex h-full items-center justify-center bg-gray-950/50" data-micromodal-close>
-                    <div class="space-y-6 rounded bg-white p-6">
+                    <div class="space-y-6 rounded-lg bg-white p-6">
                       <header class="flex">
                         <h3 class="font-semibold">Delete</h3>
                       </header>
@@ -62,9 +62,9 @@
                       </main>
                       <footer class="flex gap-3">
                         <form:form action="${fruit.id}/delete" method="delete">
-                          <button type="submit" class="rounded bg-red-600 px-3 py-1.5 text-white hover:bg-red-700">Delete</button>
+                          <button type="submit" class="rounded-lg bg-red-600 px-3 py-1.5 text-white hover:bg-red-700">Delete</button>
                         </form:form>
-                        <button class="rounded border border-gray-300 px-3 py-1.5 hover:bg-gray-100" data-micromodal-close>Cancel</button>
+                        <button class="rounded-lg border border-gray-300 px-3 py-1.5 hover:bg-gray-100" data-micromodal-close>Cancel</button>
                       </footer>
                     </div>
                   </div>
@@ -81,10 +81,10 @@
       <p>Showing ${fruits.totalElements==0?0:fruits.number*fruits.size+1} to ${fruits.number*fruits.size+fruits.numberOfElements} of ${fruits.totalElements} results</p>
       <div class="flex space-x-1">
         <c:if test="${fruits.hasPrevious()}">
-          <a href="?page=${fruits.number}${param.type==null?'':'&type='.concat(param.type)}" class="rounded border border-gray-200 px-3 py-1 hover:bg-gray-100">Prev</a>
+          <a href="?page=${fruits.number}${param.type==null?'':'&type='.concat(param.type)}" class="rounded-lg border border-gray-200 px-3 py-1 hover:bg-gray-100">Prev</a>
         </c:if>
         <c:if test="${fruits.hasNext()}">
-          <a href="?page=${fruits.number+2}${param.type==null?'':'&type='.concat(param.type)}" class="rounded border border-gray-200 px-3 py-1 hover:bg-gray-100">Next</a>
+          <a href="?page=${fruits.number+2}${param.type==null?'':'&type='.concat(param.type)}" class="rounded-lg border border-gray-200 px-3 py-1 hover:bg-gray-100">Next</a>
         </c:if>
       </div>
     </div>
