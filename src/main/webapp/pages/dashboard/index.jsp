@@ -47,21 +47,21 @@
   </form>
 
   <div class="mb-3 grid grid-cols-3 gap-3">
-    <div class="rounded bg-white shadow">
+    <div class="rounded shadow">
       <div class="m-6 mb-0">
         <div class="mb-1 text-sm text-gray-400">Reservation Number</div>
         <div class="mb-2 text-3xl font-bold">${dailyEventCounts.stream().sum()}</div>
       </div>
-      <canvas id="card1" class="w-full" height="24"></canvas>
+      <canvas id="dailyEventCountsChart" class="w-full" height="24"></canvas>
     </div>
-    <div class="rounded bg-white shadow">
+    <div class="rounded shadow">
       <div class="m-6 mb-0">
         <div class="mb-1 text-sm text-gray-400">Reservation Quantity</div>
         <div class="mb-2 text-3xl font-bold">${dailyTotalQuantities.stream().sum()}</div>
       </div>
-      <canvas id="card2" class="w-full" height="24"></canvas>
+      <canvas id="dailyTotalQuantities" class="w-full" height="24"></canvas>
     </div>
-    <div class="rounded bg-white shadow">
+    <div class="rounded shadow">
       <div class="m-6">
         <div class="mb-1 text-sm text-gray-400">Unfinished Reservations</div>
         <div class="mb-2 text-3xl font-bold">${pendingEventsCount}</div>
@@ -187,23 +187,19 @@
     </div>
   </c:if>
 
-  <div class="grid grid-cols-2 gap-3">
-    <div class="rounded bg-white p-6 shadow">
-      <div class="mb-2 font-semibold">Fruit reservation distribution</div>
-      <canvas id="reservationDistributionChart" height="200"></canvas>
+  <div class="flex gap-3">
+    <div class="flex-1 rounded p-6 shadow">
+      <div class="font-bold">Fruit reservation distribution</div>
+      <canvas id="reservationDistributionChart" height="360"></canvas>
     </div>
-    <div class="rounded bg-white p-6 shadow">
-      <div class="mb-2 font-semibold">Fruit Borrowing distribution</div>
-      <canvas id="borrowingDistributionChart" height="200"></canvas>
+    <div class="flex-1 rounded p-6 shadow">
+      <div class="font-bold">Fruit Borrowing distribution</div>
+      <canvas id="borrowingDistributionChart" height="360"></canvas>
     </div>
   </div>
 
   <script>
-    const ordersData = [2200, 3200, 4500, 3700, 5400, 6000, 7000, 9000, 8000, 8700, 9500, 9000];
-    const customersData = [4000, 5200, 6300, 7200, 8300, 9500, 10500, 12000, 14000, 15000, 16500, 18000];
-    const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
-
-    new Chart(document.getElementById("card1"), {
+    new Chart(document.getElementById("dailyEventCountsChart"), {
       type: "line",
       data: {
         labels: ${dailyEventCounts},
@@ -231,7 +227,7 @@
       },
     });
 
-    new Chart(document.getElementById("card2"), {
+    new Chart(document.getElementById("dailyTotalQuantities"), {
       type: "line",
       data: {
         labels: ${dailyTotalQuantities},
@@ -260,7 +256,7 @@
     });
 
     new Chart(document.getElementById("reservationDistributionChart"), {
-      type: "pie",
+      type: "doughnut",
       data: {
         labels: ${fruitReservationLabels},
         datasets: [
@@ -289,7 +285,7 @@
     });
 
     new Chart(document.getElementById("borrowingDistributionChart"), {
-      type: "pie",
+      type: "doughnut",
       data: {
         labels: ${fruitBorrowingLabels},
         datasets: [
