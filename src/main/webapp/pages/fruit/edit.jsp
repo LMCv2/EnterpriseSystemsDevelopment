@@ -21,9 +21,9 @@
     <div>
       <div class="rounded border border-gray-300 p-3">
         <p>Created at</p>
-        <p>${fruit.createDate}</p>
+        <p><fmt:formatDate type="both" dateStyle="short" timeStyle="short" value="${fruit.createDate}" /></p>
         <p>Last modified at</p>
-        <p>${fruit.lastModifiedDate}</p>
+        <p><fmt:formatDate type="both" dateStyle="short" timeStyle="short" value="${fruit.lastModifiedDate}" /></p>
       </div>
     </div>
   </div>

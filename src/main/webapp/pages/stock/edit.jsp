@@ -17,9 +17,9 @@
     <div>
       <div class="rounded border border-gray-300 p-3">
         <p>Created at</p>
-        <p>${stock.createDate}</p>
+        <p><fmt:formatDate type="both" dateStyle="short" timeStyle="short" value="${stock.createDate}" /></p>
         <p>Last modified at</p>
-        <p>${stock.lastModifiedDate}</p>
+        <p><fmt:formatDate type="both" dateStyle="short" timeStyle="short" value="${stock.lastModifiedDate}" /></p>
       </div>
     </div>
   </div>

@@ -38,9 +38,9 @@
     <div>
       <div class="rounded border border-gray-300 p-3">
         <p>Created at</p>
-        <p>${account.createDate}</p>
+        <p><fmt:formatDate type="both" dateStyle="short" timeStyle="short" value="${account.createDate}" /></p>
         <p>Last modified at</p>
-        <p>${account.lastModifiedDate}</p>
+        <p><fmt:formatDate type="both" dateStyle="short" timeStyle="short" value="${account.lastModifiedDate}" /></p>
       </div>
     </div>
   </div>
