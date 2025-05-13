@@ -33,11 +33,15 @@
       </form:form>
     </div>
     <div>
-      <div class="rounded border border-gray-300 p-3">
-        <p>Created at</p>
-        <p><fmt:formatDate pattern="yyyy-MM-dd HH:mm:ss" value="${location.createDate}" /></p>
-        <p>Last modified at</p>
-        <p><fmt:formatDate pattern="yyyy-MM-dd HH:mm:ss" value="${location.lastModifiedDate}" /></p>
+      <div class="flex w-64 flex-col gap-3 rounded border border-gray-300 p-3">
+        <div>
+          <p class="mb-1">Created at</p>
+          <p><fmt:formatDate pattern="yyyy-MM-dd HH:mm:ss" value="${location.createDate}" /></p>
+        </div>
+        <div>
+          <p class="mb-1">Last modified at</p>
+          <p><fmt:formatDate pattern="yyyy-MM-dd HH:mm:ss" value="${location.lastModifiedDate}" /></p>
+        </div>
       </div>
     </div>
   </div>
