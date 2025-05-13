@@ -89,9 +89,9 @@ public class StockController {
             if (eventType == EventType.RESERVATION) {
                 // be careful, each city MUST has his own central warehouse(only one)
                 Page<Location> centralWarehouse = locationRepository.findByCityAndType(toStack.getLocation().getCity(), LocationType.CENTRAL_WAREHOUSE, PageRequest.of(0, 10));
-                eventRepository.save(new Event(fruit, quantity, eventType, fromLocation, centralWarehouse.getContent().get(0), toLocation));
+                eventRepository.save(new Event(fruit, quantity, fromLocation, centralWarehouse.getContent().get(0), toLocation));
             } else {
-                eventRepository.save(new Event(fruit, quantity, eventType, fromLocation, toLocation));
+                eventRepository.save(new Event(fruit, quantity, fromLocation, toLocation));
             }
         }
         return "redirect:/stock/";
@@ -101,8 +101,14 @@ public class StockController {
     public String editStock(@PathVariable Long id, @RequestParam Long quantity) {
         if (stockRepository.existsById(id)) {
             Stock stock = stockRepository.findById(id).get();
+            Long oldQuantity = stock.getQuantity();
             stock.setQuantity(quantity);
             stockRepository.save(stock);
+
+            if (stock.getLocation().getType() == LocationType.SHOP && quantity < oldQuantity) {
+                Event consumptionEvent = new Event(stock.getFruit(), oldQuantity - quantity);
+                eventRepository.save(consumptionEvent);
+            }
         }
         return "redirect:/stock/";
     }
