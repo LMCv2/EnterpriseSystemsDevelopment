@@ -9,19 +9,19 @@
       <form:form action="edit" method="put" modelAttribute="location" class="w-xl space-y-3 rounded border border-gray-300 p-3">
         <div>
           <label for="name">Name:</label>
-          <form:input type="text" id="name" path="name" class="outline-hidden mt-1 w-full rounded px-3 py-2 ring-1 ring-gray-300 focus:ring-2 focus:ring-amber-600" />
+          <form:input type="text" id="name" path="name" class="outline-hidden mt-1 w-full rounded-lg px-3 py-2 ring-1 ring-gray-300 focus:ring-2 focus:ring-amber-600" />
         </div>
         <div>
           <label for="country">Country:</label>
-          <form:input type="text" id="country" path="country" class="outline-hidden mt-1 w-full rounded px-3 py-2 ring-1 ring-gray-300 focus:ring-2 focus:ring-amber-600" />
+          <form:input type="text" id="country" path="country" class="outline-hidden mt-1 w-full rounded-lg px-3 py-2 ring-1 ring-gray-300 focus:ring-2 focus:ring-amber-600" />
         </div>
         <div>
           <label for="city">City:</label>
-          <form:input type="text" id="city" path="city" class="outline-hidden mt-1 w-full rounded px-3 py-2 ring-1 ring-gray-300 focus:ring-2 focus:ring-amber-600" />
+          <form:input type="text" id="city" path="city" class="outline-hidden mt-1 w-full rounded-lg px-3 py-2 ring-1 ring-gray-300 focus:ring-2 focus:ring-amber-600" />
         </div>
         <div>
           <label for="type">Type:</label>
-          <form:select id="type" path="type" class="outline-hidden mt-1 w-full rounded px-3 py-2 ring-1 ring-gray-300 focus:ring-2 focus:ring-amber-600">
+          <form:select id="type" path="type" class="outline-hidden mt-1 w-full rounded-lg px-3 py-2 ring-1 ring-gray-300 focus:ring-2 focus:ring-amber-600">
             <form:options items="${locationType_items}" />
           </form:select>
         </div>

@@ -7,7 +7,7 @@
   <div class="mb-3 max-w-xl space-y-3">
     <div>
       <label for="name">Name:</label>
-      <input type="text" id="name" path="name" class="outline-hidden mt-1 w-full rounded px-3 py-2 ring-1 ring-gray-300 focus:ring-2 focus:ring-amber-600" value="${fruit.name}" />
+      <input type="text" id="name" path="name" class="outline-hidden mt-1 w-full rounded-lg px-3 py-2 ring-1 ring-gray-300 focus:ring-2 focus:ring-amber-600" value="${fruit.name}" />
     </div>
   </div>
 

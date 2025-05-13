@@ -9,21 +9,21 @@
       <form:form action="edit" method="put" modelAttribute="account" class="w-xl space-y-3 rounded border border-gray-300 p-3">
         <div>
           <label for="username">Username:</label>
-          <form:input type="text" id="username" path="username" disabled="true" class="outline-hidden mt-1 w-full rounded px-3 py-2 ring-1 ring-gray-300 focus:ring-2 focus:ring-amber-600" />
+          <form:input type="text" id="username" path="username" disabled="true" class="outline-hidden mt-1 w-full rounded-lg px-3 py-2 ring-1 ring-gray-300 focus:ring-2 focus:ring-amber-600" />
         </div>
         <div>
           <label for="password">Password:</label>
-          <form:input type="password" id="password" path="password" class="outline-hidden mt-1 w-full rounded px-3 py-2 ring-1 ring-gray-300 focus:ring-2 focus:ring-amber-600" />
+          <form:input type="password" id="password" path="password" class="outline-hidden mt-1 w-full rounded-lg px-3 py-2 ring-1 ring-gray-300 focus:ring-2 focus:ring-amber-600" />
         </div>
         <div>
           <label for="role">Role:</label>
-          <form:select id="role" path="role" class="outline-hidden mt-1 w-full rounded px-3 py-2 ring-1 ring-gray-300 focus:ring-2 focus:ring-amber-600">
+          <form:select id="role" path="role" class="outline-hidden mt-1 w-full rounded-lg px-3 py-2 ring-1 ring-gray-300 focus:ring-2 focus:ring-amber-600">
             <form:options items="${role_items}" />
           </form:select>
         </div>
         <div>
           <label for="location">Location:</label>
-          <form:select id="location" path="location" class="outline-hidden mt-1 w-full rounded px-3 py-2 ring-1 ring-gray-300 focus:ring-2 focus:ring-amber-600">
+          <form:select id="location" path="location" class="outline-hidden mt-1 w-full rounded-lg px-3 py-2 ring-1 ring-gray-300 focus:ring-2 focus:ring-amber-600">
             <form:option value="" label="--Please Select--" />
             <form:options items="${location_items}" itemLabel="name" />
           </form:select>

@@ -9,7 +9,7 @@
       <form:form action="edit" method="put" modelAttribute="fruit" class="w-xl space-y-3 rounded border border-gray-300 p-3">
         <div>
           <label for="name">Name:</label>
-          <form:input type="text" id="name" path="name" class="outline-hidden mt-1 w-full rounded px-3 py-2 ring-1 ring-gray-300 focus:ring-2 focus:ring-amber-600" />
+          <form:input type="text" id="name" path="name" class="outline-hidden mt-1 w-full rounded-lg px-3 py-2 ring-1 ring-gray-300 focus:ring-2 focus:ring-amber-600" />
         </div>
         <div class="pt-2">
           <label class="inline-flex cursor-pointer items-center">
