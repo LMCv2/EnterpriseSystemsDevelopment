@@ -73,25 +73,25 @@
             <td class="px-3 py-2">
               <div class="flex">
                 <c:if test="${event[0].status=='PENDING'}">
-                  <div class="flex items-center gap-1 rounded border border-blue-200 bg-blue-100 px-2 py-1 text-sm text-blue-500">
+                  <div class="flex items-center gap-1 rounded-lg border border-blue-200 bg-blue-100 px-2 py-1 text-sm text-blue-500">
                     <div class="i-material-symbols-autorenew-rounded?mask"></div>
                     <span>Pending</span>
                   </div>
                 </c:if>
                 <c:if test="${event[0].status=='SHIPPEDCENTRAL'}">
-                  <div class="flex items-center gap-1 rounded border border-yellow-200 bg-yellow-100 px-2 py-1 text-sm text-yellow-500">
+                  <div class="flex items-center gap-1 rounded-lg border border-yellow-200 bg-yellow-100 px-2 py-1 text-sm text-yellow-500">
                     <div class="i-material-symbols-delivery-truck-speed-rounded?mask"></div>
                     <span>Shipped</span>
                   </div>
                 </c:if>
                 <c:if test="${event[0].status=='DELIVEREDCENTRAL'||event[0].status=='SHIPPED'||event[0].status=='DELIVERED'}">
-                  <div class="flex items-center gap-1 rounded border border-green-200 bg-green-100 px-2 py-1 text-sm text-green-500">
+                  <div class="flex items-center gap-1 rounded-lg border border-green-200 bg-green-100 px-2 py-1 text-sm text-green-500">
                     <div class="i-material-symbols-check-circle?mask"></div>
                     <span>Delivered</span>
                   </div>
                 </c:if>
                 <c:if test="${event[0].status=='REJECTED'}">
-                  <div class="flex items-center gap-1 rounded border border-red-200 bg-red-100 px-2 py-1 text-sm text-red-500">
+                  <div class="flex items-center gap-1 rounded-lg border border-red-200 bg-red-100 px-2 py-1 text-sm text-red-500">
                     <div class="i-material-symbols-cancel?mask"></div>
                     <span>Rejected</span>
                   </div>

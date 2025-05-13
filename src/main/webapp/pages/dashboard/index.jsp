@@ -189,7 +189,7 @@
 
   <div class="flex gap-3">
     <div class="flex-1 divide-y divide-gray-200 rounded-lg border border-gray-200">
-      <div class="p-3 font-bold">Fruit reservation Distribution</div>
+      <div class="p-3 font-bold">Fruit Reservation Distribution</div>
       <canvas id="reservationDistributionChart" class="p-3" height="360"></canvas>
     </div>
     <div class="flex-1 divide-y divide-gray-200 rounded-lg border border-gray-200">
