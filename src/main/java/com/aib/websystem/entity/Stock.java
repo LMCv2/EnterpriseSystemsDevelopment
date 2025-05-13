@@ -42,7 +42,7 @@ public class Stock implements Serializable {
 
     @Getter
     @Setter
-    private Boolean deleted;
+    private Boolean deleted = false;
 
     @Getter
     @CreatedDate
@@ -56,6 +56,5 @@ public class Stock implements Serializable {
         this.fruit = fruit;
         this.location = location;
         this.quantity = quantity;
-        this.deleted = false;
     }
 }

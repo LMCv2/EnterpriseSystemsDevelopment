@@ -41,7 +41,7 @@ public class Account implements Serializable {
 
     @Getter
     @Setter
-    private Boolean deleted;
+    private Boolean deleted = false;
 
     @Getter
     @CreatedDate
@@ -60,6 +60,5 @@ public class Account implements Serializable {
         this.password = password;
         this.role = role;
         this.location = location;
-        this.deleted = false;
     }
 }

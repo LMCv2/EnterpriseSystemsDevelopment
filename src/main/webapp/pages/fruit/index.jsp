@@ -14,6 +14,14 @@
       <span>Create</span>
     </a>
   </div>
+
+  <nav class="mb-3 flex justify-center">
+    <div class="flex space-x-1 rounded border border-gray-200 p-2">
+      <a href="?type=all" class="rounded px-3 py-1.5 hover:bg-gray-100 ${param.type==null||param.type.equals('all')?'bg-gray-100 text-amber-600':''}">All</a>
+      <a href="?type=deleted" class="rounded px-3 py-1.5 hover:bg-gray-100 ${param.type.equals('deleted')?'bg-gray-100 text-amber-600':''}">Deleted</a>
+    </div>
+  </nav>
+
   <div class="divide-y rounded shadow">
     <table class="w-full border-gray-200">
       <tbody class="divide-y">
@@ -50,10 +58,10 @@
       <p>Showing ${fruits.number*fruits.size+1} to ${fruits.number*fruits.size+fruits.numberOfElements} of ${fruits.totalElements} results</p>
       <div class="flex space-x-1">
         <c:if test="${fruits.hasPrevious()}">
-          <a href="?page=${fruits.number}" class="rounded border border-gray-200 px-3 py-1 hover:bg-gray-100">Prev</a>
+          <a href="?page=${fruits.number}${param.type==null?'':'&type='.concat(param.type)}" class="rounded border border-gray-200 px-3 py-1 hover:bg-gray-100">Prev</a>
         </c:if>
         <c:if test="${fruits.hasNext()}">
-          <a href="?page=${fruits.number+2}" class="rounded border border-gray-200 px-3 py-1 hover:bg-gray-100">Next</a>
+          <a href="?page=${fruits.number+2}${param.type==null?'':'&type='.concat(param.type)}" class="rounded border border-gray-200 px-3 py-1 hover:bg-gray-100">Next</a>
         </c:if>
       </div>
     </div>

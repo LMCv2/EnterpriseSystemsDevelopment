@@ -33,7 +33,7 @@ public class Fruit implements Serializable {
 
     @Getter
     @Setter
-    private Boolean deleted;
+    private Boolean deleted = false;
 
     @Getter
     @CreatedDate
@@ -45,6 +45,5 @@ public class Fruit implements Serializable {
 
     public Fruit(String name) {
         this.name = name;
-        this.deleted = false;
     }
 }

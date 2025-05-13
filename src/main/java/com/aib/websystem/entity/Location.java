@@ -51,7 +51,7 @@ public class Location implements Serializable {
 
     @Getter
     @Setter
-    private Boolean deleted;
+    private Boolean deleted = false;
 
     @Getter
     @CreatedDate
@@ -66,6 +66,5 @@ public class Location implements Serializable {
         this.country = country;
         this.city = city;
         this.type = type;
-        this.deleted = false;
     }
 }

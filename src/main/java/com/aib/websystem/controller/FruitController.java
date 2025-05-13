@@ -1,6 +1,7 @@
 package com.aib.websystem.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -31,8 +32,12 @@ public class FruitController {
     private StockService stockService;
 
     @GetMapping("/")
-    public String getFruitsPage(@RequestParam(defaultValue = "1") Integer page, Model model) {
-        model.addAttribute("fruits", fruitRepository.findAll(PageRequest.of(page - 1, 10)));
+    public String getFruitsPage(@RequestParam(defaultValue = "all") String type, @RequestParam(defaultValue = "1") Integer page, Model model) {
+        if (type.equals("all")) {
+            model.addAttribute("fruits", fruitRepository.findByDeletedFalse(PageRequest.of(page - 1, 10)));
+        } else if (type.equals("deleted")) {
+            model.addAttribute("fruits", fruitRepository.findByDeletedTrue(PageRequest.of(page - 1, 10)));
+        }
         return "/pages/fruit/index";
     }
 
@@ -68,6 +73,7 @@ public class FruitController {
         if (fruitRepository.existsById(id)) {
             Fruit originFruit = fruitRepository.findById(id).get();
             originFruit.setName(newFruit.getName());
+            originFruit.setDeleted(newFruit.getDeleted());
             fruitRepository.save(originFruit);
         }
         return "redirect:/fruit/";
@@ -76,7 +82,9 @@ public class FruitController {
     @DeleteMapping("/{id}/delete")
     public String deleteFruit(@PathVariable Long id) {
         if (fruitRepository.existsById(id)) {
-            fruitRepository.deleteById(id);
+            Fruit fruit = fruitRepository.findById(id).get();
+            fruit.setDeleted(true);
+            fruitRepository.save(fruit);
         }
         return "redirect:/fruit/";
     }

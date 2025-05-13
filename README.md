@@ -52,7 +52,7 @@ http://127.0.0.1:8080/
 ## TODO List
 
 ### Main Functions
-- [ ] CRUD for fruit types
+- [X] CRUD for fruit types
 - [X] Show a list of all fruits and the source location
 - [ ] Show the stock level for different locations (source country, shop, city, target country)
 - [X] Reserve fruits from source city 
