@@ -30,7 +30,8 @@
         <tr class="border-gray-200 bg-stone-100">
           <th class="px-3 py-2 text-left">Id</th>
           <th class="px-3 py-2 text-left">Name</th>
-          <th class="px-3 py-2 text-left">CityName</th>
+          <th class="px-3 py-2 text-left">Country</th>
+          <th class="px-3 py-2 text-left">City</th>
           <th class="px-3 py-2 text-left">Type</th>
           <th class="px-3 py-2 text-left">Action</th>
         </tr>
@@ -38,7 +39,8 @@
           <tr class="h-14 border-gray-200">
             <td class="px-3 py-2">${location.id}</td>
             <td class="px-3 py-2">${location.name}</td>
-            <td class="px-3 py-2">${location.cityName}</td>
+            <td class="px-3 py-2">${location.country}</td>
+            <td class="px-3 py-2">${location.city}</td>
             <td class="px-3 py-2">${location.type.label}</td>
             <td class="flex gap-3 px-3 py-2">
               <a class="inline-flex items-center gap-1 py-2 text-amber-600" href="${location.id}/edit">

@@ -10,8 +10,12 @@
       <form:input type="text" id="name" path="name" class="w-full rounded border border-gray-300 px-3 py-2" />
     </div>
     <div>
-      <label for="cityName">CityName:</label>
-      <form:input type="text" id="cityName" path="cityName" class="w-full rounded border border-gray-300 px-3 py-2" />
+      <label for="country">Country:</label>
+      <form:input type="text" id="country" path="country" class="w-full rounded border border-gray-300 px-3 py-2" />
+    </div>
+    <div>
+      <label for="city">City:</label>
+      <form:input type="text" id="city" path="city" class="w-full rounded border border-gray-300 px-3 py-2" />
     </div>
     <div>
       <label for="type">Type:</label>

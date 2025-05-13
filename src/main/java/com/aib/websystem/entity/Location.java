@@ -35,7 +35,11 @@ public class Location implements Serializable {
 
     @Getter
     @Setter
-    private String cityName;
+    private String country;
+
+    @Getter
+    @Setter
+    private String city;
 
     @Getter
     @Setter
@@ -53,9 +57,10 @@ public class Location implements Serializable {
     @LastModifiedDate
     private Date lastModifiedDate;
 
-    public Location(String name, String cityName, LocationType type) {
+    public Location(String name, String country, String city, LocationType type) {
         this.name = name;
-        this.cityName = cityName;
+        this.country = country;
+        this.city = city;
         this.type = type;
     }
 }

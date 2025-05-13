@@ -21,5 +21,5 @@ public interface StockRepository extends CrudRepository<Stock, Long>, PagingAndS
 
     Optional<Stock> findByFruitAndLocation(Fruit fruit, Location location);
 
-    Page<Stock> findByFruitAndLocationTypeAndLocationCityNameAndIdNot(Fruit fruit, LocationType type, String cityName, Long id, Pageable pageable);
+    Page<Stock> findByFruitAndLocationTypeAndLocationCityAndIdNot(Fruit fruit, LocationType type, String city, Long id, Pageable pageable);
 }

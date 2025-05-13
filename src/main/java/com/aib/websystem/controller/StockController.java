@@ -59,7 +59,7 @@ public class StockController {
         if (type.equals("reservation")) {
             model.addAttribute("stocks", stockRepository.findByFruitAndLocationType(stock.getFruit(), LocationType.SOURCE_WAREHOUSE, PageRequest.of(0, 10)));
         } else if (type.equals("borrowing")) {
-            model.addAttribute("stocks", stockRepository.findByFruitAndLocationTypeAndLocationCityNameAndIdNot(stock.getFruit(), LocationType.SHOP, stock.getLocation().getCityName(), stock.getId(), PageRequest.of(0, 10)));
+            model.addAttribute("stocks", stockRepository.findByFruitAndLocationTypeAndLocationCityAndIdNot(stock.getFruit(), LocationType.SHOP, stock.getLocation().getCity(), stock.getId(), PageRequest.of(0, 10)));
         }
         return "/pages/stock/replenish";
     }
@@ -88,7 +88,7 @@ public class StockController {
         if (stockRepository.existsById(fromId)) {
             if (eventType == EventType.RESERVATION) {
                 // be careful, each city MUST has his own central warehouse(only one)
-                Page<Location> centralWarehouse = locationRepository.findByCityNameAndType(toStack.getLocation().getCityName(), LocationType.CENTRAL_WAREHOUSE, PageRequest.of(0, 10));
+                Page<Location> centralWarehouse = locationRepository.findByCityAndType(toStack.getLocation().getCity(), LocationType.CENTRAL_WAREHOUSE, PageRequest.of(0, 10));
                 eventRepository.save(new Event(fruit, quantity, eventType, fromLocation, centralWarehouse.getContent().get(0), toLocation));
             } else {
                 eventRepository.save(new Event(fruit, quantity, eventType, fromLocation, toLocation));

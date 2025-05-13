@@ -63,7 +63,7 @@ public class LocationController {
         if (locationRepository.existsById(id)) {
             Location originLocation = locationRepository.findById(id).get();
             originLocation.setName(newLocation.getName());
-            originLocation.setCityName(newLocation.getCityName());
+            originLocation.setCity(newLocation.getCity());
             originLocation.setType(newLocation.getType());
             locationRepository.save(originLocation);
         }

@@ -91,32 +91,32 @@ public class CurrentAccountController extends HttpServlet {
 
             for (Object[] item : new Object[][] {
                     // source
-                    { "Apple Source 1 PH", "Manila", LocationType.SOURCE_WAREHOUSE, fruitRepository.findById(1L).get() },
-                    { "Apple Source 2 JP", "Tokyo", LocationType.SOURCE_WAREHOUSE, fruitRepository.findById(1L).get() },
-                    { "Banana Source 1 PH", "Manila", LocationType.SOURCE_WAREHOUSE, fruitRepository.findById(2L).get() },
-                    { "Banana Source 2 JP", "Tokyo", LocationType.SOURCE_WAREHOUSE, fruitRepository.findById(2L).get() },
-                    { "Orange Source 1 PH", "Manila", LocationType.SOURCE_WAREHOUSE, fruitRepository.findById(3L).get() },
-                    { "Orange Source 2 JP", "Tokyo", LocationType.SOURCE_WAREHOUSE, fruitRepository.findById(3L).get() },
-                    { "Strawberry Source 1 PH", "Manila", LocationType.SOURCE_WAREHOUSE, fruitRepository.findById(4L).get() },
-                    { "Strawberry Source 2 JP", "Tokyo", LocationType.SOURCE_WAREHOUSE, fruitRepository.findById(4L).get() },
-                    { "Mango Source 1 PH", "Manila", LocationType.SOURCE_WAREHOUSE, fruitRepository.findById(5L).get() },
-                    { "Mango Source 2 JP", "Tokyo", LocationType.SOURCE_WAREHOUSE, fruitRepository.findById(5L).get() },
-                    { "Mango Source 3 HK", "Hong Kong", LocationType.SOURCE_WAREHOUSE, fruitRepository.findById(5L).get() },
-                    { "Mango Source 4 HK", "Hong Kong", LocationType.SOURCE_WAREHOUSE, fruitRepository.findById(5L).get() },
+                    { "Apple Source 1", "Philippines", "Manila", LocationType.SOURCE_WAREHOUSE, fruitRepository.findById(1L).get() },
+                    { "Apple Source 2", "Japan", "Tokyo", LocationType.SOURCE_WAREHOUSE, fruitRepository.findById(1L).get() },
+                    { "Banana Source 1", "Philippines", "Manila", LocationType.SOURCE_WAREHOUSE, fruitRepository.findById(2L).get() },
+                    { "Banana Source 2", "Japan", "Tokyo", LocationType.SOURCE_WAREHOUSE, fruitRepository.findById(2L).get() },
+                    { "Orange Source 1", "Philippines", "Manila", LocationType.SOURCE_WAREHOUSE, fruitRepository.findById(3L).get() },
+                    { "Orange Source 2", "Japan", "Tokyo", LocationType.SOURCE_WAREHOUSE, fruitRepository.findById(3L).get() },
+                    { "Strawberry Source 1", "Philippines", "Manila", LocationType.SOURCE_WAREHOUSE, fruitRepository.findById(4L).get() },
+                    { "Strawberry Source 2", "Japan", "Tokyo", LocationType.SOURCE_WAREHOUSE, fruitRepository.findById(4L).get() },
+                    { "Mango Source 1", "Philippines", "Manila", LocationType.SOURCE_WAREHOUSE, fruitRepository.findById(5L).get() },
+                    { "Mango Source 2", "Japan", "Tokyo", LocationType.SOURCE_WAREHOUSE, fruitRepository.findById(5L).get() },
+                    { "Mango Source 3", "Hong Kong", "Hong Kong", LocationType.SOURCE_WAREHOUSE, fruitRepository.findById(5L).get() },
+                    { "Mango Source 4", "Hong Kong", "Hong Kong", LocationType.SOURCE_WAREHOUSE, fruitRepository.findById(5L).get() },
                     // central
-                    { "Central Warehouse 1 UK", "London", LocationType.CENTRAL_WAREHOUSE },
-                    { "Central Warehouse 2 HK", "Hong Kong", LocationType.CENTRAL_WAREHOUSE },
-                    // { "Central Warehouse 3 HK", "Hong Kong", LocationType.CENTRAL_WAREHOUSE },
+                    { "Central Warehouse 1", "United Kingdom", "London", LocationType.CENTRAL_WAREHOUSE },
+                    { "Central Warehouse 2", "Hong Kong", "Hong Kong", LocationType.CENTRAL_WAREHOUSE },
+                    // { "Central Warehouse 3", "HK", "Hong Kong", LocationType.CENTRAL_WAREHOUSE },
                     // shop
-                    { "Bakery Shop 1 HK", "Hong Kong", LocationType.SHOP },
-                    { "Bakery Shop 2 UK", "London", LocationType.SHOP },
-                    { "Bakery Shop 3 HK", "Hong Kong", LocationType.SHOP }
+                    { "Bakery Shop 1", "Hong Kong", "Hong Kong", LocationType.SHOP },
+                    { "Bakery Shop 2", "United Kingdom", "London", LocationType.SHOP },
+                    { "Bakery Shop 3", "Hong Kong", "Hong Kong", LocationType.SHOP }
             }) {
                 // add location
-                Location location = new Location((String) item[0], (String) item[1], (LocationType) item[2]);
+                Location location = new Location((String) item[0], (String) item[1], (String) item[2], (LocationType) item[3]);
                 locationRepository.save(location);
-                if (item.length == 4) {
-                    stockService.addFruitToLocation((Fruit) item[3], location);
+                if (item.length == 5) {
+                    stockService.addFruitToLocation((Fruit) item[4], location);
                 } else {
                     stockService.addAllFruitToLocation(location);
                 }
