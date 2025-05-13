@@ -82,15 +82,14 @@ public class StockController {
         Stock fromStock = stockRepository.findById(fromId).orElse(null);
         Stock toStack = stockRepository.findById(toId).orElse(null);
         Fruit fruit = fromStock.getFruit();
-        EventType eventType = fromStock.getLocation().getType() == LocationType.SHOP ? EventType.BORROWING : EventType.RESERVATION;
         Location fromLocation = fromStock.getLocation();
         Location toLocation = toStack.getLocation();
         if (stockRepository.existsById(fromId)) {
-            if (eventType == EventType.RESERVATION) {
+            if (fromStock.getLocation().getType() == LocationType.SOURCE_WAREHOUSE) {
                 // be careful, each city MUST has his own central warehouse(only one)
-                Page<Location> centralWarehouse = locationRepository.findByCityAndType(toStack.getLocation().getCity(), LocationType.CENTRAL_WAREHOUSE, PageRequest.of(0, 10));
+                Page<Location> centralWarehouse = locationRepository.findByCountryAndCityAndType(toStack.getLocation().getCountry(), toStack.getLocation().getCity(), LocationType.CENTRAL_WAREHOUSE, PageRequest.of(0, 10));
                 eventRepository.save(new Event(fruit, quantity, fromLocation, centralWarehouse.getContent().get(0), toLocation));
-            } else {
+            } else if (fromStock.getLocation().getType() == LocationType.SHOP) {
                 eventRepository.save(new Event(fruit, quantity, fromLocation, toLocation));
             }
         }

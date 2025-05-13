@@ -11,5 +11,5 @@ import com.aib.websystem.entity.LocationType;
 public interface LocationRepository extends CrudRepository<Location, Long>, PagingAndSortingRepository<Location, Long> {
     Page<Location> findByType(LocationType location, Pageable pageable);
 
-    Page<Location> findByCityAndType(String city, LocationType locationType, Pageable pageable);
+    Page<Location> findByCountryAndCityAndType(String country, String city, LocationType locationType, Pageable pageable);
 }
