@@ -59,17 +59,17 @@ http://127.0.0.1:8080/
 - [ ] Check reserve records
 - [ ] Borrow fruits from other shops in the same cities 
 - [ ] Check the fruits on delivery (borrow/reserve)
-- [ ] Update fruits stock level in the shop/warehouse
+- [X] Update fruits stock level in the shop/warehouse
 - [ ] Check-in, Check-out, Approve-Reserve, Approve-Borrow
 
 ### Analytic & Report
-- [ ] Show a list of reserve needs of the selected shop/city/country (hints: aggregation of the reserve records)
+- [X] Show a list of reserve needs of the selected shop/city/country (hints: aggregation of the reserve records)
 - [ ] Show a list of consumption records of the selected shop/city/country under different seasons
 
 ### Account Management
-- [ ] Show a list of existing users
+- [X] Show a list of existing users
 - [ ] Create and delete users (Shop, Warehouse, Senior management)
-- [ ] Edit users with detail and roles
+- [X] Edit users with detail and roles
 - [ ] Manage the user role
 
 ## Report
