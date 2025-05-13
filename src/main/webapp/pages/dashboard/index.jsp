@@ -188,13 +188,13 @@
   </c:if>
 
   <div class="flex gap-3">
-    <div class="flex-1 rounded-lg border border-gray-200 p-6">
-      <div class="font-bold">Fruit reservation distribution</div>
-      <canvas id="reservationDistributionChart" height="360"></canvas>
+    <div class="flex-1 divide-y divide-gray-200 rounded-lg border border-gray-200">
+      <div class="p-3 font-bold">Fruit reservation Distribution</div>
+      <canvas id="reservationDistributionChart" class="p-3" height="360"></canvas>
     </div>
-    <div class="flex-1 rounded-lg border border-gray-200 p-6">
-      <div class="font-bold">Fruit Borrowing distribution</div>
-      <canvas id="borrowingDistributionChart" height="360"></canvas>
+    <div class="flex-1 divide-y divide-gray-200 rounded-lg border border-gray-200">
+      <div class="p-3 font-bold">Fruit Borrowing Distribution</div>
+      <canvas id="borrowingDistributionChart" class="p-3" height="360"></canvas>
     </div>
   </div>
 
