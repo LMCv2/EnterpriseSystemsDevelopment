@@ -53,12 +53,12 @@ http://127.0.0.1:8080/
 
 ### Main Functions
 - [ ] CRUD for fruit types
-- [ ] Show a list of all fruits and the source location
+- [X] Show a list of all fruits and the source location
 - [ ] Show the stock level for different locations (source country, shop, city, target country)
-- [ ] Reserve fruits from source city 
-- [ ] Check reserve records
+- [X] Reserve fruits from source city 
+- [X] Check reserve records
 - [ ] Borrow fruits from other shops in the same cities 
-- [ ] Check the fruits on delivery (borrow/reserve)
+- [X] Check the fruits on delivery (borrow/reserve)
 - [X] Update fruits stock level in the shop/warehouse
 - [ ] Check-in, Check-out, Approve-Reserve, Approve-Borrow
 
