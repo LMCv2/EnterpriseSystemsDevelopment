@@ -14,11 +14,11 @@
         <input type="hidden" name="action" value="signin" />
         <div>
           <label for="username">Username:</label>
-          <input type="text" id="username" name="username" required class="w-full rounded border border-gray-300 px-3 py-2" />
+          <input type="text" id="username" name="username" required class="outline-hidden w-full rounded px-3 py-2 ring-1 ring-gray-300 focus:ring-2 focus:ring-amber-600" />
         </div>
         <div>
           <label for="password">Password:</label>
-          <input type="password" id="password" name="password" required class="w-full rounded border border-gray-300 px-3 py-2" />
+          <input type="password" id="password" name="password" required class="outline-hidden w-full rounded px-3 py-2 ring-1 ring-gray-300 focus:ring-2 focus:ring-amber-600" />
         </div>
         <input type="submit" value="Login" class="w-full rounded border border-gray-300 px-3 py-2 hover:bg-gray-100" />
       </form>

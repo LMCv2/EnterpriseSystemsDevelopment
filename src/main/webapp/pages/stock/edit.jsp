@@ -9,7 +9,7 @@
       <form:form action="edit" method="put" modelAttribute="stock" class="w-xl space-y-3 rounded border border-gray-300 p-3">
         <div>
           <label for="quantity">Quantity:</label>
-          <form:input type="number" id="quantity" path="quantity" min="0" class="w-full rounded border border-gray-300 px-3 py-2" placeholder="Input Quantity" />
+          <form:input type="number" id="quantity" path="quantity" min="0" class="outline-hidden w-full rounded px-3 py-2 ring-1 ring-gray-300 focus:ring-2 focus:ring-amber-600" placeholder="Input Quantity" />
         </div>
         <input type="submit" value="Save Changes" class="w-full rounded border border-gray-300 px-3 py-2 hover:bg-gray-100" />
       </form:form>

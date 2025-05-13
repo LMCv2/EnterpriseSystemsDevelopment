@@ -29,7 +29,7 @@
   <form method="post" class="max-w-xl space-y-3">
     <div>
       <label for="quantity">Quantity:</label>
-      <input type="number" id="quantity" name="quantity" min="0" class="w-full rounded border border-gray-300 px-3 py-2" />
+      <input type="number" id="quantity" name="quantity" min="0" class="outline-hidden w-full rounded px-3 py-2 ring-1 ring-gray-300 focus:ring-2 focus:ring-amber-600" />
     </div>
     <input type="submit" value="Create" class="w-full rounded border border-gray-300 px-3 py-2 hover:bg-gray-100" />
   </form>
