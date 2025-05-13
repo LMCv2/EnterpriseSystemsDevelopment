@@ -9,9 +9,9 @@
       <div class="i-material-symbols-search?mask text-2xl text-gray-400"></div>
       <input type="search" class="outline-hidden placeholder:text-gray-400" placeholder="Search" />
     </div>
-    <a href="create" class="flex items-center rounded border border-gray-300 px-3 py-2 hover:bg-gray-100">
-      <div class="i-material-symbols-add?bg mr-3"></div>
-      <span>Create</span>
+    <a href="create" class="flex items-center rounded border bg-amber-600 px-3 py-1.5 text-white hover:bg-amber-500">
+      <div class="i-material-symbols-add?mask mr-3"></div>
+      <span>New Account</span>
     </a>
   </div>
 
