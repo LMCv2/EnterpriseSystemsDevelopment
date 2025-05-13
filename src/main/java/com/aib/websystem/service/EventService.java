@@ -1,5 +1,6 @@
 package com.aib.websystem.service;
 
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -13,6 +14,7 @@ import com.aib.websystem.entity.Event;
 import com.aib.websystem.entity.EventStatus;
 import com.aib.websystem.entity.Fruit;
 import com.aib.websystem.entity.Location;
+import com.aib.websystem.entity.ReserveNeedDTO;
 import com.aib.websystem.repository.EventRepository;
 
 @Service
@@ -20,6 +22,7 @@ public class EventService {
     @Autowired
     private EventRepository eventRepository;
 
+    // grouped events
     public Page<List<Event>> findGroupedEvents(Pageable pageable) {
         Page<Object[]> distinctGroups = eventRepository.findDistinct(pageable);
         List<List<Event>> groupedEvents = distinctGroups.getContent().stream()
@@ -90,5 +93,18 @@ public class EventService {
                 .map(group -> eventRepository.findByFruitAndTimePeriodAndFromLocationAndThroughLocation((Fruit) group[0], (Integer) group[1], (Location) group[2], (Location) group[3]))
                 .collect(Collectors.toList());
         return new PageImpl<>(groupedEvents, pageable, distinctGroups.getTotalElements());
+    }
+
+    // report
+    public List<ReserveNeedDTO> aggregateReserveNeeds(String groupBy, Date startDate, Date endDate) {
+        switch (groupBy) {
+            case "city":
+                return eventRepository.findReserveNeedsByCity(startDate, endDate);
+            case "country":
+                return eventRepository.findReserveNeedsByCountry(startDate, endDate);
+            case "shop":
+            default:
+                return eventRepository.findReserveNeedsByShop(startDate, endDate);
+        }
     }
 }

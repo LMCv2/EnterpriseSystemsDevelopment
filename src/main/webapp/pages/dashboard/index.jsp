@@ -1,3 +1,4 @@
+<%@page pageEncoding="UTF-8" %>
 <%@taglib prefix="c" uri="jakarta.tags.core" %>
 <%@taglib prefix="fmt" uri="jakarta.tags.fmt" %>
 <%@taglib prefix="taglib" uri="/WEB-INF/tlds/taglib.tld" %>
@@ -24,6 +25,42 @@
       <div class="text-lg font-bold">#${timePeriod}</div>
       <div class="text-gray-400">Reserve the fruits from <fmt:formatDate type="date" pattern="yyyy-MM-dd" value="${timePeriodRange[0]}" /> to <fmt:formatDate type="date" pattern="yyyy-MM-dd" value="${timePeriodRange[1]}" /></div>
     </div>
+  </div>
+
+  <form action="/dashboard/" method="get" class="mb-3 flex items-center gap-4 p-3 bg-white rounded shadow">
+    <label>Group By
+      <select name="groupBy" class="border rounded px-2 py-1">
+        <option value="shop" ${param.groupBy=="shop"||param.groupBy==null?"selected":""}>Shop</option>
+        <option value="city" ${param.groupBy=="city"?"selected":""}>City</option>
+        <option value="country" ${param.groupBy=="country"?"selected":""}>Country</option>
+      </select>
+    </label>
+    <label>Start date <input type="date" name="startDate" value="${param.startDate}" class="border rounded px-2 py-1" /></label>
+    <label>End date <input type="date" name="endDate" value="${param.endDate}" class="border rounded px-2 py-1" /></label>
+    <button type="submit" class="ml-4 rounded bg-amber-600 px-3 py-1.5 text-white hover:bg-amber-700">Search</button>
+  </form>
+
+  <div class="mt-6 rounded bg-white p-6 shadow">
+    <div class="mb-2 font-semibold">Reserve Needs</div>
+    <table class="w-full border border-gray-200">
+      <thead>
+        <tr class="bg-gray-100">
+          <th class="px-3 py-2 text-left">${param.groupBy=="city"?"City":param.groupBy=="country"?"Country":"Shop"}</th>
+          <th class="px-3 py-2 text-left">Fruit</th>
+          <th class="px-3 py-2 text-left">Quantity</th>
+        </tr>
+      </thead>
+      <tbody>
+        <c:forEach var="item" items="${reserveNeeds}">
+          <tr>
+            <td class="px-3 py-2">${item.name}</td>
+            <td class="px-3 py-2">${item.fruitName}</td>
+            <td class="px-3 py-2">${item.quantity}</td>
+          </tr>
+        </c:forEach>
+      </tbody>
+    </table>
+    <c:if test="${empty reserveNeeds}"><div class="text-gray-400 p-3">No Records</div></c:if>
   </div>
 
   <div class="mb-3 grid grid-cols-3 gap-3">
