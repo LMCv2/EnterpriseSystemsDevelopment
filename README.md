@@ -54,7 +54,7 @@ http://127.0.0.1:8080/
 ### Main Functions
 - [X] CRUD for fruit types
 - [X] Show a list of all fruits and the source location
-- [ ] Show the stock level for different locations (source country, shop, city, target country)
+- [X] Show the stock level for different locations (source country, shop, city, target country)
 - [X] Reserve fruits from source city 
 - [X] Check reserve records
 - [X] Borrow fruits from other shops in the same cities 
