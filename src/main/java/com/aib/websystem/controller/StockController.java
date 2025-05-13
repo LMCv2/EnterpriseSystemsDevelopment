@@ -78,7 +78,7 @@ public class StockController {
     }
 
     @PostMapping("/{toId}/from/{fromId}")
-    public String createReplenishEvent(@PathVariable Long fromId, @PathVariable Long toId, @RequestParam int quantity, @SessionAttribute Account current_account) {
+    public String createReplenishEvent(@PathVariable Long fromId, @PathVariable Long toId, @RequestParam Long quantity, @SessionAttribute Account current_account) {
         Stock fromStock = stockRepository.findById(fromId).orElse(null);
         Stock toStack = stockRepository.findById(toId).orElse(null);
         Fruit fruit = fromStock.getFruit();
@@ -98,7 +98,7 @@ public class StockController {
     }
 
     @PutMapping("/{id}/edit")
-    public String editStock(@PathVariable Long id, @RequestParam int quantity) {
+    public String editStock(@PathVariable Long id, @RequestParam Long quantity) {
         if (stockRepository.existsById(id)) {
             Stock stock = stockRepository.findById(id).get();
             stock.setQuantity(quantity);

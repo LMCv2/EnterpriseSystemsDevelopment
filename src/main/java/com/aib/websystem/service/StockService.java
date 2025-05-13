@@ -23,13 +23,13 @@ public class StockService {
     private LocationRepository locationRepository;
 
     public void addFruitToLocation(Fruit fruit, Location location) {
-        stockRepository.save(new Stock(fruit, location, 0));
+        stockRepository.save(new Stock(fruit, location, 0L));
     }
 
     public void addAllFruitToLocation(Location location) {
         if (location.getType() != LocationType.SOURCE_WAREHOUSE) {
             for (Fruit fruit : fruitRepository.findAll()) {
-                stockRepository.save(new Stock(fruit, location, 0));
+                stockRepository.save(new Stock(fruit, location, 0L));
             }
         }
     }
@@ -37,7 +37,7 @@ public class StockService {
     public void addFruitToAllLocation(Fruit fruit) {
         for (Location location : locationRepository.findAll()) {
             if (location.getType() != LocationType.SOURCE_WAREHOUSE) {
-                stockRepository.save(new Stock(fruit, location, 0));
+                stockRepository.save(new Stock(fruit, location, 0L));
             }
         }
     }

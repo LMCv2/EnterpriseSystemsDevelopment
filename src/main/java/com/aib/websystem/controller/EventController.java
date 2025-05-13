@@ -145,7 +145,7 @@ public class EventController {
     @PutMapping("/groupApprove")
     public String groupApprove(@RequestParam("events") List<Event> events, @RequestHeader(value = "Referer") String referer, @SessionAttribute Account current_account, RedirectAttributes redirectAttributes) {
         if (current_account.getRole() == Role.SOURCE_WAREHOUSE_STAFF || current_account.getRole() == Role.ADMIN) {
-            Integer totalQuantity = events.stream().mapToInt(Event::getQuantity).sum();
+            Long totalQuantity = events.stream().mapToLong(Event::getQuantity).sum();
             Stock stock = stockRepository.findByFruitAndLocation(events.get(0).getFruit(), events.get(0).getFromLocation()).get();
             if (stock.getQuantity() >= totalQuantity) {
                 stock.setQuantity(stock.getQuantity() - totalQuantity);
@@ -175,7 +175,7 @@ public class EventController {
     @PutMapping("/groupReceive")
     public String groupReceive(@RequestParam("events") List<Event> events, @RequestHeader(value = "Referer") String referer, @SessionAttribute Account current_account, RedirectAttributes redirectAttributes) {
         if (current_account.getRole() == Role.CENTRAL_WAREHOUSE_STAFF || current_account.getRole() == Role.ADMIN) {
-            Integer totalQuantity = events.stream().mapToInt(Event::getQuantity).sum();
+            Long totalQuantity = events.stream().mapToLong(Event::getQuantity).sum();
             Stock stock = stockRepository.findByFruitAndLocation(events.get(0).getFruit(), events.get(0).getThroughLocation()).get();
             stock.setQuantity(stock.getQuantity() + totalQuantity);
             stockRepository.save(stock);

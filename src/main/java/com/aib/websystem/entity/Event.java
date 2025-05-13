@@ -37,7 +37,7 @@ public class Event implements Serializable {
 
     @Getter
     @Setter
-    private Integer quantity;
+    private Long quantity;
 
     @Getter
     @Setter
@@ -73,11 +73,11 @@ public class Event implements Serializable {
     @LastModifiedDate
     private Date lastModifiedDate;
 
-    public Event(Fruit fruit, Integer quantity, EventType eventType, Location fromLocation, Location toLocation) {
+    public Event(Fruit fruit, Long quantity, EventType eventType, Location fromLocation, Location toLocation) {
         this(fruit, quantity, eventType, fromLocation, null, toLocation);
     }
 
-    public Event(Fruit fruit, Integer quantity, EventType eventType, Location fromLocation, Location throughLocation, Location toLocation) {
+    public Event(Fruit fruit, Long quantity, EventType eventType, Location fromLocation, Location throughLocation, Location toLocation) {
         this.fruit = fruit;
         this.quantity = quantity;
         this.eventType = eventType;

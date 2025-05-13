@@ -38,7 +38,7 @@ public class Stock implements Serializable {
 
     @Getter
     @Setter
-    private Integer quantity;
+    private Long quantity;
 
     @Getter
     @CreatedDate
@@ -48,7 +48,7 @@ public class Stock implements Serializable {
     @LastModifiedDate
     private Date lastModifiedDate;
 
-    public Stock(Fruit fruit, Location location, Integer quantity) {
+    public Stock(Fruit fruit, Location location, Long quantity) {
         this.fruit = fruit;
         this.location = location;
         this.quantity = quantity;
