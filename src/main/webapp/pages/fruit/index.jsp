@@ -16,9 +16,9 @@
   </div>
 
   <nav class="mb-3 flex justify-center">
-    <div class="flex space-x-1 rounded border border-gray-200 p-2">
-      <a href="?type=all" class="rounded px-3 py-1.5 hover:bg-gray-100 ${param.type==null||param.type.equals('all')?'bg-gray-100 text-amber-600':''}">All</a>
-      <a href="?type=deleted" class="rounded px-3 py-1.5 hover:bg-gray-100 ${param.type.equals('deleted')?'bg-gray-100 text-amber-600':''}">Deleted</a>
+    <div class="flex space-x-1 rounded-lg border border-gray-200 p-2">
+      <a href="?type=all" class="rounded-lg px-3 py-1.5 hover:bg-gray-100 ${param.type==null||param.type.equals('all')?'bg-gray-100 text-amber-600':''}">All</a>
+      <a href="?type=deleted" class="rounded-lg px-3 py-1.5 hover:bg-gray-100 ${param.type.equals('deleted')?'bg-gray-100 text-amber-600':''}">Deleted</a>
     </div>
   </nav>
 

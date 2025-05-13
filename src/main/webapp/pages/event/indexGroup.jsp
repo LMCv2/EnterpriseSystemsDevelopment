@@ -34,20 +34,20 @@
 
   <c:if test="${current_account.role=='CENTRAL_WAREHOUSE_STAFF'||current_account.role=='ADMIN'}">
     <nav class="mb-3 flex justify-center">
-      <div class="flex space-x-1 rounded border border-gray-200 p-2">
-        <a href="?type=event" class="rounded px-3 py-1.5 hover:bg-gray-100 ${param.type==null||param.type.equals('event')?'bg-gray-100 text-amber-600':''}">Event</a>
-        <a href="?type=eventgroup" class="rounded px-3 py-1.5 hover:bg-gray-100 ${param.type.equals('eventgroup')?'bg-gray-100 text-amber-600':''}">Event Group</a>
+      <div class="flex space-x-1 rounded-lg border border-gray-200 p-2">
+        <a href="?type=event" class="rounded-lg px-3 py-1.5 hover:bg-gray-100 ${param.type==null||param.type.equals('event')?'bg-gray-100 text-amber-600':''}">Event</a>
+        <a href="?type=eventgroup" class="rounded-lg px-3 py-1.5 hover:bg-gray-100 ${param.type.equals('eventgroup')?'bg-gray-100 text-amber-600':''}">Event Group</a>
       </div>
     </nav>
   </c:if>
   
   <nav class="mb-3 flex justify-center">
-    <div class="flex space-x-1 rounded border border-gray-200 p-2">
-      <a href="?status=all${param.type==null?'':'&type='.concat(param.type)}" class="rounded px-3 py-1.5 hover:bg-gray-100 ${param.status==null||param.status.equals('all')?'bg-gray-100 text-amber-600':''}">All</a>
-      <a href="?status=pending${param.type==null?'':'&type='.concat(param.type)}" class="rounded px-3 py-1.5 hover:bg-gray-100 ${param.status.equals('pending')?'bg-gray-100 text-amber-600':''}">Pending</a>
-      <a href="?status=shipped${param.type==null?'':'&type='.concat(param.type)}" class="rounded px-3 py-1.5 hover:bg-gray-100 ${param.status.equals('shipped')?'bg-gray-100 text-amber-600':''}">Shipped</a>
-      <a href="?status=delivered${param.type==null?'':'&type='.concat(param.type)}" class="rounded px-3 py-1.5 hover:bg-gray-100 ${param.status.equals('delivered')?'bg-gray-100 text-amber-600':''}">Delivered</a>
-      <a href="?status=rejected${param.type==null?'':'&type='.concat(param.type)}" class="rounded px-3 py-1.5 hover:bg-gray-100 ${param.status.equals('rejected')?'bg-gray-100 text-amber-600':''}">Rejected</a>
+    <div class="flex space-x-1 rounded-lg border border-gray-200 p-2">
+      <a href="?status=all${param.type==null?'':'&type='.concat(param.type)}" class="rounded-lg px-3 py-1.5 hover:bg-gray-100 ${param.status==null||param.status.equals('all')?'bg-gray-100 text-amber-600':''}">All</a>
+      <a href="?status=pending${param.type==null?'':'&type='.concat(param.type)}" class="rounded-lg px-3 py-1.5 hover:bg-gray-100 ${param.status.equals('pending')?'bg-gray-100 text-amber-600':''}">Pending</a>
+      <a href="?status=shipped${param.type==null?'':'&type='.concat(param.type)}" class="rounded-lg px-3 py-1.5 hover:bg-gray-100 ${param.status.equals('shipped')?'bg-gray-100 text-amber-600':''}">Shipped</a>
+      <a href="?status=delivered${param.type==null?'':'&type='.concat(param.type)}" class="rounded-lg px-3 py-1.5 hover:bg-gray-100 ${param.status.equals('delivered')?'bg-gray-100 text-amber-600':''}">Delivered</a>
+      <a href="?status=rejected${param.type==null?'':'&type='.concat(param.type)}" class="rounded-lg px-3 py-1.5 hover:bg-gray-100 ${param.status.equals('rejected')?'bg-gray-100 text-amber-600':''}">Rejected</a>
     </div>
   </nav>
 

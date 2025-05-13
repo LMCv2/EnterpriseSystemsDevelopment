@@ -12,9 +12,9 @@
   </div>
 
   <nav class="mb-3 flex justify-center">
-    <div class="flex space-x-1 rounded border border-gray-200 p-2">
-      <a href="?type=reservation" class="rounded px-3 py-1.5 hover:bg-gray-100 ${param.type==null||param.type.equals('reservation')?'bg-gray-100 text-amber-600':''}">Reservation</a>
-      <a href="?type=borrowing" class="rounded px-3 py-1.5 hover:bg-gray-100 ${param.type.equals('borrowing')?'bg-gray-100 text-amber-600':''}">Borrowing</a>
+    <div class="flex space-x-1 rounded-lg border border-gray-200 p-2">
+      <a href="?type=reservation" class="rounded-lg px-3 py-1.5 hover:bg-gray-100 ${param.type==null||param.type.equals('reservation')?'bg-gray-100 text-amber-600':''}">Reservation</a>
+      <a href="?type=borrowing" class="rounded-lg px-3 py-1.5 hover:bg-gray-100 ${param.type.equals('borrowing')?'bg-gray-100 text-amber-600':''}">Borrowing</a>
     </div>
   </nav>
 

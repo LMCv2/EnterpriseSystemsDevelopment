@@ -70,10 +70,10 @@
   </div>
 
   <nav class="mb-3 flex justify-center">
-    <div class="flex space-x-1 rounded border border-gray-200 p-2">
-      <a href="?type=reserveNeeds" class="rounded px-3 py-1.5 hover:bg-gray-100 ${param.type==null||param.type.equals('reserveNeeds')?'bg-gray-100 text-amber-600':''}">Reserve Needs</a>
-      <a href="?type=seasonalConsumption" class="rounded px-3 py-1.5 hover:bg-gray-100 ${param.type.equals('seasonalConsumption')?'bg-gray-100 text-amber-600':''}">Consumption Records</a>
-      <a href="?type=deliveryForecast" class="rounded px-3 py-1.5 hover:bg-gray-100 ${param.type.equals('deliveryForecast')?'bg-gray-100 text-amber-600':''}">Delivery Forecast</a>
+    <div class="flex space-x-1 rounded-lg border border-gray-200 p-2">
+      <a href="?type=reserveNeeds" class="rounded-lg px-3 py-1.5 hover:bg-gray-100 ${param.type==null||param.type.equals('reserveNeeds')?'bg-gray-100 text-amber-600':''}">Reserve Needs</a>
+      <a href="?type=seasonalConsumption" class="rounded-lg px-3 py-1.5 hover:bg-gray-100 ${param.type.equals('seasonalConsumption')?'bg-gray-100 text-amber-600':''}">Consumption Records</a>
+      <a href="?type=deliveryForecast" class="rounded-lg px-3 py-1.5 hover:bg-gray-100 ${param.type.equals('deliveryForecast')?'bg-gray-100 text-amber-600':''}">Delivery Forecast</a>
     </div>
   </nav>
 

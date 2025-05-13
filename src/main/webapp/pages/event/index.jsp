@@ -34,18 +34,18 @@
 
   <c:if test="${current_account.role=='CENTRAL_WAREHOUSE_STAFF'||current_account.role=='ADMIN'}">
     <nav class="mb-3 flex justify-center">
-      <div class="flex space-x-1 rounded border border-gray-200 p-2">
-        <a href="?type=event" class="rounded px-3 py-1.5 hover:bg-gray-100 ${param.type==null||param.type.equals('event')?'bg-gray-100 text-amber-600':''}">Event</a>
-        <a href="?type=eventgroup" class="rounded px-3 py-1.5 hover:bg-gray-100 ${param.type.equals('eventgroup')?'bg-gray-100 text-amber-600':''}">Event Group</a>
+      <div class="flex space-x-1 rounded-lg border border-gray-200 p-2">
+        <a href="?type=event" class="rounded-lg px-3 py-1.5 hover:bg-gray-100 ${param.type==null||param.type.equals('event')?'bg-gray-100 text-amber-600':''}">Event</a>
+        <a href="?type=eventgroup" class="rounded-lg px-3 py-1.5 hover:bg-gray-100 ${param.type.equals('eventgroup')?'bg-gray-100 text-amber-600':''}">Event Group</a>
       </div>
     </nav>
   </c:if>
 
   <nav class="mb-3 flex justify-center">
-    <div class="flex space-x-1 rounded border border-gray-200 p-2">
-      <a href="?status=all${param.type==null?'':'&type='.concat(param.type)}" class="rounded px-3 py-1.5 hover:bg-gray-100 ${param.status==null||param.status.equals('all')?'bg-gray-100 text-amber-600':''}">All</a>
+    <div class="flex space-x-1 rounded-lg border border-gray-200 p-2">
+      <a href="?status=all${param.type==null?'':'&type='.concat(param.type)}" class="rounded-lg px-3 py-1.5 hover:bg-gray-100 ${param.status==null||param.status.equals('all')?'bg-gray-100 text-amber-600':''}">All</a>
       <c:forEach items="${status_items}" var="item">
-        <a href="?status=${item.key.toLowerCase()}${param.type==null?'':'&type='.concat(param.type)}" class="rounded px-3 py-1.5 hover:bg-gray-100 ${item.key.toLowerCase()==param.status?'bg-gray-100 text-amber-600':''}">${item.value}</a>
+        <a href="?status=${item.key.toLowerCase()}${param.type==null?'':'&type='.concat(param.type)}" class="rounded-lg px-3 py-1.5 hover:bg-gray-100 ${item.key.toLowerCase()==param.status?'bg-gray-100 text-amber-600':''}">${item.value}</a>
       </c:forEach>
     </div>
   </nav>
