@@ -125,11 +125,11 @@ public class CurrentAccountController extends HttpServlet {
             // add account
             accountRepository.save(new Account("source1PH", "a", Role.SOURCE_WAREHOUSE_STAFF, locationRepository.findById(1L).get()));
             accountRepository.save(new Account("source2JP", "a", Role.SOURCE_WAREHOUSE_STAFF, locationRepository.findById(2L).get()));
-            accountRepository.save(new Account("central1HK", "a", Role.CENTRAL_WAREHOUSE_STAFF, locationRepository.findById(13L).get()));
-            accountRepository.save(new Account("central2UK", "a", Role.CENTRAL_WAREHOUSE_STAFF, locationRepository.findById(14L).get()));
+            accountRepository.save(new Account("central1UK", "a", Role.CENTRAL_WAREHOUSE_STAFF, locationRepository.findById(13L).get()));
+            accountRepository.save(new Account("central2HK", "a", Role.CENTRAL_WAREHOUSE_STAFF, locationRepository.findById(14L).get()));
             accountRepository.save(new Account("shop1HK", "a", Role.SHOP_STAFF, locationRepository.findById(15L).get()));
-            accountRepository.save(new Account("shop2HK", "a", Role.SHOP_STAFF, locationRepository.findById(16L).get()));
-            accountRepository.save(new Account("shop3UK", "a", Role.SHOP_STAFF, locationRepository.findById(17L).get()));
+            accountRepository.save(new Account("shop2UK", "a", Role.SHOP_STAFF, locationRepository.findById(16L).get()));
+            accountRepository.save(new Account("shop3HK", "a", Role.SHOP_STAFF, locationRepository.findById(17L).get()));
         }
 
         res.sendRedirect("/");
