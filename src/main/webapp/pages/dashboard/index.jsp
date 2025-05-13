@@ -5,7 +5,7 @@
 <%@taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <taglib:layout title="Dashboard">
   <div class="flex w-full gap-3">
-    <div class="mb-3 flex w-full justify-between rounded p-3 shadow">
+    <div class="mb-3 flex w-full justify-between rounded border border-gray-200 p-3">
       <div class="flex">
         <div class="i-material-symbols-account-circle?bg mr-3 text-5xl font-bold"></div>
         <div>
@@ -21,16 +21,16 @@
         </button>
       </form>
     </div>
-    <div class="mb-3 w-full rounded p-3 shadow">
+    <div class="mb-3 w-full rounded border border-gray-200 p-3">
       <div class="text-lg font-bold">#${timePeriod}</div>
       <div class="text-gray-400">Reserve the fruits from <fmt:formatDate type="date" pattern="yyyy-MM-dd" value="${timePeriodRange[0]}" /> to <fmt:formatDate type="date" pattern="yyyy-MM-dd" value="${timePeriodRange[1]}" /></div>
     </div>
   </div>
 
-  <form action="/dashboard/" method="get" class="mb-3 flex justify-between gap-3 p-3 rounded shadow" oninput="this.submit()">
+  <form action="/dashboard/" method="get" class="mb-3 flex justify-between gap-3 rounded border border-gray-200 p-3" oninput="this.submit()">
     <div class="flex-1">
       <label for="groupBy">Group By</label>
-      <select name="groupBy" class="w-full rounded border border-gray-300 px-3 py-2 mt-1">
+      <select name="groupBy" class="mt-1 w-full rounded border border-gray-300 px-3 py-2">
         <option value="shop" ${param.groupBy=="shop"||param.groupBy==null?"selected":""}>Shop</option>
         <option value="city" ${param.groupBy=="city"?"selected":""}>City</option>
         <option value="country" ${param.groupBy=="country"?"selected":""}>Country</option>
@@ -38,30 +38,30 @@
     </div>
     <div class="flex-1">
       <label for="startDateString">Start date</label>
-      <input type="date" name="startDateString" value="${startDate}" class="w-full rounded border border-gray-300 px-3 py-2 mt-1" /> 
+      <input type="date" name="startDateString" value="${startDate}" class="mt-1 w-full rounded border border-gray-300 px-3 py-2" />
     </div>
     <div class="flex-1">
       <label for="endDateString">End date</label>
-      <input type="date" name="endDateString" value="${endDate}" class="w-full rounded border border-gray-300 px-3 py-2 mt-1" />
+      <input type="date" name="endDateString" value="${endDate}" class="mt-1 w-full rounded border border-gray-300 px-3 py-2" />
     </div>
   </form>
 
   <div class="mb-3 grid grid-cols-3 gap-3">
-    <div class="rounded shadow">
+    <div class="rounded border border-gray-200">
       <div class="m-6 mb-0">
         <div class="mb-1 text-sm text-gray-400">Reservation Number</div>
         <div class="mb-2 text-3xl font-bold">${dailyEventCounts.stream().sum()}</div>
       </div>
       <canvas id="dailyEventCountsChart" class="w-full" height="24"></canvas>
     </div>
-    <div class="rounded shadow">
+    <div class="rounded border border-gray-200">
       <div class="m-6 mb-0">
         <div class="mb-1 text-sm text-gray-400">Reservation Quantity</div>
         <div class="mb-2 text-3xl font-bold">${dailyTotalQuantities.stream().sum()}</div>
       </div>
       <canvas id="dailyTotalQuantities" class="w-full" height="24"></canvas>
     </div>
-    <div class="rounded shadow">
+    <div class="rounded border border-gray-200">
       <div class="m-6">
         <div class="mb-1 text-sm text-gray-400">Unfinished Reservations</div>
         <div class="mb-2 text-3xl font-bold">${pendingEventsCount}</div>
@@ -76,9 +76,9 @@
       <a href="?type=deliveryForecast" class="rounded px-3 py-1.5 hover:bg-gray-100 ${param.type.equals('deliveryForecast')?'bg-gray-100 text-amber-600':''}">Delivery Forecast</a>
     </div>
   </nav>
-  
+
   <c:if test="${param.type==null||param.type.equals('reserveNeeds')}">
-    <div class="mb-3 divide-y divide-gray-200 rounded shadow">
+    <div class="mb-3 divide-y divide-gray-200 rounded border border-gray-200">
       <div class="p-3 font-bold">Reserve Needs</div>
       <table class="w-full">
         <tbody class="divide-y">
@@ -112,7 +112,7 @@
   </c:if>
 
   <c:if test="${param.type.equals('seasonalConsumption')}">
-    <div class="mb-3 divide-y divide-gray-200 rounded shadow">
+    <div class="mb-3 divide-y divide-gray-200 rounded border border-gray-200">
       <div class="p-3 font-bold">Consumption Records</div>
       <table class="w-full">
         <tbody class="divide-y">
@@ -150,7 +150,7 @@
   </c:if>
 
   <c:if test="${param.type.equals('deliveryForecast')}">
-    <div class="mb-3 divide-y divide-gray-200 rounded shadow">
+    <div class="mb-3 divide-y divide-gray-200 rounded border border-gray-200">
       <div class="p-3 font-bold">Delivery Forecast</div>
       <table class="w-full">
         <tbody class="divide-y">
@@ -188,11 +188,11 @@
   </c:if>
 
   <div class="flex gap-3">
-    <div class="flex-1 rounded p-6 shadow">
+    <div class="flex-1 rounded border border-gray-200 p-6">
       <div class="font-bold">Fruit reservation distribution</div>
       <canvas id="reservationDistributionChart" height="360"></canvas>
     </div>
-    <div class="flex-1 rounded p-6 shadow">
+    <div class="flex-1 rounded border border-gray-200 p-6">
       <div class="font-bold">Fruit Borrowing distribution</div>
       <canvas id="borrowingDistributionChart" height="360"></canvas>
     </div>
