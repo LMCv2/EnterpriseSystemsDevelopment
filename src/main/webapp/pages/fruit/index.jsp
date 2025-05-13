@@ -43,12 +43,34 @@
                 <div class="i-material-symbols-edit?mask"></div>
                 <span class="hover:underline">Edit</span>
               </a>
-              <form:form action="${fruit.id}/delete" method="delete">
-                <button type="submit" class="inline-flex items-center gap-1 py-2 text-red-600">
+
+              <c:if test="${fruit.deleted==false}">
+                <button class="inline-flex items-center gap-1 py-2 text-red-600" data-micromodal-trigger="modal-${fruit.id}-delete">
                   <div class="i-material-symbols-delete?mask"></div>
                   <span class="hover:underline">Delete</span>
                 </button>
-              </form:form>
+                <div class="fixed inset-0 z-40 aria-hidden:hidden" id="modal-${fruit.id}-delete" aria-hidden="true">
+                  <div class="flex h-full items-center justify-center bg-gray-950/50" data-micromodal-close>
+                    <div class="space-y-6 rounded bg-white p-6">
+                      <header class="flex">
+                        <h3 class="font-semibold">Delete</h3>
+                      </header>
+                      <main>
+                        <p>Are you sure you want to delete?</p>
+                      </main>
+                      <footer class="flex gap-3">
+                        <form:form action="${fruit.id}/delete" method="delete">
+                          <button type="submit" class="rounded bg-red-600 px-3 py-1.5 text-white hover:bg-red-700">
+                            Delete
+                          </button>
+                        </form:form>
+                        <button class="rounded border border-gray-300 px-3 py-1.5 hover:bg-gray-100" data-micromodal-close>Cancel</button>
+                      </footer>
+                    </div>
+                  </div>
+                </div>
+              </c:if>
+
             </td>
           </tr>
         </c:forEach>
