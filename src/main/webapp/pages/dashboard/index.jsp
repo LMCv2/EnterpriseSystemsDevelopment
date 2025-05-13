@@ -48,23 +48,25 @@
 
   <div class="mb-3 grid grid-cols-3 gap-3">
     <div class="rounded bg-white shadow">
-      <div class="p-6">
+      <div class="m-6 mb-0">
         <div class="mb-1 text-sm text-gray-400">Reservation Number</div>
-        <div class="mb-2 text-3xl font-bold">${dailyEventCounts.stream().sum()}</div>
-        <div class="mb-2 flex items-center text-sm text-green-600">32k increase</div>
+        <div class="mb-2">
+          <span class="text-3xl font-bold">${dailyEventCounts.stream().sum()}</span>
+        </div>
       </div>
-      <canvas id="card1" width="120" height="28"></canvas>
+      <canvas id="card1" class="w-full" height="24"></canvas>
     </div>
     <div class="rounded bg-white shadow">
-      <div class="p-6">
+      <div class="m-6 mb-0">
         <div class="mb-1 text-sm text-gray-400">Reservation Quantity</div>
-        <div class="mb-2 text-3xl font-bold">${dailyTotalQuantities.stream().sum()}</div>
-        <div class="mb-2 flex items-center text-sm text-red-500">3% decrease</div>
+        <div class="mb-2">
+          <span class="text-3xl font-bold">${dailyTotalQuantities.stream().sum()}</span>
+        </div>
       </div>
-      <canvas id="card2" width="120" height="28"></canvas>
+      <canvas id="card2" class="w-full" height="24"></canvas>
     </div>
     <div class="rounded bg-white shadow">
-      <div class="p-6">
+      <div class="m-6">
         <div class="mb-1 text-sm text-gray-400">Unfinished Reservations</div>
         <div class="mb-2 text-3xl font-bold">${pendingEventsCount}</div>
       </div>
@@ -173,8 +175,8 @@
         datasets: [
           {
             data: ${dailyEventCounts},
-            borderColor: "#22c55e",
-            backgroundColor: "rgba(34,197,94,0.15)",
+            borderColor: "rgb(225, 113, 0)",
+            backgroundColor: "rgba(225, 113, 0, 0.1)",
             fill: true,
             tension: 0.4,
             pointRadius: 0,
@@ -201,8 +203,8 @@
         datasets: [
           {
             data: ${dailyTotalQuantities},
-            borderColor: "#ef4444",
-            backgroundColor: "rgba(239,68,68,0.15)",
+            borderColor: "rgb(225, 113, 0)",
+            backgroundColor: "rgba(225, 113, 0, 0.1)",
             fill: true,
             tension: 0.4,
             pointRadius: 0,
@@ -230,8 +232,8 @@
           {
             label: "Orders",
             data: ordersData,
-            borderColor: "#f59e42",
-            backgroundColor: "rgba(245, 158, 66, 0.1)",
+            borderColor: "rgb(225, 113, 0)",
+            backgroundColor: "rgba(225, 113, 0, 0.1)",
             fill: true,
             tension: 0.4,
             pointRadius: 0,
@@ -252,8 +254,8 @@
           {
             label: "Customers",
             data: customersData,
-            borderColor: "#f59e42",
-            backgroundColor: "rgba(245, 158, 66, 0.1)",
+            borderColor: "rgb(225, 113, 0)",
+            backgroundColor: "rgba(225, 113, 0, 0.1)",
             fill: true,
             tension: 0.4,
             pointRadius: 0,
