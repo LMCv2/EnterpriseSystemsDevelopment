@@ -5,7 +5,7 @@
 <%@taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <taglib:layout title="Location">
   <div class="mb-3 flex justify-right">
-    <a href="create" class="flex items-center rounded-lg border bg-amber-600 px-3 py-1.5 text-white hover:bg-amber-500">
+    <a href="create" class="flex items-center rounded-lg border bg-amber-600 px-3 py-2 text-white hover:bg-amber-500">
       <div class="i-material-symbols-add?mask mr-3"></div>
       <span>New Location</span>
     </a>
