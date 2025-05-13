@@ -206,8 +206,6 @@ erDiagram
     Stock }|--|| Fruit : store
     Location ||--o{ Event : recorded
     Fruit ||--o{ Event : recorded
-    Fruit ||--o{ Event : recorded
-    Location ||--o{ Event : recorded
 
     Account {
         string username
