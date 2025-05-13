@@ -89,22 +89,30 @@ graph TD
     B --> F[Location]
     B --> G[Stock]
     B --> H[Event]
+    B --> I[Dashboard]
+    B --> J[CurrentAccount]
     
+    J --> J1[Login]
+    J --> J1[Register]
+
     D --> D1[Account List]
     D --> D2[Add Account]
     D --> D3[Edit Account]
+    D --> D4[Delete Account]
     
     E --> E1[Fruit List]
     E --> E2[Add Fruit]
     E --> E3[Edit Fruit]
+    E --> E4[Delete Fruit]
+    E --> E5[Add Fruit Source Location]
     
     F --> F1[Location List]
     F --> F2[Add Location]
     F --> F3[Edit Location]
+    F --> F4[Delete Location]
     
     G --> G1[Edit Stock for Source Warehouse]
     G --> G2[Add Stock for Shop]
-    G --> G3[Consume Stock for Shop]
     
     G2 --> G2A[Create Reservation]
     G2 --> G2B[Create Borrowing]
@@ -112,7 +120,9 @@ graph TD
     H --> H1[Event List]
     H --> H2[Processing Reservation]
     H --> H3[Processing Borrowing]
-    H --> H4[Processing  Consumption]
+    H --> H4[Processing Consumption]
+
+    I --> I1[Analysis and Reporting]
 ```
 
 ### System Structure
@@ -128,21 +138,25 @@ graph TD
     A1[Account Management Page] --> A
     A2[Fruit Management Page] --> A
     A3[Location  Management Page] --> A
-    A4[Event Management Page] --> A
+    A4[Stock Management Page] --> A
+    A5[Event Management Page] --> A
+    A6[CurrentAccountController] --> A
     end
     
     subgraph Controller
     C1[Account Controller] --> C
     C2[Fruit Controller] --> C
     C3[Location Controller] --> C
-    C4[Event Controller] --> C
+    C4[Stock Controller] --> C
+    C5[Event Controller] --> C
     end
     
     subgraph Model
     M1[Account] --> M
     M2[Fruit] --> M
     M3[Location] --> M
-    M4[Event] --> M
+    M4[Stock] --> M
+    M5[Event] --> M
     end
 
     subgraph Data Access
@@ -190,44 +204,59 @@ erDiagram
     Location |o--|{ Account : managed
     Location ||--|{ Stock : store
     Stock }|--|| Fruit : store
-    Location ||--o{ Reservation : recorded
-    Fruit ||--o{ Reservation : recorded
-    Fruit ||--o{ Borrowing : recorded
-    Location ||--o{ Borrowing : recorded
+    Location ||--o{ Event : recorded
+    Fruit ||--o{ Event : recorded
+    Fruit ||--o{ Event : recorded
+    Location ||--o{ Event : recorded
 
     Account {
-        int locationid
         string username
         string password
+        string role
+        int locationid
+        bool deleted
+        date createDate
+        date lastModifiedDate
     }
     Stock {
         int FruitId
         int locationId
         int quantity
+        bool deleted
+        date createDate
+        date lastModifiedDate
     }
     Fruit {
         int id
         string name
+        bool deleted
+        date createDate
+        date lastModifiedDate
     }
     Location {
         int id
         string name
+        string country
+        string city
+        int type
+        bool deleted
+        date createDate
+        date lastModifiedDate
     }
-    Reservation {
+    Event {
         int id
-        int fromlocationId
-        int tolocationId
         int fruitId
         int quantity
-        string date
-    }
-    Borrowing {
-        int id
-        int lenderlocationId
-        int borrowerlocationId
-        int fruitId
-        int quantity
-        string date
+        int eventType
+        int fromLocationId
+        int throughLocationnId
+        int toLocationId
+        int status
+        int timePeriod;
+        int year;
+        String season;
+        date createDate
+        date lastModifiedDate
     }
 ```
 
