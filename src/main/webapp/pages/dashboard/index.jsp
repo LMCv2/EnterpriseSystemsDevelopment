@@ -5,7 +5,7 @@
 <%@taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <taglib:layout title="Dashboard">
   <div class="flex w-full gap-3">
-    <div class="mb-3 flex w-full justify-between rounded-lg border border-gray-200 p-3">
+    <div class="mb-3 flex w-full items-center justify-between rounded-lg border border-gray-200 p-3">
       <div class="flex">
         <div class="i-material-symbols-account-circle?bg mr-3 text-5xl font-bold"></div>
         <div>
@@ -158,7 +158,7 @@
             <th class="px-3 py-2 text-left">Fruit</th>
             <th class="px-3 py-2 text-left">Origin</th>
             <th class="px-3 py-2 text-left">Destination</th>
-            <th class="px-3 py-2 text-left">Average delivery time (days)</th>
+            <th class="px-3 py-2 text-left">Average Delivery Time (Days)</th>
             <th class="px-3 py-2 text-left">Standard Deviation (Days)</th>
           </tr>
           <c:forEach var="record" items="${deliveryForecasts.content}">
