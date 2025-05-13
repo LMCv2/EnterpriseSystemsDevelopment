@@ -49,9 +49,32 @@ http://127.0.0.1:8080/
 * [Using Spring Data JDBC](https://github.com/spring-projects/spring-data-examples/tree/master/jdbc/basics)
 * [Accessing data with MySQL](https://spring.io/guides/gs/accessing-data-mysql/)
 
+## TODO List
+
+### Main Functions
+- [ ] CRUD for fruit types
+- [ ] Show a list of all fruits and the source location
+- [ ] Show the stock level for different locations (source country, shop, city, target country)
+- [ ] Reserve fruits from source city 
+- [ ] Check reserve records
+- [ ] Borrow fruits from other shops in the same cities 
+- [ ] Check the fruits on delivery (borrow/reserve)
+- [ ] Update fruits stock level in the shop/warehouse
+- [ ] Check-in, Check-out, Approve-Reserve, Approve-Borrow
+
+### Analytic & Report
+- [ ] Show a list of reserve needs of the selected shop/city/country (hints: aggregation of the reserve records)
+- [ ] Show a list of consumption records of the selected shop/city/country under different seasons
+
+### Account Management
+- [ ] Show a list of existing users
+- [ ] Create and delete users (Shop, Warehouse, Senior management)
+- [ ] Edit users with detail and roles
+- [ ] Manage the user role
+
 ## Report
 
-## Site Map
+### Site Map
 
 ```mermaid
 graph TD
@@ -88,7 +111,7 @@ graph TD
     H --> H4[Processing  Consumption]
 ```
 
-## System Structure
+### System Structure
 
 ```mermaid
 graph TD
@@ -124,9 +147,9 @@ graph TD
     end
 ```
 
-## Brief description
+### Brief description
 
-### Event State Machine
+#### Event State Machine
 
 ```mermaid
 stateDiagram-v2
@@ -156,7 +179,7 @@ stateDiagram-v2
     }
 ```
 
-## Database Structure
+### Database Structure
 
 ```mermaid
 erDiagram
@@ -204,7 +227,7 @@ erDiagram
     }
 ```
 
-## Skill Checklist
+### Skill Checklist
 
 - [x] Dynamically Generate HTML (JSP EL, JSTL)
 - [x] Accept User Inputs (Current Account Controller, getParameter)
