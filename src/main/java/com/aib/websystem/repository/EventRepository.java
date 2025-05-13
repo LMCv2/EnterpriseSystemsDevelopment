@@ -34,7 +34,7 @@ public interface EventRepository extends CrudRepository<Event, Long>, PagingAndS
 
     @Query("select distinct e.fruit, e.timePeriod, e.fromLocation, e.throughLocation from Event e where (e.status = SHIPPEDCENTRAL or e.status = SHIPPED or e.status = DELIVERED)")
     Page<Object[]> findDistinctByDeliveredStatus(Pageable pageable);
-    
+
     @Query("select distinct e.fruit, e.timePeriod, e.fromLocation, e.throughLocation from Event e where e.fromLocation = ?1")
     Page<Object[]> findDistinctByFromLocation(Location fromLocation, Pageable pageable);
 
@@ -57,13 +57,13 @@ public interface EventRepository extends CrudRepository<Event, Long>, PagingAndS
 
     // report
     @Query("SELECT new com.aib.websystem.entity.ReserveNeedDTO(e.toLocation.name, e.fruit.name, SUM(e.quantity)) FROM Event e WHERE e.createDate BETWEEN ?1 AND ?2 GROUP BY e.toLocation.name, e.fruit.name")
-    List<ReserveNeedDTO> findReserveNeedsByShop(Date startDate, Date endDate);
+    Page<ReserveNeedDTO> findReserveNeedsByShop(Date startDate, Date endDate, Pageable pageable);
 
     @Query("SELECT new com.aib.websystem.entity.ReserveNeedDTO(e.toLocation.city, e.fruit.name, SUM(e.quantity)) FROM Event e WHERE e.createDate BETWEEN ?1 AND ?2 GROUP BY e.toLocation.city, e.fruit.name")
-    List<ReserveNeedDTO> findReserveNeedsByCity(Date startDate, Date endDate);
+    Page<ReserveNeedDTO> findReserveNeedsByCity(Date startDate, Date endDate, Pageable pageable);
 
     @Query("SELECT new com.aib.websystem.entity.ReserveNeedDTO(e.toLocation.country, e.fruit.name, SUM(e.quantity)) FROM Event e WHERE e.createDate BETWEEN ?1 AND ?2 GROUP BY e.toLocation.country, e.fruit.name")
-    List<ReserveNeedDTO> findReserveNeedsByCountry(Date startDate, Date endDate);
+    Page<ReserveNeedDTO> findReserveNeedsByCountry(Date startDate, Date endDate, Pageable pageable);
 
     //
     @Query("select e.fruit, e.toLocation, SUM(e.quantity) from Event e where e.fromLocation = ?1 AND e.status = 0 GROUP BY e.fruit, e.toLocation")

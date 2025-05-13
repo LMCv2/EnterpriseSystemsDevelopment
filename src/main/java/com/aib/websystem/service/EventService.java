@@ -96,15 +96,15 @@ public class EventService {
     }
 
     // report
-    public List<ReserveNeedDTO> aggregateReserveNeeds(String groupBy, Date startDate, Date endDate) {
+    public Page<ReserveNeedDTO> aggregateReserveNeeds(String groupBy, Date startDate, Date endDate, Pageable pageable) {
         switch (groupBy) {
             case "city":
-                return eventRepository.findReserveNeedsByCity(startDate, endDate);
+                return eventRepository.findReserveNeedsByCity(startDate, endDate, pageable);
             case "country":
-                return eventRepository.findReserveNeedsByCountry(startDate, endDate);
+                return eventRepository.findReserveNeedsByCountry(startDate, endDate, pageable);
             case "shop":
             default:
-                return eventRepository.findReserveNeedsByShop(startDate, endDate);
+                return eventRepository.findReserveNeedsByShop(startDate, endDate, pageable);
         }
     }
 }

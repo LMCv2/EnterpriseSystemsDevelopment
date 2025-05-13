@@ -6,6 +6,8 @@ import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -28,6 +30,7 @@ public class DashboardController {
             @RequestParam(required = false) String startDate,
             @RequestParam(required = false) String endDate,
             @RequestParam(required = false, defaultValue = "shop") String groupBy,
+            @RequestParam(defaultValue = "1") Integer page,
             Model model) {
 
         Integer timePeriod = TimePeriodConverter.convertToTimePeriod(new Date());
@@ -54,7 +57,7 @@ public class DashboardController {
             end = timePeriodRange[1];
         }
 
-        List<ReserveNeedDTO> reserveNeeds = eventService.aggregateReserveNeeds(groupBy, start, end);
+        Page<ReserveNeedDTO> reserveNeeds = eventService.aggregateReserveNeeds(groupBy, start, end, PageRequest.of(page - 1, 10));
 
         model.addAttribute("timePeriod", timePeriod);
         model.addAttribute("timePeriodRange", timePeriodRange);

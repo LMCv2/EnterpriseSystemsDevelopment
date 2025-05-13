@@ -27,41 +27,24 @@
     </div>
   </div>
 
-  <form action="/dashboard/" method="get" class="mb-3 flex items-center gap-4 p-3 bg-white rounded shadow">
-    <label>Group By
-      <select name="groupBy" class="border rounded px-2 py-1">
+  <form action="/dashboard/" method="get" class="mb-3 flex justify-between gap-3 p-3 rounded shadow" oninput="this.submit()">
+    <div class="flex-1">
+      <label for="groupBy">Group By</label>
+      <select name="groupBy" class="w-full rounded border border-gray-300 px-3 py-2 mt-1">
         <option value="shop" ${param.groupBy=="shop"||param.groupBy==null?"selected":""}>Shop</option>
         <option value="city" ${param.groupBy=="city"?"selected":""}>City</option>
         <option value="country" ${param.groupBy=="country"?"selected":""}>Country</option>
       </select>
-    </label>
-    <label>Start date <input type="date" name="startDate" value="${param.startDate}" class="border rounded px-2 py-1" /></label>
-    <label>End date <input type="date" name="endDate" value="${param.endDate}" class="border rounded px-2 py-1" /></label>
-    <button type="submit" class="ml-4 rounded bg-amber-600 px-3 py-1.5 text-white hover:bg-amber-700">Search</button>
+    </div>
+    <div class="flex-1">
+      <label for="startDate">Start date</label>
+      <input type="date" name="startDate" value="${param.startDate}" class="w-full rounded border border-gray-300 px-3 py-2 mt-1" /> 
+    </div>
+    <div class="flex-1">
+      <label for="endDate">End date</label>
+      <input type="date" name="endDate" value="${param.endDate}" class="w-full rounded border border-gray-300 px-3 py-2 mt-1" />
+    </div>
   </form>
-
-  <div class="mt-6 rounded bg-white p-6 shadow">
-    <div class="mb-2 font-semibold">Reserve Needs</div>
-    <table class="w-full border border-gray-200">
-      <thead>
-        <tr class="bg-gray-100">
-          <th class="px-3 py-2 text-left">${param.groupBy=="city"?"City":param.groupBy=="country"?"Country":"Shop"}</th>
-          <th class="px-3 py-2 text-left">Fruit</th>
-          <th class="px-3 py-2 text-left">Quantity</th>
-        </tr>
-      </thead>
-      <tbody>
-        <c:forEach var="item" items="${reserveNeeds}">
-          <tr>
-            <td class="px-3 py-2">${item.name}</td>
-            <td class="px-3 py-2">${item.fruitName}</td>
-            <td class="px-3 py-2">${item.quantity}</td>
-          </tr>
-        </c:forEach>
-      </tbody>
-    </table>
-    <c:if test="${empty reserveNeeds}"><div class="text-gray-400 p-3">No Records</div></c:if>
-  </div>
 
   <div class="mb-3 grid grid-cols-3 gap-3">
     <div class="rounded bg-white shadow">
@@ -87,6 +70,38 @@
         <div class="mb-2 flex items-center text-sm text-green-600">7% increase</div>
       </div>
       <canvas id="card3" width="120" height="28"></canvas>
+    </div>
+  </div>
+
+  <div class="mb-3 divide-y divide-gray-200 rounded shadow">
+    <div class="p-3 font-bold">Reserve Needs</div>
+    <table class="w-full">
+      <tbody class="divide-y">
+        <tr class="border-gray-200 bg-stone-100">
+          <th class="px-3 py-2 text-left">${param.groupBy=="city"?"City":param.groupBy=="country"?"Country":"Shop"}</th>
+          <th class="px-3 py-2 text-left">Fruit</th>
+          <th class="px-3 py-2 text-left">Quantity</th>
+        </tr>
+        <c:forEach var="reserveNeed" items="${reserveNeeds.content}">
+          <tr class="h-14 border-gray-200">
+            <td class="px-3 py-2">${reserveNeed.name}</td>
+            <td class="px-3 py-2">${reserveNeed.fruitName}</td>
+            <td class="px-3 py-2">${reserveNeed.quantity}</td>
+          </tr>
+        </c:forEach>
+      </tbody>
+    </table>
+    <c:if test="${reserveNeeds.totalElements==0}"><div class="p-3 text-gray-400">No Records</div></c:if>
+    <div class="flex items-center justify-between p-3">
+      <p>Showing ${reserveNeeds.number*reserveNeeds.size+1} to ${reserveNeeds.number*reserveNeeds.size+reserveNeeds.numberOfElements} of ${reserveNeeds.totalElements} results</p>
+      <div class="flex space-x-1">
+        <c:if test="${reserveNeeds.hasPrevious()}">
+          <a href="?page=${reserveNeeds.number}" class="rounded border border-gray-200 px-3 py-1 hover:bg-gray-100">Prev</a>
+        </c:if>
+        <c:if test="${reserveNeeds.hasNext()}">
+          <a href="?page=${reserveNeeds.number+2}" class="rounded border border-gray-200 px-3 py-1 hover:bg-gray-100">Next</a>
+        </c:if>
+      </div>
     </div>
   </div>
 
