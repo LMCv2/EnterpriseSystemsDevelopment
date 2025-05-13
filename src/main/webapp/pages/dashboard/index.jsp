@@ -30,7 +30,7 @@
   <form action="/dashboard/" method="get" class="mb-3 flex justify-between gap-3 rounded-lg border border-gray-200 p-3" oninput="this.submit()">
     <div class="flex-1">
       <label for="groupBy">Group By</label>
-      <select name="groupBy" class="mt-1 w-full rounded-lg border border-gray-300 px-3 py-2">
+      <select name="groupBy" class="outline-hidden mt-1 w-full rounded-lg px-3 py-2 ring-1 ring-gray-300 focus:ring-2 focus:ring-amber-600">
         <option value="shop" ${param.groupBy=="shop"||param.groupBy==null?"selected":""}>Shop</option>
         <option value="city" ${param.groupBy=="city"?"selected":""}>City</option>
         <option value="country" ${param.groupBy=="country"?"selected":""}>Country</option>
@@ -38,11 +38,11 @@
     </div>
     <div class="flex-1">
       <label for="startDateString">Start date</label>
-      <input type="date" name="startDateString" value="${startDate}" class="mt-1 w-full rounded-lg border border-gray-300 px-3 py-2" />
+      <input type="date" name="startDateString" value="${startDate}" class="outline-hidden mt-1 w-full rounded-lg px-3 py-2 ring-1 ring-gray-300 focus:ring-2 focus:ring-amber-600" />
     </div>
     <div class="flex-1">
       <label for="endDateString">End date</label>
-      <input type="date" name="endDateString" value="${endDate}" class="mt-1 w-full rounded-lg border border-gray-300 px-3 py-2" />
+      <input type="date" name="endDateString" value="${endDate}" class="outline-hidden mt-1 w-full rounded-lg px-3 py-2 ring-1 ring-gray-300 focus:ring-2 focus:ring-amber-600" />
     </div>
   </form>
 
