@@ -4,6 +4,8 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -90,6 +92,15 @@ public class DashboardController {
 
         Long pendingEventsCount = dashboardService.getPendingEventsCount();
         model.addAttribute("pendingEventsCount", pendingEventsCount);
+
+        // chart
+        Map<String, Long> fruitReservationDistribution = dashboardService.getFruitReservationDistribution(startDate, endDate);
+        model.addAttribute("fruitReservationLabels", "[" + fruitReservationDistribution.keySet().stream().map(item -> "\"" + item + "\"").collect(Collectors.joining(",")) + "]");
+        model.addAttribute("fruitReservationData", "[" + fruitReservationDistribution.values().stream().map(item -> "\"" + item + "\"").collect(Collectors.joining(",")) + "]");
+
+        Map<String, Long> fruitBorrowingDistribution = dashboardService.getFruitBorrowingDistribution(startDate, endDate);
+        model.addAttribute("fruitBorrowingLabels", "[" + fruitBorrowingDistribution.keySet().stream().map(item -> "\"" + item + "\"").collect(Collectors.joining(",")) + "]");
+        model.addAttribute("fruitBorrowingData", "[" + fruitBorrowingDistribution.values().stream().map(item -> "\"" + item + "\"").collect(Collectors.joining(",")) + "]");
 
         return "/pages/dashboard/index";
     }

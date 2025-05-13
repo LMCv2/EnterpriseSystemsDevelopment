@@ -189,12 +189,12 @@
 
   <div class="grid grid-cols-2 gap-3">
     <div class="rounded bg-white p-6 shadow">
-      <div class="mb-2 font-semibold">Card4</div>
-      <canvas id="ordersChart" height="200"></canvas>
+      <div class="mb-2 font-semibold">Fruit reservation distribution</div>
+      <canvas id="reservationDistributionChart" height="200"></canvas>
     </div>
     <div class="rounded bg-white p-6 shadow">
-      <div class="mb-2 font-semibold">Card5</div>
-      <canvas id="customersChart" height="200"></canvas>
+      <div class="mb-2 font-semibold">Fruit Borrowing distribution</div>
+      <canvas id="borrowingDistributionChart" height="200"></canvas>
     </div>
   </div>
 
@@ -259,48 +259,62 @@
       },
     });
 
-    new Chart(document.getElementById("ordersChart"), {
-      type: "line",
+    new Chart(document.getElementById("reservationDistributionChart"), {
+      type: "pie",
       data: {
-        labels: months,
+        labels: ${fruitReservationLabels},
         datasets: [
           {
-            label: "Orders",
-            data: ordersData,
-            borderColor: "rgb(225, 113, 0)",
-            backgroundColor: "rgba(225, 113, 0, 0.1)",
-            fill: true,
-            tension: 0.4,
-            pointRadius: 0,
-          },
-        ],
+            data: ${fruitReservationData},
+            backgroundColor: [
+              'rgb(255, 99, 132)',
+              'rgb(54, 162, 235)',
+              'rgb(255, 205, 86)',
+              'rgb(75, 192, 192)',
+              'rgb(153, 102, 255)',
+              'rgb(255, 159, 64)',
+              'rgb(201, 203, 207)'
+            ]
+          }
+        ]
       },
       options: {
-        plugins: { legend: { display: false } },
-        scales: { y: { beginAtZero: true } },
-      },
+        responsive: true,
+        plugins: {
+          legend: {
+            position: 'right'
+          }
+        }
+      }
     });
 
-    new Chart(document.getElementById("customersChart"), {
-      type: "line",
+    new Chart(document.getElementById("borrowingDistributionChart"), {
+      type: "pie",
       data: {
-        labels: months,
+        labels: ${fruitBorrowingLabels},
         datasets: [
           {
-            label: "Customers",
-            data: customersData,
-            borderColor: "rgb(225, 113, 0)",
-            backgroundColor: "rgba(225, 113, 0, 0.1)",
-            fill: true,
-            tension: 0.4,
-            pointRadius: 0,
-          },
-        ],
+            data: ${fruitBorrowingData},
+            backgroundColor: [
+              'rgb(255, 99, 132)',
+              'rgb(54, 162, 235)',
+              'rgb(255, 205, 86)',
+              'rgb(75, 192, 192)',
+              'rgb(153, 102, 255)',
+              'rgb(255, 159, 64)',
+              'rgb(201, 203, 207)'
+            ]
+          }
+        ]
       },
       options: {
-        plugins: { legend: { display: false } },
-        scales: { y: { beginAtZero: true } },
-      },
+        responsive: true,
+        plugins: {
+          legend: {
+            position: 'right'
+          }
+        }
+      }
     });
   </script>
 </taglib:layout>

@@ -35,6 +35,9 @@ public interface EventRepository extends CrudRepository<Event, Long>, PagingAndS
 
     Long countByStatusNotIn(List<EventStatus> statuses);
 
+    // chart
+    List<Event> findByCreateDateBetweenAndEventType(Date startDate, Date endDate, EventType eventType);
+
     // grouped events
     @Query("select distinct e.fruit, e.timePeriod, e.fromLocation, e.throughLocation from Event e")
     Page<Object[]> findDistinct(Pageable pageable);

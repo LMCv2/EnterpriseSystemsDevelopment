@@ -65,64 +65,75 @@ public class DashboardService {
 
     public Page<DeliveryForecastDTO> calculateDeliveryForecasts(Date startDate, Date endDate, Pageable pageable) {
         List<Event> completedEvents = eventRepository.findByEventTypeAndStatusAndCreateDateBetween(
-            EventType.RESERVATION, 
-            EventStatus.DELIVERED,
-            startDate,
-            endDate
-        );
+                EventType.RESERVATION,
+                EventStatus.DELIVERED,
+                startDate,
+                endDate);
 
         Map<String, List<Event>> groupedEvents = completedEvents.stream()
-            .collect(Collectors.groupingBy(event -> 
-                event.getFruit().getId() + "_" + 
-                event.getFromLocation().getId() + "_" + 
-                event.getToLocation().getId()
-            ));
+                .collect(Collectors.groupingBy(event -> event.getFruit().getId() + "_" +
+                        event.getFromLocation().getId() + "_" +
+                        event.getToLocation().getId()));
 
         List<DeliveryForecastDTO> forecasts = new ArrayList<>();
-        
+
         for (List<Event> events : groupedEvents.values()) {
             if (!events.isEmpty()) {
                 Event sampleEvent = events.get(0);
-                
+
                 double averageDeliveryDays = events.stream()
-                    .mapToLong(event -> 
-                        TimeUnit.MILLISECONDS.toDays(
-                            event.getLastModifiedDate().getTime() - event.getCreateDate().getTime()
-                        )
-                    )
-                    .average()
-                    .orElse(0.0);
+                        .mapToLong(event -> TimeUnit.MILLISECONDS.toDays(
+                                event.getLastModifiedDate().getTime() - event.getCreateDate().getTime()))
+                        .average()
+                        .orElse(0.0);
 
                 double mean = averageDeliveryDays;
                 double standardDeviation = Math.sqrt(
-                    events.stream()
-                        .mapToDouble(event -> {
-                            long days = TimeUnit.MILLISECONDS.toDays(
-                                event.getLastModifiedDate().getTime() - event.getCreateDate().getTime()
-                            );
-                            return Math.pow(days - mean, 2);
-                        })
-                        .average()
-                        .orElse(0.0)
-                );
+                        events.stream()
+                                .mapToDouble(event -> {
+                                    long days = TimeUnit.MILLISECONDS.toDays(
+                                            event.getLastModifiedDate().getTime() - event.getCreateDate().getTime());
+                                    return Math.pow(days - mean, 2);
+                                })
+                                .average()
+                                .orElse(0.0));
 
                 forecasts.add(new DeliveryForecastDTO(
-                    sampleEvent.getFruit(),
-                    sampleEvent.getFromLocation(),
-                    sampleEvent.getToLocation(),
-                    averageDeliveryDays,
-                    standardDeviation
-                ));
+                        sampleEvent.getFruit(),
+                        sampleEvent.getFromLocation(),
+                        sampleEvent.getToLocation(),
+                        averageDeliveryDays,
+                        standardDeviation));
             }
         }
 
         int start = (int) pageable.getOffset();
         int end = Math.min((start + pageable.getPageSize()), forecasts.size());
-        
+
         return new PageImpl<>(
-            forecasts.subList(start, end),
-            pageable,
-            forecasts.size()
-        );
+                forecasts.subList(start, end),
+                pageable,
+                forecasts.size());
+    }
+
+    // chart
+    public Map<String, Long> getFruitReservationDistribution(Date startDate, Date endDate) {
+        return eventRepository.findByCreateDateBetweenAndEventType(
+                startDate,
+                endDate,
+                EventType.RESERVATION).stream()
+                .collect(Collectors.groupingBy(
+                        event -> event.getFruit().getName(),
+                        Collectors.summingLong(Event::getQuantity)));
+    }
+
+    public Map<String, Long> getFruitBorrowingDistribution(Date startDate, Date endDate) {
+        return eventRepository.findByCreateDateBetweenAndEventType(
+                startDate,
+                endDate,
+                EventType.BORROWING).stream()
+                .collect(Collectors.groupingBy(
+                        event -> event.getFruit().getName(),
+                        Collectors.summingLong(Event::getQuantity)));
     }
 }
