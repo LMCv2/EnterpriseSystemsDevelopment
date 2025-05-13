@@ -25,7 +25,7 @@
             <form:options items="${locationType_items}" />
           </form:select>
         </div>
-        <input type="submit" value="Create" class="w-full rounded border border-gray-300 px-3 py-2 hover:bg-gray-100" />
+        <input type="submit" value="Create" class="w-full rounded-lg border border-gray-300 px-3 py-2 hover:bg-gray-100" />
       </form:form>
     </div>
   </div>

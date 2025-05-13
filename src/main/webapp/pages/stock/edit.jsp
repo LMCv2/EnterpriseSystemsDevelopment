@@ -11,7 +11,7 @@
           <label for="quantity">Quantity:</label>
           <form:input type="number" id="quantity" path="quantity" min="0" class="outline-hidden mt-1 w-full rounded-lg px-3 py-2 ring-1 ring-gray-300 focus:ring-2 focus:ring-amber-600" placeholder="Input Quantity" />
         </div>
-        <input type="submit" value="Save Changes" class="w-full rounded border border-gray-300 px-3 py-2 hover:bg-gray-100" />
+        <input type="submit" value="Save Changes" class="w-full rounded-lg border border-gray-300 px-3 py-2 hover:bg-gray-100" />
       </form:form>
     </div>
     <div>
