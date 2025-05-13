@@ -83,7 +83,7 @@
       <table class="w-full">
         <tbody class="divide-y">
           <tr class="border-gray-200 bg-stone-100">
-            <th class="px-3 py-2 text-left">${param.groupBy=="city"?"City":param.groupBy=="country"?"Country":"Shop"}</th>
+            <th class="px-3 py-2 text-left capitalize">${param.groupBy}</th>
             <th class="px-3 py-2 text-left">Fruit</th>
             <th class="px-3 py-2 text-left">Quantity</th>
           </tr>
@@ -117,7 +117,7 @@
       <table class="w-full">
         <tbody class="divide-y">
           <tr class="border-gray-200 bg-stone-100">
-            <th class="px-3 py-2 text-left">${param.groupBy=="city"?"City":param.groupBy=="country"?"Country":"Shop"}</th>
+            <th class="px-3 py-2 text-left capitalize">${param.groupBy}</th>
             <th class="px-3 py-2 text-left">Year</th>
             <th class="px-3 py-2 text-left">Season</th>
             <th class="px-3 py-2 text-left">Fruit</th>
