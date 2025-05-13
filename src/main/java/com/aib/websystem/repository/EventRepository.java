@@ -14,6 +14,7 @@ import com.aib.websystem.entity.EventStatus;
 import com.aib.websystem.entity.Fruit;
 import com.aib.websystem.entity.Location;
 import com.aib.websystem.entity.ReserveNeedDTO;
+import com.aib.websystem.entity.SeasonalConsumptionDTO;
 
 public interface EventRepository extends CrudRepository<Event, Long>, PagingAndSortingRepository<Event, Long> {
     // event
@@ -55,7 +56,7 @@ public interface EventRepository extends CrudRepository<Event, Long>, PagingAndS
 
     List<Event> findByFruitAndTimePeriodAndFromLocationAndThroughLocation(Fruit fruit, Integer timePeriod, Location fromLocation, Location throughLocation);
 
-    // report
+    // reserve needs report
     @Query("SELECT new com.aib.websystem.entity.ReserveNeedDTO(e.toLocation.name, e.fruit.name, SUM(e.quantity)) FROM Event e WHERE e.createDate BETWEEN ?1 AND ?2 GROUP BY e.toLocation.name, e.fruit.name")
     Page<ReserveNeedDTO> findReserveNeedsByShop(Date startDate, Date endDate, Pageable pageable);
 
@@ -72,4 +73,13 @@ public interface EventRepository extends CrudRepository<Event, Long>, PagingAndS
     @Query("select e.fruit, s.quantity, SUM(e.quantity) from Event e INNER JOIN Stock s ON e.fruit = s.fruit where s.location = ?1 AND e.toLocation = ?1 AND e.status = 1 GROUP BY e.fruit, s.quantity")
     Page<Object[]> findFruitStockAndActiveEventTotalByLocation(Location location, Pageable pageable);
 
+    // seasonal consumption report
+    @Query("SELECT new com.aib.websystem.entity.SeasonalConsumptionDTO(e.fromLocation.name, e.year, e.season, e.fruit.name, SUM(e.quantity)) FROM Event e WHERE e.eventType = com.aib.websystem.entity.EventType.CONSUMPTION AND e.createDate BETWEEN ?1 AND ?2 GROUP BY e.fromLocation.name, e.year, e.season, e.fruit.name")
+    Page<SeasonalConsumptionDTO> findSeasonalConsumptionByShop(Date startDate, Date endDate, Pageable pageable);
+
+    @Query("SELECT new com.aib.websystem.entity.SeasonalConsumptionDTO(e.fromLocation.city, e.year, e.season, e.fruit.name, SUM(e.quantity)) FROM Event e WHERE e.eventType = com.aib.websystem.entity.EventType.CONSUMPTION AND e.createDate BETWEEN ?1 AND ?2 GROUP BY e.fromLocation.city, e.year, e.season, e.fruit.name")
+    Page<SeasonalConsumptionDTO> findSeasonalConsumptionByCity(Date startDate, Date endDate, Pageable pageable);
+
+    @Query("SELECT new com.aib.websystem.entity.SeasonalConsumptionDTO(e.fromLocation.country, e.year, e.season, e.fruit.name, SUM(e.quantity)) FROM Event e WHERE e.eventType = com.aib.websystem.entity.EventType.CONSUMPTION AND e.createDate BETWEEN ?1 AND ?2 GROUP BY e.fromLocation.country, e.year, e.season, e.fruit.name")
+    Page<SeasonalConsumptionDTO> findSeasonalConsumptionByCountry(Date startDate, Date endDate, Pageable pageable);
 }

@@ -1,6 +1,7 @@
 package com.aib.websystem.entity;
 
 import java.io.Serializable;
+import java.util.Calendar;
 import java.util.Date;
 
 import org.springframework.data.annotation.CreatedDate;
@@ -73,8 +74,16 @@ public class Event implements Serializable {
     @LastModifiedDate
     private Date lastModifiedDate;
 
-    public Event(Fruit fruit, Long quantity) {
-        this(fruit, quantity, EventType.CONSUMPTION, null, null, null, EventStatus.CONFIRMED);
+    @Getter
+    @Setter
+    private Integer year;
+
+    @Getter
+    @Setter
+    private String season;
+
+    public Event(Fruit fruit, Long quantity, Location location) {
+        this(fruit, quantity, EventType.CONSUMPTION, location, null, null, EventStatus.CONFIRMED);
     }
 
     public Event(Fruit fruit, Long quantity, Location fromLocation, Location toLocation) {
@@ -93,6 +102,19 @@ public class Event implements Serializable {
         this.throughLocation = throughLocation;
         this.toLocation = toLocation;
         this.status = eventStatus;
-        this.timePeriod = TimePeriodConverter.convertToTimePeriod(new Date());
+
+        Date now = new Date();
+        this.timePeriod = TimePeriodConverter.convertToTimePeriod(now);
+
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(now);
+        this.year = calendar.get(Calendar.YEAR);
+        this.season = switch (calendar.get(Calendar.MONTH) + 1) {
+            case 3, 4, 5 -> "spring";
+            case 6, 7, 8 -> "summer";
+            case 9, 10, 11 -> "autumn";
+            case 12, 1, 2 -> "winter";
+            default -> "unknown";
+        };
     }
 }

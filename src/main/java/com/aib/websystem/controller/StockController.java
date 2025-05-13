@@ -106,7 +106,7 @@ public class StockController {
             stockRepository.save(stock);
 
             if (stock.getLocation().getType() == LocationType.SHOP && quantity < oldQuantity) {
-                Event consumptionEvent = new Event(stock.getFruit(), oldQuantity - quantity);
+                Event consumptionEvent = new Event(stock.getFruit(), oldQuantity - quantity, stock.getLocation());
                 eventRepository.save(consumptionEvent);
             }
         }

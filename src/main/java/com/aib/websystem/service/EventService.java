@@ -15,6 +15,7 @@ import com.aib.websystem.entity.EventStatus;
 import com.aib.websystem.entity.Fruit;
 import com.aib.websystem.entity.Location;
 import com.aib.websystem.entity.ReserveNeedDTO;
+import com.aib.websystem.entity.SeasonalConsumptionDTO;
 import com.aib.websystem.repository.EventRepository;
 
 @Service
@@ -98,13 +99,26 @@ public class EventService {
     // report
     public Page<ReserveNeedDTO> aggregateReserveNeeds(String groupBy, Date startDate, Date endDate, Pageable pageable) {
         switch (groupBy) {
+            case "shop":
+            default:
+                return eventRepository.findReserveNeedsByShop(startDate, endDate, pageable);
             case "city":
                 return eventRepository.findReserveNeedsByCity(startDate, endDate, pageable);
             case "country":
                 return eventRepository.findReserveNeedsByCountry(startDate, endDate, pageable);
+        }
+    }
+
+    // seasonal consumption report
+    public Page<SeasonalConsumptionDTO> aggregateSeasonalConsumption(String groupBy, Date startDate, Date endDate, Pageable pageable) {
+        switch (groupBy) {
             case "shop":
             default:
-                return eventRepository.findReserveNeedsByShop(startDate, endDate, pageable);
+                return eventRepository.findSeasonalConsumptionByShop(startDate, endDate, pageable);
+            case "city":
+                return eventRepository.findSeasonalConsumptionByCity(startDate, endDate, pageable);
+            case "country":
+                return eventRepository.findSeasonalConsumptionByCountry(startDate, endDate, pageable);
         }
     }
 }

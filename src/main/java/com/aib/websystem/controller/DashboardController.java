@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.aib.websystem.entity.ReserveNeedDTO;
+import com.aib.websystem.entity.SeasonalConsumptionDTO;
 import com.aib.websystem.service.EventService;
 import com.aib.websystem.util.TimePeriodConverter;
 
@@ -61,6 +62,9 @@ public class DashboardController {
         }
         Page<ReserveNeedDTO> reserveNeeds = eventService.aggregateReserveNeeds(groupBy, startDate, endDate, PageRequest.of(page - 1, 10));
         model.addAttribute("reserveNeeds", reserveNeeds);
+
+        Page<SeasonalConsumptionDTO> seasonalConsumption = eventService.aggregateSeasonalConsumption(groupBy, startDate, endDate, PageRequest.of(page - 1, 10));
+        model.addAttribute("seasonalConsumption", seasonalConsumption);
 
         return "/pages/dashboard/index";
     }

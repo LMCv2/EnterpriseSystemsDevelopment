@@ -82,11 +82,11 @@
           <th class="px-3 py-2 text-left">Fruit</th>
           <th class="px-3 py-2 text-left">Quantity</th>
         </tr>
-        <c:forEach var="reserveNeed" items="${reserveNeeds.content}">
+        <c:forEach var="record" items="${reserveNeeds.content}">
           <tr class="h-14 border-gray-200">
-            <td class="px-3 py-2">${reserveNeed.name}</td>
-            <td class="px-3 py-2">${reserveNeed.fruitName}</td>
-            <td class="px-3 py-2">${reserveNeed.quantity}</td>
+            <td class="px-3 py-2">${record.name}</td>
+            <td class="px-3 py-2">${record.fruitName}</td>
+            <td class="px-3 py-2">${record.quantity}</td>
           </tr>
         </c:forEach>
       </tbody>
@@ -96,10 +96,46 @@
       <p>Showing ${reserveNeeds.number*reserveNeeds.size+1} to ${reserveNeeds.number*reserveNeeds.size+reserveNeeds.numberOfElements} of ${reserveNeeds.totalElements} results</p>
       <div class="flex space-x-1">
         <c:if test="${reserveNeeds.hasPrevious()}">
-          <a href="?page=${reserveNeeds.number}" class="rounded border border-gray-200 px-3 py-1 hover:bg-gray-100">Prev</a>
+          <a href="?page=${reserveNeeds.number}&groupBy=${param.groupBy}" class="rounded border border-gray-200 px-3 py-1 hover:bg-gray-100">Prev</a>
         </c:if>
         <c:if test="${reserveNeeds.hasNext()}">
-          <a href="?page=${reserveNeeds.number+2}" class="rounded border border-gray-200 px-3 py-1 hover:bg-gray-100">Next</a>
+          <a href="?page=${reserveNeeds.number+2}&groupBy=${param.groupBy}" class="rounded border border-gray-200 px-3 py-1 hover:bg-gray-100">Next</a>
+        </c:if>
+      </div>
+    </div>
+  </div>
+
+  <div class="mb-3 divide-y divide-gray-200 rounded shadow">
+    <div class="p-3 font-bold">Consumption Records</div>
+    <table class="w-full">
+      <tbody class="divide-y">
+        <tr class="border-gray-200 bg-stone-100">
+          <th class="px-3 py-2 text-left">${param.groupBy=="city"?"City":param.groupBy=="country"?"Country":"Shop"}</th>
+          <th class="px-3 py-2 text-left">Fruit</th>
+          <th class="px-3 py-2 text-left">Year</th>
+          <th class="px-3 py-2 text-left">Season</th>
+          <th class="px-3 py-2 text-left">Quantity</th>
+        </tr>
+        <c:forEach var="record" items="${seasonalConsumption.content}">
+          <tr class="h-14 border-gray-200">
+            <td class="px-3 py-2">${record.name}</td>
+            <td class="px-3 py-2">${record.fruitName}</td>
+            <td class="px-3 py-2">${record.year}</td>
+            <td class="px-3 py-2">${record.season}</td>
+            <td class="px-3 py-2">${record.quantity}</td>
+          </tr>
+        </c:forEach>
+      </tbody>
+    </table>
+    <c:if test="${seasonalConsumption.totalElements==0}"><div class="p-3 text-gray-400">No Records</div></c:if>
+    <div class="flex items-center justify-between p-3">
+      <p>Showing ${seasonalConsumption.number*seasonalConsumption.size+1} to ${seasonalConsumption.number*seasonalConsumption.size+seasonalConsumption.numberOfElements} of ${seasonalConsumption.totalElements} results</p>
+      <div class="flex space-x-1">
+        <c:if test="${seasonalConsumption.hasPrevious()}">
+          <a href="?page=${seasonalConsumption.number}&groupBy=${param.groupBy}" class="rounded border border-gray-200 px-3 py-1 hover:bg-gray-100">Prev</a>
+        </c:if>
+        <c:if test="${seasonalConsumption.hasNext()}">
+          <a href="?page=${seasonalConsumption.number+2}&groupBy=${param.groupBy}" class="rounded border border-gray-200 px-3 py-1 hover:bg-gray-100">Next</a>
         </c:if>
       </div>
     </div>
