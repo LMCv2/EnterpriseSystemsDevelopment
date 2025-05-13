@@ -70,7 +70,7 @@ http://127.0.0.1:8080/
 - [X] Show a list of existing users
 - [X] Create and delete users (Shop, Warehouse, Senior management)
 - [X] Edit users with detail and roles
-- [ ] Manage the user role
+- [X] Manage the user role
 
 ### Extra Feature
 - [X] Show report in graphical format
