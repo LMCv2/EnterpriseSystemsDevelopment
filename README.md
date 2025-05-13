@@ -93,7 +93,7 @@ graph TD
     B --> J[CurrentAccount]
     
     J --> J1[Login]
-    J --> J1[Register]
+    J --> J2[Register]
 
     D --> D1[Account List]
     D --> D2[Add Account]
@@ -252,9 +252,9 @@ erDiagram
         int throughLocationnId
         int toLocationId
         int status
-        int timePeriod;
-        int year;
-        String season;
+        int timePeriod
+        int year
+        String season
         date createDate
         date lastModifiedDate
     }
