@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.SessionAttribute;
 
 import com.aib.websystem.entity.Account;
 import com.aib.websystem.entity.Event;
-import com.aib.websystem.entity.EventType;
 import com.aib.websystem.entity.Fruit;
 import com.aib.websystem.entity.Location;
 import com.aib.websystem.entity.LocationType;

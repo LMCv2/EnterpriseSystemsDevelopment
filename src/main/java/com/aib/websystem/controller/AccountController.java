@@ -29,9 +29,11 @@ public class AccountController {
     @GetMapping("/")
     public String getAccountsPage(@RequestParam(defaultValue = "all") String role, @RequestParam(defaultValue = "1") Integer page, Model model) {
         if (role.equals("all")) {
-            model.addAttribute("accounts", accountRepository.findAll(PageRequest.of(page - 1, 10)));
+            model.addAttribute("accounts", accountRepository.findByDeletedFalse(PageRequest.of(page - 1, 10)));
+        } else if (role.equals("deleted")) {
+            model.addAttribute("accounts", accountRepository.findByDeletedTrue(PageRequest.of(page - 1, 10)));
         } else {
-            model.addAttribute("accounts", accountRepository.findByRole(Role.valueOf(role.toUpperCase()), PageRequest.of(page - 1, 10)));
+            model.addAttribute("accounts", accountRepository.findByRoleAndDeletedFalse(Role.valueOf(role.toUpperCase()), PageRequest.of(page - 1, 10)));
         }
         model.addAttribute("role_items", Role.MAP);
         return "/pages/account/index";
@@ -68,6 +70,7 @@ public class AccountController {
             originAccount.setPassword(newAccount.getPassword());
             originAccount.setRole(newAccount.getRole());
             originAccount.setLocation(newAccount.getLocation());
+            originAccount.setDeleted(newAccount.getDeleted());
             accountRepository.save(originAccount);
         }
         return "redirect:/account/";
@@ -76,7 +79,9 @@ public class AccountController {
     @DeleteMapping("/{username}/delete")
     public String deleteAccount(@PathVariable String username) {
         if (accountRepository.existsById(username)) {
-            accountRepository.deleteById(username);
+            Account account = accountRepository.findById(username).get();
+            account.setDeleted(true);
+            accountRepository.save(account);
         }
         return "redirect:/account/";
     }

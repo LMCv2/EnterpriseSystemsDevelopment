@@ -68,7 +68,7 @@ http://127.0.0.1:8080/
 
 ### Account Management
 - [X] Show a list of existing users
-- [ ] Create and delete users (Shop, Warehouse, Senior management)
+- [X] Create and delete users (Shop, Warehouse, Senior management)
 - [X] Edit users with detail and roles
 - [ ] Manage the user role
 

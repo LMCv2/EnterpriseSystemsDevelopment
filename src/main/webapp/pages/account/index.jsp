@@ -21,6 +21,7 @@
       <c:forEach items="${role_items}" var="item">
         <a href="?role=${item.key.toLowerCase()}" class="rounded px-3 py-1.5 hover:bg-gray-100 ${item.key.toLowerCase()==param.role?'bg-gray-100 text-amber-600':''}">${item.value}</a>
       </c:forEach>
+      <a href="?role=deleted" class="rounded px-3 py-1.5 hover:bg-gray-100 ${param.role.equals('deleted')?'bg-gray-100 text-amber-600':''}">Deleted</a>
     </div>
   </nav>
 
@@ -43,6 +44,12 @@
                 <div class="i-material-symbols-edit?mask"></div>
                 <span class="hover:underline">Edit</span>
               </a>
+              <form:form action="${account.username}/delete" method="delete">
+                <button type="submit" class="inline-flex items-center gap-1 py-2 text-red-600">
+                  <div class="i-material-symbols-delete?mask"></div>
+                  <span class="hover:underline">Delete</span>
+                </button>
+              </form:form>
             </td>
           </tr>
         </c:forEach>

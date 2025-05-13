@@ -9,5 +9,9 @@ import com.aib.websystem.entity.Account;
 import com.aib.websystem.entity.Role;
 
 public interface AccountRepository extends CrudRepository<Account, String>, PagingAndSortingRepository<Account, String> {
-    Page<Account> findByRole(Role role, Pageable pageable);
+    Page<Account> findByDeletedFalse(Pageable pageable);
+
+    Page<Account> findByRoleAndDeletedFalse(Role role, Pageable pageable);
+
+    Page<Account> findByDeletedTrue(Pageable pageable);
 }
