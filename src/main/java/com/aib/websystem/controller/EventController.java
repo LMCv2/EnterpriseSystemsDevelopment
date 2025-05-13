@@ -111,20 +111,6 @@ public class EventController {
         return "redirect:/dashboard/";
     }
 
-    //
-    @GetMapping("/totalReservedNeedsOverall")
-    public String getTotalReservedNeedsPage(@RequestParam(defaultValue = "1") Integer page, @SessionAttribute Account current_account, Model model) {
-        model.addAttribute("selectionFruitList", eventRepository.findFruitStockAndEventTotalByLocation(current_account.getLocation(), PageRequest.of(page - 1, 10)));
-        return "/pages/stock/totalReservedNeedsOverall";
-    }
-
-    @GetMapping("/warehousing")
-    public String warehousing(@RequestParam(defaultValue = "1") Integer page, @SessionAttribute Account current_account, Model model) {
-        model.addAttribute("warehousingList", eventRepository.findFruitStockAndActiveEventTotalByLocation(current_account.getLocation(), PageRequest.of(page - 1, 10)));
-        return "/pages/stock/warehousing";
-    }
-    //
-
     @PutMapping("/groupApprove")
     public String groupApprove(@RequestParam("events") List<Event> events, @RequestHeader(value = "Referer") String referer, @SessionAttribute Account current_account, RedirectAttributes redirectAttributes) {
         if (current_account.getRole() == Role.SOURCE_WAREHOUSE_STAFF || current_account.getRole() == Role.ADMIN) {
