@@ -29,9 +29,11 @@ public class LocationController {
     @GetMapping("/")
     public String getLocationsPage(@RequestParam(defaultValue = "all") String type, @RequestParam(defaultValue = "1") Integer page, Model model) {
         if (type.equals("all")) {
-            model.addAttribute("locations", locationRepository.findAll(PageRequest.of(page - 1, 10)));
+            model.addAttribute("locations", locationRepository.findByDeletedFalse(PageRequest.of(page - 1, 10)));
+        } else if (type.equals("deleted")) {
+            model.addAttribute("locations", locationRepository.findByDeletedTrue(PageRequest.of(page - 1, 10)));
         } else {
-            model.addAttribute("locations", locationRepository.findByType(LocationType.valueOf(type.toUpperCase()), PageRequest.of(page - 1, 10)));
+            model.addAttribute("locations", locationRepository.findByTypeAndDeletedFalse(LocationType.valueOf(type.toUpperCase()), PageRequest.of(page - 1, 10)));
         }
         model.addAttribute("locationType_items", LocationType.MAP);
         return "/pages/location/index";
@@ -65,6 +67,7 @@ public class LocationController {
             originLocation.setName(newLocation.getName());
             originLocation.setCity(newLocation.getCity());
             originLocation.setType(newLocation.getType());
+            originLocation.setDeleted(newLocation.getDeleted());
             locationRepository.save(originLocation);
         }
         return "redirect:/location/";
@@ -73,7 +76,9 @@ public class LocationController {
     @DeleteMapping("/{id}/delete")
     public String deleteLocation(@PathVariable Long id) {
         if (locationRepository.existsById(id)) {
-            locationRepository.deleteById(id);
+            Location location = locationRepository.findById(id).get();
+            location.setDeleted(true);
+            locationRepository.save(location);
         }
         return "redirect:/location/";
     }

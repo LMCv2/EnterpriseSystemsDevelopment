@@ -60,9 +60,7 @@
                       </main>
                       <footer class="flex gap-3">
                         <form:form action="${fruit.id}/delete" method="delete">
-                          <button type="submit" class="rounded bg-red-600 px-3 py-1.5 text-white hover:bg-red-700">
-                            Delete
-                          </button>
+                          <button type="submit" class="rounded bg-red-600 px-3 py-1.5 text-white hover:bg-red-700">Delete</button>
                         </form:form>
                         <button class="rounded border border-gray-300 px-3 py-1.5 hover:bg-gray-100" data-micromodal-close>Cancel</button>
                       </footer>

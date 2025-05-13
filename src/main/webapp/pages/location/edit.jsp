@@ -25,6 +25,10 @@
             <form:options items="${locationType_items}" />
           </form:select>
         </div>
+        <div class="flex items-center gap-2">
+          <form:checkbox id="deleted" path="deleted" class="rounded border border-gray-300 px-3 py-2" />
+          <label for="deleted">Delete</label>
+        </div>
         <input type="submit" value="Save Changes" class="w-full rounded border border-gray-300 px-3 py-2 hover:bg-gray-100" />
       </form:form>
     </div>
