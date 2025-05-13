@@ -114,15 +114,6 @@ public class EventController {
     }
 
     //
-    @GetMapping("/{id}/addReservedNeeds")
-    public String addReservedNeeds(@PathVariable Long id, @RequestParam(defaultValue = "0") Integer qty, @SessionAttribute Account current_account, Model model) {
-        Fruit fruit = stockRepository.findById(id).orElse(null).getFruit();
-        Stock stock = stockRepository.findByFruitAndLocation(fruit, current_account.getLocation()).get();
-        stock.setQuantity(stock.getQuantity() + qty);
-        stockRepository.save(stock);
-        return "redirect:/stock/";
-    }
-
     @GetMapping("/totalReservedNeedsOverall")
     public String getTotalReservedNeedsPage(@RequestParam(defaultValue = "1") Integer page, @SessionAttribute Account current_account, Model model) {
         model.addAttribute("selectionFruitList", eventRepository.findFruitStockAndEventTotalByLocation(current_account.getLocation(), PageRequest.of(page - 1, 10)));
@@ -133,12 +124,6 @@ public class EventController {
     public String warehousing(@RequestParam(defaultValue = "1") Integer page, @SessionAttribute Account current_account, Model model) {
         model.addAttribute("warehousingList", eventRepository.findFruitStockAndActiveEventTotalByLocation(current_account.getLocation(), PageRequest.of(page - 1, 10)));
         return "/pages/stock/warehousing";
-    }
-
-    @GetMapping("/detail")
-    public String getTotalReservedNeedsDetailPage(@RequestParam(defaultValue = "1") Integer page, @SessionAttribute Account current_account, Model model) {
-        model.addAttribute("stocksNeeds", eventRepository.findByLocationGroupByFruit(current_account.getLocation(), PageRequest.of(page - 1, 10)));
-        return "/pages/stock/totalReservedNeeds";
     }
     //
 
