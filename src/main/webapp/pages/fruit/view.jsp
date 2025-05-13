@@ -11,6 +11,13 @@
     </div>
   </div>
 
+  <div class="mb-3 flex justify-right">
+    <a href="${fruit.id}/add" class="flex items-center rounded-lg border bg-amber-600 px-3 py-2 text-white hover:bg-amber-500">
+      <div class="i-material-symbols-add?mask mr-3"></div>
+      <span>Add Source</span>
+    </a>
+  </div>
+
   <div class="divide-y divide-gray-200 rounded-lg border border-gray-200">
     <div class="p-3 font-bold">Source Warehouse</div>
     <table class="w-full">

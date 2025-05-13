@@ -9,12 +9,19 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.SessionAttribute;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.aib.websystem.entity.Account;
+import com.aib.websystem.entity.AddLocation;
 import com.aib.websystem.entity.Fruit;
+import com.aib.websystem.entity.Location;
 import com.aib.websystem.entity.LocationType;
 import com.aib.websystem.repository.FruitRepository;
+import com.aib.websystem.repository.LocationRepository;
 import com.aib.websystem.repository.StockRepository;
 import com.aib.websystem.service.StockService;
 
@@ -29,6 +36,9 @@ public class FruitController {
 
     @Autowired
     private StockService stockService;
+
+    @Autowired
+    private LocationRepository locationRepository;
 
     @GetMapping("/")
     public String getFruitsPage(@RequestParam(defaultValue = "all") String type, @RequestParam(defaultValue = "1") Integer page, Model model) {
@@ -60,6 +70,13 @@ public class FruitController {
         return "/pages/fruit/edit";
     }
 
+    @GetMapping("/{id}/add")
+    public String editFruitAddPage(@PathVariable Long id, Model model) {
+        model.addAttribute("location_items", locationRepository.findByTypeAndDeletedFalse(LocationType.SOURCE_WAREHOUSE));
+        model.addAttribute("addLocation", new AddLocation());
+        return "/pages/fruit/add";
+    }
+
     @PostMapping("/create")
     public String createFruit(Fruit fruit) {
         fruitRepository.save(fruit);
@@ -76,6 +93,14 @@ public class FruitController {
             fruitRepository.save(originFruit);
         }
         return "redirect:/fruit/";
+    }
+
+    @PostMapping("/{id}/add")
+    public String editFruitAdd(@PathVariable Long id, Location location, AddLocation addLocation) {
+        if (fruitRepository.existsById(id)) {
+            stockService.addFruitToLocation(fruitRepository.findById(id).get(), addLocation.getLocation());
+        }
+        return "redirect:/fruit/"+id;
     }
 
     @DeleteMapping("/{id}/delete")
