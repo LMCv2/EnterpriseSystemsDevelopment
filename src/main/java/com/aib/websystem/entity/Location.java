@@ -50,6 +50,10 @@ public class Location implements Serializable {
     private List<Stock> stock;
 
     @Getter
+    @Setter
+    private Boolean deleted;
+
+    @Getter
     @CreatedDate
     private Date createDate;
 
@@ -62,5 +66,6 @@ public class Location implements Serializable {
         this.country = country;
         this.city = city;
         this.type = type;
+        this.deleted = false;
     }
 }

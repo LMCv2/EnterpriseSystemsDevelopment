@@ -40,6 +40,10 @@ public class Account implements Serializable {
     private Location location;
 
     @Getter
+    @Setter
+    private Boolean deleted;
+
+    @Getter
     @CreatedDate
     private Date createDate;
 
@@ -56,5 +60,6 @@ public class Account implements Serializable {
         this.password = password;
         this.role = role;
         this.location = location;
+        this.deleted = false;
     }
 }

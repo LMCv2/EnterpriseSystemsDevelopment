@@ -41,6 +41,10 @@ public class Stock implements Serializable {
     private Long quantity;
 
     @Getter
+    @Setter
+    private Boolean deleted;
+
+    @Getter
     @CreatedDate
     private Date createDate;
 
@@ -52,5 +56,6 @@ public class Stock implements Serializable {
         this.fruit = fruit;
         this.location = location;
         this.quantity = quantity;
+        this.deleted = false;
     }
 }

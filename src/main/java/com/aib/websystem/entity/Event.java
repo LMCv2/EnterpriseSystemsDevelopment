@@ -67,20 +67,20 @@ public class Event implements Serializable {
     private Integer timePeriod;
 
     @Getter
-    @CreatedDate
-    private Date createDate;
-
-    @Getter
-    @LastModifiedDate
-    private Date lastModifiedDate;
-
-    @Getter
     @Setter
     private Integer year;
 
     @Getter
     @Setter
     private String season;
+
+    @Getter
+    @CreatedDate
+    private Date createDate;
+
+    @Getter
+    @LastModifiedDate
+    private Date lastModifiedDate;
 
     public Event(Fruit fruit, Long quantity, Location location) {
         this(fruit, quantity, EventType.CONSUMPTION, location, null, null, EventStatus.CONFIRMED);
