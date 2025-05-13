@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.aib.websystem.entity.ReserveNeedDTO;
 import com.aib.websystem.entity.SeasonalConsumptionDTO;
+import com.aib.websystem.entity.DeliveryForecastDTO;
 import com.aib.websystem.service.DashboardService;
 import com.aib.websystem.service.EventService;
 import com.aib.websystem.util.TimePeriodConverter;
@@ -23,10 +24,10 @@ import com.aib.websystem.util.TimePeriodConverter;
 @Controller
 @RequestMapping("/dashboard")
 public class DashboardController {
-    
+
     @Autowired
     private EventService eventService;
-    
+
     @Autowired
     private DashboardService dashboardService;
 
@@ -35,6 +36,7 @@ public class DashboardController {
             @RequestParam(required = false) String startDateString,
             @RequestParam(required = false) String endDateString,
             @RequestParam(required = false, defaultValue = "shop") String groupBy,
+            @RequestParam(defaultValue = "reserveNeeds") String type,
             @RequestParam(defaultValue = "1") Integer page,
             Model model) {
 
@@ -66,19 +68,26 @@ public class DashboardController {
             endDate = timePeriodRange[1];
         }
 
-        Page<ReserveNeedDTO> reserveNeeds = eventService.aggregateReserveNeeds(groupBy, startDate, endDate, PageRequest.of(page - 1, 10));
-        model.addAttribute("reserveNeeds", reserveNeeds);
-
-        Page<SeasonalConsumptionDTO> seasonalConsumption = eventService.aggregateSeasonalConsumption(groupBy, startDate, endDate, PageRequest.of(page - 1, 10));
-        model.addAttribute("seasonalConsumption", seasonalConsumption);
+        if (type.equals("reserveNeeds")) {
+            Page<ReserveNeedDTO> reserveNeeds = eventService.aggregateReserveNeeds(groupBy, startDate, endDate, PageRequest.of(page - 1, 10));
+            model.addAttribute("reserveNeeds", reserveNeeds);
+        }
+        if (type.equals("seasonalConsumption")) {
+            Page<SeasonalConsumptionDTO> seasonalConsumption = eventService.aggregateSeasonalConsumption(groupBy, startDate, endDate, PageRequest.of(page - 1, 10));
+            model.addAttribute("seasonalConsumption", seasonalConsumption);
+        }
+        if (type.equals("deliveryForecast")) {
+            Page<DeliveryForecastDTO> forecasts = dashboardService.calculateDeliveryForecasts(startDate, endDate, PageRequest.of(page - 1, 10));
+            model.addAttribute("deliveryForecasts", forecasts);
+        }
 
         // cards
         List<Long> dailyEventCounts = dashboardService.getDailyEventCounts(startDate, endDate);
         model.addAttribute("dailyEventCounts", dailyEventCounts);
-        
+
         List<Long> dailyTotalQuantities = dashboardService.getDailyTotalQuantities(startDate, endDate);
         model.addAttribute("dailyTotalQuantities", dailyTotalQuantities);
-        
+
         Long pendingEventsCount = dashboardService.getPendingEventsCount();
         model.addAttribute("pendingEventsCount", pendingEventsCount);
 

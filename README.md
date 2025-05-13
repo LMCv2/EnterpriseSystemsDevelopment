@@ -74,7 +74,7 @@ http://127.0.0.1:8080/
 
 ### Extra Feature
 - [X] Show report in graphical format
-- [ ] Forecast report to achieve 1 SKU delivery (1 SKU mean 1 fruit deliver in 1 day to other country by average time consumed)
+- [X] Forecast report to achieve 1 SKU delivery (1 SKU mean 1 fruit deliver in 1 day to other country by average time consumed)
 
 ## Report
 

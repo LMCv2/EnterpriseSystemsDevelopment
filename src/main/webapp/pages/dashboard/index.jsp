@@ -73,6 +73,7 @@
     <div class="flex space-x-1 rounded border border-gray-200 p-2">
       <a href="?type=reserveNeeds" class="rounded px-3 py-1.5 hover:bg-gray-100 ${param.type==null||param.type.equals('reserveNeeds')?'bg-gray-100 text-amber-600':''}">Reserve Needs</a>
       <a href="?type=seasonalConsumption" class="rounded px-3 py-1.5 hover:bg-gray-100 ${param.type.equals('seasonalConsumption')?'bg-gray-100 text-amber-600':''}">Consumption Records</a>
+      <a href="?type=deliveryForecast" class="rounded px-3 py-1.5 hover:bg-gray-100 ${param.type.equals('deliveryForecast')?'bg-gray-100 text-amber-600':''}">Delivery Forecast</a>
     </div>
   </nav>
   
@@ -142,6 +143,44 @@
           </c:if>
           <c:if test="${seasonalConsumption.hasNext()}">
             <a href="?page=${seasonalConsumption.number+2}&groupBy=${param.groupBy}" class="rounded border border-gray-200 px-3 py-1 hover:bg-gray-100">Next</a>
+          </c:if>
+        </div>
+      </div>
+    </div>
+  </c:if>
+
+  <c:if test="${param.type.equals('deliveryForecast')}">
+    <div class="mb-3 divide-y divide-gray-200 rounded shadow">
+      <div class="p-3 font-bold">Delivery Forecast</div>
+      <table class="w-full">
+        <tbody class="divide-y">
+          <tr class="border-gray-200 bg-stone-100">
+            <th class="px-3 py-2 text-left">Fruit</th>
+            <th class="px-3 py-2 text-left">Origin</th>
+            <th class="px-3 py-2 text-left">Destination</th>
+            <th class="px-3 py-2 text-left">Average delivery time (days)</th>
+            <th class="px-3 py-2 text-left">Standard Deviation (Days)</th>
+          </tr>
+          <c:forEach var="record" items="${deliveryForecasts.content}">
+            <tr class="h-14 border-gray-200">
+              <td class="px-3 py-2">${record.fruit.name}</td>
+              <td class="px-3 py-2">${record.sourceCountry.name}</td>
+              <td class="px-3 py-2">${record.targetCountry.name}</td>
+              <td class="px-3 py-2">${record.averageDeliveryDays}</td>
+              <td class="px-3 py-2">${record.standardDeviationDays}</td>
+            </tr>
+          </c:forEach>
+        </tbody>
+      </table>
+      <c:if test="${deliveryForecasts.totalElements==0}"><div class="p-3 text-gray-400">No Records</div></c:if>
+      <div class="flex items-center justify-between p-3">
+        <p>Showing ${deliveryForecasts.number*deliveryForecasts.size+1} to ${deliveryForecasts.number*deliveryForecasts.size+deliveryForecasts.numberOfElements} of ${deliveryForecasts.totalElements} results</p>
+        <div class="flex space-x-1">
+          <c:if test="${deliveryForecasts.hasPrevious()}">
+            <a href="?page=${deliveryForecasts.number}&groupBy=${param.groupBy}" class="rounded border border-gray-200 px-3 py-1 hover:bg-gray-100">Prev</a>
+          </c:if>
+          <c:if test="${deliveryForecasts.hasNext()}">
+            <a href="?page=${deliveryForecasts.number+2}&groupBy=${param.groupBy}" class="rounded border border-gray-200 px-3 py-1 hover:bg-gray-100">Next</a>
           </c:if>
         </div>
       </div>

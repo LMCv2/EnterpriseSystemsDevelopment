@@ -11,6 +11,7 @@ import org.springframework.data.repository.PagingAndSortingRepository;
 
 import com.aib.websystem.entity.Event;
 import com.aib.websystem.entity.EventStatus;
+import com.aib.websystem.entity.EventType;
 import com.aib.websystem.entity.Fruit;
 import com.aib.websystem.entity.Location;
 import com.aib.websystem.entity.ReserveNeedDTO;
@@ -28,10 +29,10 @@ public interface EventRepository extends CrudRepository<Event, Long>, PagingAndS
 
     // Dashboard queries
     Long countByCreateDateBetween(Date startDate, Date endDate);
-    
+
     @Query("SELECT SUM(e.quantity) FROM Event e WHERE e.createDate BETWEEN ?1 AND ?2")
     Long sumQuantityByCreateDateBetween(Date startDate, Date endDate);
-    
+
     Long countByStatusNotIn(List<EventStatus> statuses);
 
     // grouped events
@@ -86,4 +87,7 @@ public interface EventRepository extends CrudRepository<Event, Long>, PagingAndS
 
     @Query("SELECT new com.aib.websystem.entity.SeasonalConsumptionDTO(e.fromLocation.country, e.year, e.season, e.fruit.name, SUM(e.quantity)) FROM Event e WHERE e.eventType = com.aib.websystem.entity.EventType.CONSUMPTION AND e.createDate BETWEEN ?1 AND ?2 GROUP BY e.fromLocation.country, e.year, e.season, e.fruit.name")
     Page<SeasonalConsumptionDTO> findSeasonalConsumptionByCountry(Date startDate, Date endDate, Pageable pageable);
+
+    // delivery forecast report
+    List<Event> findByEventTypeAndStatusAndCreateDateBetween(EventType eventType, EventStatus status, Date startDate, Date endDate);
 }
