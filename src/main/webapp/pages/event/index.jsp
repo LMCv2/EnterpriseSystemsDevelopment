@@ -3,10 +3,28 @@
 <%@taglib prefix="fmt" uri="jakarta.tags.fmt" %>
 <%@taglib prefix="taglib" uri="/WEB-INF/tlds/taglib.tld" %>
 <%@taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
-<script>
-  <c:if test="${error != null}">alert("${error}");</c:if>;
-</script>
 <taglib:layout title="Event">
+  <c:if test="${error != null}">
+    <div class="fixed inset-0 z-40 aria-hidden:hidden" id="modal-error" aria-hidden="true">
+      <div class="flex h-full items-center justify-center bg-gray-950/50" data-micromodal-close>
+        <div class="space-y-6 rounded bg-white p-6">
+          <header class="flex">
+            <h3 class="font-semibold">Error</h3>
+          </header>
+          <main>
+            <p>${error}</p>
+          </main>
+          <footer class="flex gap-3">
+            <button class="rounded bg-amber-600 px-3 py-1.5 text-white hover:bg-amber-700" data-micromodal-close>Confirm</button>
+          </footer>
+        </div>
+      </div>
+    </div>
+    <script>
+      MicroModal.show('modal-error');
+    </script>
+  </c:if>
+
   <div class="mb-3 flex justify-between">
     <div class="flex items-center gap-2 rounded p-2 ring-1 ring-gray-300 focus-within:ring-2 focus-within:ring-amber-600">
       <div class="i-material-symbols-search?mask text-2xl text-gray-400"></div>

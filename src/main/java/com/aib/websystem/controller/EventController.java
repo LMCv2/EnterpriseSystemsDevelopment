@@ -194,7 +194,7 @@ public class EventController {
                 event.setStatus(EventStatus.SHIPPED);
                 eventRepository.save(event);
             } else {
-                redirectAttributes.addFlashAttribute("error", (stock.getQuantity() >= event.getQuantity()) + "Error occurred while processing the event. The stock is not enough.");
+                redirectAttributes.addFlashAttribute("error", "Error occurred while processing the event. The stock is not enough.");
             }
         }
         return "redirect:" + (referer == null ? "/event/" : referer);
