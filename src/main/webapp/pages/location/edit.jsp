@@ -25,9 +25,12 @@
             <form:options items="${locationType_items}" />
           </form:select>
         </div>
-        <div class="flex items-center gap-2">
-          <form:checkbox id="deleted" path="deleted" class="rounded border border-gray-300 px-3 py-2" />
-          <label for="deleted">Delete</label>
+        <div class="pt-2">
+          <label class="inline-flex cursor-pointer items-center">
+            <form:checkbox id="deleted" path="deleted" class="peer hidden" />
+            <div class="relative h-6 w-11 rounded-full bg-gray-200 after:absolute after:left-[2px] after:top-[2px] after:h-5 after:w-5 after:rounded-full after:border after:border-gray-300 after:bg-white after:transition-all after:content-[''] peer-checked:bg-amber-600 peer-checked:after:translate-x-[100%] peer-checked:after:border-white"></div>
+            <span class="ml-3">Delete</span>
+          </label>
         </div>
         <input type="submit" value="Save Changes" class="w-full rounded border border-gray-300 px-3 py-2 hover:bg-gray-100" />
       </form:form>
